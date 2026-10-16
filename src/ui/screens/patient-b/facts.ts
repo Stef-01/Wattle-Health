@@ -115,11 +115,19 @@ function lowerLabel(label: string): string {
  * "Declares X as a condition they see" → "Lists x as a condition they see",
  * "Declares X as a primary interest" → "Lists x as a primary interest"; anything else is sentence-cased.
  */
+const ACRONYMS = ["ADHD", "ME/CFS", "POTS", "IBS", "OCD", "PTSD", "FND", "PCOS", "COVID-19", "EDS"];
+/** Restores capitals the engine lowered ("adhd" → "ADHD"). */
+function recase(text: string): string {
+  let out = text;
+  for (const a of ACRONYMS) out = out.replace(new RegExp(`(^|[^a-z])${a.toLowerCase().replace(/[/-]/g, "\\$&")}(?![a-z])`, "g"), `$1${a}`);
+  return out;
+}
+
 export function humanReason(reason: string): string {
   const m = /^Declares (.+) as a (condition they see|primary interest)$/.exec(reason.trim());
-  if (m) return `Lists ${lowerLabel(m[1] ?? "")} as a ${m[2]}`;
+  if (m) return recase(`Lists ${lowerLabel(m[1] ?? "")} as a ${m[2]}`);
   const t = reason.trim();
-  return t.charAt(0).toUpperCase() + t.slice(1);
+  return recase(t.charAt(0).toUpperCase() + t.slice(1));
 }
 
 /** Where a reason's evidence lives on the record, as a one-line source note. */

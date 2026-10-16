@@ -97,7 +97,7 @@ function Practical({ d }: { d: DoctorRecord }) {
   if (d.referralRequired) rows.push({ k: "Referral", v: d.referralRequired.value ? "GP referral needed" : "Not needed" });
   if (d.waitTimeText) rows.push({ k: "Wait", v: d.waitTimeText });
   if (d.languages?.value.length) rows.push({ k: "Languages", v: d.languages.value.join(", ") });
-  if (room) rows.push({ k: "Rooms", v: [room.name, room.address, `${room.suburb} ${room.postcode}`.trim()].filter(Boolean).join(", ") });
+  if (room) rows.push({ k: "Rooms", v: Array.from(new Set([room.name, room.address, `${room.suburb} ${room.postcode}`.trim()].filter((x): x is string => Boolean(x)))).join(", ") });
   if (rows.length === 0) return null;
   return (
     <Disclosure tint="practical" title="Practical" sub={clip(rows.filter((r) => r.k !== "Rooms").slice(0, 3).map((r) => r.v).join(" · ") || rows[0]!.v, 64)}>
