@@ -5,7 +5,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Body, Circle, Cta, Gap, Pill, Pills, Screen } from "@/src/ui/kit";
+import { ArrowLeft, Body, Circle, Cta, Gap, Screen } from "@/src/ui/kit";
 import { getCurrentRequest, getRequest, setDraft, setRequest, type StoredRequest } from "@/src/ui/store";
 import { Dock } from "./Dock";
 import { heardPills, withoutPill } from "./lib";
@@ -63,17 +63,14 @@ export function Heard() {
         <>
           <Body>&ldquo;{req.sentence}&rdquo;</Body>
           <div style={{ height: 36 }} aria-hidden="true" />
-          <Pills>
-            {pills.map((p) => (
-              <span key={p.id} className={p.must ? "drop-shadow-[0_9px_9.5px_rgba(0,0,0,0.15)]" : undefined} style={busy === p.id ? { opacity: 0.5 } : undefined}>
-                <Pill on={p.must} onClick={p.removable ? () => void toggle(p.id) : undefined}>
-                  {p.label}
-                </Pill>
-              </span>
-            ))}
-          </Pills>
-          <div style={{ height: 22 }} aria-hidden="true" />
-          <p className="text-[14px] leading-normal text-grey">Dark ones are must-haves.</p>
+          {pills.map((p) => (
+            <div key={p.id} className="flex items-center justify-between border-b border-divider py-3.5" style={busy === p.id ? { opacity: 0.5 } : undefined}>
+              <span className="text-[17px] text-ink">{p.label}<span className="text-grey">{p.must ? " · must" : ""}</span></span>
+              {p.removable ? (
+                <button type="button" onClick={() => void toggle(p.id)} className="press-dim text-[15px] text-accent">Remove</button>
+              ) : null}
+            </div>
+          ))}
           {req.response.emergency ? (
             <>
               <Gap h={24} />

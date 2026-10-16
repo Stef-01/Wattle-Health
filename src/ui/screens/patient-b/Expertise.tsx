@@ -4,9 +4,9 @@
 // Research title row with "View all", book rows per verified publication, CTA "Contact practice".
 import { useState } from "react";
 import type { DoctorRecord } from "@/src/data/types";
-import { Body, Divider, Fade, FigmaIcon, Pill, Pills, Screen, SourceRow, TopBar } from "@/src/ui/kit";
+import { Body, Divider, Fade, FigmaIcon, Screen, SourceRow, TopBar } from "@/src/ui/kit";
 import { Space } from "./bits";
-import { niceSource, TIER_WORD, verifiedPublications } from "./facts";
+import { listSentence, niceSource, TIER_WORD, verifiedPublications } from "./facts";
 import { ContactCta } from "./ProfileClient";
 import { doctorSlug } from "@/src/data/doctor-slug";
 
@@ -41,11 +41,11 @@ export function Expertise({ doctor: d, labels }: { doctor: DoctorRecord; labels:
     <Screen padBottom="pb-[140px]">
       <TopBar title="Clinical expertise" back={`/doctor/${id}`} />
       <Space h={30} />
-      <Pills>
+      <div className="flex gap-6 border-b border-divider">
         {(["Conditions", "Research", "Training"] as Tab[]).map((t) => (
-          <Pill key={t} on={tab === t} onClick={() => setTab(t)}>{t}</Pill>
+          <button key={t} type="button" onClick={() => setTab(t)} className={`press-soft press -mb-px border-b-2 pb-3 text-[16px] ${tab === t ? "border-ink text-ink" : "border-transparent text-grey"}`}>{t}</button>
         ))}
-      </Pills>
+      </div>
       <Space h={30} />
 
       {tab === "Conditions" ? (
@@ -53,14 +53,7 @@ export function Expertise({ doctor: d, labels }: { doctor: DoctorRecord; labels:
           {conditions.length === 0 ? (
             <Body>Not declared.</Body>
           ) : (
-            <div className="flex flex-wrap gap-x-5 gap-y-4">
-              {conditions.map((c) => (
-                <span key={c} className="inline-flex items-center gap-2">
-                  <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-[6px] bg-surface"><FigmaIcon name="check" size={17} /></span>
-                  <span className="text-[16px] font-medium leading-normal text-grey">{c}</span>
-                </span>
-              ))}
-            </div>
+            <p className="text-[17px] leading-[1.5] text-charcoal">{listSentence(conditions)}.</p>
           )}
           <Space h={10} />
           <p className="text-[12px] text-grey">{badge}</p>

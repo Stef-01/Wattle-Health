@@ -8,7 +8,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { HumanFitWeights } from "@/src/matching/layer2";
-import { Cta, Pill, Pills, Screen, TopBar } from "@/src/ui/kit";
+import { Check, Cta, Screen, TopBar } from "@/src/ui/kit";
 import { getAdjust, getCurrentRequest, getMatch, setAdjust, setMatch, setRequest, type StoredRequest } from "@/src/ui/store";
 import { Space } from "./bits";
 import { fetchRerank, type RerankEdits } from "./rerank-client";
@@ -99,14 +99,15 @@ export function Adjust() {
       <Space h={30} />
       {SECTIONS.map((s, i) => (
         <div key={s.title}>
-          {i > 0 ? <Space h={30} /> : null}
-          <h2 className="display text-[20px] text-charcoal">{s.title}</h2>
-          <Space h={16} />
-          <Pills>
-            {s.pills.map((p) => (
-              <Pill key={p} on={on.has(p)} onClick={() => toggle(p)}>{p}</Pill>
-            ))}
-          </Pills>
+          {i > 0 ? <Space h={32} /> : null}
+          <h2 className="display text-[22px] text-ink">{s.title}</h2>
+          <Space h={8} />
+          {s.pills.map((p) => (
+            <button key={p} type="button" role="switch" aria-checked={on.has(p)} onClick={() => toggle(p)} className="press press-soft flex w-full items-center justify-between border-b border-divider py-3.5 text-left">
+              <span className={`text-[17px] ${on.has(p) ? "text-ink" : "text-grey"}`}>{p}</span>
+              <span className={`inline-flex size-6 items-center justify-center rounded-full border ${on.has(p) ? "border-ink bg-ink text-white" : "border-hairline text-transparent"}`}><Check size={14} /></span>
+            </button>
+          ))}
         </div>
       ))}
       <Space h={30} />
