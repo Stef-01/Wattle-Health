@@ -2,7 +2,7 @@
 import { chromium } from "@playwright/test";
 import path from "node:path";
 const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
-const OUT = path.resolve("qa/figma/demos");
+const OUT = path.resolve(process.env.OUT ?? "qa/figma/demos");
 const browser = await chromium.launch();
 const page = await (await browser.newContext({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 2 })).newPage();
 await page.goto(`${BASE}/`); await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true"));
