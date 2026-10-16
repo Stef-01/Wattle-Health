@@ -1,0 +1,1102 @@
+{
+  "category": "third-sweep",
+  "researched_at": "2026-10-16",
+  "doctors": [
+    {
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 6,
+      "name": "Dr Malini Bose",
+      "given": "Malini",
+      "family": "Bose",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "One Health Clinics West End",
+        "address": "Level 1, The Eaves Building, West Village, 51 Mollison Street, West End QLD 4101",
+        "suburb": "West End",
+        "postcode": "4101",
+        "phone": "1300 689 133",
+        "website": "https://onehealthclinics.com.au/clinic/west-end/"
+      },
+      "conditions": [
+        "ibs",
+        "pcos",
+        "endometriosis",
+        "menopause",
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "integrative and functional medicine GP",
+        "ACNEM fellow",
+        "gut health including IBS and SIBO",
+        "metabolic health and therapeutic carbohydrate restriction",
+        "burnout and stress management",
+        "slow medicine with longer consultations",
+        "18 years and over",
+        "separate fee schedule"
+      ],
+      "personal": {
+        "philosophy_of_care": "Practises slow medicine, taking the time to understand each patient's circumstances; holistically enhancing, optimising and maintaining health and wellbeing.",
+        "why_medicine": "Started practising integrative and functional medicine after experiencing its benefits through her own personal health journey.",
+        "communication_approach": "Known for her passion and caring nature; thorough, personalised and comprehensive consultations.",
+        "communication": [
+          "holistic",
+          "long-appointments",
+          "lived-experience",
+          "evidence-based"
+        ],
+        "lived_experience": "Came to integrative and functional medicine through her own health journey.",
+        "hobbies": [
+          "Reading",
+          "Singing",
+          "Family time"
+        ],
+        "outside_medicine": "Academic tutor at the University of Queensland; founded Phoenixdocs, which provides integrative and functional medicine education for healthcare providers; spends time with her husband and daughter.",
+        "quotes": [
+          {
+            "text": "Dr Malini started practising integrative and functional medicine after experiencing the benefits through her own personal health journey.",
+            "about": "why"
+          },
+          {
+            "text": "In her spare time, she enjoys reading, singing and spending quality time with her husband and daughter.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She practices slow medicine, taking the time to thoroughly understand each patient's unique circumstances and health needs, ensuring personalised and comprehensive care.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://onehealthclinics.com.au/hc-professional/dr-malini-bose/",
+        "page_title": "Dr Malini Bose | One Health Clinics",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 4
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 10,
+      "name": "Dr Amelia Stephens",
+      "given": "Amelia",
+      "family": "Stephens",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Sante Medical",
+        "address": "161 Given Terrace, Paddington QLD 4064",
+        "suburb": "Paddington",
+        "postcode": "4064",
+        "phone": "07 3554 0312",
+        "website": "https://santemedical.com.au/"
+      },
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "women's health",
+        "shared antenatal and pregnancy care",
+        "holistic nutritional and lifestyle medicine",
+        "ACNEM fellow",
+        "relationship and family counselling",
+        "former UQ primary care academic"
+      ],
+      "personal": {
+        "philosophy_of_care": "Preventive health for people of all ages with a holistic nutritional and lifestyle medicine approach.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "holistic",
+          "research-active"
+        ],
+        "lived_experience": null,
+        "hobbies": [
+          "Learning Portuguese"
+        ],
+        "outside_medicine": "Mum of two, married to a Brazilian; published research on medication use in breastfeeding while at the UQ Primary Care Clinical Unit.",
+        "quotes": [
+          {
+            "text": "She is now a Mum to 2 gorgeous little ones and married to a Brazilian so in her 'spare' time enjoys brushing up on learning Portuguese. Tudo bom!",
+            "about": "hobbies"
+          },
+          {
+            "text": "She has a keen interest in preventive health and works with people of all ages to assist with their health concerns.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.drameliastephens.com/about.html",
+        "page_title": "About Dr Amelia Stephens - DR AMELIA STEPHENS",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from her personal website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 40,
+      "name": "Dr Fiona McGrath",
+      "given": "Fiona",
+      "family": "McGrath",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "James St Medical",
+        "address": "Level 1, 6 James Street, Fortitude Valley QLD 4006",
+        "suburb": "Fortitude Valley",
+        "postcode": "4006",
+        "phone": "07 2101 4797",
+        "website": "https://www.jamesstmedical.com.au/"
+      },
+      "conditions": [
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "women's health including pregnancy care and planning",
+        "mother and children's care",
+        "mental health and counselling",
+        "Dip RANZCOG",
+        "GP registrar trainer",
+        "Primary Health Network board director"
+      ],
+      "personal": {
+        "philosophy_of_care": "Enjoys getting to know people and helping them with their healthcare needs whatever the issue.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "listens",
+          "holistic"
+        ],
+        "lived_experience": "Grew up in country Victoria and moved to Noosa for a sea change to raise her young family in the late 1990s.",
+        "hobbies": [
+          "Following team sports",
+          "Weekly CrossFit PT with a colleague",
+          "Walking and hiking holidays",
+          "Great food"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "She grew up in country Victoria, training in Melbourne and came to Noosa for a sea change and to raise her young family in the late 1990s.",
+            "about": "lived"
+          },
+          {
+            "text": "She is a keen follower of various team sports, and loves going to her weekly crossfit PT along with her friend Dr Karenne ….. and they get just a little bit competitive!!",
+            "about": "hobbies"
+          },
+          {
+            "text": "Her favorite holidays involve walking, hiking and great food.",
+            "about": "hobbies"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.jamesstmedical.com.au/",
+        "page_title": "Doctors New Farm | James St Medical | Online Appointments",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 4
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Megan Morris",
+      "given": "Megan",
+      "family": "Morris",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Doctors @ Teneriffe",
+        "address": "Florence Street, Teneriffe QLD 4005",
+        "suburb": "Teneriffe",
+        "postcode": "4005",
+        "phone": null,
+        "website": "https://www.doctorsteneriffe.com.au/"
+      },
+      "conditions": [
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "child",
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "women's health",
+        "shared antenatal care at Mater Mothers",
+        "mental health",
+        "paediatrics and Diploma of Child Health",
+        "travel medicine",
+        "speech pathologist before medicine"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "holistic"
+        ],
+        "lived_experience": "Grew up in Brisbane and completed a first degree in speech pathology before medicine.",
+        "hobbies": [
+          "Pilates",
+          "Swimming",
+          "Trying new restaurants",
+          "Rediscovering Brisbane with her family"
+        ],
+        "outside_medicine": "Married with two young children.",
+        "quotes": [
+          {
+            "text": "Outside of medicine, Megan enjoys pilates, swimming, trying new restaurants and rediscovering Brisbane with her wonderful husband and two young children.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She grew up in Brisbane and completed her first degree, a Bachelor of Speech pathology with first class Honours at the University of Queensland.",
+            "about": "lived"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.doctorsteneriffe.com.au/our-doctors/",
+        "page_title": "Doctors | Doctors @ Teneriffe",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 8,
+      "name": "Dr Tania Macdonald",
+      "given": "Tania",
+      "family": "Macdonald",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Oxford Street Medical Centre",
+        "address": "Oxford Street, Bulimba QLD 4171",
+        "suburb": "Bulimba",
+        "postcode": "4171",
+        "phone": null,
+        "website": "https://www.oxfordstmedical.com.au/"
+      },
+      "conditions": [
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "child",
+        "adult"
+      ],
+      "focus_tags": [
+        "women's health",
+        "mental health including burnout",
+        "weight management",
+        "chronic conditions including diabetes, lung disease and heart failure",
+        "Indigenous and refugee health experience",
+        "consults Tuesday, Thursday, Friday and some Saturdays"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "holistic"
+        ],
+        "lived_experience": "Two years in Indigenous medicine in Brisbane and twelve months as a rural GP in southern Tasmania.",
+        "hobbies": [
+          "Distance running",
+          "Adventures with her kids and husband"
+        ],
+        "outside_medicine": "Mother of active kids.",
+        "quotes": [
+          {
+            "text": "In her spare time she enjoys distance running and adventures anywhere and everywhere with her active kids and husband.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She has a special interest in mental health, including burnout and weight management.",
+            "about": "approach"
+          },
+          {
+            "text": "She has also worked in South Tasmania as a rural GP for 12 months.",
+            "about": "lived"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.oxfordstmedical.com.au/doctors",
+        "page_title": "Our Doctors & Allied Health Team | Bulimba GP Clinic",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English",
+        "Cantonese"
+      ],
+      "years_in_specialty": 9,
+      "name": "Dr Eleasa Sieh",
+      "given": "Eleasa",
+      "family": "Sieh",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Silky Oaks Medical Practice",
+        "address": "Manly West QLD 4179",
+        "suburb": "Manly West",
+        "postcode": "4179",
+        "phone": null,
+        "website": "https://www.silkyoaksmedical.com/"
+      },
+      "conditions": [
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "women's health",
+        "mental health with Focussed Psychological Strategies under a care plan",
+        "lifestyle medicine and weight loss counselling",
+        "RANZCOG diploma",
+        "clinical lead",
+        "one-hour initial FPS sessions"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": "Offers extended consultations for focussed psychological strategies; can consult in Cantonese.",
+        "communication": [
+          "long-appointments",
+          "culturally-safe"
+        ],
+        "lived_experience": "Born in Toronto, Canada, and moved to Brisbane in 2009 to study medicine; trained in Bundaberg, Hervey Bay and the Sunshine Coast.",
+        "hobbies": [
+          "Hiking",
+          "Reading"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Eleasa was born in Toronto, Canada and made the big move “Down Under” in 2009 to study medicine in Brisbane.",
+            "about": "lived"
+          },
+          {
+            "text": "Eleasa speaks Cantonese Chinese, and enjoys exploring the great outdoors hiking and the great indoors reading.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She has particular interests in women’s health and mental health as well as in lifestyle medicine including weight loss counselling.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.silkyoaksmedical.com/doctors",
+        "page_title": "Your Doctors — Silky Oaks Medical Practice",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 6,
+      "name": "Dr Katie Franks",
+      "given": "Katie",
+      "family": "Franks",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Neighbourhood Medical",
+        "address": "Toowong QLD 4066",
+        "suburb": "Toowong",
+        "postcode": "4066",
+        "phone": null,
+        "website": "https://www.neighbourhoodmedical.com.au/"
+      },
+      "conditions": [
+        "perinatal-mh",
+        "pcos",
+        "pelvic-pain",
+        "menopause"
+      ],
+      "populations": [
+        "perinatal",
+        "adult"
+      ],
+      "focus_tags": [
+        "perinatal care for mums and bubs",
+        "GP antenatal shared care with RBWH",
+        "breastfeeding and lactation support",
+        "holistic infant sleep, responsive methods only",
+        "parental mood concerns",
+        "miscarriage and infertility work-up",
+        "care of other doctors",
+        "consults Monday to Wednesday and some Saturdays"
+      ],
+      "personal": {
+        "philosophy_of_care": "Quality care and support for young families, with pregnancy care as her favourite kind of consultation and gentle, responsive approaches to infant sleep.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "gentle",
+          "holistic"
+        ],
+        "lived_experience": null,
+        "hobbies": [
+          "Travel to every continent bar Antarctica",
+          "Exploring local parks and eateries",
+          "Pilates"
+        ],
+        "outside_medicine": "Family time; awarded the 2021 Travel Health Advisory Group Medal.",
+        "quotes": [
+          {
+            "text": "When not at work, you can find Katie spending time with her family and exploring local parks and eateries, and partaking in pilates classes.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She is an avid traveller, having visited every continent bar Antarctica (on the bucket list!",
+            "about": "hobbies"
+          },
+          {
+            "text": "(Fun fact - pregnancy care is her favourite type of GP consultation!)",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.neighbourhoodmedical.com.au/dr-katie-franks",
+        "page_title": "Neighbourhood Medical | Toowong Doctor — Dr Katie Franks",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Bridget Malouf",
+      "given": "Bridget",
+      "family": "Malouf",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Neighbourhood Medical",
+        "address": "Toowong QLD 4066",
+        "suburb": "Toowong",
+        "postcode": "4066",
+        "phone": null,
+        "website": "https://www.neighbourhoodmedical.com.au/"
+      },
+      "conditions": [
+        "ibs",
+        "menopause",
+        "pcos"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "women's health including perimenopause and menopause",
+        "IBS and functional gut disorders",
+        "gut microbiome and gastrointestinal nutrition",
+        "metabolic health and insulin resistance",
+        "pre-pregnancy counselling and early pregnancy care",
+        "pharmacist before medicine",
+        "consults Monday, Friday and Saturday"
+      ],
+      "personal": {
+        "philosophy_of_care": "Good medicine begins with truly listening, understanding not just the symptoms but the person behind them; holistic, evidence-based care that empowers patients to take an active role.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "listens",
+          "holistic",
+          "evidence-based",
+          "collaborative"
+        ],
+        "lived_experience": "Began her healthcare career as a pharmacist before studying medicine.",
+        "hobbies": [
+          "Cooking",
+          "Staying active"
+        ],
+        "outside_medicine": "Spends time with her young family.",
+        "quotes": [
+          {
+            "text": "Dr Bridget Malouf believes that good medicine begins with truly listening, understanding not just the symptoms, but the person behind them.",
+            "about": "approach"
+          },
+          {
+            "text": "Outside of medicine, Bridget loves cooking, staying active and spending time with her young family.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Bridget began her healthcare career with a Bachelor of Pharmacy from the University of Queensland before pursuing medicine at Bond University, graduating with her Doctor of Medicine in 2018.",
+            "about": "lived"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.neighbourhoodmedical.com.au/dr-bridget-malouf",
+        "page_title": "Neighbourhood Medical | Toowong Doctor — Dr Bridget Malouf",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 10,
+      "name": "Dr Pamela Wheeler",
+      "given": "Pamela",
+      "family": "Wheeler",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Lighthouse General Practice",
+        "address": "12/72 Pine Street, Wynnum QLD 4178",
+        "suburb": "Wynnum",
+        "postcode": "4178",
+        "phone": null,
+        "website": "https://lighthousegp.com.au/"
+      },
+      "conditions": [
+        "menopause",
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "adolescent",
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "women's health including menopause care",
+        "Focussed Psychological Strategies accredited",
+        "lifestyle medicine and metabolic health",
+        "Mater Mothers aligned GP shared antenatal care",
+        "adolescent health",
+        "trained at Otago"
+      ],
+      "personal": {
+        "philosophy_of_care": "Strong, collaborative relationships with patients and a patient-centred approach to achieve the best possible outcomes.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "collaborative",
+          "holistic"
+        ],
+        "lived_experience": null,
+        "hobbies": [
+          "Netball",
+          "Running",
+          "Good coffee"
+        ],
+        "outside_medicine": "Mum of two daughters; over 12 years as a GP on Brisbane's Bayside.",
+        "quotes": [
+          {
+            "text": "Outside of work, Pam is a proud mum of two daughters, enjoys playing netball, running, and is a lover of good coffee.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Pam is passionate about building strong, collaborative relationships with her patients, taking a patient-centred approach to achieve the best possible outcomes.",
+            "about": "approach"
+          },
+          {
+            "text": "In addition to her clinical work, Pam has a strong interest in lifestyle medicine and metabolic health.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://lighthousegp.com.au/about/",
+        "page_title": "About – Lighthouse General Practice",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 250,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 19,
+      "name": "Dr Lyndall Campbell",
+      "given": "Lyndall",
+      "family": "Campbell",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "iHealth Centre Indooroopilly",
+        "address": "Indooroopilly QLD 4068",
+        "suburb": "Indooroopilly",
+        "postcode": "4068",
+        "phone": "07 3870 2525",
+        "website": "https://www.ihealthcentre.com.au/"
+      },
+      "conditions": [
+        "pelvic-pain",
+        "endometriosis",
+        "pcos",
+        "menopause"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "women's sexual and reproductive health",
+        "antenatal and postnatal care",
+        "fertility and pre-pregnancy advice",
+        "perimenopause and menopause advice",
+        "30-minute standard appointments billed by time",
+        "no WorkCover or DVA direct billing",
+        "solicitor before medicine"
+      ],
+      "personal": {
+        "philosophy_of_care": "Individual solutions to help women optimise their health and well-being, over one or more consultations and with referral where needed for holistic care.",
+        "why_medicine": null,
+        "communication_approach": "Writes in the first person; credits her years in commercial law with the ability to identify and analyse a problem and generate practical solutions.",
+        "communication": [
+          "direct",
+          "long-appointments",
+          "holistic"
+        ],
+        "lived_experience": "Worked as a solicitor at a commercial law firm in Brisbane before studying medicine.",
+        "hobbies": [],
+        "outside_medicine": "Holds law and commerce degrees from UQ alongside her medical degrees from Tasmania.",
+        "quotes": [
+          {
+            "text": "I am a Specialist General Practitioner with an interest in Women’s sexual and reproductive health. My focus is providing individual solutions to help women optimise their health and well-being.",
+            "about": "approach"
+          },
+          {
+            "text": "Prior to my medical studies, I worked as a solicitor at a commercial law firm in Brisbane.",
+            "about": "lived"
+          },
+          {
+            "text": "Working in the law helped me develop a range of skills including the ability to clearly identify and analyse a problem at hand, and generate practical solutions for clients.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.ihealthcentre.com.au/indooroopilly/dr-lyndall-campbell/",
+        "page_title": "Dr Lyndall Campbell - iHealth Centre",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 28,
+      "name": "Dr Anand Choudhary",
+      "given": "Anand",
+      "family": "Choudhary",
+      "specialty": "psychiatry",
+      "gender": "man",
+      "practice": {
+        "name": "Dr Anand Choudhary",
+        "address": "9/32 Dixon Street, Strathpine QLD 4500",
+        "suburb": "Strathpine",
+        "postcode": "4500",
+        "phone": "07 3490 8441",
+        "website": "https://anandchoudhary.com.au/"
+      },
+      "conditions": [
+        "depression",
+        "anxiety",
+        "trauma",
+        "personality",
+        "adhd",
+        "substance-use"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "psychoanalytically informed psychotherapy",
+        "long-term psychotherapeutic work",
+        "repeating relationship patterns",
+        "general adult psychiatry",
+        "former clinical director and medical administrator",
+        "supports TradeMutt mental health conversations"
+      ],
+      "personal": {
+        "philosophy_of_care": "Lasting change comes from understanding the deeper emotional patterns that shape a life, not only from reducing symptoms; a respectful, confidential, reflective space explored with curiosity rather than judgement.",
+        "why_medicine": "Leadership roles were rewarding but his enduring passion has always been working with and caring for patients; believes conversations can change lives.",
+        "communication_approach": "First-person personal page; considers it a privilege to be invited into people's lives during difficult times and starts from each person's story.",
+        "communication": [
+          "listens",
+          "collaborative",
+          "culturally-safe",
+          "long-appointments"
+        ],
+        "lived_experience": "Grew up in rural India before training in medicine and moving to Australia in 2003; living across cultures shaped his view of what influences mental health.",
+        "hobbies": [
+          "Playing cricket",
+          "Following cricket",
+          "Time with family and friends"
+        ],
+        "outside_medicine": "Lives in North Brisbane with his wife and daughter; authored a textbook chapter on mental health in medical administration and leadership.",
+        "quotes": [
+          {
+            "text": "I grew up in rural India before completing my medical training and moving to Australia in 2003.",
+            "about": "lived"
+          },
+          {
+            "text": "Today, I live in North Brisbane with my wife and daughter. Outside my clinical work, I enjoy spending time with family and friends, playing cricket and following the game whenever I can.",
+            "about": "hobbies"
+          },
+          {
+            "text": "I have always believed that conversations can change lives.",
+            "about": "why"
+          },
+          {
+            "text": "Above all, I consider it a privilege to be invited into people’s lives during difficult times. Every person brings a unique story, and it is through understanding that story that meaningful therapeutic work begins.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://anandchoudhary.com.au/personal/",
+        "page_title": "Personal – Dr Anand Choudhary",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from his personal practice website (personal, about and contact pages); short quotations attributed; no images copied"
+      },
+      "personal_richness": 4
+    },
+    {
+      "telehealth": "none",
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 2,
+      "name": "Dr Katie McCullough",
+      "given": "Katie",
+      "family": "McCullough",
+      "specialty": "psychiatry",
+      "gender": "woman",
+      "practice": {
+        "name": "Nundah Private Hospital private practice",
+        "address": "20 Nellie Street, Nundah QLD 4012",
+        "suburb": "Nundah",
+        "postcode": "4012",
+        "phone": "07 3524 5566",
+        "website": "https://aurorahealth.com.au/healthcare-team/katie-mccullough/"
+      },
+      "conditions": [
+        "adhd",
+        "anxiety",
+        "depression",
+        "substance-use",
+        "eating-disorders"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "youth mental health 18 to 25",
+        "addiction psychiatry",
+        "DBT and CBT trained",
+        "culturally safe care for Aboriginal and Torres Strait Islander people",
+        "perinatal and eating disorder experience",
+        "in-person only at Nundah"
+      ],
+      "personal": {
+        "philosophy_of_care": "Holistic and recovery-oriented care characterised by empathy, compassion and evidence-based treatment; a safe space that builds a strong therapeutic alliance.",
+        "why_medicine": null,
+        "communication_approach": "Works collaboratively with patients on their individual journey to recovery.",
+        "communication": [
+          "collaborative",
+          "holistic",
+          "evidence-based",
+          "culturally-safe"
+        ],
+        "lived_experience": "Originally from Belfast, Northern Ireland; moved to Australia in 2019 and began psychiatry in Townsville before Brisbane.",
+        "hobbies": [
+          "Brunch spots around Brisbane",
+          "Pilates",
+          "Hiking with two rescue dogs"
+        ],
+        "outside_medicine": "Married; owner of two rescue dogs.",
+        "quotes": [
+          {
+            "text": "Dr McCullough’s special interests outside of Psychiatry include exploring Brisbane’s best brunch spots with her husband, enjoying a good Pilates class, and hiking with her two rescue dogs.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Dr Katie McCullough is a Consultant Psychiatrist originally from Belfast, Northern Ireland.",
+            "about": "lived"
+          },
+          {
+            "text": "Dr McCullough believes strongly in the power of creating a safe space to foster a strong therapeutic alliance, working collaboratively with patients on their individual journey to recovery.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://aurorahealth.com.au/healthcare-team/katie-mccullough/",
+        "page_title": "Dr Katie McCullough | Aurora Healthcare",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from a hospital 'our healthcare team' profile page; short quotations attributed; no images copied"
+      },
+      "personal_richness": 3
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "name": "Dr Madeleine Wilkie",
+      "url": "https://www.jamesstmedical.com.au/",
+      "reason": "Fits (PCOS, pelvic pain, perimenopause, Mater shared care) but personal content is dogs and restaurants only; richness 2, and the sweep was capped at 12."
+    },
+    {
+      "name": "Dr Morgan Etienne",
+      "url": "https://www.neighbourhoodmedical.com.au/dr-morgan-etienne",
+      "reason": "Richness 3 (family, two dogs, ocean swimming, paediatric training before GP) with PCOS and menopause, but mainly child health; held back by the 12-doctor cap."
+    },
+    {
+      "name": "Dr Jeeda Pincombe",
+      "url": "https://doctorsatsamfordvalley.com.au/dr-jeeda-pincombe/",
+      "reason": "Veggie garden, piano and young family, but only a general mental-health qualification and women's health; no named condition from the closed list."
+    },
+    {
+      "name": "Dr Shreya Malik",
+      "url": "https://www.jamesstmedical.com.au/",
+      "reason": "Mother of two with lifestyle medicine focus, but no condition from the closed list."
+    },
+    {
+      "name": "Dr Camila Marques de Castro",
+      "url": "https://onehealthclinics.com.au/hc-professional/dr-camila-marques-de-castro/",
+      "reason": "Sport, travel, meditation and a puppy; women's health and menopause; richness 2."
+    },
+    {
+      "name": "Dr Hannah Swan",
+      "url": "https://www.neighbourhoodmedical.com.au/dr-hannah-swan",
+      "reason": "One line of hobbies; no closed-list condition beyond pregnancy care."
+    },
+    {
+      "name": "Dr Karenne Waldie, Dr Sai Siritharan, Dr Juliet Anderson",
+      "url": "https://www.doctorsteneriffe.com.au/our-doctors/",
+      "reason": "Rich personal lines (sailing, mountaineering, adult children abroad) but women's health or antenatal only; no closed-list condition."
+    },
+    {
+      "name": "Dr Jenny Glover, Dr Caroline South, Dr Claire Stewart, Dr Christine Humphreys",
+      "url": "https://lighthousegp.com.au/about/",
+      "reason": "Personal bios present but no closed-list adult condition (antenatal, paediatrics, child ADHD); Dr Sharmani Singh not taking new patients."
+    },
+    {
+      "name": "Dr Jacqui Greaves",
+      "url": "https://redhilldoctors.com.au/doctors/dr-jacqui-greaves/",
+      "reason": "Page states she is no longer taking new patients."
+    },
+    {
+      "name": "Dr Maria Boulton",
+      "url": "https://www.familydoctorsplus.com.au/perimenopause-menopause-clinic/",
+      "reason": "Menopause focus with boating and reading, but not currently taking new patients."
+    },
+    {
+      "name": "Dr Julie O'Connell",
+      "url": "https://evercare.com.au/doctor/dr-julie-oconnell/",
+      "reason": "Clayfield list fully booked; new patients only at Redcliffe (outside 20 km); bio has no personal content and the page carries reviews."
+    },
+    {
+      "name": "Dr Gary Deed",
+      "url": "https://www.healthcareplusmedical.com.au/DrGaryDeed.html",
+      "reason": "Chronic fatigue and fibromyalgia interest at Carindale, but credential-only bio."
+    },
+    {
+      "name": "Dr Ruth Edwards",
+      "url": "https://drruthedwards.com.au/",
+      "reason": "Chronic fatigue, fibromyalgia and IBS focus but practises from Melbourne by telehealth; one personal line."
+    },
+    {
+      "name": "iHealth Long COVID Clinic (Dr Jared Dart)",
+      "url": "https://www.ihealthcentre.com.au/indooroopilly/about-our-practice/long-covid-clinic/",
+      "reason": "Clinic has paused intake; page carries a net promoter score, which is out of scope."
+    },
+    {
+      "name": "Brisbane Integrated Pain Care (Jones, Modarres, Illingworth, Jain)",
+      "url": "https://www.bipcare.com.au/",
+      "reason": "Taringa persistent-pain GPs but all four bios are credential-only."
+    },
+    {
+      "name": "biio.",
+      "url": "https://www.biio.com.au/",
+      "reason": "POTS, hypermobility and ME/CFS pathways by telehealth, but Perth-based with Brisbane rooms listed for 2027; no GP bios."
+    },
+    {
+      "name": "Dr Rubi Sinha, Dr Max Qu, Dr Alla Grynevych",
+      "url": "https://primroseclinic.com.au/",
+      "reason": "Telehealth psychiatrists alongside Dr Loxham and Dr Law (already covered); yoga training, music and overseas training are single lines; richness 2 or less."
+    },
+    {
+      "name": "Dr Margaret Carmody, Dr Lana Fernandes",
+      "url": "https://belmontprivate.com.au/healthcare-team/margaret-carmody/",
+      "reason": "Perinatal psychiatrists with telehealth on request, but 'born in country Queensland' is the only personal line; richness 2 and 1."
+    },
+    {
+      "name": "Dr Rachael Moore",
+      "url": "https://thinkhealth.au/psychiatrist-brisbane/",
+      "reason": "Perinatal, menopause and ADHD with a line on caring for family, but not currently accepting new referrals."
+    },
+    {
+      "name": "Dr Arzoo Fazaluddin, Dr Kim Futcher",
+      "url": "https://thinkhealth.au/psychiatrist-brisbane/",
+      "reason": "Originally from Canada is the only personal line; Dr Futcher is a registrar."
+    },
+    {
+      "name": "Dr Sonali Goonetilleke, Dr Nga Tran, Dr Vijini Jayawardena",
+      "url": "https://hillsidespecialists.com.au/our-team/",
+      "reason": "Child psychiatrist with one hobby line; perinatal psychiatrists with no personal content."
+    },
+    {
+      "name": "Avive Brisbane psychiatrists (Tanham, Ng, Sehgal, Dinu, Satchwell, Wakefield, Wlodek, Lamb)",
+      "url": "https://avivehealth.com.au/clinicians/",
+      "reason": "First-person approach statements only; no hobbies, family, why-medicine or lived experience; telehealth not stated."
+    },
+    {
+      "name": "Empowered Minds Clinic (Ackers, Frickey, Oboro, Faizal, Mayne)",
+      "url": "https://empoweredmindsclinic.com/",
+      "reason": "Birtinya telehealth psychiatrists; bios credential-only; Dr Ackers 291 assessments only."
+    },
+    {
+      "name": "Dr Lana Lubimoff",
+      "url": "https://mymindmedicine.com.au/about-us/",
+      "reason": "Maroochydore telepsychiatry but credential and modality list only."
+    },
+    {
+      "name": "Dr L. Sanjay Nandam",
+      "url": "https://www.australiatelehealth.com.au/about-us/",
+      "reason": "Born in England, Brisbane since age seven is the only personal line; does not treat ADHD."
+    },
+    {
+      "name": "Dr Saveena Singh",
+      "url": "https://robinaprivate.com.au/healthcare-team/saveena-singh/",
+      "reason": "Women's and perinatal psychiatry with telehealth, Gold Coast, but no personal content."
+    },
+    {
+      "name": "Dr Jae Cho",
+      "url": "https://www.nurturedthoughtspsychology.com.au/practitioners/jae-cho",
+      "reason": "Graceville telehealth psychiatrist; 'getting to know Jae' section is empty."
+    },
+    {
+      "name": "Dr Raguraman Janakiraman",
+      "url": "https://whitehousespecialist.com/",
+      "reason": "Victoria Point telehealth psychiatrist with chronic pain interest, but credential-only."
+    },
+    {
+      "name": "Dr Penny Brassey",
+      "url": "https://drpjbrassey.com/",
+      "reason": "Online psychotherapy only, fees in euros and pounds; not a Queensland psychiatric practice as published."
+    },
+    {
+      "name": "Dr Sangeetha Makielan",
+      "url": "https://www.drsangeethamakielan.com.au/",
+      "reason": "First-person perinatal psychiatrist but Sydney-based."
+    },
+    {
+      "name": "Mindscape, Altitude Mind, Psych United, Psychiatry Support, Sage Clinic, Pandion, Wellvue, Dokotela",
+      "url": "https://mindscapepsychiatry.com.au/",
+      "reason": "Telehealth platforms; clinician pages credential-only, interstate, or blocked by Cloudflare (Dokotela)."
+    },
+    {
+      "name": "Ascent Psychiatry (Muller, Williams)",
+      "url": "https://ascentpsychiatry.com.au/about-ascent-psychiatry/",
+      "reason": "Robina, face-to-face only; no individual bios."
+    },
+    {
+      "name": "Dr Sharmani Singh",
+      "url": "https://lighthousegp.com.au/about/",
+      "reason": "Not currently taking on new patients."
+    }
+  ]
+}
