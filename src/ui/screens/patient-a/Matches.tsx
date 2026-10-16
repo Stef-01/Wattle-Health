@@ -6,13 +6,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { SearchResponse } from "@/src/data/search-types";
-import { Body, Cta, Divider, Gap, Row, Screen, Sliders, TabBar, TogglePill } from "@/src/ui/kit";
+import { Body, Cta, Divider, Gap, Row, Screen, Sliders, TabBar } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { Dock } from "./Dock";
 import { DoctorCard } from "./DoctorCard";
-import { heardPills, REACH_KM, restoreCounts, runMatch, withoutPill } from "./lib";
+import { REACH_KM, restoreCounts, runMatch } from "./lib";
 
-const TELE = /,?\s*telehealth only\s*$/i;
+/** "Endometriosis, someone who listens. Within 20 km of Brisbane." Specialties stay implicit. */
+function heardSentence(req: StoredRequest): string {
+  const chips = req.response.chips.filter((c) => c.kind !== "specialty");
+  const words = chips.map((c, i) => (i === 0 ? c.label : c.label.toLowerCase()));
+  const place = req.response.place.suburb?.replace(/ City$/, "");
+  const where = req.anywhere ? "All of Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
+  return [words.length ? `${words.join(", ")}.` : "", where].filter(Boolean).join(" ");
+}
 
 export function Matches() {
   const router = useRouter();
@@ -38,23 +45,10 @@ export function Matches() {
     }
   }
 
-  async function drop(pillId: string) {
-    if (!req || busy) return;
-    setBusy(true);
-    try {
-      setReq(await withoutPill(req, pillId));
-    } finally {
-      setBusy(false);
-    }
-  }
-
   const res: SearchResponse | null = req?.response ?? null;
   const cards = res?.cards ?? [];
   const labels = res?.conditionLabels ?? {};
   const place = (res?.place.suburb ?? req?.suburb ?? "Brisbane").replace(/ City$/, "");
-  const pills = req ? heardPills(req) : [];
-  const teleOnly = req ? TELE.test(req.sentence) : false;
-  const anywhere = req?.anywhere === true;
 
   return (
     <Screen padBottom="pb-[110px]">
@@ -64,26 +58,12 @@ export function Matches() {
       </div>
       {req ? (
         <>
-          <Gap h={12} />
-          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]" aria-label="What we heard">
-            {pills.map((p) => (
-              <button key={p.id} type="button" disabled={!p.removable} onClick={p.removable ? () => void drop(p.id) : undefined} className={`press inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-4 text-[14px] font-medium ${p.must ? "bg-surface text-charcoal" : "bg-surface-soft text-grey"}`}>
-                {p.label}{p.removable ? <span aria-hidden="true" className="text-grey">×</span> : null}
-              </button>
-            ))}
-            <Link href="/" onClick={() => setDraft(req.sentence)} className="press inline-flex h-9 shrink-0 items-center rounded-pill px-3 text-[14px] font-medium text-accent">
-              Edit
-            </Link>
-          </div>
-          <Gap h={12} />
-          <div className="flex gap-2">
-            <TogglePill on={teleOnly} onChange={(v) => void rerun({ sentence: v ? `${req.sentence.replace(TELE, "")}, telehealth only` : req.sentence.replace(TELE, "") })}>
-              Telehealth only
-            </TogglePill>
-            <TogglePill on={anywhere} onChange={(v) => void rerun({ anywhere: v })}>
-              {anywhere ? "All of Queensland" : `${REACH_KM} km of ${place}`}
-            </TogglePill>
-          </div>
+          <Gap h={8} />
+          <p className="text-[15px] leading-[1.5] text-grey">
+            {heardSentence(req)}
+            {" "}
+            <Link href="/" onClick={() => setDraft(req.sentence)} className="press-dim text-accent">Edit</Link>
+          </p>
           {res?.emergency ? (
             <>
               <Gap h={16} />
@@ -97,7 +77,7 @@ export function Matches() {
       {res && cards.length === 0 ? (
         <Empty res={res} place={place} busy={busy} onWiden={() => void rerun({ anywhere: true })} onTelehealth={() => void rerun({ sentence: `${req!.sentence}, telehealth only` })} onChange={() => router.push("/")} onClosest={() => void rerun({ anywhere: true })} />
       ) : null}
-      <div className="flex flex-col gap-3" style={busy ? { opacity: 0.5, transition: "opacity 150ms ease" } : { transition: "opacity 150ms ease" }}>
+      <div className="flex flex-col" style={busy ? { opacity: 0.5, transition: "opacity 150ms ease" } : { transition: "opacity 150ms ease" }}>
         {cards.map((card, i) => (
           <DoctorCard key={card.doctor.id} card={card} labels={labels} index={i} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id))} />
         ))}

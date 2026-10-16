@@ -15,11 +15,11 @@ export function drShort(d: Pick<DoctorRecord, "name">): string {
 }
 
 /** Gendered pronouns only when the record declares a gender; otherwise "they". */
-export function pronouns(d: Pick<DoctorRecord, "gender">): { subject: string; practises: string; hasnt: string } {
+export function pronouns(d: Pick<DoctorRecord, "gender">): { subject: string; possessive: string; practises: string; hasnt: string } {
   const g = d.gender?.value;
-  if (g === "woman") return { subject: "she", practises: "practises", hasnt: "Hasn’t" };
-  if (g === "man") return { subject: "he", practises: "practises", hasnt: "Hasn’t" };
-  return { subject: "they", practises: "practise", hasnt: "Haven’t" };
+  if (g === "woman") return { subject: "she", possessive: "Her", practises: "practises", hasnt: "Hasn’t" };
+  if (g === "man") return { subject: "he", possessive: "His", practises: "practises", hasnt: "Hasn’t" };
+  return { subject: "they", possessive: "Their", practises: "practise", hasnt: "Haven’t" };
 }
 
 /** First Queensland room, else the first room. */
@@ -243,4 +243,33 @@ export function wordsSource(d: Pick<DoctorRecord, "personal" | "name">): { text:
   if (p.status === "published") return { text: `${drShort(d)}’s own words, from ${p.sourceName ?? "their practice website"}, ${p.observedAt ?? ""}`.trim(), href: p.sourceUrl ?? null };
   if (p.status === "doctor-approved") return { text: `Written and approved by ${drShort(d)}${p.approvedAt ? `, ${p.approvedAt.slice(0, 10)}` : ""}`, href: null };
   return { text: "Illustrative example. Not a real doctor’s words.", href: null };
+}
+
+/** "a, b and c" in lower case where the label allows it. */
+export function listSentence(items: string[]): string {
+  const ls = items.map((x, i) => (i === 0 ? x : x.charAt(0).toLowerCase() + x.slice(1)));
+  if (ls.length <= 1) return ls[0] ?? "";
+  if (ls.some((x) => / and /.test(x))) return ls.join(", ");
+  return `${ls.slice(0, -1).join(", ")} and ${ls[ls.length - 1]}`;
+}
+
+/** Hobbies as one sentence: "Running, Pilates and time with her three children." */
+export function hobbySentence(d: Pick<DoctorRecord, "personal">): string | null {
+  const p = personalOf(d);
+  if (!p) return null;
+  const chips = hobbyChips(d, 5);
+  const outside = p.outsideMedicine ?? null;
+  if (chips.length === 0) return outside;
+  const list = listSentence(chips);
+  const first = `${list.charAt(0).toUpperCase()}${list.slice(1)}.`;
+  return outside ? `${first} ${outside}` : first;
+}
+
+/** A concrete sentence about how they work, in their words; null when only abstract labels exist. */
+export function approachSentence(d: Pick<DoctorRecord, "personal">): string | null {
+  const p = personalOf(d);
+  if (!p) return null;
+  const quote = (p.quotes ?? []).find((q) => q.about === "approach");
+  if (quote) return quote.text;
+  return p.communicationApproach ?? null;
 }

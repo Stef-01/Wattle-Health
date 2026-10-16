@@ -5,11 +5,10 @@
 // Server component; the client bits (bookmark, clamp, disclosures, contact sheet) are small.
 import type { DoctorRecord } from "@/src/data/types";
 import { asList } from "@/src/data/types";
-import { Avatar, Chip, Chips, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
+import { Avatar, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
 import { HeroScreen, Space } from "./bits";
-import { clip, conditionLabels, styleLabel, drName, drShort, feeOf, hobbyChips, personalOf, placeOf, practicalChips, primaryRoom, pronouns, specialtyTitle, verifiedPublications, wordsSource, yearsLine } from "./facts";
+import { approachSentence, clip, conditionLabels, hobbySentence, listSentence, drName, drShort, feeOf, hobbyChips, personalOf, placeOf, practicalChips, primaryRoom, pronouns, specialtyTitle, verifiedPublications, wordsSource, yearsLine } from "./facts";
 import { BookmarkCircle, ContactCta } from "./ProfileClient";
-import { ConditionChips } from "./ProfileBits";
 import { WhyInline } from "./WhyInline";
 
 function Header({ d }: { d: DoctorRecord }) {
@@ -24,7 +23,7 @@ function Header({ d }: { d: DoctorRecord }) {
       </div>
       <Space h={24} />
       <div className="flex items-center gap-4">
-        <Avatar name={name} size={64} />
+        <Avatar name={name} size={88} />
         <div className="flex min-w-0 flex-col gap-1">
           <h1 className="display text-[30px] leading-[1.1] tracking-[-0.01em] text-ink">{name}{d.synthetic ? " (example)" : ""}</h1>
           <p className="text-[14px] leading-snug text-grey">{line}</p>
@@ -46,19 +45,20 @@ function Words({ d }: { d: DoctorRecord }) {
   if (!p) return null;
   const pr = pronouns(d);
   const philosophy = p.philosophyOfCare ?? p.philosophy ?? null;
-  const approach = p.communicationApproach ?? null;
   const why = p.whyMedicine ?? null;
+  const approach = approachSentence(d);
   const lived = asList(p.livedExperience)[0] ?? null;
-  const hobbies = hobbyChips(d, 6);
-  const outside = p.outsideMedicine ?? null;
-  const quotes = (p.quotes ?? []).filter((q) => q.about === "hobbies" || q.about === "lived" || q.about === "why");
-  const hobbyQuote = quotes.find((q) => q.about === "hobbies")?.text ?? null;
-  const styles = (p.communication ?? []).map(styleLabel);
+  const outside = hobbySentence(d);
   return (
     <div className="flex flex-col gap-8">
       {philosophy ? (
         <Labelled label={`Meet ${drShort(d)}`}>
-          <Clamp text={`“${philosophy}”`} />
+          <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" />
+        </Labelled>
+      ) : null}
+      {approach && approach !== philosophy ? (
+        <Labelled label={`How ${pr.subject} ${pr.practises}`}>
+          <Clamp text={approach} />
         </Labelled>
       ) : null}
       {why ? (
@@ -66,33 +66,14 @@ function Words({ d }: { d: DoctorRecord }) {
           <Clamp text={why} />
         </Labelled>
       ) : null}
-      {approach || styles.length ? (
-        <Labelled label={`How ${pr.subject} ${pr.practises}`}>
-          {styles.length ? (
-            <p className="flex flex-wrap">
-              {styles.map((s) => (
-                <Chip key={s} tone="text">{s}</Chip>
-              ))}
-            </p>
-          ) : null}
-          {approach && !styles.length ? <p className="text-[16px] leading-[1.5] text-charcoal">{clip(approach, 220)}</p> : null}
-        </Labelled>
-      ) : null}
-      {hobbies.length || outside ? (
-        <Labelled label={`${drShort(d)} outside the clinic`}>
-          {hobbies.length ? (
-            <Chips>
-              {hobbies.map((h) => (
-                <Chip key={h}>{h}</Chip>
-              ))}
-            </Chips>
-          ) : null}
-          {outside ? <p className="text-[16px] leading-[1.5] text-charcoal">{outside}</p> : hobbyQuote ? <p className="text-[16px] leading-[1.5] text-charcoal">{clip(hobbyQuote, 200)}</p> : null}
+      {outside ? (
+        <Labelled label="Outside the clinic">
+          <Clamp text={outside} lines={4} />
         </Labelled>
       ) : null}
       {lived ? (
         <Labelled label="Lived experience">
-          <p className="text-[16px] leading-[1.5] text-charcoal">{clip(lived, 220)}</p>
+          <p className="text-[17px] leading-[1.5] text-charcoal">{clip(lived, 220)}</p>
         </Labelled>
       ) : null}
     </div>
@@ -159,8 +140,8 @@ export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRec
         </p>
       )}
       <Space h={28} />
-      <Labelled label="Conditions seen">
-        <ConditionChips items={conditions} />
+      <Labelled label="Sees">
+        <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
       </Labelled>
       <Space h={16} />
       <div className="border-t border-divider">

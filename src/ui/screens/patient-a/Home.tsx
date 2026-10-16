@@ -4,9 +4,8 @@
 // straight to /results (one field, one gate, then cards) with the response parked under a request id.
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Clock, Cta, Divider, FieldBox, Gap, Pill, Pills, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
+import { ArrowRight, Clock, Cta, Divider, FieldBox, Gap, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
-import { Dock } from "./Dock";
 import { EXAMPLES, runMatch } from "./lib";
 
 type Recognition = { lang: string; interimResults: boolean; onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onend: (() => void) | null; start: () => void; stop: () => void };
@@ -80,7 +79,7 @@ export function Home() {
   const initials = name ? initialsOf(name) : "";
 
   return (
-    <Screen padBottom="pb-[190px]">
+    <Screen padBottom="pb-[110px]">
       <div className="flex items-center justify-between">
         <Title>{name ? `Hi, ${display}.` : "Who do you need?"}</Title>
         {initials ? (
@@ -126,16 +125,18 @@ export function Home() {
         </FieldBox>
       </form>
       {error ? <p className="pt-2 text-[14px] text-grey">{error}</p> : null}
+      <Gap h={16} />
+      <Cta fixed={false} onClick={() => void submit(text)} disabled={busy || !text.trim()}>
+        Find my doctor
+      </Cta>
       <Gap h={40} />
-      <SectionTitle>Try</SectionTitle>
-      <Gap h={24} />
-      <Pills>
-        {EXAMPLES.map((ex) => (
-          <Pill key={ex} onClick={() => void submit(ex)}>
-            {ex}
-          </Pill>
-        ))}
-      </Pills>
+      <p className="text-[14px] text-grey">Or try one of these</p>
+      <Gap h={8} />
+      {EXAMPLES.map((ex) => (
+        <button key={ex} type="button" onClick={() => void submit(ex)} className="press press-soft block w-full border-b border-divider py-3.5 text-left text-[17px] leading-snug text-charcoal">
+          {ex}
+        </button>
+      ))}
       {recent.length > 0 ? (
         <>
           <Gap h={40} />
@@ -149,11 +150,6 @@ export function Home() {
           ))}
         </>
       ) : null}
-      <Dock bottom={94}>
-        <Cta fixed={false} onClick={() => void submit(text)} disabled={busy || !text.trim()}>
-          Find my doctor
-        </Cta>
-      </Dock>
       <TabBar active="/" />
     </Screen>
   );

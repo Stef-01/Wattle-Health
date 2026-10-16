@@ -254,8 +254,8 @@ export function PhotoCard({ name, place, fee, photo, height = 460, caption = tru
 /** CTA 373x66 r20 #1B1B1B, fixed to the frame bottom. `arrow` shows the trailing arrow. */
 export function Cta({ children, href, onClick, type = "button", arrow = true, icon, disabled, fixed = true, secondary, note }: { children: ReactNode; href?: string; onClick?: () => void; type?: "button" | "submit"; arrow?: boolean; icon?: ReactNode; disabled?: boolean; fixed?: boolean; secondary?: ReactNode; note?: ReactNode }) {
   const cls = cx(
-    "press flex h-[66px] w-full items-center justify-center gap-5 rounded-cta bg-ink text-[20px] font-medium text-white shadow-cta",
-    disabled && "opacity-50",
+    "press flex h-[66px] w-full items-center justify-center gap-5 rounded-cta text-[20px] font-medium",
+    disabled ? "bg-surface text-grey" : "bg-ink text-white shadow-cta",
   );
   const inner = (
     <>

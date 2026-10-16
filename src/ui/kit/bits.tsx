@@ -19,12 +19,27 @@ export function initialsFor(name: string): string {
 }
 
 /** Initials on a soft disc; a 2-letter mark that reads as a person without pretending to be a photo. */
+/** Five muted tints, picked by name, so a list of initials reads as people rather than placeholders. */
+const TINTS = [
+  ["#eef1ea", "#3c4a35"],
+  ["#f3ece4", "#5a4632"],
+  ["#e9eef3", "#34465a"],
+  ["#f2ebee", "#5a3744"],
+  ["#eeeaf3", "#43395a"],
+] as const;
+function tintFor(name: string): readonly [string, string] {
+  let h = 0;
+  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) | 0;
+  return TINTS[Math.abs(h) % TINTS.length]!;
+}
+
 export function Avatar({ name, size = 56, tone = "soft" }: { name: string; size?: number; tone?: "soft" | "ink" }) {
+  const [bg, fg] = tintFor(name);
   return (
     <span
       aria-hidden="true"
-      className={cx("inline-flex shrink-0 items-center justify-center rounded-full font-inter font-semibold tracking-[-0.01em]", tone === "ink" ? "bg-ink text-white" : "bg-surface text-charcoal")}
-      style={{ width: size, height: size, fontSize: Math.round(size * 0.34) }}
+      className={cx("inline-flex shrink-0 items-center justify-center rounded-full font-display font-medium tracking-[-0.01em]", tone === "ink" && "bg-ink text-white")}
+      style={{ width: size, height: size, fontSize: Math.round(size * 0.36), ...(tone === "soft" ? { background: bg, color: fg } : {}) }}
     >
       {initialsFor(name)}
     </span>
@@ -67,7 +82,7 @@ export function Clamp({ text, lines = 3, className }: { text: string; lines?: nu
   const [open, setOpen] = useState(false);
   const long = text.length > lines * 52;
   return (
-    <p className={cx("text-[17px] leading-[1.5] text-charcoal", className)}>
+    <p className={cx("", className ?? "text-[17px] leading-[1.5] text-charcoal")}>
       <span className={!open && long ? "line-clamp-3" : undefined} style={!open && long ? { WebkitLineClamp: lines } : undefined}>
         {text}
       </span>
