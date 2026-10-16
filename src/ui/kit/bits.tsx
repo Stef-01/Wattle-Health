@@ -78,28 +78,35 @@ export function Labelled({ label, children, className }: { label: string; childr
 }
 
 /** Text clipped to a few lines with an inline "More" when it is longer. */
-export function Clamp({ text, lines = 3, className }: { text: string; lines?: number; className?: string }) {
+/** Text clipped to a few lines. "More" opens the whole passage and, when given, `more` content beneath it. */
+export function Clamp({ text, lines = 3, className, more }: { text: string; lines?: number; className?: string; more?: ReactNode }) {
   const [open, setOpen] = useState(false);
-  const long = text.length > lines * 52;
+  const long = text.length > lines * 52 || Boolean(more);
   return (
-    <p className={cx("", className ?? "text-[17px] leading-[1.5] text-charcoal")}>
-      <span className={!open && long ? "line-clamp-3" : undefined} style={!open && long ? { WebkitLineClamp: lines } : undefined}>
-        {text}
-      </span>
-      {long ? (
-        <button type="button" onClick={() => setOpen((v) => !v)} className="press-dim ml-1 text-[15px] font-medium text-accent">
-          {open ? "Less" : "More"}
-        </button>
-      ) : null}
-    </p>
+    <div className="flex flex-col gap-3">
+      <p className={cx("", className ?? "text-[17px] leading-[1.5] text-charcoal")}>
+        <span className={!open && long ? "line-clamp-3" : undefined} style={!open && long ? { WebkitLineClamp: lines } : undefined}>
+          {text}
+        </span>
+        {long ? (
+          <button type="button" onClick={() => setOpen((v) => !v)} className="press-dim ml-1 text-[15px] font-medium text-accent">
+            {open ? "Less" : "More"}
+          </button>
+        ) : null}
+      </p>
+      {open && more ? <div className="rise flex flex-col gap-3">{more}</div> : null}
+    </div>
   );
 }
 
 /** A row that opens its content in place. Summary is one line; the chevron turns. */
-export function Disclosure({ title, sub, children, defaultOpen = false }: { title: ReactNode; sub?: ReactNode; children: ReactNode; defaultOpen?: boolean }) {
+/** Subtle panel tints, one per kind of drill-down, so the eye can tell them apart without colour shouting. */
+export const PANEL_TINTS = { research: "#f6f7fa", practical: "#f8f6f3", why: "#f5f8f6", sources: "#f7f7f7" } as const;
+
+export function Disclosure({ title, sub, children, defaultOpen = false, tint }: { title: ReactNode; sub?: ReactNode; children: ReactNode; defaultOpen?: boolean; tint?: keyof typeof PANEL_TINTS }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-divider">
+    <div className={cx(tint ? "mb-2 rounded-[18px] px-4" : "border-b border-divider")} style={tint ? { background: PANEL_TINTS[tint] } : undefined}>
       <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="press press-soft flex w-full items-center gap-3 py-4 text-left">
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="text-[16px] font-medium text-charcoal">{title}</span>

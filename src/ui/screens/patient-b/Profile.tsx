@@ -7,7 +7,7 @@ import type { DoctorRecord } from "@/src/data/types";
 import { asList } from "@/src/data/types";
 import { Avatar, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
 import { HeroScreen, Space } from "./bits";
-import { approachSentence, clip, conditionLabels, hobbySentence, listSentence, drName, drShort, feeOf, hobbyChips, personalOf, placeOf, practicalChips, primaryRoom, pronouns, specialtyTitle, verifiedPublications, wordsSource, yearsLine } from "./facts";
+import { approachSentence, clip, conditionLabels, hobbySentence, listSentence, niceSource, TIER_WORD, drName, drShort, feeOf, hobbyChips, personalOf, placeOf, practicalChips, primaryRoom, pronouns, specialtyTitle, verifiedPublications, wordsSource, yearsLine } from "./facts";
 import { BookmarkCircle, ContactCta } from "./ProfileClient";
 import { WhyInline } from "./WhyInline";
 
@@ -49,16 +49,24 @@ function Words({ d }: { d: DoctorRecord }) {
   const approach = approachSentence(d);
   const lived = asList(p.livedExperience)[0] ?? null;
   const outside = hobbySentence(d);
+  const ABOUT: Record<string, string> = { why: "Why medicine", approach: "How they work", lived: "Lived experience", hobbies: "Outside the clinic", other: "Also from their page" };
+  const rest = (p.quotes ?? []).filter((q) => q.text !== philosophy && q.text !== approach);
+  const more = rest.length ? rest.map((q, i) => (
+    <p key={i} className="text-[16px] leading-[1.5] text-charcoal">
+      <span className="text-grey">{ABOUT[q.about] ?? "From their page"} · </span>“{q.text}”
+    </p>
+  )) : undefined;
+  const purpose = p.professionalPurpose ?? p.purpose ?? null;
   return (
     <div className="flex flex-col gap-8">
       {philosophy ? (
         <Labelled label={`Meet ${drShort(d)}`}>
-          <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" />
+          <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" more={more} />
         </Labelled>
       ) : null}
       {approach && approach !== philosophy ? (
         <Labelled label={`How ${pr.subject} ${pr.practises}`}>
-          <Clamp text={approach} />
+          <Clamp text={approach} more={purpose ? <p className="text-[16px] leading-[1.5] text-charcoal">{purpose}</p> : undefined} />
         </Labelled>
       ) : null}
       {why ? (
@@ -92,7 +100,7 @@ function Practical({ d }: { d: DoctorRecord }) {
   if (room) rows.push({ k: "Rooms", v: [room.name, room.address, `${room.suburb} ${room.postcode}`.trim()].filter(Boolean).join(", ") });
   if (rows.length === 0) return null;
   return (
-    <Disclosure title="Practical" sub={clip(rows.filter((r) => r.k !== "Rooms").slice(0, 3).map((r) => r.v).join(" · ") || rows[0]!.v, 64)}>
+    <Disclosure tint="practical" title="Practical" sub={clip(rows.filter((r) => r.k !== "Rooms").slice(0, 3).map((r) => r.v).join(" · ") || rows[0]!.v, 64)}>
       <dl className="flex flex-col gap-2">
         {rows.map((r) => (
           <div key={r.k} className="flex gap-4 text-[15px]">
@@ -105,11 +113,23 @@ function Practical({ d }: { d: DoctorRecord }) {
   );
 }
 
+function Sources({ d }: { d: DoctorRecord }) {
+  const rows = d.sources.filter((s) => s.sourceUrl);
+  if (rows.length === 0) return null;
+  return (
+    <Disclosure tint="sources" title="Where this comes from" sub={`${rows.length} ${rows.length === 1 ? "source" : "sources"}, each dated`}>
+      {rows.map((s) => (
+        <SourceRow key={`${s.source}-${s.sourceUrl}`} icon={<FigmaIcon name="file" size={17} />} title={niceSource(s.source)} sub={`${TIER_WORD.found}, ${s.observedAt.slice(0, 10)}`} href={s.sourceUrl} />
+      ))}
+    </Disclosure>
+  );
+}
+
 function Research({ d }: { d: DoctorRecord }) {
   const pubs = verifiedPublications(d);
   if (pubs.length === 0) return null;
   return (
-    <Disclosure title="Research" sub={`${pubs.length} verified ${pubs.length === 1 ? "paper" : "papers"}`}>
+    <Disclosure tint="research" title="Research" sub={`${pubs.length} verified ${pubs.length === 1 ? "paper" : "papers"}`}>
       {pubs.slice(0, 5).map((p) => (
         <SourceRow key={p.title} icon={<FigmaIcon name="book" size={17} />} title={clip(p.title, 90)} sub={[p.venue, p.year].filter(Boolean).join(", ") || "Venue not recorded"} href={p.url} />
       ))}
@@ -144,10 +164,11 @@ export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRec
         <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
       </Labelled>
       <Space h={16} />
-      <div className="border-t border-divider">
+      <div className="flex flex-col">
         <Research d={d} />
         <Practical d={d} />
         <WhyInline doctor={d} />
+        <Sources d={d} />
       </div>
       <Space h={20} />
       {source ? (
