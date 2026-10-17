@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Card, SearchResponse } from "@/src/data/search-types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Body, Cta, Divider, Gap, Row, Screen, TabBar } from "@/src/ui/kit";
+import { Avatar, Body, Cta, Divider, Gap, Row, Screen, TabBar } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
@@ -172,6 +172,16 @@ export function Matches() {
         ) : null}
         {cards.length > 0 && shown >= cards.length ? (
           <div className="rise mt-12 rounded-[24px] px-6 py-8 text-center" style={{ background: "#f5f8f6" }}>
+            <div className="mb-5 flex justify-center -space-x-3">
+              {cards.map((c) =>
+                c.doctor.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img key={c.doctor.id} src={c.doctor.photo.url} alt={c.doctor.name.display} referrerPolicy="no-referrer" className="size-14 rounded-full border-[3px] border-white object-cover object-top shadow-[0_4px_10px_rgba(0,0,0,0.12)]" style={{ background: "#e9e9e9" }} />
+                ) : (
+                  <span key={c.doctor.id} className="rounded-full border-[3px] border-white"><Avatar name={c.doctor.name.display} size={50} /></span>
+                ),
+              )}
+            </div>
             <p className="font-display text-[24px] leading-tight text-ink">That is your {cards.length === 1 ? "match" : cards.length === 2 ? "two" : "three"}.</p>
             <p className="mt-2 text-[15px] leading-[1.5] text-grey">Wattle shows three at a time so each one gets a proper read. Search again to meet different doctors.</p>
             <div className="mt-6">
@@ -183,7 +193,7 @@ export function Matches() {
       {res && cards.length > 0 ? (
         <>
           <Gap h={16} />
-          <p className="caption text-[13px] leading-normal text-grey">{res.orderNote}</p>
+          <p className="caption text-[13px] leading-normal text-grey">{res.orderNote.replace(/ and ([A-Z])(?=[a-z])/g, (_m, c: string) => ` and ${c.toLowerCase()}`)}</p>
         </>
       ) : null}
       <TabBar active="/" />
