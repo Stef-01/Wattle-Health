@@ -114,7 +114,9 @@ export function Disclosure({ title, sub, children, defaultOpen = false, tint }: 
         </span>
         <ChevronRight size={18} className={cx("shrink-0 text-grey transition-transform duration-200", open && "rotate-90")} style={{ transitionTimingFunction: "var(--ease-out)" }} />
       </button>
-      {open ? <div className="rise pb-4">{children}</div> : null}
+      <div className="grid transition-[grid-template-rows] duration-300" style={{ gridTemplateRows: open ? "1fr" : "0fr", transitionTimingFunction: "var(--ease-out)" }}>
+        <div className="min-h-0 overflow-hidden">{open ? <div className="rise pb-4">{children}</div> : null}</div>
+      </div>
     </div>
   );
 }

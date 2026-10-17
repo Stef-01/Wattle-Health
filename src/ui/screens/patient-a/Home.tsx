@@ -2,6 +2,7 @@
 // P02 Home (225:17): greeting + avatar, the sentence field with mic and send, "Try" examples,
 // "Recent" rows, "Find my doctor" CTA over the tab bar. Submit runs POST /api/match and goes
 // straight to /results (one field, one gate, then cards) with the response parked under a request id.
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Clock, Cta, Divider, FieldBox, Gap, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
@@ -18,7 +19,9 @@ function speechCtor(): RecognitionCtor | null {
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
 }
 
-export function Home() {
+export type Face = { id: string; name: string; url: string };
+
+export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number }) {
   const router = useRouter();
   const [name, setNameState] = useState<string | null>(null);
   const [text, setText] = useState("");
@@ -137,6 +140,17 @@ export function Home() {
         Find my doctor
       </Cta>
       <Gap h={40} />
+      {faces.length > 0 ? (
+        <Link href="/results?all=1" className="press press-soft mb-8 flex items-center gap-4" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
+          <span className="flex shrink-0 -space-x-3">
+            {faces.map((f, i) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={f.id} src={f.url} alt="" referrerPolicy="no-referrer" className="rise size-11 rounded-full border-2 border-white object-cover object-top shadow-[0_2px_6px_rgba(0,0,0,0.12)]" style={{ "--i": i, background: "#e9e9e9" } as React.CSSProperties} />
+            ))}
+          </span>
+          <span className="text-[15px] leading-snug text-charcoal">{count} Queensland doctors who say who they are, in their own words.</span>
+        </Link>
+      ) : null}
       <p className="text-[14px] text-grey">Or try one of these</p>
       <Gap h={8} />
       {EXAMPLES.map((ex) => (
