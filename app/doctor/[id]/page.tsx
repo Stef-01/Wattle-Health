@@ -21,7 +21,14 @@ function conditionLabelMap(): Record<string, string> {
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const d = await getDoctor(doctorIdFromParam(id));
-  return { title: d ? `${d.name.display} · Wattle` : "Doctor · Wattle" };
+  if (!d) return { title: "Doctor · Wattle" };
+  const words = d.personal?.philosophyOfCare ?? d.personal?.philosophy ?? d.personal?.communicationApproach ?? null;
+  const description = words ? `“${words.slice(0, 150)}${words.length > 150 ? "…" : ""}”` : `${d.name.display}, ${d.specialty.replace(/-/g, " ")} in Queensland, on Wattle.`;
+  return {
+    title: `${d.name.display} · Wattle`,
+    description,
+    openGraph: { title: d.name.display, description, ...(d.photo ? { images: [{ url: d.photo.url }] } : {}) },
+  };
 }
 
 export default async function DoctorPage({ params }: { params: Promise<{ id: string }> }) {
