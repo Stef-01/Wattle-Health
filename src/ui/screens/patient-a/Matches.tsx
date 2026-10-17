@@ -193,7 +193,7 @@ export function Matches() {
       {res && cards.length > 0 ? (
         <>
           <Gap h={16} />
-          <p className="caption text-[13px] leading-normal text-grey">{res.orderNote.replace(/ and ([A-Z])(?=[a-z])/g, (_m, c: string) => ` and ${c.toLowerCase()}`)}</p>
+          <p className="caption text-[13px] leading-normal text-grey">{res.orderNote.replace(/ and ([A-Z])(?=[a-z ])/g, (_m, c: string) => ` and ${c.toLowerCase()}`)}</p>
         </>
       ) : null}
       <TabBar active="/" />
