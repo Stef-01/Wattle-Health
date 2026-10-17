@@ -5,6 +5,7 @@ import Link from "next/link";
 import { asset } from "@/src/ui/base-path";
 import { Children, type CSSProperties, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, Check, ChevronRight, Clock, Heart, Home, User } from "./icons";
+import { tintFor } from "./tint";
 
 export * from "./icons";
 export * from "./bits";
@@ -215,12 +216,12 @@ export function initialsOf(name: string): string {
 /** Photo card r25.5 with blurred caption. No photo = #D9D9D9 with initials. */
 export function PhotoCard({ name, place, fee, photo, height = 460, caption = true, topLeft, topRight, href, children }: { name: string; place?: string; fee?: string; photo?: string | null; height?: number; caption?: boolean; topLeft?: ReactNode; topRight?: ReactNode; href?: string; children?: ReactNode }) {
   const body = (
-    <div className="relative w-full overflow-hidden rounded-card shadow-photo" style={{ height, background: photo ? undefined : "#d9d9d9" }}>
+    <div className="relative w-full overflow-hidden rounded-[30px] shadow-photo" style={{ height, background: photo ? "#e9e9e9" : tintFor(name)[0] }}>
       {photo ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={photo} alt="" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover object-top" />
       ) : (
-        <span className="absolute inset-0 flex items-center justify-center font-inter text-[24px] font-medium text-grey">{initialsOf(name)}</span>
+        <span className="absolute inset-0 flex items-center justify-center font-display text-[64px]" style={{ color: tintFor(name)[1] }}>{initialsOf(name)}</span>
       )}
       {topLeft ? <div className="absolute left-[21px] top-[18px]">{topLeft}</div> : null}
       {topRight ? <div className="absolute right-[21px] top-[18px]">{topRight}</div> : null}
