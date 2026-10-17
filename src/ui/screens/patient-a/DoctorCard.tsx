@@ -1,22 +1,25 @@
 "use client";
-// A result card, editorial (2026-10-16 v4, after the founder's "cluttered" verdict): avatar,
-// serif name, one line of where, one sentence of why this doctor fits in closed vocabulary,
-// one quote in their published words, one practical line. No chips. The card opens the profile.
+// P05 "Your matches" card (Figma 226:15, re-read 2026-10-16): a 405-tall photo with a 30 px
+// radius and the photo shadow, a blurred caption bottom-left (name 16 medium, map-pin + suburb
+// 14 in #cac8c8) and a blurred heart circle top-right. Under it, one sentence of why this
+// doctor fits, in closed vocabulary, and the practical line. The portrait is the one the
+// practice publishes on the page we cite; without one the card carries the doctor's initials
+// on their tint. The whole card opens the profile.
 import Link from "next/link";
 import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Avatar, Heart } from "@/src/ui/kit";
-import { clip, drName, listSentence, practicalChips, pronouns, quoteOf, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
+import { Heart, MapPin, initialsFor, tintFor } from "@/src/ui/kit";
+import { drName, listSentence, practicalChips, pronouns, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
 import { listedOnly, matchChips } from "./card";
-import { placeLine, suburbOf } from "./lib";
+import { suburbOf } from "./lib";
 
 const GERUND: Record<string, string> = { listens: "listening", direct: "direct", gentle: "gentle", collaborative: "collaborative" };
 const gerund = (s: string) => GERUND[s] ?? s;
 const HUMAN = /listens|collaborative|evidence|whole-person|gentle|direct|lived experience|affirming|culturally|research-active|longer|trauma/i;
 
-/** "Lists endometriosis and pelvic pain and reads as collaborative." from the engine's reasons. */
-function fitSentence(card: Card, labels: Record<string, string>): string {
+/** "Lists endometriosis. Her profile reads as listening." from the engine's reasons. */
+export function fitSentence(card: Card, labels: Record<string, string>): string {
   if (listedOnly(card)) return `Listed under ${specialtyTitle(card.doctor.specialty).toLowerCase()}, no documented focus on this yet.`;
   const chips = matchChips(card, 4);
   const clinical = chips.filter((c) => !HUMAN.test(c));
@@ -32,32 +35,63 @@ function fitSentence(card: Card, labels: Record<string, string>): string {
   return parts.join(" ");
 }
 
+/** The P05 photo block on its own, reused by Saved. */
+export function Portrait({ d, height = 405, saved, onSave }: { d: DoctorRecord; height?: number; saved?: boolean; onSave?: () => void }) {
+  const name = drName(d);
+  const [bg, fg] = tintFor(name);
+  const suburb = d.rooms.find((r) => r.state === "QLD")?.suburb ?? d.rooms[0]?.suburb ?? null;
+  return (
+    <div className="relative w-full overflow-hidden rounded-[30px] shadow-photo" style={{ height, background: d.photo ? "#e9e9e9" : bg }}>
+      {d.photo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={d.photo.url} alt={d.photo.alt ?? name} loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover object-top" />
+      ) : (
+        <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-display text-[72px]" style={{ color: fg }}>
+          {initialsFor(name)}
+        </span>
+      )}
+      {onSave ? (
+        <button
+          type="button"
+          aria-label={saved ? "Remove from saved" : "Save"}
+          aria-pressed={saved}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onSave();
+          }}
+          className="press absolute right-5 top-5 inline-flex size-11 items-center justify-center rounded-full bg-caption text-white backdrop-blur-[20px]"
+        >
+          <Heart size={22} fill={saved ? "currentColor" : "none"} />
+        </button>
+      ) : null}
+      <div className="absolute bottom-5 left-5 flex h-[75px] max-w-[calc(100%-40px)] items-center rounded-[15px] bg-caption px-4 py-3 text-white shadow-[0_5px_4.5px_rgba(0,0,0,0.1)] backdrop-blur-[20px]">
+        <span className="flex min-w-0 flex-col gap-2">
+          <span className="truncate text-[16px] font-medium leading-normal">{name}{d.synthetic ? " (example)" : ""}</span>
+          {suburb ? (
+            <span className="inline-flex items-center gap-1.5 text-[14px] leading-normal text-caption-text">
+              <MapPin size={16} />
+              <span className="truncate">{suburb}</span>
+            </span>
+          ) : null}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function DoctorCard({ card, labels, saved, onSave, index = 0 }: { card: Card; labels: Record<string, string>; saved: boolean; onSave: () => void; index?: number }) {
   const d: DoctorRecord = card.doctor;
-  const name = drName(d);
-  const near = card.distanceKm !== undefined && card.distanceKm <= 20;
-  const place = near ? suburbOf(card) : placeLine(card);
   const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km` : d.telehealth.value === "only" ? "telehealth" : null;
-  const where = [specialtyTitle(d.specialty), place, km].filter(Boolean).join(" · ");
-  const quote = quoteOf(d, 30);
-  const practical = practicalChips(d).slice(0, 3);
-
+  const where = [specialtyTitle(d.specialty), km].filter(Boolean).join(" · ");
+  const practical = [where, ...practicalChips(d).slice(0, 2)].filter(Boolean);
+  void suburbOf;
   return (
-    <article className="rise relative border-b border-divider py-6" style={{ "--i": index } as React.CSSProperties}>
-      <button type="button" aria-label={saved ? "Remove from saved" : "Save"} aria-pressed={saved} onClick={onSave} className={`press absolute right-0 top-6 inline-flex size-10 items-center justify-center rounded-full ${saved ? "text-ink" : "text-grey"}`}>
-        <Heart size={20} fill={saved ? "currentColor" : "none"} />
-      </button>
+    <article className="rise" style={{ "--i": index } as React.CSSProperties}>
       <Link href={doctorHref(d.id)} className="press press-soft block">
-        <div className="flex items-center gap-4 pr-12">
-          <Avatar name={name} size={64} />
-          <div className="flex min-w-0 flex-col gap-1">
-            <h3 className="display line-clamp-2 text-[24px] leading-[1.1] text-ink">{name}{d.synthetic ? " (example)" : ""}</h3>
-            <p className="truncate text-[15px] text-grey">{where}</p>
-          </div>
-        </div>
+        <Portrait d={d} saved={saved} onSave={onSave} />
         <p className="mt-4 text-[16px] leading-[1.5] text-charcoal">{fitSentence(card, labels)}</p>
-        {quote ? <p className="mt-3 font-display text-[19px] leading-[1.35] text-ink">“{clip(quote.text, 120)}”</p> : null}
-        {practical.length > 0 ? <p className="mt-3 text-[14px] text-grey">{practical.join(" · ")}</p> : null}
+        <p className="mt-1.5 text-[14px] text-grey">{practical.join(" · ")}</p>
       </Link>
     </article>
   );

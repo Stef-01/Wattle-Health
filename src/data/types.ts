@@ -45,6 +45,8 @@ export interface DoctorRecord extends Doctor {
   rooms: Room[];
   /** A stated limit on who the practice sees ("healthcare workers and carers only"), shown wherever the doctor is. */
   scopeNote?: string;
+  /** The doctor's portrait as published on their own practice page, hotlinked with attribution (founder instruction 2026-10-16). */
+  photo?: { url: string; sourceUrl: string; alt?: string };
   sources: SourceRef[];
   publications: Publication[];
 }

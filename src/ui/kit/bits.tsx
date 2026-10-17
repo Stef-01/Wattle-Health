@@ -27,7 +27,7 @@ const TINTS = [
   ["#f2ebee", "#5a3744"],
   ["#eeeaf3", "#43395a"],
 ] as const;
-function tintFor(name: string): readonly [string, string] {
+export function tintFor(name: string): readonly [string, string] {
   let h = 0;
   for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) | 0;
   return TINTS[Math.abs(h) % TINTS.length]!;

@@ -63,6 +63,18 @@ export function nameKey(name: string): string {
     .trim();
 }
 
+type Portrait = { name: string; specialty?: string; source_url: string; photo_url: string | null; alt?: string | null };
+
+/** data/enriched/personal/portraits.json: practice-site portraits by doctor, keyed on name. */
+export function readPortraits(root = process.cwd()): Map<string, Portrait> {
+  const file = path.join(root, "data", "enriched", "personal", "portraits.json");
+  const out = new Map<string, Portrait>();
+  if (!existsSync(file)) return out;
+  const parsed = JSON.parse(readFileSync(file, "utf8")) as { portraits?: Portrait[] };
+  for (const p of parsed.portraits ?? []) if (p.photo_url && /^https?:\/\//.test(p.photo_url)) out.set(nameKey(p.name), p);
+  return out;
+}
+
 export function readResearch(root = process.cwd()): ResearchedDoctor[] {
   const dir = path.join(root, "data", "enriched", "personal");
   if (!existsSync(dir)) return [];
@@ -208,8 +220,12 @@ function newRecord(d: ResearchedDoctor, discipline: Discipline): DoctorRecord {
  * else append. Every result carries `personal.status: "published"` with its source URL, and the
  * Layer-2 labels derived from the published words.
  */
-export function withPublished(doctors: DoctorRecord[], discipline: Discipline, researched: ResearchedDoctor[] = readResearch()): DoctorRecord[] {
+export function withPublished(doctors: DoctorRecord[], discipline: Discipline, researched: ResearchedDoctor[] = readResearch(), portraits: Map<string, Portrait> = readPortraits()): DoctorRecord[] {
   if (researched.length === 0) return doctors;
+  const photoFor = (r: ResearchedDoctor) => {
+    const p = portraits.get(nameKey(r.name));
+    return p?.photo_url ? { url: p.photo_url, sourceUrl: p.source_url, ...(p.alt ? { alt: p.alt } : {}) } : undefined;
+  };
   const byKey = new Map<string, DoctorRecord>();
   for (const d of doctors) byKey.set(`${d.specialty}|${nameKey(d.name.display)}`, d);
   const out = doctors.slice();
@@ -230,12 +246,16 @@ export function withPublished(doctors: DoctorRecord[], discipline: Discipline, r
       }
       applyFacts(record, r, src, discipline);
       record.personal = personalOf(r);
+      const photo = photoFor(r);
+      if (photo) record.photo = photo;
       out[idx] = withPersonalLabels(record, discipline) as DoctorRecord;
       byKey.set(key, out[idx]!);
     } else {
       const fresh = newRecord(r, discipline);
       if (added.has(fresh.id) || byKey.has(key)) continue;
       fresh.personal = personalOf(r);
+      const photo = photoFor(r);
+      if (photo) fresh.photo = photo;
       const labelled = withPersonalLabels(fresh, discipline) as DoctorRecord;
       out.push(labelled);
       byKey.set(key, labelled);

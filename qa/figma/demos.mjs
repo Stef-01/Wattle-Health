@@ -10,7 +10,7 @@ const EXAMPLES = ["Endometriosis, someone who listens", "ADHD, lived experience"
 for (const [i, ex] of EXAMPLES.entries()) {
   await page.goto(`${BASE}/`); await page.getByRole("button", { name: ex }).click(); await page.waitForURL(/\/results/); await page.waitForTimeout(900);
   await page.screenshot({ path: path.join(OUT, `${i + 1}a-results.png`) });
-  const names = await page.locator("article h3").allTextContents(); console.log(ex, "->", names.join(" | "));
+  const names = await page.locator("article span.truncate").allTextContents(); console.log(ex, "->", names.join(" | "));
   const first = (await page.locator("a[href*='/doctor/']").first().getAttribute("href")).replace(/\/$/, "");
   await page.goto(`${BASE}${first}`); await page.waitForTimeout(700);
   await page.screenshot({ path: path.join(OUT, `${i + 1}b-profile.png`) });

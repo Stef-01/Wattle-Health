@@ -53,7 +53,7 @@ export function Matches() {
   return (
     <Screen padBottom="pb-[110px]">
       <div className="flex items-center justify-between">
-        <h1 className="display text-[28px] tracking-[-0.02em] text-ink">{cards.length > 0 ? `${cards.length} ${cards.length === 1 ? "doctor" : "doctors"} for you` : "Your matches"}</h1>
+        <h1 className="display text-[28px] tracking-[-0.02em] text-ink">Your matches</h1>
         <Link href="/adjust" className="press-dim -mr-2 inline-flex h-11 items-center gap-1.5 px-2 text-[15px] font-medium text-accent"><Sliders size={16} />Adjust</Link>
       </div>
       {req ? (
@@ -77,7 +77,7 @@ export function Matches() {
       {res && cards.length === 0 ? (
         <Empty res={res} place={place} busy={busy} onWiden={() => void rerun({ anywhere: true })} onTelehealth={() => void rerun({ sentence: `${req!.sentence}, telehealth only` })} onChange={() => router.push("/")} onClosest={() => void rerun({ anywhere: true })} />
       ) : null}
-      <div className="flex flex-col" style={busy ? { opacity: 0.5, transition: "opacity 150ms ease" } : { transition: "opacity 150ms ease" }}>
+      <div className="flex flex-col gap-7" style={busy ? { opacity: 0.5, transition: "opacity 150ms ease" } : { transition: "opacity 150ms ease" }}>
         {cards.map((card, i) => (
           <DoctorCard key={card.doctor.id} card={card} labels={labels} index={i} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id))} />
         ))}

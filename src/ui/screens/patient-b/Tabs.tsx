@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { lookup } from "@/src/data/api";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { DoctorRecord } from "@/src/data/types";
-import { Avatar, Body, Chip, Chips, Divider, FieldBox, FigmaIcon, Heart, Row, Screen, SectionTitle, TabBar } from "@/src/ui/kit";
+import { Body, Divider, FieldBox, FigmaIcon, Row, Screen, SectionTitle, TabBar } from "@/src/ui/kit";
+import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
 import { getName, getRecent, getRequest, getSavedIds, setName, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
 import { Space } from "./bits";
-import { drName, placeOf, practicalChips, quoteOf, specialtyTitle } from "./facts";
+import { placeOf, practicalChips, quoteOf, specialtyTitle } from "./facts";
 
 const day = (iso: string) => {
   const d = new Date(iso);
@@ -65,7 +66,7 @@ export function Saved() {
       <SectionTitle>Saved</SectionTitle>
       <Space h={24} />
       {ids && ids.length === 0 ? <Body>Nothing saved yet.</Body> : null}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-7">
         {doctors.map((d, i) => (
           <SavedCard key={d.id} doctor={d} index={i} onRemove={() => remove(d.id)} />
         ))}
@@ -110,30 +111,14 @@ export function Me() {
 }
 
 function SavedCard({ doctor: d, index, onRemove }: { doctor: DoctorRecord; index: number; onRemove: () => void }) {
-  const name = drName(d);
   const quote = quoteOf(d);
-  const practical = practicalChips(d);
+  const practical = [specialtyTitle(d.specialty), placeOf(d), ...practicalChips(d).slice(0, 2)].filter(Boolean);
   return (
-    <article className="rise relative rounded-[20px] border border-hairline bg-white p-5" style={{ "--i": index } as React.CSSProperties}>
-      <button type="button" aria-label="Remove from saved" onClick={onRemove} className="press absolute right-4 top-4 inline-flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent">
-        <Heart size={20} fill="currentColor" />
-      </button>
+    <article className="rise" style={{ "--i": index } as React.CSSProperties}>
       <Link href={doctorHref(d.id)} className="press press-soft block">
-        <div className="flex items-center gap-4 pr-12">
-          <Avatar name={name} size={56} />
-          <div className="flex min-w-0 flex-col gap-1">
-            <h3 className="display truncate text-[19px] leading-tight text-ink">{name}</h3>
-            <p className="truncate text-[14px] text-grey">{[specialtyTitle(d.specialty), placeOf(d)].join(" · ")}</p>
-          </div>
-        </div>
-        {quote ? <p className="mt-4 text-[16px] leading-[1.5] text-charcoal">“{quote.text}”</p> : null}
-        {practical.length > 0 ? (
-          <Chips className="mt-3">
-            {practical.map((f) => (
-              <Chip key={f} tone="line">{f}</Chip>
-            ))}
-          </Chips>
-        ) : null}
+        <Portrait d={d} height={300} saved onSave={onRemove} />
+        {quote ? <p className="mt-4 font-display text-[19px] leading-[1.35] text-ink">“{quote.text}”</p> : null}
+        <p className="mt-2 text-[14px] text-grey">{practical.join(" · ")}</p>
       </Link>
     </article>
   );

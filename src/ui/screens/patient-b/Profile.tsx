@@ -23,7 +23,12 @@ function Header({ d }: { d: DoctorRecord }) {
       </div>
       <Space h={24} />
       <div className="flex items-center gap-4">
-        <Avatar name={name} size={88} />
+        {d.photo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={d.photo.url} alt={d.photo.alt ?? name} referrerPolicy="no-referrer" className="size-[88px] shrink-0 rounded-full object-cover object-top" style={{ background: "#e9e9e9" }} />
+        ) : (
+          <Avatar name={name} size={88} />
+        )}
         <div className="flex min-w-0 flex-col gap-1">
           <h1 className="display text-[30px] leading-[1.1] tracking-[-0.01em] text-ink">{name}{d.synthetic ? " (example)" : ""}</h1>
           <p className="text-[14px] leading-snug text-grey">{line}</p>
