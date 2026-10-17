@@ -70,8 +70,13 @@ const SPLASH = "wattle.splash.seen";
 const CURRENT = "wattle.req.current";
 const DRAFT = "wattle.draft";
 
+/** Bump when the stored card shape changes; older stored searches are re-run on load. */
+export const REQUEST_VERSION = 2;
+
 export interface StoredRequest {
   id: string;
+  /** REQUEST_VERSION at the time it was stored; absent on the oldest. */
+  v?: number;
   sentence: string;
   suburb: string;
   removed: string[];

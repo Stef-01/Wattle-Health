@@ -10,7 +10,7 @@ import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
 import { Heart, MapPin, initialsFor, tintFor } from "@/src/ui/kit";
-import { drName, listSentence, practicalChips, pronouns, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
+import { clip, drName, listSentence, practicalChips, pronouns, quoteOf, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
 import { listedOnly, matchChips } from "./card";
 import { suburbOf } from "./lib";
 
@@ -85,13 +85,18 @@ export function DoctorCard({ card, labels, saved, onSave, index = 0 }: { card: C
   const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km` : d.telehealth.value === "only" ? "telehealth" : null;
   const where = [specialtyTitle(d.specialty), km].filter(Boolean).join(" · ");
   const practical = [where, ...practicalChips(d).slice(0, 2)].filter(Boolean);
+  const quote = quoteOf(d, 32);
   void suburbOf;
   return (
     <article className="rise" style={{ "--i": index } as React.CSSProperties}>
       <Link href={doctorHref(d.id)} className="press press-soft block">
         <Portrait d={d} saved={saved} onSave={onSave} />
-        <p className="mt-4 text-[16px] leading-[1.5] text-charcoal">{fitSentence(card, labels)}</p>
-        <p className="mt-1.5 text-[14px] text-grey">{practical.join(" · ")}</p>
+        {quote ? (
+          <p className="mt-4 font-display text-[19px] leading-[1.35] text-ink">“{clip(quote.text, 140)}”</p>
+        ) : (
+          <p className="mt-4 text-[16px] leading-[1.5] text-charcoal">{fitSentence(card, labels)}</p>
+        )}
+        <p className="mt-2 text-[14px] text-grey">{practical.join(" · ")}</p>
       </Link>
     </article>
   );

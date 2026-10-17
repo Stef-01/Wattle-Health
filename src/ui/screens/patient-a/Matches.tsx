@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { SearchResponse } from "@/src/data/search-types";
 import { Body, Cta, Divider, Gap, Row, Screen, Sliders, TabBar } from "@/src/ui/kit";
-import { getCurrentRequest, getSavedIds, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
+import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { Dock } from "./Dock";
 import { DoctorCard } from "./DoctorCard";
 import { REACH_KM, restoreCounts, runMatch } from "./lib";
@@ -30,9 +30,18 @@ export function Matches() {
 
   useEffect(() => {
     const found = getCurrentRequest();
-    if (!found) setMissing(true);
-    else setReq(found);
     setSaved(getSavedIds());
+    if (!found) return setMissing(true);
+    if ((found.v ?? 0) < REQUEST_VERSION) {
+      // Stored before the card shape changed (no portraits): run it again, same id.
+      setBusy(true);
+      runMatch({ sentence: found.sentence, suburb: found.suburb, removed: found.removed, anywhere: found.anywhere, id: found.id })
+        .then(setReq)
+        .catch(() => setReq(found))
+        .finally(() => setBusy(false));
+      return;
+    }
+    setReq(found);
   }, []);
 
   async function rerun(input: { anywhere?: boolean; sentence?: string }) {

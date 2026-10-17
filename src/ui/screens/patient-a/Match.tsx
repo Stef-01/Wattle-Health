@@ -91,7 +91,7 @@ export function Match({ rank }: { rank: number }) {
       >
         <PhotoCard
           name={d.name.display}
-          photo={null}
+          photo={d.photo?.url ?? null}
           height={460}
           caption={false}
           topLeft={

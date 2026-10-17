@@ -218,7 +218,7 @@ export function PhotoCard({ name, place, fee, photo, height = 460, caption = tru
     <div className="relative w-full overflow-hidden rounded-card shadow-photo" style={{ height, background: photo ? undefined : "#d9d9d9" }}>
       {photo ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={photo} alt="" className="absolute inset-0 size-full object-cover" />
+        <img src={photo} alt="" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover object-top" />
       ) : (
         <span className="absolute inset-0 flex items-center justify-center font-inter text-[24px] font-medium text-grey">{initialsOf(name)}</span>
       )}

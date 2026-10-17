@@ -5,7 +5,7 @@ import { search } from "@/src/data/api";
 import type { Card, Chip, SearchRequest, SearchResponse } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { regionOf } from "@/src/ui/screens/patient-b/facts";
-import { getRequest, newRequestId, pushRecent, setRequest, type StoredRequest } from "@/src/ui/store";
+import { getRequest, newRequestId, pushRecent, REQUEST_VERSION, setRequest, type StoredRequest } from "@/src/ui/store";
 
 export const DEFAULT_SUBURB = "Brisbane";
 export const REACH_KM = 20;
@@ -19,6 +19,7 @@ export async function runMatch(input: { sentence: string; suburb?: string; remov
   const response: SearchResponse = await search(body);
   const req: StoredRequest = {
     id: input.id ?? newRequestId(),
+    v: REQUEST_VERSION,
     sentence: input.sentence,
     suburb: input.suburb ?? DEFAULT_SUBURB,
     removed: input.removed ?? [],
