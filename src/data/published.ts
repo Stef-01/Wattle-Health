@@ -43,6 +43,8 @@ export type ResearchedDoctor = {
   };
   source: { url: string; page_title?: string; observed_at: string; legal_basis?: string };
   personal_richness?: number;
+  /** Later sweeps record the portrait URL inline; earlier ones live in portraits.json. */
+  photo_url?: string | null;
 };
 
 type ResearchFile = { category: string; researched_at: string; doctors: ResearchedDoctor[] };
@@ -224,7 +226,9 @@ export function withPublished(doctors: DoctorRecord[], discipline: Discipline, r
   if (researched.length === 0) return doctors;
   const photoFor = (r: ResearchedDoctor) => {
     const p = portraits.get(nameKey(r.name));
-    return p?.photo_url ? { url: p.photo_url, sourceUrl: p.source_url, ...(p.alt ? { alt: p.alt } : {}) } : undefined;
+    if (p?.photo_url) return { url: p.photo_url, sourceUrl: p.source_url, ...(p.alt ? { alt: p.alt } : {}) };
+    if (r.photo_url && /^https?:\/\//.test(r.photo_url) && !/chatgpt|midjourney|dall-?e|ai-generated/i.test(r.photo_url)) return { url: r.photo_url, sourceUrl: r.source.url };
+    return undefined;
   };
   const byKey = new Map<string, DoctorRecord>();
   for (const d of doctors) byKey.set(`${d.specialty}|${nameKey(d.name.display)}`, d);
