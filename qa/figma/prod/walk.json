@@ -125,6 +125,11 @@
     "url": "https://wattlehealth.vercel.app/results"
   },
   {
+    "name": "laptop-home",
+    "file": "C:\\Users\\stefa\\wattle-health\\qa\\figma\\prod\\99-laptop-home.png",
+    "url": "https://wattlehealth.vercel.app/"
+  },
+  {
     "name": "laptop-profile",
     "file": "C:\\Users\\stefa\\wattle-health\\qa\\figma\\prod\\99-laptop-profile.png",
     "url": "https://wattlehealth.vercel.app/doctor/obstetrics-gynaecology~erin-wilson"
