@@ -35,7 +35,7 @@ function MatchSection({ card, index, total, labels, saved, onSave }: { card: Car
   const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km away` : null;
   const referral = d.referralRequired?.value === true;
   return (
-    <section className="rise" aria-label={ORDINAL[index]}>
+    <section className="rise" aria-label={ORDINAL[index]} data-match={index}>
       <div className="mb-4 flex items-baseline justify-between">
         <p className="font-display text-[22px] text-ink">{ORDINAL[index]}</p>
         <p className="text-[14px] text-grey">{index + 1} of {total}</p>
@@ -64,6 +64,7 @@ export function Matches() {
   const [saved, setSaved] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [shown, setShown] = useState(1);
+  const [reading, setReading] = useState(0);
   const sentinel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -85,6 +86,20 @@ export function Matches() {
   const cards = (res?.cards ?? []).slice(0, MAX);
   const labels = res?.conditionLabels ?? {};
   const place = (res?.place.suburb ?? req?.suburb ?? "Brisbane").replace(/ City$/, "");
+
+  // Which match is under the top third of the screen, for the progress dots.
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>("section[data-match]"));
+    if (els.length === 0) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setReading(Number(e.target.getAttribute("data-match")));
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [shown]);
 
   // Reaching the end of the last shown profile reveals the next one.
   useEffect(() => {
@@ -118,6 +133,13 @@ export function Matches() {
 
   return (
     <Screen padBottom="pb-[120px]">
+      {cards.length > 1 ? (
+        <div className="material sticky top-0 z-10 -mx-7 mb-3 flex items-center justify-center gap-2 px-7 py-3" aria-label={`Reading match ${reading + 1} of ${cards.length}`}>
+          {cards.map((c, i) => (
+            <span key={c.doctor.id} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === reading ? 28 : 8, background: i === reading ? "#2f5d3a" : i < shown ? "#b9c9bd" : "#e3e3e3", transitionTimingFunction: "var(--ease-out)" }} />
+          ))}
+        </div>
+      ) : null}
       {req ? (
         <p className="text-[15px] leading-[1.5] text-grey">
           {heardSentence(req)}{" "}
