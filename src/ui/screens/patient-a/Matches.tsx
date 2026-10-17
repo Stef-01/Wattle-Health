@@ -13,7 +13,7 @@ import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
 import { placeOf, primaryRoom, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
 import { Dock } from "./Dock";
-import { Portrait } from "./DoctorCard";
+import { fitSentence, Portrait } from "./DoctorCard";
 import { REACH_KM, restoreCounts, runMatch } from "./lib";
 
 const ORDINAL = ["Your top match", "Your second match", "Your third match"];
@@ -40,6 +40,7 @@ function MatchSection({ card, index, total, labels, saved, onSave }: { card: Car
         <p className="font-display text-[22px] text-ink">{ORDINAL[index]}</p>
         <p className="text-[14px] text-grey">{index + 1} of {total}</p>
       </div>
+      <p className="-mt-2 mb-4 text-[15px] leading-[1.45] text-grey">{fitSentence(card, labels)}</p>
       <Portrait d={d} saved={saved} onSave={onSave} eager={index === 0} />
       <div className="mt-4 flex items-start justify-between gap-4">
         <Link href={doctorHref(d.id)} className="press-dim min-w-0">
