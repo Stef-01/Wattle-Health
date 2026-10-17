@@ -12,7 +12,9 @@ import { runMatch } from "./lib";
 import { MIN_SEARCH_MS, Searching } from "./Searching";
 
 type Option = { label: string; phrase: string };
-type Question = { id: string; ask: string; options: Option[]; skip: (chips: Chip[], sentence: string) => boolean };
+type Question = { id: string; ask: string; options: Option[]; skip: (chips: Chip[], sentence: string) => boolean; offer?: (chips: Chip[]) => Option[] };
+
+const ADULT_ONLY = /endometriosis|pcos|polycystic|menopause|perimenopause|pelvic|perinatal|postnatal/i;
 
 const QUESTIONS: Question[] = [
   {
@@ -25,6 +27,11 @@ const QUESTIONS: Question[] = [
       { label: "Me, during or after a pregnancy", phrase: "postnatal" },
     ],
     skip: (chips) => chips.some((c) => c.kind === "population"),
+    // A women's health condition is not something to ask about a child.
+    offer: (chips) => {
+      const all = QUESTIONS[0]!.options;
+      return chips.some((c) => c.kind === "condition" && ADULT_ONLY.test(c.label)) ? all.filter((o) => !/child/i.test(o.label)) : all;
+    },
   },
   {
     id: "how",
@@ -136,7 +143,7 @@ export function Narrow() {
         ))}
         {current && !current.answer && !searching ? (
           <div className="flex flex-col gap-2.5">
-            {current.q.options.map((o, i) => (
+            {(current.q.offer ? current.q.offer(chips ?? []) : current.q.options).map((o, i) => (
               <button
                 key={o.label}
                 type="button"
