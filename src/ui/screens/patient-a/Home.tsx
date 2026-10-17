@@ -5,7 +5,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Clock, Cta, Divider, FieldBox, Gap, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
+import { ArrowRight, Clock, Cta, Divider, FaceStack, FieldBox, Gap, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
 import { EXAMPLES, runMatch } from "./lib";
 import { MIN_SEARCH_MS, Searching } from "./Searching";
@@ -165,7 +165,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
           <Gap h={8} />
           {recent.map((r) => (
             <div key={r.id}>
-              <Row icon={<Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}`} href={`/results`} onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
+              <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}`} href={`/results`} onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
               <Divider />
             </div>
           ))}

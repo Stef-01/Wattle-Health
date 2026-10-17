@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { lookup } from "@/src/data/api";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { DoctorRecord } from "@/src/data/types";
-import { Body, Divider, FieldBox, FigmaIcon, Row, Screen, SectionTitle, TabBar } from "@/src/ui/kit";
+import { Body, Divider, FaceStack, FieldBox, FigmaIcon, Row, Screen, SectionTitle, TabBar } from "@/src/ui/kit";
 import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
 import { getName, getRecent, getRequest, getSavedIds, setName, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
@@ -36,7 +36,7 @@ export function Recent() {
       {rows && rows.length === 0 ? <Body>No searches yet.</Body> : null}
       {rows?.map((r) => (
         <div key={r.id}>
-          <Row icon={<FigmaIcon name="clock" size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} />
+          <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <FigmaIcon name="clock" size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} />
           <Divider />
         </div>
       ))}

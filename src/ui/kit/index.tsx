@@ -133,7 +133,7 @@ export function FieldBox({ children, className }: { children: ReactNode; classNa
 export function Row({ icon, title, sub, meta, href, onClick, chevron = true }: { icon?: ReactNode; title: ReactNode; sub?: ReactNode; meta?: ReactNode; href?: string; onClick?: () => void; chevron?: boolean }) {
   const inner = (
     <>
-      {icon ? <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-[6px] bg-surface text-charcoal">{icon}</span> : null}
+      {icon ? <span className="inline-flex min-h-[34px] min-w-[34px] shrink-0 items-center justify-center rounded-[6px] text-charcoal [&:not(:has(img))]:bg-surface">{icon}</span> : null}
       <span className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="text-[16px] font-medium text-charcoal">{title}</span>
         {sub ? <span className="text-[14px] text-grey">{sub}</span> : null}

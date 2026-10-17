@@ -28,7 +28,7 @@ export async function runMatch(input: { sentence: string; suburb?: string; remov
   };
   if (input.anywhere) req.anywhere = true;
   setRequest(req);
-  pushRecent({ id: req.id, label: recentLabel(req), matches: response.cards.length, at: req.at });
+  pushRecent({ id: req.id, label: recentLabel(req), matches: response.cards.length, at: req.at, faces: response.cards.map((c) => c.doctor.photo?.url).filter((u): u is string => Boolean(u)).slice(0, 3) });
   return req;
 }
 

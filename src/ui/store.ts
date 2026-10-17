@@ -88,6 +88,8 @@ export interface StoredRequest {
 
 export interface RecentSearch {
   id: string;
+  /** Portraits of the matches, for the row (practice-site URLs, hotlinked). */
+  faces?: string[];
   label: string;
   matches: number;
   at: string;

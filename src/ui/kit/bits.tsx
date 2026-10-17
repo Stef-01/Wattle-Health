@@ -129,3 +129,16 @@ export function TogglePill({ on, onChange, children }: { on: boolean; onChange: 
     </button>
   );
 }
+
+/** Up to three overlapping portraits, 32 px, for a recent-search row. */
+export function FaceStack({ urls, size = 32 }: { urls: string[]; size?: number }) {
+  if (urls.length === 0) return null;
+  return (
+    <span className="flex shrink-0 -space-x-2">
+      {urls.slice(0, 3).map((u, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={`${u}-${i}`} src={u} alt="" referrerPolicy="no-referrer" className="rounded-full border-2 border-white object-cover object-top" style={{ width: size, height: size, background: "#e9e9e9" }} />
+      ))}
+    </span>
+  );
+}
