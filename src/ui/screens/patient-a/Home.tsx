@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Clock, Cta, Divider, FieldBox, Gap, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
 import { EXAMPLES, runMatch } from "./lib";
+import { MIN_SEARCH_MS, Searching } from "./Searching";
 
 type Recognition = { lang: string; interimResults: boolean; onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onend: (() => void) | null; start: () => void; stop: () => void };
 type RecognitionCtor = new () => Recognition;
@@ -26,6 +27,7 @@ export function Home() {
   const [listening, setListening] = useState(false);
   const [canListen, setCanListen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [searching, setSearching] = useState<string | null>(null);
   const rec = useRef<Recognition | null>(null);
 
   useEffect(() => {
@@ -44,11 +46,16 @@ export function Home() {
     if (!s || busy) return;
     setBusy(true);
     setError(null);
+    setSearching(s);
     try {
       setDraft(s);
+      const started = Date.now();
       await runMatch({ sentence: s });
+      const wait = MIN_SEARCH_MS - (Date.now() - started);
+      if (wait > 0) await new Promise((r) => setTimeout(r, wait));
       router.push("/results");
     } catch {
+      setSearching(null);
       setError("Could not search just now.");
       setBusy(false);
     }
@@ -151,6 +158,7 @@ export function Home() {
         </>
       ) : null}
       <TabBar active="/" />
+      {searching ? <Searching sentence={searching} /> : null}
     </Screen>
   );
 }

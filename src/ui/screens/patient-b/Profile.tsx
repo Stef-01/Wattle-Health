@@ -25,7 +25,7 @@ function Header({ d }: { d: DoctorRecord }) {
       <div className="flex items-center gap-4">
         {d.photo ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={d.photo.url} alt={d.photo.alt ?? name} referrerPolicy="no-referrer" className="size-[88px] shrink-0 rounded-full object-cover object-top" style={{ background: "#e9e9e9" }} />
+          <img src={d.photo.url} alt={d.photo.alt ?? name} referrerPolicy="no-referrer" className="settle size-[88px] shrink-0 rounded-full object-cover object-top" style={{ background: "#e9e9e9" }} />
         ) : (
           <Avatar name={name} size={88} />
         )}
@@ -158,7 +158,9 @@ export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRec
       <Facts d={d} />
       <Space h={28} />
       {personal ? (
-        <Words d={d} />
+        <div className="rise" style={{ "--i": 2 } as React.CSSProperties}>
+          <Words d={d} />
+        </div>
       ) : (
         <p className="text-[16px] leading-[1.5] text-grey">
           {pr.hasnt} shared how {pr.subject} {pr.practises} yet. What is here comes from the public listing.
@@ -169,7 +171,7 @@ export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRec
         <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
       </Labelled>
       <Space h={16} />
-      <div className="flex flex-col">
+      <div className="rise flex flex-col" style={{ "--i": 5 } as React.CSSProperties}>
         <Research d={d} />
         <Practical d={d} />
         <WhyInline doctor={d} />

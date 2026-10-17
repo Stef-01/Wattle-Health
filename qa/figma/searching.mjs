@@ -1,0 +1,11 @@
+import { chromium } from "@playwright/test";
+const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
+const browser = await chromium.launch();
+const page = await (await browser.newContext({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 2 })).newPage();
+await page.goto(`${BASE}/`); await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await page.goto(`${BASE}/`);
+await page.fill("textarea", "I've had pelvic pain for years and nobody listens. I want someone experienced with endometriosis.");
+await page.click("text=Find my doctor"); await page.waitForTimeout(700);
+await page.screenshot({ path: "qa/figma/demos/x2-searching.png" });
+await page.waitForURL(/\/results/); await page.waitForTimeout(1800);
+await page.screenshot({ path: "qa/figma/demos/x3-results-loaded.png" });
+await browser.close(); console.log("searching shots");

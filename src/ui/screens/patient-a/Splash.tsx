@@ -25,14 +25,14 @@ export function Splash() {
       className="frame cursor-pointer overflow-clip"
       style={{ background: "linear-gradient(180deg, #2f5d3a 0%, #0f2c1c 100%)" }}
     >
-      <div className="absolute left-[141px] top-[390px] flex items-center gap-[10px]">
+      <div className="settle absolute left-[141px] top-[390px] flex items-center gap-[10px]">
         <span className="text-[44px] leading-normal text-white" style={{ fontFamily: '"Lobster", cursive' }}>
           wattle
         </span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset("/figma/leaf.svg")} alt="" width={34} height={34} className="block size-[34px]" />
+        <img src={asset("/figma/leaf.svg")} alt="" width={34} height={34} className="float block size-[34px]" />
       </div>
-      <p className="absolute left-1/2 top-[474px] w-[300px] -translate-x-1/2 text-center text-[20px] font-medium leading-normal text-[#e8e8e8]">Doctors who listen</p>
+      <p style={{ animationDelay: "350ms" }} className="settle absolute left-1/2 top-[474px] w-[300px] -translate-x-1/2 text-center text-[20px] font-medium leading-normal text-[#e8e8e8]">Doctors who listen</p>
     </main>
   );
 }

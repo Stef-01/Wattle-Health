@@ -299,3 +299,150 @@ details > summary::-webkit-details-marker {
     border-top: 1px solid var(--color-divider);
   }
 }
+
+/* ---------------------------------------------------------------- delight */
+/* Every motion here is short, eases out, and switches off under prefers-reduced-motion. */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-enter {
+  animation: page-in 360ms var(--ease-out) both;
+}
+
+/* The searching state: a breathing wattle-green ring and words that arrive one by one. */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.search-orb {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #cfe3d4, #2f5d3a 70%);
+  box-shadow: 0 24px 60px rgba(47, 93, 58, 0.28);
+  animation: breathe 2.4s ease-in-out infinite;
+}
+.search-orb::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(47, 93, 58, 0.25);
+  border-top-color: rgba(47, 93, 58, 0.9);
+  animation: orbit 1.6s linear infinite;
+}
+.word-in {
+  display: inline-block;
+  animation: rise 420ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* Portraits arrive from a soft shimmer, never a pop. */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+.shimmer {
+  background: linear-gradient(100deg, #ececec 30%, #f7f7f7 50%, #ececec 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+.img-fade {
+  opacity: 0;
+  transform: scale(1.03);
+  transition:
+    opacity 520ms var(--ease-out),
+    transform 900ms var(--ease-out);
+}
+.img-fade[data-loaded="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* The heart pops once when it fills. */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pop {
+  animation: pop 360ms var(--ease-out);
+}
+
+/* The leaf on the splash floats; the wordmark settles. */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(6deg);
+  }
+}
+.float {
+  animation: float 3.6s ease-in-out infinite;
+}
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+.settle {
+  animation: settle 900ms var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .word-in,
+  .settle {
+    animation: none;
+  }
+  .search-orb,
+  .search-orb::after,
+  .float,
+  .pop,
+  .shimmer {
+    animation: none;
+  }
+  .img-fade {
+    transition: opacity 200ms ease;
+    transform: none;
+  }
+}

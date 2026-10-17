@@ -6,6 +6,7 @@
 // practice publishes on the page we cite; without one the card carries the doctor's initials
 // on their tint. The whole card opens the profile.
 import Link from "next/link";
+import { useState } from "react";
 import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
@@ -36,15 +37,19 @@ export function fitSentence(card: Card, labels: Record<string, string>): string 
 }
 
 /** The P05 photo block on its own, reused by Saved. */
-export function Portrait({ d, height = 405, saved, onSave }: { d: DoctorRecord; height?: number; saved?: boolean; onSave?: () => void }) {
+export function Portrait({ d, height = 405, saved, onSave, eager = false }: { d: DoctorRecord; height?: number; saved?: boolean; onSave?: () => void; eager?: boolean }) {
   const name = drName(d);
   const [bg, fg] = tintFor(name);
+  const [loaded, setLoaded] = useState(false);
   const suburb = d.rooms.find((r) => r.state === "QLD")?.suburb ?? d.rooms[0]?.suburb ?? null;
   return (
     <div className="relative w-full overflow-hidden rounded-[30px] shadow-photo" style={{ height, background: d.photo ? "#e9e9e9" : bg }}>
       {d.photo ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={d.photo.url} alt={d.photo.alt ?? name} loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover object-top" />
+        <>
+          {!loaded ? <span aria-hidden="true" className="shimmer absolute inset-0" /> : null}
+          <img src={d.photo.url} alt={d.photo.alt ?? name} loading={eager ? "eager" : "lazy"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} data-loaded={loaded} className="img-fade absolute inset-0 size-full object-cover object-top" />
+        </>
       ) : (
         <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-display text-[72px]" style={{ color: fg }}>
           {initialsFor(name)}
@@ -62,7 +67,7 @@ export function Portrait({ d, height = 405, saved, onSave }: { d: DoctorRecord; 
           }}
           className="press absolute right-5 top-5 inline-flex size-11 items-center justify-center rounded-full bg-caption text-white backdrop-blur-[20px]"
         >
-          <Heart size={22} fill={saved ? "currentColor" : "none"} />
+          <Heart key={saved ? "on" : "off"} size={22} fill={saved ? "currentColor" : "none"} className={saved ? "pop" : undefined} />
         </button>
       ) : null}
       <div className="absolute bottom-5 left-5 flex h-[75px] max-w-[calc(100%-40px)] items-center rounded-[15px] bg-caption px-4 py-3 text-white shadow-[0_5px_4.5px_rgba(0,0,0,0.1)] backdrop-blur-[20px]">
@@ -90,7 +95,7 @@ export function DoctorCard({ card, labels, saved, onSave, index = 0 }: { card: C
   return (
     <article className="rise" style={{ "--i": index } as React.CSSProperties}>
       <Link href={doctorHref(d.id)} className="press press-soft block">
-        <Portrait d={d} saved={saved} onSave={onSave} />
+        <Portrait d={d} saved={saved} onSave={onSave} eager={index < 3} />
         {quote ? (
           <p className="mt-4 font-display text-[19px] leading-[1.35] text-ink">“{clip(quote.text, 140)}”</p>
         ) : (
