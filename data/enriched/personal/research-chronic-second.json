@@ -1,0 +1,148 @@
+{
+  "category": "chronic-second",
+  "researched_at": "2026-10-17",
+  "doctors": [],
+  "excluded_candidates": [
+    {
+      "name": "Dr Graham Exelby",
+      "url": "https://mermaidcentralmedicalclinic.com.au/practicing-doctors/dr-graham-exelby/",
+      "reason": "Strong stated focus (leads Long Covid/POTS/fibromyalgia clinic, Mermaid Beach, accepting new patients) but profile and clinic page carry no personal bio (no hobbies, family, why-medicine or lived experience); personal_richness < 3."
+    },
+    {
+      "name": "Dr Georgina Hale",
+      "url": "https://www.halehealthmedicine.com/about",
+      "reason": "Own about page has family tribute and why-medicine in her own words, but CFS/FM, POTS, MCAS, long COVID focus appears only on Buderim Private Hospital profile (https://buderimprivatehospital.com.au/doctors/Georgina-Hale); her own conditions-treated page no longer lists them, and her site promotes ivermectin for COVID. Held back for human review."
+    },
+    {
+      "name": "Dr Jason Lam",
+      "url": "https://www.drjasonlam.com.au/",
+      "reason": "Rich personal bio plus lived experience of hypermobility, POTS and ME/CFS, but practises in Victoria (Sandringham, Balwyn) and complex-illness books are closed."
+    },
+    {
+      "name": "Dr Bryce Joynson",
+      "url": "https://drbryce.com.au/",
+      "reason": "Robina (Vigour/Robina Specialist Suites) listed in EDS Society directory, but own site's focus is ADHD, autism and medicinal cannabis; no stated chronic-fatigue/POTS focus or personal bio."
+    },
+    {
+      "name": "Prof David Kandiah",
+      "url": "https://robinaspecialistsuites.com.au/doctor/prof-david-kandiah/",
+      "reason": "Rheumatologist, Robina; autoimmune focus only, no hypermobility/fibromyalgia focus, no personal bio."
+    },
+    {
+      "name": "Dr Kaverjit Gujral",
+      "url": "https://yfp.com.au/our-team/",
+      "reason": "Yeppoon; lists chronic fatigue syndrome and says his own wellness journey inspired integrative practice, but only one personal dimension; richness 2."
+    },
+    {
+      "name": "Dr Ebby Patel",
+      "url": "https://www.smartclinics.com.au/doctors/dr-ebby-patel/",
+      "reason": "Toowong/West End; states special interest in CFS/ME but bio has no personal content beyond 'sense of humour'."
+    },
+    {
+      "name": "Dr Brendan Hanrahan",
+      "url": "https://www.wesley.com.au/doctors/brendan-hanrahan",
+      "reason": "Auchenflower general physician with dysautonomia/POTS experience; no personal bio on Wesley profile, practice site (aionhealth.com.au) is weight-loss only."
+    },
+    {
+      "name": "Dr Sandeep Gupta",
+      "url": "https://www.lotusholisticmedicine.com.au/dr-sandeep-gupta/",
+      "reason": "Maroochydore; MCAS/CIRS focus but bookings closed, not accepting new patients."
+    },
+    {
+      "name": "Dr Rashmi Cabena",
+      "url": "https://www.freshholistichealth.com.au/dr-rashmi-cabena/",
+      "reason": "Sunshine Coast; lists ME/CFS, fibromyalgia, MCAS, but page states currently not seeing new patients."
+    },
+    {
+      "name": "Dr Alexandra Bernhardi",
+      "url": "https://www.freshholistichealth.com.au/dr-alexandra-bernhardi/",
+      "reason": "Sunshine Coast integrative GP; not accepting new patients and no stated ME/CFS/POTS focus."
+    },
+    {
+      "name": "Dr Michelle Henderson",
+      "url": "https://www.biio.com.au/practitioner/dr-michelle-henderson",
+      "reason": "biio. Australia-wide telehealth; strong dysautonomia/hypermobility focus but clinical-only third-person bio, no personal dimensions; not QLD-based."
+    },
+    {
+      "name": "Dr Mogeshni Govender",
+      "url": "https://www.biio.com.au/practitioner/dr-mogeshni-govender",
+      "reason": "biio. telehealth; POTS/hypermobility/MCAS focus per meta description; page content clinical only, not QLD-based."
+    },
+    {
+      "name": "Dr Ruth Edwards",
+      "url": "https://drruthedwards.com.au/",
+      "reason": "CFS, fibromyalgia, MCAS focus but practice is Melbourne telehealth; not QLD."
+    },
+    {
+      "name": "Dr Julie O'Brien",
+      "url": "https://www.hotdoc.com.au/medical-centres/yeerongpilly-QLD-4105/sandstone-healthcare-yeerongpilly/doctors/dr-julie-o-brien",
+      "reason": "Sandstone Healthcare, hypermobility mentioned only in social posts/HotDoc (disallowed sources); no own-site bio found."
+    },
+    {
+      "name": "Dr Sarah Morrison-Gardiner",
+      "url": "https://www.myhealth.net.au/doctors/dr-sarah-morrison-gardiner/",
+      "reason": "Palm Beach; on NCNED LDN list, profile has family/hobby lines but stated interests are women's/children's health and aged care, no chronic-fatigue focus."
+    },
+    {
+      "name": "Prof Pete Smith",
+      "url": "https://qldallergy.com/our-specialists/",
+      "reason": "Southport allergist noted by NCNED as seeing ME/CFS; own page has no ME/CFS focus and no personal bio."
+    },
+    {
+      "name": "Dr Gary Deed",
+      "url": "https://www.healthcareplusmedical.com.au/DrGaryDeed.html",
+      "reason": "Carindale; NCNED list says sees ME/CFS, own page is diabetes-focused, no personal bio."
+    },
+    {
+      "name": "Dr Nimrod Smit",
+      "url": "https://vitalitymedicalcentre.com.au/about-us/",
+      "reason": "Bundall; on NCNED list, own page has no stated ME/CFS focus (search excerpt only shows origin story)."
+    },
+    {
+      "name": "Dr Elena Douse",
+      "url": "https://healthengine.com.au/doctor/qld/hope-island/dr-elena-douse/p55555",
+      "reason": "On NCNED list; only HealthEngine/aggregator profiles found (disallowed), no own-site bio."
+    },
+    {
+      "name": "Dr Rama Spencer",
+      "url": "https://healthengine.com.au/doctor/qld/ipswich/dr-rama-spencer/p39157",
+      "reason": "On NCNED list; only aggregator profiles; stated interests depression, asthma, sports medicine."
+    },
+    {
+      "name": "Dr Boni Lelina",
+      "url": "https://www.halaxy.com/profile/dr-boni-lelina/gp-general-practitioner/329686",
+      "reason": "On NCNED LDN list; only directory listing, no own-site bio or stated focus."
+    },
+    {
+      "name": "Dr Susan Dragone",
+      "url": "https://platinumhg.com.au/locations/st-andrews",
+      "reason": "Toowoomba, Emerge directory listing; practice page excerpt shows career history only, no stated ME/CFS focus or personal bio found."
+    },
+    {
+      "name": "Dr Sarah Edmundson",
+      "url": "https://directory.emerge.org.au/listing/dr-sarah-edmundson/",
+      "reason": "Cairns, Emerge directory listing only; no own published bio found."
+    },
+    {
+      "name": "Dr Adam Walker",
+      "url": "https://warwickroadmedical.com.au/",
+      "reason": "Ipswich, Emerge directory listing; own site states skin cancer focus, no ME/CFS focus."
+    },
+    {
+      "name": "Dr Stephen Yelland",
+      "url": "https://partneredhealthmedicalcentres.com.au/clinic/bundall-medical-centre/",
+      "reason": "Bundall, Emerge directory listing; no individual bio found."
+    },
+    {
+      "name": "Dr You Sheng Chong",
+      "url": "https://www.cairnshealthcollective.com.au/",
+      "reason": "Cairns Health Collective telehealth GP; general chronic disease interest only, profile on HotDoc (disallowed)."
+    },
+    {
+      "name": "iHealth Indooroopilly long COVID clinicians",
+      "url": "https://www.ihealthcentre.com.au/indooroopilly/about-our-practice/long-covid-clinic/",
+      "reason": "Clinic says several clinicians have had long COVID/CFS but names none; intake moved to waitlist/virtual model (previously confirmed paused)."
+    }
+  ],
+  "notes": "Sources searched: Emerge Australia directory (via chronicfatigue.support mirror, used only as a lead list), Griffith NCNED GP list, Ehlers-Danlos Society directory, Health Hunter POTS/Sunshine Coast listings, GP Show podcast bios, Robina Specialist Suites, Mermaid Central, Fresh Holistic Health, Lotus Holistic Medicine, Yeppoon Family Practice, biio. No candidate met all of: QLD practice, stated ME/CFS/POTS/long-COVID/EDS/MCAS/fibromyalgia focus, own-page personal bio with two or more personal dimensions, and taking new patients. Closest misses: Dr Graham Exelby (focus, no bio) and Dr Georgina Hale (bio, focus only on hospital page, ivermectin content)."
+}
