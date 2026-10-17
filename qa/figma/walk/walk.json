@@ -125,6 +125,11 @@
     "url": "http://localhost:3300/results"
   },
   {
+    "name": "laptop-home",
+    "file": "C:\\Users\\stefa\\wattle-health\\qa\\figma\\walk\\99-laptop-home.png",
+    "url": "http://localhost:3300/"
+  },
+  {
     "name": "laptop-profile",
     "file": "C:\\Users\\stefa\\wattle-health\\qa\\figma\\walk\\99-laptop-profile.png",
     "url": "http://localhost:3300/doctor/obstetrics-gynaecology~erin-wilson"

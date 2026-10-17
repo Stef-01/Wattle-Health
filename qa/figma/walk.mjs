@@ -43,7 +43,8 @@ await go(`${first}/expertise`); await shot("P07-expertise");
 await go(`${first}/why`); await shot("P09-why");
 await go("/adjust"); await shot("P08-adjust");
 await go("/results/none"); await shot("P10-nomatch");
-await go("/saved"); await shot("tab-saved");
+await go("/results"); await page.waitForTimeout(800); await page.getByRole("button", { name: "Save" }).first().click(); await page.waitForTimeout(400);
+await go("/saved"); await page.waitForTimeout(1500); await shot("tab-saved");
 await go("/recent"); await shot("tab-recent");
 await go("/me"); await shot("tab-me");
 await go("/join"); await shot("C01-join");
@@ -59,6 +60,8 @@ const lap = await browser.newPage({ viewport: { width: 1280, height: 800 }, devi
 await lap.goto(`${BASE}/`); await lap.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await lap.goto(`${BASE}/`);
 await lap.fill("textarea", SENTENCE); await lap.click("text=Find my doctor"); await lap.waitForURL(/\/results/); await lap.waitForTimeout(900);
 await lap.screenshot({ path: path.join(OUT, "99-laptop-results.png") }); shots.push({ name: "laptop-results", file: path.join(OUT, "99-laptop-results.png"), url: lap.url() });
+await lap.goto(`${BASE}/`); await lap.waitForTimeout(900);
+await lap.screenshot({ path: path.join(OUT, "99-laptop-home.png") }); shots.push({ name: "laptop-home", file: path.join(OUT, "99-laptop-home.png"), url: lap.url() });
 await lap.goto(`${ORIGIN}${first}`); await lap.waitForTimeout(700);
 await lap.screenshot({ path: path.join(OUT, "99-laptop-profile.png") }); shots.push({ name: "laptop-profile", file: path.join(OUT, "99-laptop-profile.png"), url: lap.url() });
 await browser.close();
