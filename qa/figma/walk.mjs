@@ -13,6 +13,18 @@ const OUT = path.resolve(process.env.OUT ?? "qa/figma/walk");
 fs.mkdirSync(OUT, { recursive: true });
 const SENTENCE = "I've had chronic pelvic pain for years. I feel like nobody listens. I want someone experienced with endometriosis who takes a collaborative approach.";
 
+
+/** From home: answer each narrowing question with its first option until the results load. */
+async function throughNarrow(p) {
+  await p.waitForURL(/\/narrow/);
+  for (let i = 0; i < 6; i++) {
+    if (/\/results/.test(p.url())) break;
+    const opt = p.locator("[data-answer='0']");
+    try { await opt.first().waitFor({ timeout: 8000 }); } catch { break; }
+    await opt.first().click(); await p.waitForTimeout(500);
+  }
+  await p.waitForURL(/\/results/, { timeout: 20000 });
+}
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 2 });
 const page = await ctx.newPage();
@@ -31,7 +43,8 @@ const go = (route) => page.goto(route.startsWith(new URL(BASE).pathname) && new 
 await go("/splash"); await shot("P01-splash");
 await go("/"); await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await go("/"); await shot("P02-home");
 await page.fill("textarea", SENTENCE); await shot("P02-home-filled");
-await page.click("text=Find my doctor"); await page.waitForURL(/\/results/); await page.waitForTimeout(900); await shot("P05-results");
+await page.click("text=Find my doctor"); await page.waitForURL(/\/narrow/); await page.waitForTimeout(900); await shot("P03-narrow");
+await throughNarrow(page); await page.waitForTimeout(1500); await shot("P05-results");
 const first = (await page.locator("a[href*='/doctor/']").first().getAttribute("href")).replace(/\/$/, "");
 await go(first); await page.waitForTimeout(700); await shot("P06-profile");
 await page.evaluate(() => window.scrollBy(0, 700)); await page.waitForTimeout(300); await shot("P06-profile-2");
@@ -43,7 +56,7 @@ await go(`${first}/expertise`); await shot("P07-expertise");
 await go(`${first}/why`); await shot("P09-why");
 await go("/adjust"); await shot("P08-adjust");
 await go("/results/none"); await shot("P10-nomatch");
-await go("/results"); await page.waitForTimeout(800); await page.getByRole("button", { name: "Save" }).first().click(); await page.waitForTimeout(400);
+await go("/results"); await page.waitForTimeout(800); await page.getByRole("button", { name: "Save" }).first().click({ timeout: 8000 }).catch(() => {}); await page.waitForTimeout(400);
 await go("/saved"); await page.waitForTimeout(1500); await shot("tab-saved");
 await go("/recent"); await shot("tab-recent");
 await go("/me"); await shot("tab-me");
@@ -58,7 +71,7 @@ await go("/join/review"); await shot("C08-review");
 // Laptop: the 560 px reading column on white.
 const lap = await browser.newPage({ viewport: { width: 1280, height: 800 }, deviceScaleFactor: 1 });
 await lap.goto(`${BASE}/`); await lap.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await lap.goto(`${BASE}/`);
-await lap.fill("textarea", SENTENCE); await lap.click("text=Find my doctor"); await lap.waitForURL(/\/results/); await lap.waitForTimeout(900);
+await lap.fill("textarea", SENTENCE); await lap.click("text=Find my doctor"); await throughNarrow(lap); await lap.waitForTimeout(1500);
 await lap.screenshot({ path: path.join(OUT, "99-laptop-results.png") }); shots.push({ name: "laptop-results", file: path.join(OUT, "99-laptop-results.png"), url: lap.url() });
 await lap.goto(`${BASE}/`); await lap.waitForTimeout(900);
 await lap.screenshot({ path: path.join(OUT, "99-laptop-home.png") }); shots.push({ name: "laptop-home", file: path.join(OUT, "99-laptop-home.png"), url: lap.url() });

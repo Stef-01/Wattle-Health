@@ -18,13 +18,20 @@ export function BookmarkCircle({ id }: { id: string }) {
   );
 }
 
-export function ContactCta({ doctor, label, note }: { doctor: DoctorRecord; label: string; note?: string }) {
+export function ContactCta({ doctor, label, note, inline = false }: { doctor: DoctorRecord; label: string; note?: string; inline?: boolean }) {
   const [open, setOpen] = useState(false);
   const c = contactOf(doctor);
   const tel = c.phone ? `tel:${c.phone.replace(/[^\d+]/g, "")}` : null;
   return (
     <>
-      <Cta onClick={() => setOpen(true)} note={note}>{label}</Cta>
+      {inline ? (
+        <div className="flex flex-col gap-2">
+          {note ? <p className="caption text-center text-[12px] text-grey">{note}</p> : null}
+          <Cta fixed={false} onClick={() => setOpen(true)}>{label}</Cta>
+        </div>
+      ) : (
+        <Cta onClick={() => setOpen(true)} note={note}>{label}</Cta>
+      )}
       <Sheet open={open} onClose={() => setOpen(false)} title={`Contact ${drShort(doctor)}`}>
         {c.room ? <p className="text-[14px] text-grey">{c.room}</p> : null}
         {tel ? (
@@ -44,10 +51,10 @@ export function ContactCta({ doctor, label, note }: { doctor: DoctorRecord; labe
 }
 
 /** Share the profile URL: the native sheet where it exists, else copy to the clipboard. */
-export function ShareCircle({ name }: { name: string }) {
+export function ShareCircle({ name, path }: { name: string; path?: string }) {
   const [done, setDone] = useState(false);
   async function share() {
-    const url = window.location.href;
+    const url = path ? new URL(path, window.location.origin).toString() : window.location.href;
     try {
       if (navigator.share) await navigator.share({ title: name, url });
       else {

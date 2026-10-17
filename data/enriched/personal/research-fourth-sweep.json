@@ -1,0 +1,1094 @@
+{
+  "category": "fourth-sweep",
+  "researched_at": "2026-10-16",
+  "doctors": [
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Melissa Acreman",
+      "given": "Melissa",
+      "family": "Acreman",
+      "specialty": "obstetrics-gynaecology",
+      "gender": "woman",
+      "practice": {
+        "name": "Dr Melissa Acreman (Coastal IVF rooms)",
+        "address": "Coastal IVF, Maroochydore QLD 4558",
+        "suburb": "Maroochydore",
+        "postcode": "4558",
+        "phone": null,
+        "website": "https://www.drmelissaacreman.com.au/"
+      },
+      "conditions": [
+        "endometriosis"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "FRANZCOG",
+        "obstetrics and high-risk pregnancy",
+        "advanced laparoscopy and hysteroscopy",
+        "pelvic floor and prolapse repair",
+        "colposcopy",
+        "fertility with Coastal IVF",
+        "RANZCOG gold medal",
+        "Griffith University medical educator",
+        "hosts The Uterine Sound podcast",
+        "also consults at Sunshine Coast University Private Hospital, Kawana"
+      ],
+      "personal": {
+        "philosophy_of_care": "A true generalist across obstetrics and gynaecology, listening to concerns and customising treatment around the patient's values and needs, with an emphasis on comfort and dignity.",
+        "why_medicine": null,
+        "communication_approach": "Listens to your concerns and customises a treatment plan based on your values and needs.",
+        "communication": [
+          "listens",
+          "collaborative",
+          "gentle"
+        ],
+        "lived_experience": null,
+        "hobbies": [
+          "Beach",
+          "Family time",
+          "Walking her German Shepherd, Lexa",
+          "Hosting The Uterine Sound podcast"
+        ],
+        "outside_medicine": "Hosts the obstetrics and gynaecology education podcast The Uterine Sound; coordinates Griffith University medical student teaching; volunteers as an Amare AIMS course facilitator.",
+        "quotes": [
+          {
+            "text": "When she's not working, you can find Dr Mel at the beach, spending time with family or walking her cheeky German Shepherd - Lexa!",
+            "about": "hobbies"
+          },
+          {
+            "text": "In her spare time, Dr Mel hosts popular medical education podcast 'The Uterine Sound', an obstetrics and gynaecology podcast aimed at providing the latest medical information for doctors, midwives and specialists working in women's health.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Dr Mel will listen to your concerns and customise a treatment plan based on your values and needs.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.drmelissaacreman.com.au/about",
+        "page_title": "Dr Melissa Acreman - about Me",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their personal website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://images.squarespace-cdn.com/content/v1/678b5d38dfad4c2c1a44cb9d/7cad69fb-94d4-4515-8605-704cd48c2963/WhatsApp+Image+2024-10-30+at+12.49.30_6d998acf.jpg",
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Taane Morris",
+      "given": "Taane",
+      "family": "Morris",
+      "specialty": "paediatrics",
+      "gender": "woman",
+      "practice": {
+        "name": "Cairns Paediatrics on Barr St",
+        "address": "Barr St Markets, 2/532 Mulgrave Road, Earlville QLD 4870",
+        "suburb": "Earlville",
+        "postcode": "4870",
+        "phone": "07 4242 5300",
+        "website": "https://cairns-doctors.com.au/cairns-paediatrics/"
+      },
+      "conditions": [
+        "adhd",
+        "autism",
+        "sleep"
+      ],
+      "populations": [
+        "child",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "FRACP general paediatrician",
+        "developmental and behavioural paediatrics",
+        "infant wellbeing",
+        "adolescent medicine",
+        "autism diagnosis",
+        "global developmental delay",
+        "UQ graduate 2010, trained Cairns, Brisbane, Rockhampton, Townsville and Sunshine Coast",
+        "$100 non-refundable booking fee",
+        "accepting referrals"
+      ],
+      "personal": {
+        "philosophy_of_care": "Compassionate, evidence-based care from birth to adolescence through a collaborative, trustworthy approach that focuses on individual needs and strengthens families and communities.",
+        "why_medicine": null,
+        "communication_approach": "Collaborative and trustworthy, focused on each child's individual needs.",
+        "communication": [
+          "collaborative",
+          "evidence-based",
+          "gentle"
+        ],
+        "lived_experience": "Began her career and paediatric training in Cairns, trained around Queensland, then moved her family back to Cairns.",
+        "hobbies": [
+          "Time in nature with her husband and two daughters",
+          "Being creative",
+          "Reading",
+          "Swimming"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Recently, my family and I relocated back to Cairns to appreciate this unique part of Australia.",
+            "about": "lived"
+          },
+          {
+            "text": "Outside of work, I love spending time with my husband and two daughters in nature, being creative, reading, and swimming.",
+            "about": "hobbies"
+          },
+          {
+            "text": "I believe in a collaborative, trustworthy approach that focuses on individual needs and ways to strengthen families and communities.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://cairns-doctors.com.au/provider/dr-taane-morris-paediatrician/",
+        "page_title": "Dr Taane Morris Paediatrician | Cairns Doctors on Barr St",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://cairns-doctors.com.au/wp-content/uploads/2025/03/Dr-Taane-Morris-Portrait.jpg",
+      "personal_richness": 4
+    },
+    {
+      "telehealth": "some",
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Katie Boles",
+      "given": "Katie",
+      "family": "Boles",
+      "specialty": "psychiatry",
+      "gender": "woman",
+      "practice": {
+        "name": "Townsville Private Practice (Townsville Private Clinic)",
+        "address": "136 Wills Street, Townsville QLD 4810",
+        "suburb": "Townsville",
+        "postcode": "4810",
+        "phone": "07 4431 1690",
+        "website": "https://townsvilleprivate.com.au/healthcare-team/katie-boles/"
+      },
+      "conditions": [
+        "anxiety",
+        "depression",
+        "psychosis",
+        "perinatal-mh",
+        "trauma"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "FRANZCP consultant psychiatrist",
+        "inpatients and outpatients at Townsville Private Clinic",
+        "mood and anxiety disorders",
+        "PTSD",
+        "perinatal mental health",
+        "rTMS and esketamine",
+        "JCU graduate 2013, trained Townsville University Hospital",
+        "worked at Townsville Aboriginal and Islander Health Service",
+        "young adults",
+        "telehealth on request"
+      ],
+      "personal": {
+        "philosophy_of_care": "Excellent, evidence-based psychiatric care delivered with kindness and compassion, in partnership with patients, their families and other health professionals.",
+        "why_medicine": null,
+        "communication_approach": "Caring, empathetic and humble; educates patients about their condition and works collaboratively towards recovery goals.",
+        "communication": [
+          "gentle",
+          "collaborative",
+          "evidence-based",
+          "culturally-safe"
+        ],
+        "lived_experience": "Townsville is her hometown; raised and educated there, and has worked in rural and remote North Queensland.",
+        "hobbies": [
+          "Living in North Queensland",
+          "Time with family and friends",
+          "Spoiling her sausage dogs"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Townsville is Dr Boles' hometown. She was raised and educated in Townsville and completed her Bachelor of Medicine and Bachelor of Surgery (MBBS) at James Cook University in 2013.",
+            "about": "lived"
+          },
+          {
+            "text": "Outside of Psychiatry, Dr Boles enjoys living in North Queensland, spending time with family and friends and spoiling her sausage dogs.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She is committed to providing excellent, evidence based psychiatric care to all of her patients with kindness and compassion.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://townsvilleprivate.com.au/healthcare-team/katie-boles/",
+        "page_title": "Dr Katie Boles | Townsville Private Clinic",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from the hospital specialist page; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://ahcprodomfmwss23cgeu.blob.core.windows.net/aurorahealthcare/media/doctors/doctor/2h1ferinvb4fqaejihgkakcpk__IAN1260.jpg",
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 8,
+      "name": "Dr Anusha Lazzari",
+      "given": "Anusha",
+      "family": "Lazzari",
+      "specialty": "obstetrics-gynaecology",
+      "gender": "woman",
+      "practice": {
+        "name": "Dr Anusha Lazzari at Apple Tree Medical Smithfield",
+        "address": "2/2-6 Cumberland Avenue, Smithfield QLD 4879",
+        "suburb": "Smithfield",
+        "postcode": "4879",
+        "phone": "07 4038 2777",
+        "website": "https://dranushalazzari.com/"
+      },
+      "conditions": [
+        "endometriosis",
+        "pelvic-pain"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "FRANZCOG 2018",
+        "gynaecology-focused private practice since July 2024 (no private obstetrics listed)",
+        "regional and remote women's health",
+        "colposcopy and vulvoscopy",
+        "menstrual disorders and abnormal bleeding",
+        "pelvic floor prolapse",
+        "contraception and pre-pregnancy counselling",
+        "culturally diverse patients",
+        "UK-trained, in Australia since 2008"
+      ],
+      "personal": {
+        "philosophy_of_care": "High-quality, evidence-based, personalised and discreet care for women in regional and remote communities, meeting individual needs.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "evidence-based",
+          "culturally-safe"
+        ],
+        "lived_experience": "Emigrated from the UK in 2008; the closure of Cairns Private Hospital's maternity service in 2023 affected her greatly, and she opened her own gynaecology practice in 2024.",
+        "hobbies": [
+          "Gardening",
+          "Growing orchids",
+          "Environmental conservation and sustainable living",
+          "Dressmaking",
+          "Costume design"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "The closure of The Cairns Private Hospital Maternity service in 2023 affected me greatly as caring for mothers and babies in our community was an immensely rewarding part of my life.",
+            "about": "lived"
+          },
+          {
+            "text": "Outside of work, I am a keen gardener and orchid grower. I have a passion for environmental conservation and sustainable living, as well as dress making and costume design.",
+            "about": "hobbies"
+          },
+          {
+            "text": "My team is passionate about personalized, discreet and high quality healthcare for women.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://dranushalazzari.com/",
+        "page_title": "Home | Dr Anusha Lazzari",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their personal website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://dranushalazzari.com/wp-content/uploads/Anusha.jpg",
+      "personal_richness": 4
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Akhilesh Tiwari",
+      "given": "Akhilesh",
+      "family": "Tiwari",
+      "specialty": "pain-medicine",
+      "gender": "man",
+      "practice": {
+        "name": "Ramsay Consulting Suites Cairns (Cairns Private Hospital)",
+        "address": "Level 1, 12A, 193-197 Lake Street, Cairns QLD 4870",
+        "suburb": "Cairns",
+        "postcode": "4870",
+        "phone": "07 4052 5353",
+        "website": "https://www.nqpain.com.au/"
+      },
+      "conditions": [
+        "chronic-pain"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "FFPMANZCA pain specialist and FANZCA anaesthetist",
+        "interventional pain: nerve blocks, epidurals, radiofrequency ablation, spinal cord stimulators",
+        "chronic post-surgical pain",
+        "low back, hip, knee and shoulder pain",
+        "point-of-care ultrasound",
+        "trained India, Singapore and Toronto; Townsville University Hospital since 2016",
+        "also consults in Townsville and on the Gold Coast",
+        "research-active"
+      ],
+      "personal": {
+        "philosophy_of_care": "Works closely with patients and their GPs so that pain management plans are started promptly.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "collaborative",
+          "research-active"
+        ],
+        "lived_experience": "Trained in India, then Singapore and Toronto before settling in North Queensland in 2016.",
+        "hobbies": [
+          "Travel",
+          "Basketball",
+          "Cricket",
+          "Table tennis",
+          "Cycling",
+          "Time with his wife Priya and kids Anshi and Advik"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Outside work, he is an avid traveller and enjoys basketball, cricket, table tennis, cycling, and spending time with his wife Priya and kids Anshi and Advik.",
+            "about": "hobbies"
+          },
+          {
+            "text": "He works closely with the patients and General Practitioners to ensure that the formulated plans are initiated promptly.",
+            "about": "approach"
+          },
+          {
+            "text": "He received his initial training in India before moving to National University Hospital Singapore to work as a clinical fellow in Anaesthesia and Chronic pain.",
+            "about": "lived"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.ramsayhealth.com.au/en/specialists-and-practitioners/dr-akhilesh-tiwari/",
+        "page_title": "Dr Akhilesh Tiwari | Ramsay Health Care",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from the hospital specialist page; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://ramsayprod.blob.core.windows.net/media/specialist/profilepictures/15579.jpg?v=639277936516044830",
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 14,
+      "name": "Dr Chris Toumpas",
+      "given": "Chris",
+      "family": "Toumpas",
+      "specialty": "paediatrics",
+      "gender": "man",
+      "practice": {
+        "name": "Paeds in a Pod Woolloongabba",
+        "address": "Suite 1, 12 Annerley Road, Woolloongabba QLD 4102",
+        "suburb": "Woolloongabba",
+        "postcode": "4102",
+        "phone": "07 3177 2000",
+        "website": "https://paedsinapod.com.au/"
+      },
+      "conditions": [
+        "adhd",
+        "autism",
+        "anxiety"
+      ],
+      "populations": [
+        "child",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "FRACP 2012, founding director of Paeds in a Pod",
+        "full-time private practice with urgent review capacity",
+        "newborn to school leaver",
+        "schooling problems and developmental and mental health disorders",
+        "asthma, allergies and acute paediatrics",
+        "neonatology",
+        "former Head of Paediatrics, Greenslopes Private Hospital",
+        "UQ Senior Lecturer",
+        "available for new patients",
+        "also sees patients at Mater Children's Private and Mater Mothers' Private"
+      ],
+      "personal": {
+        "philosophy_of_care": "Comprehensive, holistic care for children and their families using the most up-to-date knowledge, with continuity of care treated as paramount.",
+        "why_medicine": null,
+        "communication_approach": "Described by colleagues and patients as attentive and caring; builds long-term relationships with the whole family.",
+        "communication": [
+          "holistic",
+          "listens",
+          "research-active"
+        ],
+        "lived_experience": null,
+        "hobbies": [
+          "Photography",
+          "Squash",
+          "Time with his three young children"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Outside of work, Dr Toumpas enjoys spending time with his family including three young children. He also enjoys photography and squash.",
+            "about": "hobbies"
+          },
+          {
+            "text": "My mission is to provide comprehensive medical care to children and their families using a holistic approach with the most up to date knowledge and expertise.",
+            "about": "approach"
+          },
+          {
+            "text": "Dr Toumpas places continuity of care for his patients as paramount and instrumental to his approach to medical practice.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://paedsinapod.com.au/professional/woolloongabba-paediatrician-mater-hospital-doctor-chris-toumpas-psychiatry-asthma-allergies-school-developmental-adhd-anxiety-noenatal/",
+        "page_title": "Dr Chris Toumpas - Paeds in a pod",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://paedsinapod.com.au/wp-content/uploads/Practitioner-profile-Dr-Chris-Toumpas.jpg",
+      "personal_richness": 3
+    },
+    {
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 30,
+      "name": "Dr Sian Hebron",
+      "given": "Sian",
+      "family": "Hebron",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "The Menopause Connection",
+        "address": "Mind & Body, 4/6 Swanbourne Way, Noosaville QLD 4566",
+        "suburb": "Noosaville",
+        "postcode": "4566",
+        "phone": "0411 656 839",
+        "website": "https://www.themenopauseconnection.com.au/"
+      },
+      "conditions": [
+        "menopause",
+        "pcos",
+        "endometriosis"
+      ],
+      "populations": [
+        "adult",
+        "older-adult"
+      ],
+      "focus_tags": [
+        "GP with 30+ years in women's health",
+        "perimenopause and menopause",
+        "PMDD",
+        "hormonal migraine",
+        "contraception",
+        "longer appointments",
+        "telehealth Australia-wide",
+        "trained Royal Free Hospital London, in Australia since 1992",
+        "podcast and conference speaker",
+        "open Tuesday to Thursday"
+      ],
+      "personal": {
+        "philosophy_of_care": "Science-backed advice, real conversations, longer appointments and ongoing support, so women stop being told it is just their age or all in their head.",
+        "why_medicine": "Started The Menopause Connection in 2024 after seeing smart, capable women repeatedly dismissed about their hormones and health.",
+        "communication_approach": "Evidence-based, personalised and practical, with just the right amount of humour.",
+        "communication": [
+          "listens",
+          "long-appointments",
+          "evidence-based",
+          "collaborative",
+          "direct"
+        ],
+        "lived_experience": "Trained in London and moved to Australia in 1992; mother of two daughters.",
+        "hobbies": [
+          "Hiking",
+          "Paddling",
+          "Exploring remote, cold places",
+          "Time with her two daughters"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "I kept seeing the same pattern: smart, capable women being told \"it's just your age\" or \"it's all in your head.\" So I created a space where women could finally feel heard.",
+            "about": "why"
+          },
+          {
+            "text": "You'll find me off the beaten track, usually with hiking boots or a paddle in hand. I love exploring remote places (the colder the better), and I spend as much time as I can with my two daughters.",
+            "about": "hobbies"
+          },
+          {
+            "text": "My approach is grounded in evidence-based medicine, personalised care, and practical strategies, with just the right amount of humour, because let's be honest, sometimes we need to laugh through the chaos.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.themenopauseconnection.com.au/about/",
+        "page_title": "About - The Menopause Connection",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://www.themenopauseconnection.com.au/wp-content/uploads/2026/04/About-Dr-Sian.jpg",
+      "personal_richness": 5
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Rachel Collings",
+      "given": "Rachel",
+      "family": "Collings",
+      "specialty": "obstetrics-gynaecology",
+      "gender": "woman",
+      "practice": {
+        "name": "SANA Health Centre",
+        "address": "Suite 15/9 Scott Street, East Toowoomba QLD 4350",
+        "suburb": "East Toowoomba",
+        "postcode": "4350",
+        "phone": "07 4638 5533",
+        "website": "https://www.sanahealthcentre.com.au/"
+      },
+      "conditions": [
+        "endometriosis",
+        "pelvic-pain"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "gynaecologist and fertility specialist (no obstetric care)",
+        "AGES fellowship in advanced minimally invasive surgery",
+        "Masters in Reproductive Medicine",
+        "abnormal bleeding",
+        "IVF, IUI, donor and surrogacy",
+        "pelvic pain research grants",
+        "founder of SANA Health Centre",
+        "Darling Downs"
+      ],
+      "personal": {
+        "philosophy_of_care": "High-quality, collaborative women's health care in Toowoomba's regional setting, where expertise is shared across the team.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "collaborative",
+          "evidence-based"
+        ],
+        "lived_experience": "Grew up in rural Queensland and, after training in Melbourne, Brisbane and the Gold Coast, settled back in Toowoomba with her family.",
+        "hobbies": [
+          "Time with her husband Adam, a vet and farmer from Stanthorpe",
+          "Her young children"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Rachel grew up in rural Queensland and after completing her specialist training in Melbourne, Brisbane and the Gold Coast has settled in Toowoomba with her family.",
+            "about": "lived"
+          },
+          {
+            "text": "Outside of work, Rachel enjoys spending time with her husband Adam, who is a vet and farmer from Stanthorpe, and her young children.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Rachel has a particular interest in reproductive medicine, fertility, endometriosis, pelvic pain and abnormal bleeding.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.sanahealthcentre.com.au/our-teame",
+        "page_title": "Our Team - Sana Health Centre - Women's Health Toowoomba",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://images.squarespace-cdn.com/content/v1/67c76ebfcc7eda573a2fd9ec/5cf13c5c-d29a-4e12-8653-d9fe563ae792/7E1A9375.jpg",
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Hannah Windle",
+      "given": "Hannah",
+      "family": "Windle",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "SANA Health Centre",
+        "address": "Suite 15/9 Scott Street, East Toowoomba QLD 4350",
+        "suburb": "East Toowoomba",
+        "postcode": "4350",
+        "phone": "07 4638 5533",
+        "website": "https://www.sanahealthcentre.com.au/"
+      },
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "women's health GP, FRACGP",
+        "DRANZCOG",
+        "Master of Science in Clinical Embryology (Oxford)",
+        "contraception and IUD/Implanon insertion",
+        "sexual health",
+        "preconception and fertility care",
+        "perimenopause and hormonal care",
+        "no referral needed",
+        "Sydney Child Health Program"
+      ],
+      "personal": {
+        "philosophy_of_care": "Evidence-based gynaecological, contraceptive, fertility and menopausal care that supports women's lifestyle decisions.",
+        "why_medicine": "Has wanted from day one to work with women to improve their health and support their lifestyle decisions.",
+        "communication_approach": null,
+        "communication": [
+          "evidence-based",
+          "collaborative"
+        ],
+        "lived_experience": "Grew up in Gatton and knows the Toowoomba and Darling Downs region; has worked in the Toowoomba Base Hospital emergency department.",
+        "hobbies": [
+          "Exercising",
+          "Cooking",
+          "Gardening",
+          "Time with her young family"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "From day one, Hannah has wanted to work with women to improve their health and support their lifestyle decisions.",
+            "about": "why"
+          },
+          {
+            "text": "Hannah grew up in Gatton and is familiar with Toowoomba and the Darling Downs region.",
+            "about": "lived"
+          },
+          {
+            "text": "Outside of work she enjoys exercising, cooking, gardening, and time with her young family.",
+            "about": "hobbies"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.sanahealthcentre.com.au/our-teame",
+        "page_title": "Our Team - Sana Health Centre - Women's Health Toowoomba",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://images.squarespace-cdn.com/content/v1/67c76ebfcc7eda573a2fd9ec/e8fe9785-2eb8-4eb5-bccc-088c0181c9ea/7E1A8982.jpeg",
+      "personal_richness": 4
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Britta Jensen",
+      "given": "Britta",
+      "family": "Jensen",
+      "specialty": "paediatrics",
+      "gender": "woman",
+      "practice": {
+        "name": "Snap Paediatrics",
+        "address": "The Sports Hub, Ground Floor, Suite 1c, 26 Main Drive, Bokarina QLD 4575",
+        "suburb": "Bokarina",
+        "postcode": "4575",
+        "phone": "07 5356 9311",
+        "website": "https://www.snappaediatrics.com.au/"
+      },
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "child",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "FRACP general paediatrician",
+        "growth and development",
+        "behavioural and learning difficulties",
+        "ADHD assessments for some older children (per page image caption)",
+        "acute and chronic medical conditions",
+        "families from diverse backgrounds",
+        "medical education and supervising trainees",
+        "trained in Germany, Tasmania and Queensland",
+        "consults Wednesday and Thursday",
+        "newly in private practice"
+      ],
+      "personal": {
+        "philosophy_of_care": "Holistic paediatric care that treats illness and promotes overall wellbeing, with personalised, family-centred care.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "holistic",
+          "culturally-safe"
+        ],
+        "lived_experience": "Originally from Germany, where she earned her medical degree and began paediatric training before relocating to Australia.",
+        "hobbies": [
+          "Hiking",
+          "Camping",
+          "Stand-up paddleboarding",
+          "Time with her husband and two children"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Originally from Germany, she earned her medical degree there and began her paediatric training before relocating to Australia.",
+            "about": "lived"
+          },
+          {
+            "text": "Outside of medicine, Britta enjoys hiking, camping, and stand-up paddleboarding, as well as spending quality time with her husband and two children.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Britta has a particular passion for supporting families from diverse backgrounds, she values a holistic approach to paediatric care, focusing on not only treating illnesses but also promoting overall well-being.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.snappaediatrics.com.au/fast-tracked-paediatric-care-1",
+        "page_title": "Fast Tracked Paediatric Care - Snap Paediatrics | Sunshine Coast",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://images.squarespace-cdn.com/content/v1/6438e2eaf24d46536632159a/ba6c225f-aa43-40d4-8b7d-afa48026ed11/Britta+-+Grey.png",
+      "personal_richness": 3
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English",
+        "Cantonese"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Andrew Law",
+      "given": "Andrew",
+      "family": "Law",
+      "specialty": "paediatrics",
+      "gender": "man",
+      "practice": {
+        "name": "MyPaeds Specialist Clinic",
+        "address": "Suite 207/1808 Logan Road, Upper Mount Gravatt QLD 4122",
+        "suburb": "Upper Mount Gravatt",
+        "postcode": "4122",
+        "phone": "07 3543 8888",
+        "website": "https://mypaeds.au/"
+      },
+      "conditions": [],
+      "populations": [
+        "child",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "FRACP general paediatrician",
+        "babies to adolescents",
+        "developmental paediatrics",
+        "neonatology",
+        "adolescent and young adult health",
+        "perinatal mother and infant mental health experience",
+        "paediatric rheumatology and oncology experience",
+        "Griffith University lecturer",
+        "research-active",
+        "welcomes all new referrals",
+        "no named condition on his page; conditions left empty"
+      ],
+      "personal": {
+        "philosophy_of_care": "Supports each child and family to promote health, quality of life, growth and development.",
+        "why_medicine": null,
+        "communication_approach": "Friendly, empathetic and down-to-earth; culturally aware and sensitive.",
+        "communication": [
+          "gentle",
+          "culturally-safe",
+          "research-active"
+        ],
+        "lived_experience": "Born and raised in Brisbane; fluent in Cantonese.",
+        "hobbies": [
+          "Cafes and parks with his wife, young baby and cavoodle",
+          "Travelling the world",
+          "Camping with family and friends in Queensland"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Outside of work, Andrew likes to relax and recharge with his wife, young baby, and cavoodle at cafes and parks in Brisbane.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Andrew is a true Brisbane local having been born and raised here. He can speak fluent Cantonese as well. He truly understands the importance of being culturally aware and sensitive.",
+            "about": "lived"
+          },
+          {
+            "text": "Dr Andrew Law is a specialist Paediatrician who is friendly, empathetic, and down-to-earth.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://mypaeds.au/team/dr-andrew-law/",
+        "page_title": "Dr Andrew Law - MyPaeds Specialist Clinic",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://mypaeds.au/wp-content/uploads/2024/12/Andrew-Law-MyPaeds-Specialist-Clinic.jpg",
+      "personal_richness": 4
+    },
+    {
+      "telehealth": null,
+      "referral_required": true,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "name": "Dr Yassmin Musthaffa",
+      "given": "Yassmin",
+      "family": "Musthaffa",
+      "specialty": "paediatrics",
+      "gender": "woman",
+      "practice": {
+        "name": "Paedicare",
+        "address": "Salmon Building, Mater South Brisbane campus, South Brisbane QLD 4101",
+        "suburb": "South Brisbane",
+        "postcode": "4101",
+        "phone": null,
+        "website": "https://paedicare.com.au/"
+      },
+      "conditions": [],
+      "populations": [
+        "child",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "dual FRACP: general paediatrics and paediatric endocrinology",
+        "thyroid, adrenal, puberty and pituitary disorders",
+        "Type 1 diabetes, PhD 2024 on immunotherapy biomarker",
+        "leads the Type 1 Diabetes paediatric service at Logan Hospital",
+        "newborns to adolescents",
+        "culturally competent care",
+        "ANZSPED Young Investigator Award",
+        "no named closed-list condition on the page; conditions left empty"
+      ],
+      "personal": {
+        "philosophy_of_care": "Well-rounded, family-centred, holistic care so a child with endocrine concerns does not have to see multiple specialists.",
+        "why_medicine": "Trained in two paediatric specialties because she felt strongly it would let her provide well-rounded, family-centred, holistic care.",
+        "communication_approach": null,
+        "communication": [
+          "holistic",
+          "culturally-safe",
+          "research-active"
+        ],
+        "lived_experience": "Spent her early childhood in Zambia and later childhood in New Zealand before working across New Zealand and Queensland.",
+        "hobbies": [
+          "Coaching her daughter's netball team",
+          "Gardening",
+          "Her three children, dog Marley and chickens Peri-peri, Butter and Teriyaki"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Yassmin spent her early childhood in Zambia and later childhood in New Zealand.",
+            "about": "lived"
+          },
+          {
+            "text": "She is a mother of three very different children (one book worm, one social butterfly and a feisty 9-month-old), a dog named Marley and three chickens named Peri-peri, Butter and Teriyaki. She coaches her daughter's netball team and loves gardening.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Yassmin trained in two different paediatric specialties because she felt strongly that this would enable her to provide well-rounded, family-centred, holistic care.",
+            "about": "why"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://paedicare.com.au/private-paediatricians-brisbane/",
+        "page_title": "Private Paediatricians Brisbane | Mater Mother's Private",
+        "observed_at": "2026-10-16",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "photo_url": "https://paedicare.com.au/wp-content/uploads/2022/02/IMG_20190223_161001__02-crop200.jpg",
+      "personal_richness": 4
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "name": "Dr Trent Grundy",
+      "url": "https://www.cairnsprivate.com.au/For-GPs/Specialists/cairns-private-hospital/rheumatology/108505/dr-trent-grundy",
+      "reason": "Cairns-born rheumatologist with richness 3 (wife, two boys, local parents and brother, boating, hiking, camping) but neither this page nor fnqrheumatology.com.au names a closed-list condition (inflammatory arthritis, lupus, gout, vasculitis only)."
+    },
+    {
+      "name": "Dr Sara Lee",
+      "url": "https://www.snappaediatrics.com.au/fast-tracked-paediatric-care-1",
+      "reason": "Richness 3 (nature photography, music, desserts, Monash Malaysia then impoverished communities) but no closed-list condition named and the sweep was capped at 12."
+    },
+    {
+      "name": "Dr Scott Schofield",
+      "url": "https://www.snappaediatrics.com.au/dr-scott-schofield",
+      "reason": "Father of two and detailed career history, but no hobbies or lived-experience content; richness 2."
+    },
+    {
+      "name": "Dr Nicole Bertram",
+      "url": "https://www.snappaediatrics.com.au/dr-nicole-bertram",
+      "reason": "Why-medicine (high school interest) and motherhood only; no hobbies; richness 2."
+    },
+    {
+      "name": "Dr Thuy-Tien Vo",
+      "url": "https://www.snappaediatrics.com.au/fast-tracked-paediatric-care-1",
+      "reason": "International training story and four languages, but no hobbies, family or why-medicine content; richness 2."
+    },
+    {
+      "name": "Dr Michelle Fryer",
+      "url": "https://drmichellefryer.com.au/about-dr-michelle-fryer/",
+      "reason": "Gold Coast parent-infant psychiatrist with a first-person mission statement, but the about page is career history only; richness 2."
+    },
+    {
+      "name": "Dr Sangeetha Karunagaran",
+      "url": "https://www.drsangeethakarunagaran.com/",
+      "reason": "Toowoomba child and adolescent psychiatrist; page is professional only (Toowoomba resident 10 years); richness 1."
+    },
+    {
+      "name": "Dr Sarina Kempe",
+      "url": "https://drsarinakempe.com.au/",
+      "reason": "Sunshine Coast rheumatologist; born in Germany, educated in Malaysia, but no hobbies or family content and no closed-list condition; richness 2."
+    },
+    {
+      "name": "Dr Ellen Harker",
+      "url": "https://www.sanahealthcentre.com.au/our-teame",
+      "reason": "Gynaecologist and colposcopist; one line of personal content (active lifestyle, creative pursuits, husband and two daughters) and no closed-list condition; richness 2."
+    },
+    {
+      "name": "Dr Naisan Samadi, Dr Garth Douglas, Dr Betty Wamola, Dr Ambi Srinivasan",
+      "url": "https://townsvillepaediatrics.com.au/",
+      "reason": "Townsville Paediatrics group page; Samadi (outdoors, family) and Douglas (grew up regional, ADHD/ASD) each reach richness 2 only; Wamola and Srinivasan have no personal content."
+    },
+    {
+      "name": "Dr Jane Hay, Dr Dinesh Nagaraj",
+      "url": "https://townsvilleprivate.com.au/mental-health/",
+      "reason": "Townsville Private Clinic psychiatrists surfaced in search; individual pages not scraped this sweep (rate-limited) so not assessed."
+    },
+    {
+      "name": "Dr Ryan Eisemann",
+      "url": "https://paedsinapod.com.au/professional/dr-ryan-eisemann-woolloongabba-general-paediatrician-brisbane-development-attachment-children-baby-newborn/",
+      "reason": "Richness 3 (father of two, cocker spaniel Angus, pram walks through Greenslopes, pre-medicine psychology and peace studies) but no closed-list condition named and the sweep was capped at 12."
+    },
+    {
+      "name": "Dr Sarah Jackson",
+      "url": "https://paedsinapod.com.au/professional/greenslopes-paediatrician-doctor-sarah-jackson-newborn-neonatal-special-care-premature-baby-babies/",
+      "reason": "Neonatal focus, parent of two; generic placeholder profile image, no hobbies; richness 2."
+    },
+    {
+      "name": "Dr Vicki McCarthy",
+      "url": "https://paedsinapod.com.au/professional/dr-vicki-mccarthy-paediatrician-sunshine-coast-neonatal-adhd-autism-health-developmental-behavioural/",
+      "reason": "Sippy Downs paediatrician with ADHD and autism focus; one personal line (mother to a young child, nature, reading); richness 2."
+    },
+    {
+      "name": "Dr Julie Beak, Dr Fifi Djatmiko, Dr John Gunn, Dr Priyam Jha, Dr Ingrid Bucens, Dr Dallas Fowler",
+      "url": "https://paedicare.com.au/private-paediatricians-brisbane/",
+      "reason": "Paedicare group page; Beak (mother of four, camping, cycling), Gunn (Brisbane-born, Alice Springs year, camping, golf) and Jha (two small children, reading, cooking, Hindi) reach richness 3 but name no closed-list condition; Djatmiko, Bucens and Fowler are richness 2 or less. Musthaffa taken from this page."
+    },
+    {
+      "name": "Dr Ruth Surman",
+      "url": "https://cd.net.au/our-team/developmental-paediatrics/dr-ruth-surman/",
+      "reason": "First-person CDN bio with why-medicine, books, tap and jazz dancing (richness 3), but limited new patients only and no closed-list condition named."
+    },
+    {
+      "name": "Dr Mick O'Keeffe, Dr Otilie Tork",
+      "url": "https://cd.net.au/our-team/developmental-paediatrics",
+      "reason": "Child Development Network; both taking only a limited number of new patients; O'Keeffe richness 2 (why paediatrics), Tork richness 2 (motherhood)."
+    },
+    {
+      "name": "Dr Keita Hada",
+      "url": "https://cd.net.au/our-team/developmental-paediatrics/dr-keita-hada",
+      "reason": "Why child development only; no hobbies or life content; richness 1."
+    },
+    {
+      "name": "Dr Ganesh Senthilnathan, Dr Aarany Sivakaanthan, Dr Ela Nemati, Dr Catherine Skellern, Dr Katherine Jones",
+      "url": "https://cd.net.au/our-team/developmental-paediatrics",
+      "reason": "CDN individual pages not scraped this sweep (rate-limited); listing excerpts show professional content only."
+    },
+    {
+      "name": "Greenhouse Paediatrics team (Wallman, Lockhart, O'Donnell, Fairbrother, Judge, Deshmukh, Burley, Denbali)",
+      "url": "https://greenhousepaediatrics.com.au/about-us/meet-the-team/",
+      "reason": "Practice is in Perth, Western Australia (Perth Children's Hospital, Scarborough); not Queensland."
+    },
+    {
+      "name": "Robina Specialist Suites blog author",
+      "url": "https://robinaspecialistsuites.com.au/psychiatry/goldcoastprivatepractice/",
+      "reason": "Rich first-person Gold Coast psychiatrist essay (5am beach walks) but the author is unnamed; cannot attribute to a doctor."
+    },
+    {
+      "name": "Dr Jacqueline, Dr Mannan, Dr Htet Naing (One Stop Medical, Mackay)",
+      "url": "https://www.onestopmedical.com.au/doctors",
+      "reason": "Mackay GPs with hobby lines (dog Butters, painting, Rubik's cubes) but no surnames or conditions on the excerpt and bios link to HotDoc; not scraped in full."
+    }
+  ]
+}

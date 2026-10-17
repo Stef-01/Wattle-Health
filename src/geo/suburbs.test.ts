@@ -42,8 +42,10 @@ describe("the gazetteer covers what the roster claims", () => {
     // researched practices in src/geo/brisbane.ts, plus a Sunshine Coast box.
     const inBrisbane = (s: SuburbPoint) => s.lat > -27.7 && s.lat < -27.05 && s.lon > 152.7 && s.lon < 153.3;
     const inSunshineCoast = (s: SuburbPoint) => s.lat > -26.9 && s.lat < -26.3 && s.lon > 152.9 && s.lon < 153.2;
+    // Regional Queensland (src/geo/regional.ts), 2026-10-17: Cairns to Toowoomba.
+    const inRegionalQld = (s: SuburbPoint) => s.lat > -28 && s.lat < -16 && s.lon > 145 && s.lon < 153.3;
     for (const s of SUBURBS) {
-      expect(inSydney(s) || inEasternSuburbs(s) || inGoldCoast(s) || inBrisbane(s) || inSunshineCoast(s), `${s.suburb} is outside every focus area`).toBe(true);
+      expect(inSydney(s) || inEasternSuburbs(s) || inGoldCoast(s) || inBrisbane(s) || inSunshineCoast(s) || inRegionalQld(s), `${s.suburb} is outside every focus area`).toBe(true);
       expect(s.postcode).toMatch(/^\d{4}$/);
     }
   });

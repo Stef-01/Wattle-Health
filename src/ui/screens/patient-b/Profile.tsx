@@ -48,6 +48,16 @@ function Facts({ d }: { d: DoctorRecord }) {
   return <p className="text-[14px] leading-[1.5] text-grey">{facts.join(" · ")}</p>;
 }
 
+/** True when two passages share most of their words (a paraphrase of the same line). */
+function similar(a: string | null, b: string | null): boolean {
+  if (!a || !b) return false;
+  const words = (t: string) => new Set(t.toLowerCase().match(/[a-z]{4,}/g) ?? []);
+  const wa = words(a);
+  const wb = words(b);
+  const shared = [...wa].filter((w) => wb.has(w)).length;
+  return shared / Math.max(1, Math.min(wa.size, wb.size)) > 0.5;
+}
+
 function Words({ d }: { d: DoctorRecord }) {
   const p = personalOf(d);
   if (!p) return null;
@@ -58,7 +68,7 @@ function Words({ d }: { d: DoctorRecord }) {
   const lived = asList(p.livedExperience)[0] ?? null;
   const outside = hobbySentence(d);
   const ABOUT: Record<string, string> = { why: "Why medicine", approach: "How they work", lived: "Lived experience", hobbies: "Outside the clinic", other: "Also from their page" };
-  const rest = (p.quotes ?? []).filter((q) => q.text !== philosophy && q.text !== approach);
+  const rest = (p.quotes ?? []).filter((q) => !similar(q.text, philosophy) && !similar(q.text, approach));
   const more = rest.length ? rest.map((q, i) => (
     <p key={i} className="text-[16px] leading-[1.5] text-charcoal">
       <span className="text-grey">{ABOUT[q.about] ?? "From their page"} · </span>“{q.text}”
@@ -72,7 +82,7 @@ function Words({ d }: { d: DoctorRecord }) {
           <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" more={more} />
         </Labelled>
       ) : null}
-      {approach && approach !== philosophy ? (
+      {approach && !similar(approach, philosophy) ? (
         <Labelled label={`How ${pr.subject} ${pr.practises}`}>
           <Clamp text={approach} more={purpose ? <p className="text-[16px] leading-[1.5] text-charcoal">{purpose}</p> : undefined} />
         </Labelled>
@@ -146,18 +156,14 @@ function Research({ d }: { d: DoctorRecord }) {
   );
 }
 
-export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRecord; labels: Record<string, string>; photo?: string | null }) {
-  void photo;
+/** Everything below the header: facts, their words, what they see, the folded panels, the source line. */
+export function ProfileBody({ doctor: d, labels }: { doctor: DoctorRecord; labels: Record<string, string> }) {
   const personal = personalOf(d);
   const conditions = conditionLabels(d, labels);
   const source = wordsSource(d);
   const pr = pronouns(d);
-  const referral = d.referralRequired?.value === true;
-
   return (
-    <HeroScreen padBottom="pb-[150px]">
-      <Header d={d} />
-      <Space h={20} />
+    <>
       <Facts d={d} />
       <Space h={28} />
       {personal ? (
@@ -192,6 +198,18 @@ export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRec
           ) : null}
         </p>
       ) : null}
+    </>
+  );
+}
+
+export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRecord; labels: Record<string, string>; photo?: string | null }) {
+  void photo;
+  const referral = d.referralRequired?.value === true;
+  return (
+    <HeroScreen padBottom="pb-[150px]">
+      <Header d={d} />
+      <Space h={20} />
+      <ProfileBody doctor={d} labels={labels} />
       <ContactCta doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
     </HeroScreen>
   );
