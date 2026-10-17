@@ -8,7 +8,7 @@ import { asList } from "@/src/data/types";
 import { Avatar, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
 import { HeroScreen, Space } from "./bits";
 import { approachSentence, clip, conditionLabels, hobbySentence, listSentence, niceSource, TIER_WORD, drName, drShort, feeOf, hobbyChips, personalOf, placeOf, practicalChips, primaryRoom, pronouns, specialtyTitle, verifiedPublications, wordsSource, yearsLine } from "./facts";
-import { BookmarkCircle, ContactCta } from "./ProfileClient";
+import { BookmarkCircle, ContactCta, ShareCircle } from "./ProfileClient";
 import { WhyInline } from "./WhyInline";
 
 function Header({ d }: { d: DoctorRecord }) {
@@ -19,7 +19,10 @@ function Header({ d }: { d: DoctorRecord }) {
     <>
       <div className="flex h-11 items-center justify-between">
         <Circle href="/results" label="Back"><FigmaIcon name="arrow-left-22" size={22} /></Circle>
-        <BookmarkCircle id={d.id} />
+        <span className="flex gap-2">
+          <ShareCircle name={name} />
+          <BookmarkCircle id={d.id} />
+        </span>
       </div>
       <Space h={24} />
       <div className="flex items-center gap-4">

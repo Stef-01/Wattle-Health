@@ -4,7 +4,7 @@
 // never shows an appointment time.
 import { useEffect, useState } from "react";
 import type { DoctorRecord } from "@/src/data/types";
-import { Circle, Cta, FigmaIcon, Sheet } from "@/src/ui/kit";
+import { Check, Circle, Cta, FigmaIcon, Share, Sheet } from "@/src/ui/kit";
 import { isSavedId, toggleSavedId } from "@/src/ui/store";
 import { contactOf, drShort } from "./facts";
 
@@ -40,5 +40,28 @@ export function ContactCta({ doctor, label, note }: { doctor: DoctorRecord; labe
         {!tel && !c.website ? <p className="text-[16px] font-medium text-grey">No phone or website listed yet.</p> : null}
       </Sheet>
     </>
+  );
+}
+
+/** Share the profile URL: the native sheet where it exists, else copy to the clipboard. */
+export function ShareCircle({ name }: { name: string }) {
+  const [done, setDone] = useState(false);
+  async function share() {
+    const url = window.location.href;
+    try {
+      if (navigator.share) await navigator.share({ title: name, url });
+      else {
+        await navigator.clipboard.writeText(url);
+        setDone(true);
+        setTimeout(() => setDone(false), 1600);
+      }
+    } catch {
+      /* dismissed */
+    }
+  }
+  return (
+    <Circle label={done ? "Link copied" : "Share"} onClick={() => void share()}>
+      {done ? <Check size={18} /> : <Share size={20} />}
+    </Circle>
   );
 }
