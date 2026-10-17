@@ -581,11 +581,11 @@
       "specialty": "psychiatry",
       "practice": "Nundah Private Hospital private practice",
       "source_url": "https://aurorahealth.com.au/healthcare-team/katie-mccullough/",
-      "photo_url": "https://ahcprodomfmwss23cgeu.blob.core.windows.net/aurorahealthcare/media/doctors/doctor/c2ztgv1ckesfczi1epv1tta49_ChatGPT_Image_Sep_3_2026_02_04_50_PM.png",
+      "photo_url": null,
       "alt": "Dr Katie McCullough",
       "width": 1254,
       "height": 1254,
-      "note": "Profile page image with alt 'Dr Katie McCullough'; FILENAME INDICATES AN AI-PROCESSED/GENERATED IMAGE (ChatGPT_Image_Sep_3_2026) - review before use. Verified 200 image/png."
+      "note": "Profile page image with alt 'Dr Katie McCullough'; FILENAME INDICATES AN AI-PROCESSED/GENERATED IMAGE (ChatGPT_Image_Sep_3_2026) - review before use. Verified 200 image/png. | Excluded 2026-10-16: practice file name says the image is AI-generated; not shown."
     }
   ]
 }
