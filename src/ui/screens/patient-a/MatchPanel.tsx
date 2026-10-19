@@ -78,7 +78,7 @@ function faqs(d: DoctorRecord): { q: string; a: string }[] {
   ];
 }
 
-export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false, telehealthOnly = false }: { telehealthOnly?: boolean; card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
+export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false, telehealthOnly = false, variant = "match" }: { variant?: "match" | "profile"; telehealthOnly?: boolean; card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
   const d = card.doctor;
   const [tab, setTab] = useState<Tab>("Highlights");
   const reviews = useReviewSummary(d.id);
@@ -106,11 +106,13 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const tabs = TABS.filter((t) => t !== "Highlights" || highlights.length > 0);
 
   return (
-    <section className="rise" aria-label={ORDINAL[index]} data-match={index}>
-      <div className="mb-5 flex items-baseline justify-between">
-        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2f5d3a]">{ORDINAL[index]}</p>
-        <p className="text-[13px] text-grey">{index + 1} of {total}</p>
-      </div>
+    <section className="rise" aria-label={variant === "match" ? ORDINAL[index] : d.name.display} data-match={variant === "match" ? index : undefined}>
+      {variant === "match" ? (
+        <div className="mb-5 flex items-baseline justify-between">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2f5d3a]">{ORDINAL[index]}</p>
+          <p className="text-[13px] text-grey">{index + 1} of {total}</p>
+        </div>
+      ) : null}
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_500px] lg:items-start lg:gap-16">
       <div className="min-w-0">
       <header className="flex items-start gap-5">

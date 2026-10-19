@@ -12,7 +12,7 @@ const EXAMPLES = ["Endometriosis, someone who listens", "ADHD, lived experience"
 for (const [i, ex] of EXAMPLES.entries()) {
   await page.goto(`${BASE}/`); await page.getByRole("button", { name: ex }).click(); await throughNarrow(page); await page.waitForTimeout(1500);
   await page.screenshot({ path: path.join(OUT, `${i + 1}a-results.png`) });
-  const names = await page.locator("section[aria-label] span.truncate").allTextContents(); console.log(ex, "->", names.join(" | "));
+  const names = await page.locator("section[data-match] [role=heading]").allTextContents(); console.log(ex, "->", names.join(" | "));
   const first = (await page.locator("a[href*='/doctor/']").first().getAttribute("href")).replace(/\/$/, "");
   await page.goto(`${BASE}${first}`); await page.waitForTimeout(700);
   await page.screenshot({ path: path.join(OUT, `${i + 1}b-profile.png`) });

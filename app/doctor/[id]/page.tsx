@@ -3,7 +3,9 @@
 import { notFound } from "next/navigation";
 import { doctorIdFromParam } from "@/src/data/doctor-slug";
 import { getDoctor, mvpDiscipline } from "@/src/data/providers";
-import { Profile } from "@/src/ui/screens/patient-b/Profile";
+import { highlightsFor } from "@/src/data/highlights";
+import type { Card } from "@/src/data/search-types";
+import { DoctorPage as DoctorPageView } from "@/src/ui/screens/patient-b/DoctorPage";
 import { doctorParams } from "./params";
 
 export const revalidate = 3600;
@@ -35,5 +37,7 @@ export default async function DoctorPage({ params }: { params: Promise<{ id: str
   const { id } = await params;
   const d = await getDoctor(doctorIdFromParam(id));
   if (!d) notFound();
-  return <Profile doctor={d} labels={conditionLabelMap()} />;
+  const labels = conditionLabelMap();
+  const card: Card = { doctor: d, headline: "", score: 0, clinicalFit: { band: "listed", reasons: [] }, humanFit: { score: 0, reasons: [], basis: "none" }, evidence: [], missed: [], highlights: highlightsFor(d, undefined, labels) };
+  return <DoctorPageView card={card} labels={labels} />;
 }
