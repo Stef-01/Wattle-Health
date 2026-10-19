@@ -173,7 +173,7 @@ export function Matches() {
         {cards.slice(0, shown).map((card, i) => (
           <div key={card.doctor.id}>
             {i > 0 ? <div className="my-12 h-px w-full bg-divider" aria-hidden="true" /> : null}
-            <MatchPanel newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id, req?.response.chips.find((c) => c.kind === "condition")?.label))} />
+            <MatchPanel telehealthOnly={/telehealth only/i.test(req?.sentence ?? "")} newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id, req?.response.chips.find((c) => c.kind === "condition")?.label))} />
           </div>
         ))}
         {shown < cards.length ? (

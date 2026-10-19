@@ -77,7 +77,7 @@ function faqs(d: DoctorRecord): { q: string; a: string }[] {
   ];
 }
 
-export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false }: { card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
+export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false, telehealthOnly = false }: { telehealthOnly?: boolean; card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
   const d = card.doctor;
   const [tab, setTab] = useState<Tab>("Highlights");
   const reviews = useReviewSummary(d.id);
@@ -92,9 +92,10 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const ownLine = ownWords ? (ownWords.match(/^.{30,220}?[.!?](\s|$)/)?.[0] ?? ownWords.slice(0, 200) + "…").trim() : null;
   const [next, setNext] = useState<string | null>(null);
   useEffect(() => {
-    const o = demoOpenings(d.id, d.declared?.telehealth === true && d.telehealth?.value !== "none", Date.now())[0];
+    const all = demoOpenings(d.id, d.declared?.telehealth === true && d.telehealth?.value !== "none", Date.now());
+    const o = telehealthOnly ? all.find((x) => x.mode === "telehealth") : all[0];
     setNext(o ? `${new Date(o.start).toLocaleString("en-AU", { weekday: "short", hour: "numeric", minute: "2-digit" })}${o.mode === "telehealth" ? ", telehealth" : ""}` : null);
-  }, [d]);
+  }, [d, telehealthOnly]);
   const hobbies = personal ? [personal.hobbies ?? []].flat().filter(Boolean) : [];
   const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.map((h, i) => (i && !/^[A-Z]{2}/.test(h) ? h.charAt(0).toLowerCase() + h.slice(1) : h)).join(", ").replace(/, (?=[^,]*$)/, " and ") : null);
   let highlights = card.highlights ?? [];
