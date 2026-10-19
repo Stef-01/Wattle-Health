@@ -90,7 +90,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const ownWords = [personal?.philosophyOfCare, personal?.philosophy, personal?.communicationApproach, personal?.purpose, personal?.professionalPurpose].find((t) => t && t.trim().length > 30)?.trim();
   const ownLine = ownWords ? (ownWords.match(/^.{30,220}?[.!?](\s|$)/)?.[0] ?? ownWords.slice(0, 200) + "…").trim() : null;
   const hobbies = personal ? [personal.hobbies ?? []].flat().filter(Boolean) : [];
-  const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.join(", ") : null);
+  const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.map((h, i) => (i && !/^[A-Z]{2}/.test(h) ? h.charAt(0).toLowerCase() + h.slice(1) : h)).join(", ").replace(/, (?=[^,]*$)/, " and ") : null);
   let highlights = card.highlights ?? [];
   if (newPatientMatters) highlights = highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched));
   if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Highly recommended", detail: `${reviews.count} verified Wattle patients, average ${reviews.average?.toFixed(1)} of 5`, matched: false }, ...highlights];
