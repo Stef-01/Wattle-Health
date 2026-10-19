@@ -3,6 +3,7 @@
 // server roster; the static build feeds it src/generated/roster.json in the browser
 // (client-match.ts). The sentence is read here and returned in closed vocabulary only; it
 // never goes into a URL or a log.
+import { deprioritiseThin } from "./completeness";
 import { match, type HumanFitWeights } from "@/src/matching";
 import { hardAsks, languageNeeds, lexiconFor, readNeeds, type NeedSignal } from "@/src/matching/needs";
 import type { Intent, Ranked, SpecialtyField } from "@/src/matching/types";
@@ -121,7 +122,7 @@ export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Disc
 
   const byId = new Map(doctors.map((d) => [d.id, d]));
   const conditionLabels = Object.fromEntries(discipline.conditions.map((c) => [c.id, c.label]));
-  const cards = result.results.map((r) => toCard(r, byId, result.intent, conditionLabels)).filter((c): c is Card => c !== null);
+  const cards = deprioritiseThin(result.results.map((r) => toCard(r, byId, result.intent, conditionLabels)).filter((c): c is Card => c !== null));
 
   const response: SearchResponse = {
     order: result.order,
