@@ -1,0 +1,1616 @@
+{
+  "category": "fifth-sweep",
+  "researched_at": "2026-10-19",
+  "doctors": [
+    {
+      "name": "Dr Bridget O'Connor",
+      "given": "Bridget",
+      "family": "O'Connor",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Sirona Women's Health",
+        "address": "1/720 Ipswich Road",
+        "suburb": "Annerley",
+        "postcode": "4103",
+        "phone": "(07) 3130 2230",
+        "website": "https://sironawomenshealth.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "women"
+      ],
+      "focus_tags": [
+        "women's health",
+        "menopause",
+        "travel medicine"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Bridget is Principal GP at Sirona Women's Health, she enjoys all aspects of General Practice",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://sironawomenshealth.com.au/our-team/",
+        "page_title": "Our Team | Sirona Women's Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Member of the Australian Menopause Society per team page."
+      },
+      "personal_richness": 2,
+      "photo_url": "https://sironawomenshealth.com.au/wp-content/uploads/IMG_7026-1.jpg"
+    },
+    {
+      "name": "Dr Naomi Odorico",
+      "given": "Naomi",
+      "family": "Odorico",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Sirona Women's Health",
+        "address": "1/720 Ipswich Road",
+        "suburb": "Annerley",
+        "postcode": "4103",
+        "phone": "(07) 3130 2230",
+        "website": "https://sironawomenshealth.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "women",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "antenatal care",
+        "reproductive medicine",
+        "weight management"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [
+          "reading",
+          "spending time outdoors",
+          "animals"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Naomi is a GP who consults at Sirona Women's Health.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://sironawomenshealth.com.au/our-team/",
+        "page_title": "Our Team | Sirona Women's Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2,
+      "photo_url": "https://sironawomenshealth.com.au/wp-content/uploads/Dr-Naomi-Odorico.jpg"
+    },
+    {
+      "name": "Dr Alison Holmes",
+      "given": "Alison",
+      "family": "Holmes",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Sirona Women's Health",
+        "address": "1/720 Ipswich Road",
+        "suburb": "Annerley",
+        "postcode": "4103",
+        "phone": "(07) 3130 2230",
+        "website": "https://sironawomenshealth.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause",
+        "pelvic-pain"
+      ],
+      "populations": [
+        "women"
+      ],
+      "focus_tags": [
+        "perimenopause and menopause",
+        "antenatal care",
+        "pelvic pain",
+        "complex health problems",
+        "IUD insertion",
+        "iron infusions"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [
+          "fitness",
+          "socialising"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "She has been working as a GP in Brisbane since 2009, after graduating from Newcastle, UK in 2002.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://sironawomenshealth.com.au/our-team/",
+        "page_title": "Our Team | Sirona Women's Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2,
+      "photo_url": "https://sironawomenshealth.com.au/wp-content/uploads/alison-.png"
+    },
+    {
+      "name": "Dr Megan Young",
+      "given": "Megan",
+      "family": "Young",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Sirona Women's Health",
+        "address": "1/720 Ipswich Road",
+        "suburb": "Annerley",
+        "postcode": "4103",
+        "phone": "(07) 3130 2230",
+        "website": "https://sironawomenshealth.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause",
+        "eating-disorders"
+      ],
+      "populations": [
+        "women"
+      ],
+      "focus_tags": [
+        "menopause",
+        "preventative care",
+        "eating disorders",
+        "weight loss medicine",
+        "contraception",
+        "shared antenatal care"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [
+          "pilates",
+          "reading"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Megan has practiced in a wide array of clinical settings, including in Sexual Health and Family Planning Clinics.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://sironawomenshealth.com.au/our-team/",
+        "page_title": "Our Team | Sirona Women's Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2,
+      "photo_url": "https://sironawomenshealth.com.au/wp-content/uploads/megan-1024x1024.png"
+    },
+    {
+      "name": "Dr Holly Pym",
+      "given": "Holly",
+      "family": "Pym",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Sirona Women's Health",
+        "address": "1/720 Ipswich Road",
+        "suburb": "Annerley",
+        "postcode": "4103",
+        "phone": "(07) 3130 2230",
+        "website": "https://sironawomenshealth.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "fertility",
+        "menopause"
+      ],
+      "populations": [
+        "women"
+      ],
+      "focus_tags": [
+        "fertility",
+        "preconception care",
+        "antenatal care",
+        "perimenopause and menopause"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "She has a strong passion for women's health, with particular interests in fertility, preconception, and antenatal care.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://sironawomenshealth.com.au/our-team/",
+        "page_title": "Our Team | Sirona Women's Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2,
+      "photo_url": "https://sironawomenshealth.com.au/wp-content/uploads/Picture-1-e1770870079907-1024x1024.jpg"
+    },
+    {
+      "name": "Dr Melissa Fowler",
+      "given": "Melissa",
+      "family": "Fowler",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Sirona Women's Health",
+        "address": "1/720 Ipswich Road",
+        "suburb": "Annerley",
+        "postcode": "4103",
+        "phone": "(07) 3130 2230",
+        "website": "https://sironawomenshealth.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": false,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "women"
+      ],
+      "focus_tags": [
+        "menopause and perimenopause",
+        "holistic women's health"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [
+          "spending time in nature"
+        ],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Melissa Fowler completed her medical degree at University of Queensland in 1995",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://sironawomenshealth.com.au/our-team/",
+        "page_title": "Our Team | Sirona Women's Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2,
+      "photo_url": "https://sironawomenshealth.com.au/wp-content/uploads/Dr-Melissa-Fowler.jpg"
+    },
+    {
+      "name": "Dr Frank Occhino",
+      "given": "Frank",
+      "family": "Occhino",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "With over 43 years of dedication to General Practice",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-frank-occhino/",
+        "page_title": "Dr Frank Occhino | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2023/07/Dr_Frank_Occhino_Evercare_1000-300x300.jpg"
+    },
+    {
+      "name": "Dr Ian Walsh",
+      "given": "Ian",
+      "family": "Walsh",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Walsh has 19 years of experience as a GP and expands on his previous careers as a pharmacist and a police officer.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-ian-walsh/",
+        "page_title": "Dr Ian Walsh | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 2,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2023/04/Dr_Ian_Walsh_Clayfield_GP_Evercare_square-300x300.jpg"
+    },
+    {
+      "name": "Dr Jessica Maher",
+      "given": "Jessica",
+      "family": "Maher",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "infant and paediatric health",
+        "women's health",
+        "iron infusions",
+        "menopause",
+        "skin cancer medicine"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr. Jessica Maher is a highly experienced GP with a special interest in infant and paediatric health",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-jessica-maher/",
+        "page_title": "Dr Jessica Maher | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 2,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2024/10/Dr_Jessica_Maher_Evercare_round2-300x300.avif"
+    },
+    {
+      "name": "Dr Julie O'Connell",
+      "given": "Julie",
+      "family": "O'Connell",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "hormonal changes",
+        "menopause",
+        "integrative healthcare",
+        "compound scripts"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Julie O'Connell is a highly experienced General Practitioner with a passion for providing integrative healthcare.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-julie-oconnell/",
+        "page_title": "Dr Julie O'Connell | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 2,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2023/06/Dr_Julie_OConnell_Evercare_Clayfield_SmSq-300x300.jpg"
+    },
+    {
+      "name": "Dr Kevin Ling",
+      "given": "Kevin",
+      "family": "Ling",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Evercare Redcliffe",
+        "address": "99 Marine Parade",
+        "suburb": "Redcliffe",
+        "postcode": "4020",
+        "phone": "07 3132 0200",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "an experienced and dedicated General Practitioner who has been caring for patients in the Redcliffe community",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-kevin-ling/",
+        "page_title": "Dr Kevin Ling | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2025/12/Dr_Kevin_Ling_Round-300x300.avif"
+    },
+    {
+      "name": "Dr Pietas Nyamayaro",
+      "given": "Pietas",
+      "family": "Nyamayaro",
+      "specialty": "general-practice",
+      "gender": null,
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Pietas Nyamayaro is an experienced GP and enjoys caring for patients across all stages of life.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-pietas-nyamayaro/",
+        "page_title": "Dr Pietas Nyamayaro | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2026/04/Dr-Pietas_circle_2-300x300.avif"
+    },
+    {
+      "name": "Dr Rob Kielty",
+      "given": "Rob",
+      "family": "Kielty",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Evercare Mitchelton",
+        "address": "87 Osborne Road",
+        "suburb": "Mitchelton",
+        "postcode": "4053",
+        "phone": "07 3132 1700",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Kielty is an experienced GP boasting over 25 years of experience across Australia and the UK.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-rob-kielty/",
+        "page_title": "Dr Rob Kielty | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2023/09/Dr_Rob_Kielty_circle-300x300.avif"
+    },
+    {
+      "name": "Dr Shristi Shah",
+      "given": "Shristi",
+      "family": "Shah",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Evercare Mitchelton",
+        "address": "87 Osborne Road",
+        "suburb": "Mitchelton",
+        "postcode": "4053",
+        "phone": "07 3132 1700",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "women's health",
+        "children's health",
+        "lifestyle medicine",
+        "preventative care"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Shristi is an experienced GP with over 20 years of experience.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-shristi-shah/",
+        "page_title": "Dr Shristi Shah | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2026/07/Dr_Shristi_Shah_round3-300x300.avif"
+    },
+    {
+      "name": "Dr Stephen Bryce",
+      "given": "Stephen",
+      "family": "Bryce",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "skin cancer medicine",
+        "mental health",
+        "men's health",
+        "iron infusions"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Stephen enjoys all aspects of general practice",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-stephen-bryce/",
+        "page_title": "Dr Stephen Bryce | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2025/03/Dr_Stephen_Bryce_round1-300x300.png"
+    },
+    {
+      "name": "Dr Wendy Chow",
+      "given": "Wendy",
+      "family": "Chow",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Wendy Chow is a highly regarded and compassionate General Practitioner with over 14 years of clinical practice.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-wendy-chow/",
+        "page_title": "Dr Wendy Chow | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2023/08/Dr_Wendy_Chow_Evercare_1000-300x300.jpg"
+    },
+    {
+      "name": "Dr Zach Hender-Hill",
+      "given": "Zach",
+      "family": "Hender-Hill",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Evercare Clayfield",
+        "address": "256 Junction Road",
+        "suburb": "Clayfield",
+        "postcode": "4011",
+        "phone": "07 3608 1400",
+        "website": "https://evercare.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "mental health",
+        "women's health",
+        "palliative care",
+        "skin cancer medicine"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Zach enjoys general practice across all life stages",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://evercare.com.au/doctor/dr-zach-hender-hill/",
+        "page_title": "Dr Zach Hender-Hill | Evercare",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Details from https://evercare.com.au/doctors/ listing."
+      },
+      "personal_richness": 1,
+      "photo_url": "https://evercare.com.au/wp-content/uploads/2026/06/Dr_Zach_Hender_Hill_circle-1-300x300.avif"
+    },
+    {
+      "name": "Dr Renu Basnayake",
+      "given": "Renu",
+      "family": "Basnayake",
+      "specialty": "general-practice",
+      "gender": null,
+      "practice": {
+        "name": "The Lilian Cooper Centre",
+        "address": "Suite 297, Level 1, 33 North Street",
+        "suburb": "Spring Hill",
+        "postcode": "4000",
+        "phone": "07 3832 1666",
+        "website": "https://familydoctor.com.au/liliancoopercentre/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "women",
+        "adult"
+      ],
+      "focus_tags": [
+        "contraception",
+        "menopause",
+        "preventive medicine",
+        "chronic disease management",
+        "mental health",
+        "weight management"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": []
+      },
+      "source": {
+        "url": "https://familydoctor.com.au/liliancoopercentre/",
+        "page_title": "The Lilian Cooper Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1
+    },
+    {
+      "name": "Dr Mary-Jane Stanley",
+      "given": "Mary-Jane",
+      "family": "Stanley",
+      "specialty": "general-practice",
+      "gender": null,
+      "practice": {
+        "name": "The Lilian Cooper Centre",
+        "address": "Suite 297, Level 1, 33 North Street",
+        "suburb": "Spring Hill",
+        "postcode": "4000",
+        "phone": "07 3832 1666",
+        "website": "https://familydoctor.com.au/liliancoopercentre/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause",
+        "pcos",
+        "pelvic-pain"
+      ],
+      "populations": [
+        "women"
+      ],
+      "focus_tags": [
+        "menopause and perimenopause",
+        "PCOS",
+        "pelvic pain",
+        "painful periods",
+        "contraception",
+        "shared antenatal care"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": []
+      },
+      "source": {
+        "url": "https://familydoctor.com.au/liliancoopercentre/",
+        "page_title": "The Lilian Cooper Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2
+    },
+    {
+      "name": "Dr Deborah Thomas",
+      "given": "Deborah",
+      "family": "Thomas",
+      "specialty": "general-practice",
+      "gender": null,
+      "practice": {
+        "name": "The Lilian Cooper Centre",
+        "address": "Suite 297, Level 1, 33 North Street",
+        "suburb": "Spring Hill",
+        "postcode": "4000",
+        "phone": "07 3832 1666",
+        "website": "https://familydoctor.com.au/liliancoopercentre/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "women"
+      ],
+      "focus_tags": [
+        "women's health",
+        "peri- to post-menopause",
+        "contraception",
+        "cervical screening",
+        "iron infusions"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": []
+      },
+      "source": {
+        "url": "https://familydoctor.com.au/liliancoopercentre/",
+        "page_title": "The Lilian Cooper Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2
+    },
+    {
+      "name": "Dr Carlos Chan",
+      "given": "Carlos",
+      "family": "Chan",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Chan graduated from the University of Qld in 1986.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-carlos-chan.html",
+        "page_title": "Dr Carlos Chan | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/chan-hm.jpg"
+    },
+    {
+      "name": "Dr Jennifer Han",
+      "given": "Jennifer",
+      "family": "Han",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Han graduated from the University of Qld in 1991. She has 3 years post-graduate training in the Royal Brisbane Women's and Children's Hospital.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-jennifer-han.html",
+        "page_title": "Dr Jennifer Han | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/dr-jennifer-han-h.jpg"
+    },
+    {
+      "name": "Dr Cyril Fernandez",
+      "given": "Cyril",
+      "family": "Fernandez",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Fernandez graduated in 1986. He worked as a Registrar in Emergency Department of Ipswich Hospital.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-cyril-fernandez.html",
+        "page_title": "Dr Cyril Fernandez | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/dr-cyril-fernandez-h.jpg"
+    },
+    {
+      "name": "Dr Charles Green",
+      "given": "Charles",
+      "family": "Green",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Green graduated from Dublin in 1992. He did his GP training in England and has worked in Brisbane since 2002.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-charles-green.html",
+        "page_title": "Dr Charles Green | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/dr-charles-green-h.jpg"
+    },
+    {
+      "name": "Dr Yvette Tan",
+      "given": "Yvette",
+      "family": "Tan",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "mental health",
+        "women's health"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Tan previously worked as lead female GP in a major clinic in Singapore.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-yvette-tan.html",
+        "page_title": "Dr Yvette Tan | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/yvette.jpg"
+    },
+    {
+      "name": "Dr Say Poh Eng",
+      "given": "Say",
+      "family": "Poh Eng",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr Eng graduated from Monash University in 2000.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-say-poh-eng.html",
+        "page_title": "Dr Say Poh Eng | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/say-poh.jpg"
+    },
+    {
+      "name": "Dr Manh Ha Le",
+      "given": "Manh",
+      "family": "Ha Le",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English",
+        "Vietnamese"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "women's health",
+        "paediatrics"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Special interests include Women's Health and Paediatrics. She speaks English and Vietnamese.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-manh-ha-le.html",
+        "page_title": "Dr Manh Ha Le | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/manh-ha.jpg"
+    },
+    {
+      "name": "Dr Su Qian Laird",
+      "given": "Su",
+      "family": "Qian Laird",
+      "specialty": "general-practice",
+      "gender": null,
+      "practice": {
+        "name": "Wishart Medical Centre",
+        "address": "590 Mt Gravatt Capalaba Rd",
+        "suburb": "Wishart",
+        "postcode": "4122",
+        "phone": "07 3849 2884",
+        "website": "https://www.wishartmedicalcentre.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "nephrology background"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Renal Physician in China.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.wishartmedicalcentre.com.au/dr-su-qian-laird.html",
+        "page_title": "Dr Su Qian Laird | Wishart Medical Centre",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "photo_url": "https://www.wishartmedicalcentre.com.au/wp-content/themes/wm_theme/images/su-qian-laird-home.png"
+    },
+    {
+      "name": "Dr Tatsuo Nagashima",
+      "given": "Tatsuo",
+      "family": "Nagashima",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "SkyArch Medical Clinic",
+        "address": "Level 3, 102 Adelaide St",
+        "suburb": "Brisbane City",
+        "postcode": "4000",
+        "phone": null,
+        "website": "https://skyarchmedicalclinic.com.au/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English",
+        "Japanese"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult",
+        "child"
+      ],
+      "focus_tags": [
+        "internal medicine",
+        "paediatrics",
+        "dermatology",
+        "gynaecology",
+        "mental health"
+      ],
+      "personal": {
+        "philosophy_of_care": null,
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Dr. Nagashima is an internationally experienced physician with extensive clinical practice in both Japan and Australia.",
+            "about": "background"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://skyarchmedicalclinic.com.au/team/",
+        "page_title": "Team | SkyArch Medical Clinic",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2
+    }
+  ]
+}
