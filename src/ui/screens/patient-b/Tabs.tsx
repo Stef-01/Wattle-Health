@@ -12,7 +12,7 @@ import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
 import { getName, getRecent, getRequest, getSavedContext, getSavedIds, setName, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
 import { Space } from "./bits";
-import { drName, placeOf, practicalChips, quoteOf, specialtyTitle } from "./facts";
+import { drName, placeOf, practicalChips, providerTitle, quoteOf } from "./facts";
 
 const day = (iso: string) => {
   const d = new Date(iso);
@@ -176,7 +176,7 @@ export function groupSaved(doctors: DoctorRecord[], ctx: Record<string, string>)
   const map = new Map<string, DoctorRecord[]>();
   for (const d of doctors) {
     const first = d.conditions?.value?.[0];
-    const c = ctx[d.id] ?? (first ? first.replace(/-/g, " ").replace(/^./, (x) => x.toUpperCase()) : specialtyTitle(d.specialty));
+    const c = ctx[d.id] ?? (first ? first.replace(/-/g, " ").replace(/^./, (x) => x.toUpperCase()) : providerTitle(d));
     map.set(c, [...(map.get(c) ?? []), d]);
   }
   return [...map.entries()].map(([category, ds]) => ({ category, doctors: ds })).sort((a, b) => b.doctors.length - a.doctors.length || a.category.localeCompare(b.category));
@@ -226,7 +226,7 @@ export function Me() {
 
 function SavedCard({ doctor: d, index, onRemove }: { doctor: DoctorRecord; index: number; onRemove: () => void }) {
   const quote = quoteOf(d);
-  const practical = [specialtyTitle(d.specialty), placeOf(d), ...practicalChips(d).slice(0, 2)].filter(Boolean);
+  const practical = [providerTitle(d), placeOf(d), ...practicalChips(d).slice(0, 2)].filter(Boolean);
   return (
     <article className="rise" style={{ "--i": index } as React.CSSProperties}>
       <Link href={doctorHref(d.id)} className="press press-soft block">

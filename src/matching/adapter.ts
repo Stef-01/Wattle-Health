@@ -9,7 +9,7 @@
 // register assumption, not a claim about them.
 
 import type { Clinician } from "./clinician";
-import type { Doctor, Evidence, Tier } from "./types";
+import { isAllied, type Doctor, type Evidence, type Tier } from "./types";
 import type { NeedSignal } from "./needs";
 import { PROFESSION_FOR_SPECIALTY } from "./support/professions";
 import type { SuburbPoint } from "@/src/geo/suburbs";
@@ -63,7 +63,7 @@ export function toClinician(doctor: Doctor): Clinician {
     id: doctor.id,
     doctorId: doctor.id,
     name: doctor.name.display,
-    shortName: `Dr ${doctor.name.family}`,
+    shortName: isAllied(doctor.specialty) && !/^dr/i.test(doctor.name.display.trim()) ? doctor.name.display : `Dr ${doctor.name.family}`,
     profession: PROFESSION_FOR_SPECIALTY[doctor.specialty] ?? "gp",
     gender: doctor.gender?.value ?? "not-declared",
     suburb: primary?.suburb ?? "",

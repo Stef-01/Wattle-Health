@@ -1,4 +1,5 @@
 "use client";
+import { ConnectorCard } from "./ConnectorCard";
 // Settings › Your health context (2026-10-18). Two ways to bring what an assistant knows about you:
 // 1. Ask ChatGPT for a short summary (prompt provided), paste it here; Wattle reads it on its server
 //    without any model, shows what it understood as switches, and keeps it on this device only.
@@ -119,22 +120,7 @@ export function ContextSettings() {
         ) : null}
       </section>
 
-      <section className="mt-6 rounded-[22px] border border-hairline px-5 py-5">
-        <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-grey">Use Wattle inside ChatGPT or Claude</p>
-        <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">Your assistant already knows your context. Connect Wattle, then ask it to find you a doctor. It searches Wattle with what it knows.</p>
-        <dl className="mt-4 flex flex-col gap-4 text-[14px]">
-          <div>
-            <dt className="font-medium text-ink">ChatGPT or Claude connector (MCP)</dt>
-            <dd className="mt-1 text-grey">Settings › Connectors › Add, then paste this URL.</dd>
-            <dd className="mt-2 flex flex-wrap items-center gap-2"><code className="rounded-[10px] bg-surface-soft px-3 py-2 text-[13px] text-ink">{origin}/api/mcp</code><Copy text={`${origin}/api/mcp`} label="Copy" /></dd>
-          </div>
-          <div>
-            <dt className="font-medium text-ink">Custom GPT Action</dt>
-            <dd className="mt-1 text-grey">In the GPT editor › Actions › Import from URL.</dd>
-            <dd className="mt-2 flex flex-wrap items-center gap-2"><code className="rounded-[10px] bg-surface-soft px-3 py-2 text-[13px] text-ink">{origin}/api/openapi.json</code><Copy text={`${origin}/api/openapi.json`} label="Copy" /></dd>
-          </div>
-        </dl>
-      </section>
+      <ConnectorCard origin={origin} />
 
       {saved ? (
         <button type="button" onClick={clear} className="press-dim mt-6 text-[15px] text-danger">Delete my health context</button>

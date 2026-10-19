@@ -11,7 +11,7 @@ import { ArrowLeft, Check, Circle, Cta, Screen, Toggle } from "@/src/ui/kit";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { Offering } from "./Discover";
 import { Portrait } from "../patient-a/DoctorCard";
-import { drName, placeOf, specialtyTitle } from "./facts";
+import { drName, placeOf, providerTitle } from "./facts";
 
 const BEATS = [
   { n: "01", title: "Measure early", body: "Blood pressure, ApoB, HbA1c, fitness and sleep show risk years before illness does." },
@@ -119,7 +119,7 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
                     </Link>
                     <Link href={doctorHref(m.doctor.id)} className="press-dim mt-4 block">
                       <span role="heading" aria-level={3} className="block text-[22px] font-semibold leading-tight tracking-[-0.01em] text-ink">{drName(m.doctor)}</span>
-                      <span className="mt-0.5 block text-[15px] font-medium text-ink">{specialtyTitle(m.doctor.specialty)}</span>
+                      <span className="mt-0.5 block text-[15px] font-medium text-ink">{providerTitle(m.doctor)}</span>
                       <span className="block text-[15px] text-[#6b6b6b]">{placeOf(m.doctor)}</span>
                     </Link>
                     <p className="mt-4 font-display text-[19px] leading-[1.45] text-ink">“{m.evidence.replace(/^[“"]|[”"]$/g, "")}”</p>

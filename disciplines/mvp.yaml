@@ -13,6 +13,13 @@
 # the asked conditions and excludes the rest as "wrong-specialty". The mapping is a founder
 # decision (CLAUDE.md: the yaml is the founder's vocabulary) and is listed for sign-off in the
 # 2026-10-15 log entry.
+#
+# ALLIED HEALTH (founder 2026-10-19: "add in all providers not just GPs"). `psychology` is named
+# on the mental-health conditions psychologists treat; `occupational-therapy` on ADHD and autism;
+# `allied-health` (coaches, dietitians, physios, social workers, counsellors...) on ADHD only, the
+# one condition every provider in that group lists. `prescriber: true` marks a condition whose
+# care needs a medical prescriber: there, every doctor who passes Layer 1 ranks above every
+# allied provider (src/matching/index.ts), so allied providers widen the list, never lead it.
 slug: mvp
 label: Doctor
 register: ahpra
@@ -46,7 +53,7 @@ conditions:
     cues: [pcos, "polycystic ovary", "polycystic ovaries", "irregular periods", "missed periods", hirsutism, "insulin resistance"]
   - id: perinatal-mh
     label: Perinatal mental health
-    specialties: [psychiatry, obstetrics-gynaecology, general-practice]
+    specialties: [psychiatry, obstetrics-gynaecology, general-practice, psychology]
     cues: ["postpartum depression", "postnatal depression", "postpartum anxiety", "postnatal anxiety", pnd, "perinatal depression", "perinatal anxiety", "perinatal mental health", "antenatal depression", "antenatal anxiety", "after the baby", "since the baby", "since the birth", "birth trauma", "baby blues", "not bonding with my baby"]
   - id: pelvic-pain
     label: Persistent pelvic pain
@@ -59,15 +66,16 @@ conditions:
   # ---- Mental health --------------------------------------------------------------------
   - id: adhd
     label: ADHD
-    specialties: [psychiatry, paediatrics, general-practice]
+    specialties: [psychiatry, paediatrics, general-practice, psychology, occupational-therapy, allied-health]
+    prescriber: true
     cues: [adhd, "attention deficit", "adhd assessment", "adhd diagnosis", "adhd medication", "can't focus", "cannot focus", "trouble focusing", inattentive, hyperactive, "executive function", "adult adhd", stimulant, "stimulant medication"]
   - id: depression
     label: Depression
-    specialties: [psychiatry, general-practice]
+    specialties: [psychiatry, general-practice, psychology]
     cues: [depression, depressed, "low mood", "can't get out of bed", hopeless, antidepressant, antidepressants, "feel flat", "feeling flat", "feel numb", "no motivation", "lost interest in everything"]
   - id: anxiety
     label: Anxiety
-    specialties: [psychiatry, general-practice]
+    specialties: [psychiatry, general-practice, psychology]
     cues: [anxiety, anxious, "panic attack", "panic attacks", "panic disorder", "constant worry", "worrying all the time", phobia, "social anxiety", "health anxiety", "generalised anxiety"]
   - id: bipolar
     label: Bipolar disorder
@@ -79,31 +87,31 @@ conditions:
     cues: [psychosis, psychotic, schizophrenia, schizoaffective, "hearing voices", hallucinations, delusions, antipsychotic, antipsychotics, "first episode psychosis"]
   - id: personality
     label: Personality disorders
-    specialties: [psychiatry]
+    specialties: [psychiatry, psychology]
     cues: [borderline, bpd, "personality disorder", eupd, "emotional dysregulation", "emotionally unstable", dbt, "dialectical behaviour therapy"]
   - id: trauma
     label: Trauma and PTSD
-    specialties: [psychiatry, general-practice]
+    specialties: [psychiatry, general-practice, psychology]
     cues: [trauma, ptsd, "complex trauma", cptsd, "c-ptsd", flashbacks, "childhood abuse", "sexual assault", "domestic violence", "family violence", veteran, "first responder", "emdr"]
   - id: eating-disorders
     label: Eating disorders
-    specialties: [psychiatry, paediatrics, general-practice]
+    specialties: [psychiatry, paediatrics, general-practice, psychology]
     cues: ["eating disorder", anorexia, bulimia, "binge eating", arfid, "restricting food", "restricting my eating", purging, "disordered eating", "body image"]
   - id: ocd
     label: OCD
-    specialties: [psychiatry, general-practice]
+    specialties: [psychiatry, general-practice, psychology]
     cues: [ocd, "obsessive compulsive", "intrusive thoughts", "checking rituals", compulsions, "obsessive thoughts"]
   - id: substance-use
     label: Alcohol and drug use
-    specialties: [psychiatry, general-practice]
+    specialties: [psychiatry, general-practice, psychology]
     cues: ["drinking too much", "drink too much", "alcohol dependence", "alcohol problem", "drug use", "drug dependence", cannabis, methamphetamine, "ice addiction", addiction, "drug and alcohol", detox, "gambling problem", "problem gambling"]
   - id: autism
     label: Autism assessment
-    specialties: [psychiatry, paediatrics]
+    specialties: [psychiatry, paediatrics, psychology, occupational-therapy]
     cues: [autism, autistic, asd, asperger, aspergers, "autism assessment", "autism diagnosis", "on the spectrum", "sensory overload", "sensory issues"]
   - id: sleep
     label: Sleep
-    specialties: [psychiatry, respiratory-sleep-medicine, general-practice]
+    specialties: [psychiatry, respiratory-sleep-medicine, general-practice, psychology]
     cues: [insomnia, "can't sleep", "cannot sleep", "sleep problems", "trouble sleeping", "sleep apnoea", "sleep apnea", nightmares, "sleep study"]
   # ---- Overlooked chronic conditions ----------------------------------------------------
   - id: chronic-pain

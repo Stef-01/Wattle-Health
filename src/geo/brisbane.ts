@@ -73,6 +73,9 @@ export const BRISBANE: readonly SuburbPoint[] = [
   { suburb: "Sherwood", postcode: "4075", lat: -27.5300, lon: 152.9810 },
   { suburb: "Chelmer", postcode: "4068", lat: -27.5120, lon: 152.9760 },
   { suburb: "Graceville", postcode: "4075", lat: -27.5220, lon: 152.9790 },
+  // Added 2026-10-19 for ADHDme allied providers (MindScope, ADHD Coaching Brisbane).
+  { suburb: "Moggill", postcode: "4070", lat: -27.5667, lon: 152.8742 },
+  { suburb: "Arana Hills", postcode: "4054", lat: -27.3980, lon: 152.9580 },
   { suburb: "Corinda", postcode: "4075", lat: -27.5400, lon: 152.9810 },
   { suburb: "Mount Ommaney", postcode: "4074", lat: -27.5470, lon: 152.9380 },
   { suburb: "Jindalee", postcode: "4074", lat: -27.5330, lon: 152.9380 },

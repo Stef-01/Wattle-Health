@@ -2,7 +2,7 @@
 // `rosterNoun` reads). ADHD.ME's eleven allied professions are not carried; Wattle Health
 // lists the Ahpra specialties in `src/matching/types.ts` plus the GP the roster noun defaults to.
 
-export const PROFESSIONS = ["gp", "psychiatrist", "paediatrician", "obstetrician-gynaecologist"] as const;
+export const PROFESSIONS = ["gp", "psychiatrist", "paediatrician", "obstetrician-gynaecologist", "psychologist", "occupational-therapist", "allied-health"] as const;
 export type Profession = (typeof PROFESSIONS)[number];
 
 export interface ProfessionEntry {
@@ -16,6 +16,9 @@ export const PROFESSION_ENTRIES: readonly ProfessionEntry[] = [
   { id: "psychiatrist", label: "Psychiatrist", plural: "psychiatrists" },
   { id: "paediatrician", label: "Paediatrician", plural: "paediatricians" },
   { id: "obstetrician-gynaecologist", label: "Obstetrician-gynaecologist", plural: "obstetrician-gynaecologists" },
+  { id: "psychologist", label: "Psychologist", plural: "psychologists" },
+  { id: "occupational-therapist", label: "Occupational therapist", plural: "occupational therapists" },
+  { id: "allied-health", label: "Allied health provider", plural: "allied health providers" },
 ];
 
 export function isProfession(value: unknown): value is Profession {
@@ -33,4 +36,7 @@ export const PROFESSION_FOR_SPECIALTY: Readonly<Record<string, Profession>> = {
   psychiatry: "psychiatrist",
   paediatrics: "paediatrician",
   "obstetrics-gynaecology": "obstetrician-gynaecologist",
+  psychology: "psychologist",
+  "occupational-therapy": "occupational-therapist",
+  "allied-health": "allied-health",
 };

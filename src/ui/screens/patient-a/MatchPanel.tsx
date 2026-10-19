@@ -13,7 +13,7 @@ import { Check, Labelled } from "@/src/ui/kit";
 import { Facts, Research, Sources, WordsFull } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
-import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, specialtyTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
+import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, providerTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
 import { fitSentence, Portrait } from "./DoctorCard";
 import { BookCard, NextFree, nextFreeLabel } from "./BookCard";
 import type { Highlight } from "@/src/data/search-types";
@@ -83,7 +83,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const [tab, setTab] = useState<Tab>("Highlights");
   const reviews = useReviewSummary(d.id);
   const room = primaryRoom(d);
-  const line = [specialtyTitle(d.specialty), room?.name ?? null].filter(Boolean).join(" · ");
+  const line = [providerTitle(d), room?.name ?? null].filter(Boolean).join(" · ");
   const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km away` : null;
   const referral = d.referralRequired?.value === true;
   const personal = personalOf(d);

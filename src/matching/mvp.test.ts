@@ -41,10 +41,10 @@ type Expect = {
   manner?: string[];
 };
 
-/** 44 sentences, three categories. Every expectation was measured, not guessed. */
+/** 44 sentences, three categories. Every expectation was measured, not guessed. Specialty sets include the allied specialties mvp.yaml names since 2026-10-19 (psychology, occupational-therapy, allied-health). */
 const SENTENCES: ReadonlyArray<[string, Expect]> = [
   // ---- Women's health
-  [POSTPARTUM, { conditions: ["perinatal-mh"], specialties: ["psychiatry", "obstetrics-gynaecology", "general-practice"], gender: "woman", mandatory: [], humanFit: ["listens"], population: "perinatal" }],
+  [POSTPARTUM, { conditions: ["perinatal-mh"], specialties: ["psychiatry", "obstetrics-gynaecology", "general-practice", "psychology"], gender: "woman", mandatory: [], humanFit: ["listens"], population: "perinatal" }],
   [PELVIC, { conditions: ["pelvic-pain", "endometriosis"], specialties: ["obstetrics-gynaecology", "pain-medicine", "general-practice"], humanFit: ["collaborative", "listens", "lived-experience"], manner: ["collaborative"] }],
   ["painful periods every month and my GP thinks it might be endo", { conditions: ["endometriosis"] }],
   ["PCOS and irregular periods, I want someone who looks at the whole picture not just symptoms", { conditions: ["pcos"], specialties: ["obstetrics-gynaecology", "endocrinology", "general-practice"], humanFit: ["holistic"] }],
@@ -55,11 +55,11 @@ const SENTENCES: ReadonlyArray<[string, Expect]> = [
   ["endo, bulk billing only", { conditions: ["endometriosis"], billing: "bulk-bills", mandatory: ["billing"] }],
   ["menopause, I want someone with a scientific approach and who does research", { conditions: ["menopause"], humanFit: ["evidence-based", "research-active"] }],
   ["pregnant and anxious all the time, I want longer appointments", { conditions: ["anxiety"], population: "perinatal", humanFit: ["long-appointments"] }],
-  ["endometriosis and ADHD, I'm neurodivergent and want someone neurodiversity affirming", { conditions: ["endometriosis", "adhd"], specialties: ["obstetrics-gynaecology", "general-practice", "pain-medicine", "psychiatry", "paediatrics"], humanFit: ["neurodiversity-affirming"] }],
+  ["endometriosis and ADHD, I'm neurodivergent and want someone neurodiversity affirming", { conditions: ["endometriosis", "adhd"], specialties: ["obstetrics-gynaecology", "general-practice", "pain-medicine", "psychiatry", "paediatrics", "psychology", "occupational-therapy", "allied-health"], humanFit: ["neurodiversity-affirming"] }],
   // ---- Mental health
-  ["I want an ADHD assessment as an adult", { conditions: ["adhd"], specialties: ["psychiatry", "paediatrics", "general-practice"], population: "adult" }],
+  ["I want an ADHD assessment as an adult", { conditions: ["adhd"], specialties: ["psychiatry", "paediatrics", "general-practice", "psychology", "occupational-therapy", "allied-health"], population: "adult" }],
   ["my 8 year old son might have ADHD and we want a gentle doctor", { conditions: ["adhd"], population: "child", humanFit: ["gentle"], manner: ["gentle"] }],
-  ["depression and I'd like someone who is up to date with research", { conditions: ["depression"], specialties: ["psychiatry", "general-practice"], humanFit: ["research-active"] }],
+  ["depression and I'd like someone who is up to date with research", { conditions: ["depression"], specialties: ["psychiatry", "general-practice", "psychology"], humanFit: ["research-active"] }],
   ["panic attacks and social anxiety, telehealth only please", { conditions: ["anxiety"], telehealth: "only", mandatory: ["telehealth"] }],
   ["bipolar, and I only want a man", { conditions: ["bipolar"], specialties: ["psychiatry"], gender: "man", mandatory: ["gender"] }],
   ["hearing voices and my family is worried", { conditions: ["psychosis"], specialties: ["psychiatry"] }],
@@ -83,7 +83,7 @@ const SENTENCES: ReadonlyArray<[string, Expect]> = [
   ["chronic fatigue syndrome, mostly housebound so telehealth only", { conditions: ["chronic-fatigue"], telehealth: "only", mandatory: ["telehealth"] }],
   ["fibromyalgia and I want evidence based care", { conditions: ["fibromyalgia"], specialties: ["rheumatology", "pain-medicine", "general-practice"], humanFit: ["evidence-based"] }],
   ["long covid with brain fog and I'm exhausted all the time", { conditions: ["chronic-fatigue", "long-covid"] }],
-  ["POTS, my heart races when I stand and I keep being told it's anxiety", { conditions: ["pots", "anxiety"], specialties: ["cardiology", "neurology", "general-practice", "psychiatry"] }],
+  ["POTS, my heart races when I stand and I keep being told it's anxiety", { conditions: ["pots", "anxiety"], specialties: ["cardiology", "neurology", "general-practice", "psychiatry", "psychology"] }],
   ["functional neurological disorder and I want someone who doesn't think it's all in my head", { conditions: ["fnd"], specialties: ["neurology", "psychiatry", "rehabilitation-medicine"], humanFit: ["listens"] }],
   ["hypermobility and my joints dislocate, has to be a woman", { conditions: ["hypermobility"], gender: "woman", mandatory: ["gender"] }],
   ["IBS and bloating and pain for years, I want someone holistic", { conditions: ["ibs"], specialties: ["gastroenterology", "general-practice"], humanFit: ["holistic"] }],
@@ -118,7 +118,8 @@ describe("the intent read: 44 sentences across the three categories", () => {
 
   it("the plan's postpartum query reads as the plan says it should", () => {
     const intent = intentOf(POSTPARTUM);
-    expect(new Set(intent.specialties)).toEqual(new Set(["psychiatry", "obstetrics-gynaecology", "general-practice"]));
+    // Allied health (2026-10-19): psychologists treat perinatal mental health too (mvp.yaml).
+    expect(new Set(intent.specialties)).toEqual(new Set(["psychiatry", "obstetrics-gynaecology", "general-practice", "psychology"]));
     expect(intent.constraints.gender).toBe("woman");
     expect(intent.humanFit).toEqual(["listens"]);
     expect(intent.population).toBe("perinatal");

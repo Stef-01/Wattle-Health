@@ -2,7 +2,7 @@
 // No fs here: client components import this file.
 import type { DoctorRecord, Publication, Room } from "@/src/data/types";
 import { asList, sourceLabel } from "@/src/data/types";
-import type { Reason, Tier } from "@/src/matching/types";
+import { isAllied, type Reason, type Tier } from "@/src/matching/types";
 
 /** "Dr. Jane Smith" → "Dr Jane Smith"; a bare name gets no honorific added. */
 export function drName(d: Pick<DoctorRecord, "name">): string {
@@ -10,7 +10,9 @@ export function drName(d: Pick<DoctorRecord, "name">): string {
 }
 
 /** "Dr Smith" for headings and CTAs. Falls back to the display name when no family name is known. */
-export function drShort(d: Pick<DoctorRecord, "name">): string {
+export function drShort(d: Pick<DoctorRecord, "name"> & { specialty?: string }): string {
+  // Allied providers are not doctors: "Dr" only when their own display name carries it.
+  if (d.specialty && isAllied(d.specialty) && !/^dr/i.test(d.name.display.trim())) return drName(d);
   return d.name.family ? `Dr ${d.name.family}` : drName(d);
 }
 
@@ -94,7 +96,7 @@ export function sourceNote(source: string, tier: Tier, date: string | undefined,
   return { text: `${niceSource(source)}, ${TIER_WORD[tier]}${day ? ` ${day}` : ""}`, href: href ?? null };
 }
 
-export function personalStatusLabel(d: Pick<DoctorRecord, "personal" | "name">): string | null {
+export function personalStatusLabel(d: Pick<DoctorRecord, "personal" | "name"> & { specialty?: string }): string | null {
   const p = d.personal;
   if (!p || p.status === "draft") return null;
   if (p.status === "doctor-approved") return `Approved by ${drShort(d)}${p.approvedAt ? ` ${p.approvedAt.slice(0, 10)}` : ""}`;
@@ -181,8 +183,14 @@ export const SPECIALTY_TITLE: Record<string, string> = {
   "general-practice": "GP",
   "pain-medicine": "Pain medicine physician",
   rheumatology: "Rheumatologist",
+  psychology: "Psychologist",
+  "occupational-therapy": "Occupational therapist",
+  "allied-health": "Allied health",
 };
 export const specialtyTitle = (s: string): string => SPECIALTY_TITLE[s] ?? s.replace(/-/g, " ");
+
+/** The title a card or profile shows: the provider's own `profession` ("Clinical psychologist", "ADHD coach") when the record has one, else the specialty title. */
+export const providerTitle = (d: { specialty: string; profession?: string }): string => d.profession?.trim() || specialtyTitle(d.specialty);
 
 /** The personal block a screen may show: anything but a draft. */
 export function personalOf(d: Pick<DoctorRecord, "personal">): NonNullable<DoctorRecord["personal"]> | null {
@@ -245,7 +253,7 @@ export function practicalChips(d: DoctorRecord): string[] {
 export const yearsLine = (d: DoctorRecord): string | null => (typeof d.yearsInSpecialty?.value === "number" ? `${d.yearsInSpecialty.value} yrs` : null);
 
 /** Where the words came from, for the profile footer. */
-export function wordsSource(d: Pick<DoctorRecord, "personal" | "name">): { text: string; href: string | null } | null {
+export function wordsSource(d: Pick<DoctorRecord, "personal" | "name"> & { specialty?: string }): { text: string; href: string | null } | null {
   const p = personalOf(d);
   if (!p) return null;
   if (p.status === "published") return { text: `${drShort(d)}’s own words, from ${p.sourceName ?? "their practice website"}, ${p.observedAt ?? ""}`.trim(), href: p.sourceUrl ?? null };

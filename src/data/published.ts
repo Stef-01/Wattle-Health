@@ -20,8 +20,11 @@ export type ResearchedDoctor = {
   given: string;
   family: string;
   specialty: Specialty;
+  /** The provider's own title ("Clinical psychologist", "ADHD coach"); display only. Allied records carry it. */
+  profession?: string | null;
   gender: Gender | null;
-  practice: { name: string; address?: string | null; suburb: string; postcode?: string | null; phone?: string | null; website?: string | null; lat?: number | null; lng?: number | null };
+  /** `state` defaults to QLD. A practice in another state is never geocoded: such a record is telehealth-only for Queenslanders. */
+  practice: { name: string; address?: string | null; suburb: string; state?: Location["state"] | null; postcode?: string | null; phone?: string | null; website?: string | null; lat?: number | null; lng?: number | null };
   telehealth?: Telehealth | null;
   referral_required?: boolean | null;
   fee_initial_dollars?: number | null;
@@ -154,6 +157,8 @@ function found<T>(value: T, src: SourceRef): Observed<T> {
 
 function roomOf(d: ResearchedDoctor, id: string): Room {
   const pr = d.practice;
+  const state = pr.state ?? "QLD";
+  if (state !== "QLD") return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb, state, postcode: pr.postcode ?? "", lat: null, lng: null, phone: pr.phone ?? null, website: pr.website ?? null };
   const point = typeof pr.lat === "number" && typeof pr.lng === "number" ? { lat: pr.lat, lng: pr.lng } : (() => {
     const p = resolvePlace(pr.postcode ? `${pr.suburb} ${pr.postcode}` : pr.suburb) ?? resolvePlace(pr.suburb);
     return p ? { lat: p.lat, lng: p.lon } : { lat: null, lng: null };
@@ -219,6 +224,7 @@ function newRecord(d: ResearchedDoctor, discipline: Discipline): DoctorRecord {
     synthetic: false,
     name: { given: d.given, family: d.family, display: d.name },
     specialty: d.specialty,
+    ...(str(d.profession) ? { profession: str(d.profession)! } : {}),
     conditions: found([], src),
     populations: found(d.populations ?? ["adult"], src),
     telehealth: found(d.telehealth ?? "none", src),

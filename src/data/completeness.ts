@@ -2,6 +2,7 @@
 // thin bios are fine, deprioritise them in matching and flag that our team needs to reach out with
 // interview questions that fill the missing data"). Each missing piece maps to the interview
 // question that fills it. Deterministic; read from the record only.
+import { isAllied } from "@/src/matching/types";
 import type { DoctorRecord } from "./types";
 
 export type Gap = { field: string; label: string; question: string; weight: number };
@@ -41,9 +42,11 @@ export function deprioritiseThin<T extends { doctor: DoctorRecord; clinicalFit?:
   const out: T[] = [];
   let i = 0;
   while (i < cards.length) {
-    const band = cards[i]!.clinicalFit?.band;
+    // A run never mixes doctors and allied providers, so moving thin profiles down never lifts an allied provider past a doctor (index.ts).
+    const key = (c: T) => `${c.clinicalFit?.band}|${isAllied(c.doctor.specialty)}`;
+    const band = key(cards[i]!);
     let j = i;
-    while (j < cards.length && cards[j]!.clinicalFit?.band === band) j++;
+    while (j < cards.length && key(cards[j]!) === band) j++;
     const run = cards.slice(i, j);
     out.push(...run.filter((c) => !isThin(c.doctor)), ...run.filter((c) => isThin(c.doctor)));
     i = j;

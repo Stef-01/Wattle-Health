@@ -16,6 +16,8 @@ export interface CueGroup {
 export interface ConditionGroup extends CueGroup {
   /** Empty when the yaml names none: the condition then puts no specialty filter on the roster. */
   specialties: SpecialtyField[];
+  /** yaml `prescriber: true`: care needs a medical prescriber, so doctors rank above allied providers (src/matching/index.ts). */
+  prescriber?: boolean;
 }
 
 export interface PopulationCues {
@@ -86,7 +88,8 @@ function record(value: unknown, where: string): Record<string, string[]> {
 function conditionGroups(value: unknown, where: string): ConditionGroup[] {
   const base = groups(value, where);
   return base.map((group, i) => {
-    const raw = (value as { specialties?: unknown }[])[i]?.specialties;
+    const item = (value as { specialties?: unknown; prescriber?: unknown }[])[i];
+    const raw = item?.specialties;
     const specialties: SpecialtyField[] = [];
     if (raw !== undefined) {
       if (!Array.isArray(raw)) throw new Error(`${where}.${group.id}: specialties must be a list`);
@@ -95,7 +98,7 @@ function conditionGroups(value: unknown, where: string): ConditionGroup[] {
         if (!specialties.includes(item)) specialties.push(item);
       }
     }
-    return { ...group, specialties };
+    return item?.prescriber === true ? { ...group, specialties, prescriber: true } : { ...group, specialties };
   });
 }
 
