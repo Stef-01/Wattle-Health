@@ -1,0 +1,845 @@
+{
+ "category": "healthspan",
+ "researched_at": "2026-10-19",
+ "doctors": [
+  {
+   "name": "Dr Mileham Hayes",
+   "given": "Mileham",
+   "family": "Hayes",
+   "specialty": "general-practice",
+   "gender": "man",
+   "practice": {
+    "name": "Longevity Advanced Medical Clinic",
+    "address": null,
+    "suburb": "Woolloongabba",
+    "postcode": "4102",
+    "phone": "07 3020 3003",
+    "website": "https://longevitybrisbane.au/about/"
+   },
+   "telehealth": false,
+   "referral_required": false,
+   "fee_initial_dollars": 3990,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "cardiovascular-risk",
+    "metabolic-health"
+   ],
+   "populations": [
+    "adult"
+   ],
+   "focus_tags": [
+    "longevity medicine",
+    "preventive medicine",
+    "metabolic health",
+    "pathology and imaging",
+    "in-house biomarker analysis"
+   ],
+   "personal": {
+    "philosophy_of_care": "Prevention before disease: use current knowledge and tools to reduce the risk of major chronic disease.",
+    "why_medicine": "Witnessed the tragic consequences of preventable disease early in his career.",
+    "communication_approach": "Shares practical, science-backed advice for improving metabolic health.",
+    "communication": [
+     "evidence-based"
+    ],
+    "lived_experience": null,
+    "hobbies": [],
+    "outside_medicine": "Fellow of the Royal College of Physicians of Edinburgh and London; trained in the world's first Coronary Care Unit; author of Live Longer.",
+    "quotes": [
+     {
+      "text": "We shouldn’t wait for disease to strike. We now have the knowledge and tools to prevent it",
+      "about": "approach"
+     },
+     {
+      "text": "where he witnessed the tragic consequences of preventable disease",
+      "about": "why medicine"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://longevitybrisbane.au/about/",
+    "page_title": "About | Live Longest - Longevity Brisbane",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+    "secondary_url": "https://longevitybrisbane.au/",
+    "secondary_note": "Homepage: HELP program base is 'advanced specific Pathology, Imaging and In-house Biomarker analyses'; 'HELP introductory price: $3,990'. Suburb/postcode from the clinic's HotDoc booking link (Woolloongabba QLD 4102). No portrait identified with certainty, so none used."
+   },
+   "personal_richness": 2,
+   "healthspan": {
+    "areas": [
+     "heart",
+     "metabolic"
+    ],
+    "opens_to": [
+     "biomarkers"
+    ],
+    "evidence": "We shouldn’t wait for disease to strike. We now have the knowledge and tools to prevent it"
+   },
+   "photo_url": null
+  },
+  {
+   "name": "Dr Hilma Starostina",
+   "given": "Hilma",
+   "family": "Starostina",
+   "specialty": "general-practice",
+   "gender": "woman",
+   "practice": {
+    "name": "Essentia Medical",
+    "address": "Suite 15-16, Noosa Civic Medihub, 28 Eenie Creek Road",
+    "suburb": "Noosaville",
+    "postcode": "4566",
+    "phone": null,
+    "website": "https://www.drhilmastarostina.com.au/"
+   },
+   "telehealth": true,
+   "referral_required": false,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "menopause",
+    "metabolic-health",
+    "cardiovascular-risk"
+   ],
+   "populations": [
+    "adult",
+    "women"
+   ],
+   "focus_tags": [
+    "menopause",
+    "midlife health",
+    "metabolic health",
+    "cardiovascular health",
+    "bone health",
+    "insulin resistance"
+   ],
+   "personal": {
+    "philosophy_of_care": "Unhurried midlife care that treats current symptoms and plans ahead, with a written plan reflecting results, risks and preferences.",
+    "why_medicine": null,
+    "communication_approach": "One-hour initial consultations; works alongside the patient's GP and care team.",
+    "communication": [
+     "evidence-based",
+     "collaborative"
+    ],
+    "lived_experience": null,
+    "hobbies": [],
+    "outside_medicine": "BMS-accredited menopause specialist (MRCGP, FRACGP); founded Essentia Medical for women and men at midlife.",
+    "quotes": [
+     {
+      "text": "Biology is not destiny, but it isn't irrelevant either.",
+      "about": "approach"
+     },
+     {
+      "text": "A written plan that reflects your results, risks and preferences.",
+      "about": "approach"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.drhilmastarostina.com.au/",
+    "page_title": "Dr Hilma Starostina | Essentia Medical",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+    "secondary_url": "https://www.essentiamedical.com.au/",
+    "secondary_note": "Bone: 'Osteoporosis prevention, muscle loss and menopause-related joint pain.' Tests: 'Personal and family history, examination and targeted tests.' Postcode 4566 is Noosaville; not printed on the page."
+   },
+   "personal_richness": 1,
+   "healthspan": {
+    "areas": [
+     "heart",
+     "metabolic",
+     "hormones",
+     "strength",
+     "sleep",
+     "brain"
+    ],
+    "opens_to": [
+     "biomarkers"
+    ],
+    "evidence": "Blood pressure, cholesterol, insulin resistance and central weight."
+   },
+   "photo_url": "https://www.drhilmastarostina.com.au/wp-content/uploads/2025/10/doc133013-20240620034852.png"
+  },
+  {
+   "name": "Dr Rachel Wiper",
+   "given": "Rachel",
+   "family": "Wiper",
+   "specialty": "general-practice",
+   "gender": "woman",
+   "practice": {
+    "name": "Brisbane Menopause Clinic",
+    "address": null,
+    "suburb": "Fortitude Valley",
+    "postcode": "4006",
+    "phone": null,
+    "website": "https://www.brisbanemenopauseclinic.com.au/rachel-wiper"
+   },
+   "telehealth": false,
+   "referral_required": false,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "menopause"
+   ],
+   "populations": [
+    "adult",
+    "women"
+   ],
+   "focus_tags": [
+    "menopause",
+    "perimenopause",
+    "lifestyle medicine",
+    "healthy ageing",
+    "preventive health"
+   ],
+   "personal": {
+    "philosophy_of_care": "Preventative health strategies that set the stage for healthy ageing.",
+    "why_medicine": null,
+    "communication_approach": null,
+    "communication": [
+     "evidence-based",
+     "holistic"
+    ],
+    "lived_experience": null,
+    "hobbies": [],
+    "outside_medicine": "Board Certified in Lifestyle Medicine (2020); Postgraduate Certificate in Menopause Medicine.",
+    "quotes": [
+     {
+      "text": "understands the great importance of our lifestyle on symptom control and healthy ageing.",
+      "about": "approach"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.brisbanemenopauseclinic.com.au/rachel-wiper",
+    "page_title": "Dr Rachel Wiper Brisbane Menopause clinic",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+    "secondary_url": "https://www.brisbanemenopauseclinic.com.au/",
+    "secondary_note": "Homepage philosophy: 'focus on preventative health strategies, setting the stage for healthy ageing'. Suburb from the clinic's HealthEngine booking link."
+   },
+   "personal_richness": 1,
+   "healthspan": {
+    "areas": [
+     "hormones"
+    ],
+    "opens_to": [],
+    "evidence": "understands the great importance of our lifestyle on symptom control and healthy ageing."
+   },
+   "photo_url": "https://images.squarespace-cdn.com/content/v1/6758b411ec441e7680bc3a6d/31bbb8a0-59f8-4c01-bce0-ff6d3857b964/Rachel006.jpg"
+  },
+  {
+   "name": "Dr Maria Boulton",
+   "given": "Maria",
+   "family": "Boulton",
+   "specialty": "general-practice",
+   "gender": "woman",
+   "practice": {
+    "name": "Family Doctors Plus",
+    "address": "178 Albion Rd",
+    "suburb": "Windsor",
+    "postcode": "4030",
+    "phone": "07 3357 8192",
+    "website": "https://www.familydoctorsplus.com.au/team/dr-maria-boulton/"
+   },
+   "telehealth": false,
+   "referral_required": false,
+   "fee_initial_dollars": null,
+   "taking_new_patients": false,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "menopause",
+    "cardiovascular-risk"
+   ],
+   "populations": [
+    "adult",
+    "women",
+    "child",
+    "adolescent"
+   ],
+   "focus_tags": [
+    "preventive medicine",
+    "menopause",
+    "perimenopause",
+    "family care"
+   ],
+   "personal": {
+    "philosophy_of_care": "Listens carefully and empowers patients with knowledge.",
+    "why_medicine": null,
+    "communication_approach": "Believes in clear communication and teamwork in healthcare.",
+    "communication": [
+     "listens",
+     "collaborative"
+    ],
+    "lived_experience": null,
+    "hobbies": [
+     "boating",
+     "reading"
+    ],
+    "outside_medicine": "Married with two children; member of the Australasian Menopause Society.",
+    "quotes": [
+     {
+      "text": "believes in listening carefully, empowering patients with knowledge",
+      "about": "approach"
+     },
+     {
+      "text": "Outside of work, she enjoys boating and reading.",
+      "about": "personal"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.familydoctorsplus.com.au/team/dr-maria-boulton/",
+    "page_title": "Dr Maria Boulton | Family Doctors Plus",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+    "secondary_url": "https://www.familydoctorsplus.com.au/perimenopause-menopause-clinic/",
+    "secondary_note": "Evidence sentence is from the practice's Perimenopause & Menopause Clinic page, which names Dr Boulton; it also mentions 'blood tests, bone density scans or blood pressure reviews'. Page says she is not currently taking new patients."
+   },
+   "personal_richness": 3,
+   "healthspan": {
+    "areas": [
+     "heart",
+     "hormones",
+     "strength"
+    ],
+    "opens_to": [
+     "biomarkers"
+    ],
+    "evidence": "This may include breast, cervical and bowel screening, bone health checks and cardiovascular risk assessment."
+   },
+   "photo_url": "https://www.familydoctorsplus.com.au/wp-content/uploads/2016/02/maria.jpg"
+  },
+  {
+   "name": "Dr Nicole Sleeman",
+   "given": "Nicole",
+   "family": "Sleeman",
+   "specialty": "general-practice",
+   "gender": "woman",
+   "practice": {
+    "name": "Cairns Health Collective",
+    "address": "447 Draper St",
+    "suburb": "Parramatta Park",
+    "postcode": "4870",
+    "phone": "07 4031 1204",
+    "website": "https://www.cairnshealthcollective.com.au/staff/dr-nicole-sleeman"
+   },
+   "telehealth": false,
+   "referral_required": false,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "menopause",
+    "sleep"
+   ],
+   "populations": [
+    "adult",
+    "adolescent"
+   ],
+   "focus_tags": [
+    "lifestyle medicine",
+    "prevention",
+    "perimenopause and menopause",
+    "sleep, nutrition and movement",
+    "trauma-informed care"
+   ],
+   "personal": {
+    "philosophy_of_care": "Prevention-focused, holistic healthcare with a strong emphasis on lifestyle medicine.",
+    "why_medicine": null,
+    "communication_approach": "Takes an empathetic, supportive and collaborative approach.",
+    "communication": [
+     "holistic",
+     "collaborative",
+     "gentle"
+    ],
+    "lived_experience": null,
+    "hobbies": [],
+    "outside_medicine": "Board Certified in Lifestyle Medicine.",
+    "quotes": [
+     {
+      "text": "She is passionate about prevention-focused, holistic healthcare",
+      "about": "approach"
+     },
+     {
+      "text": "takes an empathetic, supportive, and collaborative approach",
+      "about": "approach"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.cairnshealthcollective.com.au/staff/dr-nicole-sleeman",
+    "page_title": "Dr Nicole Sleeman | Cairns Health Collective",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+   },
+   "personal_richness": 1,
+   "healthspan": {
+    "areas": [
+     "sleep",
+     "fitness",
+     "hormones"
+    ],
+    "opens_to": [],
+    "evidence": "Support with sleep, nutrition, movement, and stress management"
+   },
+   "photo_url": "https://www.cairnshealthcollective.com.au/wp-content/uploads/nicole-sleeman.jpg"
+  },
+  {
+   "name": "Dr Sian Edwards",
+   "given": "Sian",
+   "family": "Edwards",
+   "specialty": "general-practice",
+   "gender": "woman",
+   "practice": {
+    "name": "7Springs Medical Practice",
+    "address": "881 Ruthven Street",
+    "suburb": "Toowoomba",
+    "postcode": "4350",
+    "phone": "07 4529 2777",
+    "website": "https://www.sevensprings.com.au/about/doctors/dr-sian-edwards/"
+   },
+   "telehealth": false,
+   "referral_required": false,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "menopause",
+    "pelvic-pain"
+   ],
+   "populations": [
+    "adult",
+    "women"
+   ],
+   "focus_tags": [
+    "preventative health",
+    "menopause",
+    "women's and sexual health",
+    "movement is medicine"
+   ],
+   "personal": {
+    "philosophy_of_care": "Preventative health in general practice, helping patients maintain their best health and quality of life.",
+    "why_medicine": null,
+    "communication_approach": null,
+    "communication": [
+     "holistic"
+    ],
+    "lived_experience": null,
+    "hobbies": [
+     "cycling",
+     "hockey"
+    ],
+    "outside_medicine": "Mother of three; member of the Australasian Menopause Society.",
+    "quotes": [
+     {
+      "text": "Movement is Medicine! Keeping our bodies moving and active, in whatever form that you enjoy",
+      "about": "approach"
+     },
+     {
+      "text": "being as active as possible with my three children, cycling, playing hockey",
+      "about": "personal"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.sevensprings.com.au/about/doctors/dr-sian-edwards/",
+    "page_title": "Dr Sian Edwards | 7Springs Toowoomba",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+   },
+   "personal_richness": 3,
+   "healthspan": {
+    "areas": [
+     "fitness",
+     "hormones"
+    ],
+    "opens_to": [],
+    "evidence": "Movement is Medicine! Keeping our bodies moving and active, in whatever form that you enjoy"
+   },
+   "photo_url": null
+  },
+  {
+   "name": "Dr Kuljit Singh",
+   "given": "Kuljit",
+   "family": "Singh",
+   "specialty": "general-practice",
+   "gender": null,
+   "practice": {
+    "name": "Health HQ",
+    "address": "127 Queen St",
+    "suburb": "Southport",
+    "postcode": "4215",
+    "phone": "(07) 5526 4444",
+    "website": "https://www.healthhq.com.au/doctors.html"
+   },
+   "telehealth": false,
+   "referral_required": false,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [],
+   "populations": [
+    "adult"
+   ],
+   "focus_tags": [
+    "lifestyle medicine",
+    "preventative health",
+    "social prescribing"
+   ],
+   "personal": {
+    "philosophy_of_care": "Social prescribing: connecting patients with community groups, hobbies or exercise alongside medical care.",
+    "why_medicine": null,
+    "communication_approach": null,
+    "communication": [
+     "holistic"
+    ],
+    "lived_experience": null,
+    "hobbies": [],
+    "outside_medicine": "Fellow of the Australasian Society of Lifestyle Medicine; National Chair of the RACGP Social Prescribing Special Interest Group.",
+    "quotes": [
+     {
+      "text": "GP & Lifestyle Medicine Physician, for a happier & healthier version of you.",
+      "about": "approach"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.healthhq.com.au/doctors.html",
+    "page_title": "Health HQ Southport GP profiles Gold Coast Qld",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+   },
+   "personal_richness": 1,
+   "healthspan": {
+    "areas": [
+     "fitness",
+     "brain"
+    ],
+    "opens_to": [],
+    "evidence": "GP & Lifestyle Medicine Physician, for a happier & healthier version of you."
+   },
+   "photo_url": "https://www.healthhq.com.au/profileimages/dr-kuljit-singh-large.jpg"
+  },
+  {
+   "name": "Dr Sherwin Goh",
+   "given": "Sherwin",
+   "family": "Goh",
+   "specialty": "sport-and-exercise-medicine",
+   "gender": "man",
+   "practice": {
+    "name": "Brisbane Sports & Exercise Medicine Specialists",
+    "address": "87 Riding Road",
+    "suburb": "Hawthorne",
+    "postcode": "4171",
+    "phone": "(07) 3899 0659",
+    "website": "https://bsems.com.au/doctors/dr-sherwin-goh/"
+   },
+   "telehealth": false,
+   "referral_required": true,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [],
+   "populations": [
+    "adult"
+   ],
+   "focus_tags": [
+    "sport and exercise medicine",
+    "exercise prescription",
+    "concussion",
+    "performance health"
+   ],
+   "personal": {
+    "philosophy_of_care": "Considers everybody an athlete, with a holistic approach to health and performance.",
+    "why_medicine": null,
+    "communication_approach": null,
+    "communication": [
+     "holistic",
+     "evidence-based"
+    ],
+    "lived_experience": null,
+    "hobbies": [],
+    "outside_medicine": "Has served in the military; published concussion research; Leading Medical Officer for Queensland Academy of Sport cycling; Brisbane Lions team medical officer.",
+    "quotes": [
+     {
+      "text": "He considers everybody an athlete and enjoys consulting people from all walks of life",
+      "about": "approach"
+     },
+     {
+      "text": "has a holistic approach to health and performance",
+      "about": "approach"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://bsems.com.au/doctors/dr-sherwin-goh/",
+    "page_title": "Dr Sherwin Goh | BSEMS",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+   },
+   "personal_richness": 2,
+   "healthspan": {
+    "areas": [
+     "fitness",
+     "strength"
+    ],
+    "opens_to": [],
+    "evidence": "He considers everybody an athlete and enjoys consulting people from all walks of life"
+   },
+   "photo_url": "https://bsems.com.au/wp-content/uploads/2021/05/Sherwin-Goh-213x420.jpg"
+  },
+  {
+   "name": "Dr Will Craddock",
+   "given": "Will",
+   "family": "Craddock",
+   "specialty": "sport-and-exercise-medicine",
+   "gender": "man",
+   "practice": {
+    "name": "SportsMed Sunshine Coast",
+    "address": "The Sports Hub Suites, Suite 9, Level 1, 26 Main Drive",
+    "suburb": "Bokarina",
+    "postcode": "4575",
+    "phone": "07 5391 4749",
+    "website": "https://www.sportsmedsc.com.au/dr-william-craddock"
+   },
+   "telehealth": false,
+   "referral_required": true,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "metabolic-health"
+   ],
+   "populations": [
+    "adult"
+   ],
+   "focus_tags": [
+    "exercise for chronic disease",
+    "obesity and metabolic syndrome",
+    "osteoarthritis",
+    "sports injuries"
+   ],
+   "personal": {
+    "philosophy_of_care": "Exercise and diet as treatment for overweight, obesity and chronic disease, alongside injury care.",
+    "why_medicine": null,
+    "communication_approach": null,
+    "communication": [
+     "evidence-based"
+    ],
+    "lived_experience": null,
+    "hobbies": [
+     "triathlon",
+     "mountain biking",
+     "alpine skiing"
+    ],
+    "outside_medicine": "Noosa Triathlon Club member; races mountain bike marathons (Noosa Enduro, Flight Centre Epic).",
+    "quotes": [
+     {
+      "text": "Exercise and dietary manipulation in the treatment of overweight, obesity, and chronic disease",
+      "about": "approach"
+     },
+     {
+      "text": "Mountain Biking marathon racing Noosa Enduro, Flight Centre Epic",
+      "about": "personal"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.sportsmedsc.com.au/dr-william-craddock",
+    "page_title": "Dr William Craddock | SportsMed Sunshine Coast",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+   },
+   "personal_richness": 3,
+   "healthspan": {
+    "areas": [
+     "fitness",
+     "metabolic",
+     "strength"
+    ],
+    "opens_to": [],
+    "evidence": "Exercise and dietary manipulation in the treatment of overweight, obesity, and chronic disease"
+   },
+   "photo_url": "https://images.squarespace-cdn.com/content/v1/5878497c5016e182d058fcc7/1495245583096-SZSN70PK7648C655FT60/image-asset.jpeg"
+  },
+  {
+   "name": "Dr Kimberley Wells",
+   "given": "Kimberley",
+   "family": "Wells",
+   "specialty": "sport-and-exercise-medicine",
+   "gender": "woman",
+   "practice": {
+    "name": "Noosa Specialist Sports Medicine",
+    "address": "The Medihub, First Floor, 26 Eenie Creek Road",
+    "suburb": "Noosaville",
+    "postcode": "4566",
+    "phone": "(07) 5415 0428",
+    "website": "https://www.drkimberleywells.com/"
+   },
+   "telehealth": false,
+   "referral_required": true,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [
+    "metabolic-health"
+   ],
+   "populations": [
+    "adult",
+    "older-adult"
+   ],
+   "focus_tags": [
+    "exercise prescription as medicine",
+    "metabolic health",
+    "healthy ageing",
+    "movement screening"
+   ],
+   "personal": {
+    "philosophy_of_care": "Exercise prescribed as medicine, for chronic disease, metabolic health, rehabilitation and healthy ageing.",
+    "why_medicine": null,
+    "communication_approach": null,
+    "communication": [
+     "evidence-based"
+    ],
+    "lived_experience": null,
+    "hobbies": [
+     "cycling"
+    ],
+    "outside_medicine": "Former dual Australian National Champion professional cyclist; also consults at Maroochy Private Hospital.",
+    "quotes": [
+     {
+      "text": "Exercise prescription as medicine",
+      "about": "approach"
+     },
+     {
+      "text": "A former dual Australian National Champion professional cyclist",
+      "about": "personal"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.drkimberleywells.com/",
+    "page_title": "Dr Kimberley Wells | Sports Medicine Physician",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+   },
+   "personal_richness": 2,
+   "healthspan": {
+    "areas": [
+     "fitness",
+     "metabolic",
+     "strength"
+    ],
+    "opens_to": [],
+    "evidence": "Prescription of physical activity for chronic disease management, metabolic health, rehabilitation, and healthy aging."
+   },
+   "photo_url": "https://www.drkimberleywells.com/images/dr-kimberley-wells-headshot.jpg"
+  },
+  {
+   "name": "Dr Kira James",
+   "given": "Kira",
+   "family": "James",
+   "specialty": "sport-and-exercise-medicine",
+   "gender": "woman",
+   "practice": {
+    "name": "Cairns Orthopaedic Clinic",
+    "address": "225-227 Draper Street",
+    "suburb": "Parramatta Park",
+    "postcode": "4870",
+    "phone": "(07) 4040 6200",
+    "website": "https://www.cairnsorthopaedicclinic.com.au/dr-kira-james"
+   },
+   "telehealth": false,
+   "referral_required": false,
+   "fee_initial_dollars": null,
+   "taking_new_patients": null,
+   "languages": [
+    "English"
+   ],
+   "years_in_specialty": null,
+   "conditions": [],
+   "populations": [
+    "adult"
+   ],
+   "focus_tags": [
+    "sport and exercise medicine",
+    "getting started with exercise"
+   ],
+   "personal": {
+    "philosophy_of_care": "Helps people return to, or start, a lifelong love of exercise.",
+    "why_medicine": null,
+    "communication_approach": "Learns about new sports and forms of exercise through her patients.",
+    "communication": [
+     "collaborative"
+    ],
+    "lived_experience": null,
+    "hobbies": [
+     "running",
+     "hiking",
+     "fishing",
+     "winter sports",
+     "travel"
+    ],
+    "outside_medicine": "Loves regional life and travelling in Australia and overseas.",
+    "quotes": [
+     {
+      "text": "is keen to get everyone back to (or start) a journey of love with exercise and feeling healthy.",
+      "about": "approach"
+     },
+     {
+      "text": "Kira loves regional life and travelling, both in Australia and across the world.",
+      "about": "personal"
+     }
+    ]
+   },
+   "source": {
+    "url": "https://www.cairnsorthopaedicclinic.com.au/dr-kira-james",
+    "page_title": "Dr Kira James | Cairns Orthopaedic Clinic",
+    "observed_at": "2026-10-19",
+    "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+    "secondary_note": "Page gives the address as Draper Street, Cairns QLD 4870; 225 Draper St sits in Parramatta Park."
+   },
+   "personal_richness": 3,
+   "healthspan": {
+    "areas": [
+     "fitness"
+    ],
+    "opens_to": [],
+    "evidence": "is keen to get everyone back to (or start) a journey of love with exercise and feeling healthy."
+   },
+   "photo_url": "https://www.cairnsorthopaedicclinic.com.au/site/resized/08102025110259-600-width-kj20251008110259.jpg"
+  }
+ ]
+}
