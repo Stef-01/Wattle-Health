@@ -100,7 +100,7 @@ export function Adjust() {
       {SECTIONS.map((s, i) => (
         <div key={s.title}>
           {i > 0 ? <Space h={32} /> : null}
-          <h2 className="display text-[22px] text-ink">{s.title}</h2>
+          <h2 className="text-[20px] text-ink">{s.title}</h2>
           <Space h={8} />
           {s.pills.map((p) => (
             <button key={p} type="button" role="switch" aria-checked={on.has(p)} onClick={() => toggle(p)} className="press press-soft flex w-full items-center justify-between border-b border-divider py-3.5 text-left">

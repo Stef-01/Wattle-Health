@@ -246,7 +246,7 @@ export function Narrow() {
         <div key="summary" className="rise mt-10">
           <h1 className="text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">What we’ll search for</h1>
           <p className="mt-3 text-[15px] text-grey">You can change this on the results page.</p>
-          <dl className="mt-6 rounded-[22px] px-5 py-2" style={{ background: "#f5f8f6" }}>
+          <dl className="mt-6 rounded-[8px] px-5 py-2" style={{ background: "#f5f8f6" }}>
             <div className="border-b border-[#e3ebe5] py-3">
               <dt className="text-[13px] text-grey">In your words</dt>
               <dd className="text-[16px] text-ink">{sentence}</dd>
@@ -266,7 +266,7 @@ export function Narrow() {
           </dl>
         </div>
       ) : (
-        <p className="rise mt-16 text-center font-display text-[22px] text-grey">Reading that…</p>
+        <p className="rise mt-16 text-center text-[18px] text-grey">Reading that…</p>
       )}
 
       <div className="frame-fixed pointer-events-none bottom-0 z-20 bg-white">

@@ -35,12 +35,12 @@ export function ContactCta({ doctor, label, note, inline = false }: { doctor: Do
       <Sheet open={open} onClose={() => setOpen(false)} title={`Contact ${drShort(doctor)}`}>
         {c.room ? <p className="text-[14px] text-grey">{c.room}</p> : null}
         {tel ? (
-          <a href={tel} className="press flex h-[54px] items-center justify-center rounded-pill bg-ink text-[16px] font-medium text-white">
+          <a href={tel} className="press flex h-12 items-center justify-center rounded-[6px] bg-ink text-[16px] font-semibold text-white">
             Call {c.phone}
           </a>
         ) : null}
         {c.website ? (
-          <a href={c.website} target="_blank" rel="noreferrer" className="press flex h-[54px] items-center justify-center rounded-pill bg-surface-soft text-[16px] font-medium text-charcoal">
+          <a href={c.website} target="_blank" rel="noreferrer" className="press flex h-12 items-center justify-center rounded-[6px] border border-ink bg-white text-[16px] font-semibold text-ink">
             Practice website
           </a>
         ) : null}

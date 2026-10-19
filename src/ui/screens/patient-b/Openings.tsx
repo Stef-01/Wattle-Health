@@ -87,7 +87,7 @@ export function Openings() {
     <Screen padBottom="pb-[120px]">
       <div className="flex h-11 items-center gap-4">
         <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
-        <h1 className="display text-[22px] text-ink">Openings</h1>
+        <h1 className="text-[22px] text-ink">Openings</h1>
       </div>
       <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Times that fit your calendar, from doctors you saved.</p>
 

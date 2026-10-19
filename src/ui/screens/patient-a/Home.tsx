@@ -93,7 +93,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
           void submit(text);
         }}
       >
-        <FieldBox className="flex flex-col gap-6 pb-[18px] pl-[31px] pr-6 pt-[22px]">
+        <FieldBox className="flex flex-col gap-5 px-5 pb-4 pt-5">
           <label className="sr-only" htmlFor="sentence">
             Describe who you need, in your own words
           </label>

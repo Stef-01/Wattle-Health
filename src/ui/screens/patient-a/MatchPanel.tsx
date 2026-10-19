@@ -9,7 +9,7 @@ import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
 import { demoOpenings } from "@/src/data/calendar";
-import { Check, Labelled } from "@/src/ui/kit";
+import { Check, Heart, Labelled } from "@/src/ui/kit";
 import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
@@ -116,14 +116,20 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_500px] lg:items-start lg:gap-16">
       <div className="min-w-0">
       <header className="flex items-start gap-5">
-        <Link href={doctorHref(d.id)} className="press shrink-0">
-          {d.photo ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={d.photo.url} alt={drShort(d)} referrerPolicy="no-referrer" loading={index === 0 ? "eager" : "lazy"} className="size-[88px] rounded-full object-cover object-top lg:size-[104px]" />
-          ) : (
-            <span className="inline-flex size-[88px] items-center justify-center rounded-full bg-[#f5f8f6] font-display text-[30px] text-[#2f5d3a] lg:size-[104px]">{d.name.display.replace(/^Dr\.? /, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
-          )}
-        </Link>
+        <div className="relative shrink-0">
+          <Link href={doctorHref(d.id)} className="press block">
+            {d.photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={d.photo.url} alt={drShort(d)} referrerPolicy="no-referrer" loading={index === 0 ? "eager" : "lazy"} className="size-[88px] rounded-full object-cover object-top lg:size-[104px]" />
+            ) : (
+              <span className="inline-flex size-[88px] items-center justify-center rounded-full bg-[#f5f8f6] font-display text-[30px] text-[#2f5d3a] lg:size-[104px]">{d.name.display.replace(/^Dr\.? /, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
+            )}
+          </Link>
+          {/* Phone: the heart sits on the portrait so the name keeps its width. Wider: the labelled Save button at the right. */}
+          <button type="button" aria-pressed={saved} aria-label={saved ? "Remove from saved" : "Save"} onClick={onSave} className="press absolute -bottom-1 -right-1 inline-flex size-9 items-center justify-center rounded-full border border-hairline bg-white text-ink shadow-[0_1px_4px_rgba(0,0,0,0.14)] sm:hidden">
+            <Heart size={16} fill={saved ? "currentColor" : "none"} />
+          </button>
+        </div>
         <div className="min-w-0 flex-1 pt-1">
           <Link href={doctorHref(d.id)} className="press-dim block">
             <p role="heading" aria-level={2} className="text-[22px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink lg:text-[28px]">{d.name.display}</p>
@@ -132,7 +138,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
           <p className="mt-1 text-[15px] leading-snug text-[#6b6b6b] lg:text-[16px]">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
         </div>
         <button type="button" aria-pressed={saved} aria-label={saved ? "Remove from saved" : "Save"} onClick={onSave} className="press hidden h-10 shrink-0 items-center gap-2 rounded-[6px] border border-ink px-3.5 text-[15px] font-medium text-ink sm:inline-flex">
-          <svg width={17} height={17} viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth={1.8} aria-hidden="true"><path d="M12 20s-7-4.3-7-9.4A4 4 0 0 1 12 8a4 4 0 0 1 7 2.6C19 15.7 12 20 12 20Z" /></svg>
+          <Heart size={17} fill={saved ? "currentColor" : "none"} />
           {saved ? "Saved" : "Save"}
         </button>
       </header>
@@ -180,7 +186,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
             {d.rooms.filter((r) => r.state === "QLD").slice(0, 3).map((r) => {
               const address = [r.name, r.address, `${r.suburb} ${r.state} ${r.postcode}`.trim()].filter(Boolean).join(", ");
               return (
-                <div key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">
+                <div key={r.id} className="rounded-[8px] border border-hairline px-4 py-3">
                   <p className="text-[16px] font-medium text-ink">{r.name ?? r.suburb}</p>
                   <p className="mt-0.5 text-[14px] leading-[1.45] text-grey">{address}</p>
                   <div className="mt-2 flex gap-4 text-[14px]">

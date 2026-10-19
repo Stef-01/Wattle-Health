@@ -10,6 +10,10 @@
    Roboto, Inter, Poppins. Pills 54 r20, small pills 44. Fields r20 2px #D2D2D2.
    Photo cards r25.5 with #1D1D1D 40% blurred captions. CTA 373x66 r20. Missing photo = #D9D9D9 with initials.
 
+   Zocdoc layer (2026-10-19, from the founder's provider-page capture in qa/benchmark-zocdoc): headings sans
+   semibold, cards 8 px, controls and fields 6 px with a 1 px line, CTA 56 high r6 semibold with no shadow,
+   round portraits. Newsreader stays for the doctor's own words and the editorial landings.
+
    Refinement layer (designmd.co/d/apple + Apple HIG + Emil Kowalski's design-eng notes):
    one interactive colour (Action Blue #0066cc, focus #0071e3), hairline #E0E0E0 and soft
    divider #F0F0F0, size-specific tracking, an 8 px spacing base, strong custom easings,
@@ -38,9 +42,9 @@
   --font-sans: "Roboto Variable", "Inter Variable", system-ui, sans-serif;
   --font-inter: "Inter Variable", system-ui, sans-serif;
   --radius-pill: 20px;
-  --radius-field: 20px;
+  --radius-field: 6px;
   --radius-card: 25.5px;
-  --radius-cta: 20px;
+  --radius-cta: 6px;
   --shadow-cta: 0 13px 13px rgba(0, 0, 0, 0.12);
   --shadow-photo: 0 18px 40px rgba(0, 0, 0, 0.16);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

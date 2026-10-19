@@ -25,10 +25,12 @@ Measured with `qa/iphone/words.mjs`:
 
 | Screen | Words above the fold |
 |---|---|
-| Home | 52 |
-| Me | 60 |
-| Openings | 50 |
+| Home | 48 |
+| Me | 47 |
+| Openings | 53 |
 | Context | 49 |
-| Discover | 72 |
-| Healthspan | 77, an editorial landing on purpose |
-| About | 96, an editorial page on purpose |
+| Discover | 55 (was 72; tile copy trimmed, text arrows replaced by a chevron icon) |
+| Healthspan | 75, an editorial landing on purpose |
+| About | 102, an editorial page on purpose |
+
+Re-measured 2026-10-19 after the Zocdoc token pass (sans semibold headings everywhere outside the doctor's own words and the editorial landings; 8 px cards, 6 px controls and fields, 56 px r6 CTA; Save on every match at phone width; Saved cards on the match header).

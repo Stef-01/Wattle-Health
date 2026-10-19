@@ -5,7 +5,7 @@
 // with what you get, price and a link to their own site. Listings are facts from each provider's
 // website (data/discover/offerings.json); Wattle does not endorse or take payment from them.
 import { useMemo, useState } from "react";
-import { ArrowLeft, Check, Circle, Cta, Screen } from "@/src/ui/kit";
+import { ArrowLeft, Check, ChevronRight, Circle, Cta, Screen } from "@/src/ui/kit";
 import { Healthspan } from "./Healthspan";
 
 export type Offering = {
@@ -27,8 +27,8 @@ export type Offering = {
 };
 
 const CATEGORIES = [
-  { id: "biomarkers", title: "Know your biomarkers", sub: "A doctor reads an extended blood panel with you and makes a plan.", tint: "#f5f8f6" },
-  { id: "wearables", title: "Make your wearable useful", sub: "Bring your Oura, Apple Watch, Whoop or glucose monitor data to a doctor.", tint: "#f6f7fa" },
+  { id: "biomarkers", title: "Know your biomarkers", sub: "A doctor reads an extended blood panel with you.", tint: "#f5f8f6" },
+  { id: "wearables", title: "Make your wearable useful", sub: "Bring your Oura, Apple Watch or glucose monitor data to a doctor.", tint: "#f6f7fa" },
   { id: "menopause", title: "Menopause, properly", sub: "Longer, whole-person consults for perimenopause and menopause.", tint: "#f8f6f3" },
 ] as const;
 
@@ -82,36 +82,36 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
     <Screen padBottom="pb-[150px]">
       <div className="flex h-11 items-center gap-4">
         {cat === null ? <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle> : <Circle onClick={back} label="Back"><ArrowLeft size={20} /></Circle>}
-        <h1 className="display text-[22px] text-ink">Discover</h1>
+        <h1 className="text-[22px] text-ink">Discover</h1>
       </div>
 
       {cat === null ? (
         <div className="rise mt-6">
-          <p className="text-[16px] leading-[1.5] text-charcoal">Newer kinds of care you can book directly.</p>
+          <p className="text-[16px] leading-[1.5] text-charcoal">Newer care you can book directly.</p>
           <div className="mt-6 flex flex-col gap-3">
             <a href="/healthspan" className="rise press press-soft block rounded-[8px] bg-[#2f5d3a] px-5 py-5 text-left">
-              <span className="block font-display text-[22px] leading-tight text-white">Plan your healthspan</span>
-              <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Doctors who work on prevention with your wearable and bloodwork.</span>
+              <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-white">Plan your healthspan</span>
+              <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Prevention doctors who read your wearable and bloodwork.</span>
             </a>
             {CATEGORIES.map((c, i) => {
               const n = offerings.filter((o) => o.category === c.id).length;
               return (
                 <button key={c.id} type="button" onClick={() => { setCat(c.id); setStep(0); setAnswers({}); }} className="rise press press-soft rounded-[8px] px-5 py-5 text-left" style={{ background: c.tint, "--i": i } as React.CSSProperties}>
-                  <span className="block font-display text-[22px] leading-tight text-ink">{c.title}</span>
+                  <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{c.title}</span>
                   <span className="mt-1 block text-[15px] leading-[1.45] text-charcoal">{c.sub}</span>
-                  <span className="mt-3 block text-[14px] font-medium text-[#2f5d3a]">{n} {n === 1 ? "service" : "services"} →</span>
+                  <span className="mt-3 flex items-center gap-1 text-[14px] font-semibold text-[#2f5d3a]">{n} {n === 1 ? "service" : "services"}<ChevronRight size={15} /></span>
                 </button>
               );
             })}
           </div>
-          <p className="mt-6 text-[12px] leading-[1.5] text-grey">Listings are facts from each provider’s own website. Wattle doesn’t endorse or take payment from them. Talk to your GP about whether a test or program is right for you.</p>
+          <p className="mt-6 text-[12px] leading-[1.5] text-grey">Facts from each provider’s own site. Wattle takes no payment. Ask your GP first.</p>
         </div>
       ) : cat === "healthspan" ? (
         <Healthspan offerings={offerings} />
       ) : q ? (
         <div key={q.id} className="rise mt-8">
           <p className="text-[14px] text-grey">{category?.title} · {step + 1} of {QUESTIONS.length}</p>
-          <h2 className="display mt-2 text-[28px] leading-[1.2] text-ink">{q.ask}</h2>
+          <h2 className="mt-2 text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">{q.ask}</h2>
           <div role="radiogroup" aria-label={q.ask} className="mt-6 flex flex-col gap-2.5">
             {q.options.map((o, i) => {
               const on = picked === o.id;
@@ -129,13 +129,13 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
         </div>
       ) : (
         <div className="rise mt-6">
-          <h2 className="display text-[26px] leading-tight text-ink">{category?.title}</h2>
+          <h2 className="text-[24px] leading-tight tracking-[-0.015em] text-ink">{category?.title}</h2>
           <p className="mt-1 text-[15px] text-grey">{results.length} {results.length === 1 ? "service fits" : "services fit"} what you chose.</p>
           <div className="mt-5 flex flex-col gap-4">
             {results.map((o, i) => (
               <article key={o.id} className="rise rounded-[8px] border border-hairline px-5 py-5" style={{ "--i": i } as React.CSSProperties}>
                 <p className="text-[13px] text-grey">{o.provider}</p>
-                <h3 className="display mt-0.5 text-[20px] leading-tight text-ink">{o.name}</h3>
+                <h3 className="mt-0.5 text-[18px] leading-tight text-ink">{o.name}</h3>
                 <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">{o.summary}</p>
                 <ul className="mt-3 flex flex-col gap-1.5">
                   {o.includes.slice(0, 3).map((x) => (
@@ -144,7 +144,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
                 </ul>
                 <p className="mt-3 text-[14px] text-grey">{[o.price ?? "Price on their site", o.location, o.subscription ? "Membership" : null, o.referral_needed ? "GP referral needed" : null].filter(Boolean).join(" · ")}</p>
                 <p className="mt-1 text-[13px] text-grey">With {o.clinicians}</p>
-                <a href={o.url} target="_blank" rel="noreferrer" className="press mt-4 inline-flex rounded-full bg-ink px-4 py-2.5 text-[14px] text-white">Visit their site</a>
+                <a href={o.url} target="_blank" rel="noreferrer" className="press mt-4 inline-flex h-11 items-center rounded-[6px] bg-ink px-4 text-[15px] font-semibold text-white">Visit their site</a>
               </article>
             ))}
             {results.length === 0 ? <p className="text-[15px] text-grey">Nothing fits all of that yet. Go back and widen a choice.</p> : null}

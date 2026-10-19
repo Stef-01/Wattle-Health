@@ -47,7 +47,7 @@ export function Heard() {
         <Circle href="/" label="Back">
           <ArrowLeft size={20} />
         </Circle>
-        <h1 className="display flex-1 text-[20px] text-charcoal">What we heard</h1>
+        <h1 className="flex-1 text-[20px] text-charcoal">What we heard</h1>
         <Link
           href="/"
           onClick={() => {

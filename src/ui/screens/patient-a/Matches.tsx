@@ -6,15 +6,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Card, SearchResponse } from "@/src/data/search-types";
-import { doctorHref } from "@/src/data/doctor-slug";
 import { Avatar, Body, Cta, Divider, Gap, Row, Screen, Sliders, TabBar } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
-import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
-import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
-import { placeOf, primaryRoom, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
 import { Dock } from "./Dock";
 import { MatchPanel } from "./MatchPanel";
-import { Highlights } from "./Highlights";
 import { applyRefine, readRefine, Refine, type RefineState } from "./Refine";
 import { REACH_KM, restoreCounts, runMatch } from "./lib";
 
@@ -132,13 +127,13 @@ export function Matches() {
             {heardSentence(req)}{" "}
             <Link href="/" onClick={() => setDraft(req.sentence)} className="press-dim text-accent">Edit</Link>
           </p>
-          <button type="button" onClick={() => setRefining(true)} className="press inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-hairline px-4 text-[15px] text-ink">
+          <button type="button" onClick={() => setRefining(true)} className="press inline-flex h-10 shrink-0 items-center gap-2 rounded-[6px] border border-ink px-3.5 text-[15px] font-medium text-ink">
             <Sliders size={16} /> Refine
           </button>
         </div>
       ) : null}
       {req?.answers?.some((a) => /Talking it through|talk to someone/i.test(a.answer)) ? (
-        <p className="mt-3 rounded-[16px] px-4 py-3 text-[14px] leading-[1.5] text-charcoal" style={{ background: "#f8f6f3" }}>
+        <p className="mt-3 rounded-[6px] px-4 py-3 text-[14px] leading-[1.5] text-charcoal" style={{ background: "#f8f6f3" }}>
           Wattle lists doctors. For talking therapy, start with a GP. A Mental Health Treatment Plan gives you Medicare-subsidised sessions with a psychologist.
         </p>
       ) : null}
@@ -183,7 +178,7 @@ export function Matches() {
           </div>
         ) : null}
         {cards.length > 0 && shown >= cards.length ? (
-          <div className="rise mt-12 rounded-[24px] px-6 py-8 text-center" style={{ background: "#f5f8f6" }}>
+          <div className="rise mt-12 rounded-[8px] px-6 py-8 text-center" style={{ background: "#f5f8f6" }}>
             <div className="mb-5 flex justify-center -space-x-3">
               {cards.map((c) =>
                 c.doctor.photo ? (
@@ -194,7 +189,7 @@ export function Matches() {
                 ),
               )}
             </div>
-            <p className="font-display text-[24px] leading-tight text-ink">That’s your {cards.length === 1 ? "match" : cards.length === 2 ? "two" : "three"}.</p>
+            <p className="text-[22px] font-semibold leading-tight tracking-[-0.015em] text-ink">That’s your {cards.length === 1 ? "match" : cards.length === 2 ? "two" : "three"}.</p>
             <p className="mt-2 text-[15px] leading-[1.5] text-grey">We show three at a time, so you can read each one properly. Search again to meet others.</p>
             <div className="mt-6">
               <Cta fixed={false} onClick={searchAgain}>Search again</Cta>
@@ -218,7 +213,7 @@ function Empty({ res, place, busy, onWiden, onTelehealth, onChange, onClosest }:
   const count = (v: number | null, unit: string) => (v !== null ? ` (${v}${unit})` : "");
   return (
     <div style={busy ? { opacity: 0.5 } : undefined}>
-      <h2 className="display text-[20px] text-charcoal">No strong match yet</h2>
+      <h2 className="text-[20px] text-charcoal">No strong match yet</h2>
       <p className="pt-2 text-[14px] text-grey">
         Within {REACH_KM} km of {place}
       </p>
