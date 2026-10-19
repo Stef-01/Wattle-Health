@@ -40,7 +40,7 @@ export function TopBar({ title, back = "/", right, rightHref, onRight }: { title
   return (
     <div className="flex h-11 items-center gap-4">
       <Circle href={back} label="Back"><ArrowLeft size={20} /></Circle>
-      {title ? <h1 className="display text-[20px] text-charcoal">{title}</h1> : null}
+      {title ? <h1 className="text-[20px] text-charcoal">{title}</h1> : null}
       <span className="ml-auto">
         {right && rightHref ? <Link href={rightHref} className="press-dim text-[14px] font-medium text-accent">{right}</Link> : null}
         {right && !rightHref ? <button type="button" onClick={onRight} className="press-dim text-[14px] font-medium text-accent">{right}</button> : null}
@@ -61,7 +61,7 @@ export function Gap({ h }: { h: 8 | 12 | 16 | 24 | 32 | 34 | 38 | 40 | 48 }) {
 export function Title({ children, sub }: { children: ReactNode; sub?: ReactNode }) {
   return (
     <div className="flex flex-col gap-2">
-      <h1 className="display text-[30px] leading-[1.15] text-charcoal">{children}</h1>
+      <h1 className="text-[28px] leading-[1.2] tracking-[-0.015em] text-charcoal">{children}</h1>
       {sub ? <p className="font-inter text-[20px] font-medium text-grey">{sub}</p> : null}
     </div>
   );
@@ -70,7 +70,7 @@ export function Title({ children, sub }: { children: ReactNode; sub?: ReactNode 
 export function SectionTitle({ children, right, rightHref }: { children: ReactNode; right?: string; rightHref?: string }) {
   return (
     <div className="flex items-center justify-between">
-      <h2 className="display text-[20px] text-charcoal">{children}</h2>
+      <h2 className="text-[20px] text-charcoal">{children}</h2>
       {right && rightHref ? <Link href={rightHref} className="press-dim text-[14px] font-medium text-accent">{right}</Link> : null}
     </div>
   );
@@ -361,7 +361,7 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
     <div className="frame-fixed inset-y-0 z-50" role="dialog" aria-modal="true" aria-label={title}>
       <button type="button" aria-label="Close" onClick={onClose} className="sheet-scrim absolute inset-0 bg-ink/40" />
       <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto rounded-t-[25.5px] bg-white pb-[34px] pt-6">
-        <h2 className="display text-[20px] text-charcoal">{title}</h2>
+        <h2 className="text-[20px] text-charcoal">{title}</h2>
         {children}
       </div>
     </div>

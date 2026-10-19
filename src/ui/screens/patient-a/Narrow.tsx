@@ -208,13 +208,13 @@ export function Narrow() {
       {index < 0 ? (
         <div key="entry" className="rise mt-16 flex flex-col items-center text-center">
           <span className="search-orb" style={{ width: 72, height: 72 }} aria-hidden="true" />
-          <h1 className="display mt-10 text-[30px] leading-[1.15] text-ink">A few questions to narrow your search</h1>
+          <h1 className="mt-10 text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">A few questions to narrow your search</h1>
           <p className="mt-3 text-[16px] leading-[1.5] text-grey">Your answers shape who we show you.</p>
-          {sentence ? <p className="mt-8 rounded-[18px] bg-surface-soft px-5 py-3 text-[15px] leading-[1.45] text-charcoal">“{sentence}”</p> : null}
+          {sentence ? <p className="mt-8 rounded-[6px] bg-surface-soft px-5 py-3 text-[15px] leading-[1.45] text-charcoal">“{sentence}”</p> : null}
         </div>
       ) : step ? (
         <div key={step.id} className="rise mt-10">
-          <h1 className="display text-[28px] leading-[1.2] text-ink">{step.ask}</h1>
+          <h1 className="text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">{step.ask}</h1>
           {step.help ? <p className="mt-3 text-[15px] leading-[1.5] text-grey">{step.help}</p> : null}
           <div role="radiogroup" aria-label={step.ask} className="mt-7 flex flex-col gap-2.5">
             {options.map((o, i) => {
@@ -227,7 +227,7 @@ export function Narrow() {
                   aria-checked={on}
                   data-answer={i}
                   onClick={() => setPicked(o.id)}
-                  className={`rise press press-soft flex w-full items-center gap-4 rounded-[18px] border px-5 py-4 text-left ${on ? "border-[#2f5d3a] bg-[#f5f8f6]" : "border-hairline bg-white"}`}
+                  className={`rise press press-soft flex w-full items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#2f5d3a] bg-[#f5f8f6]" : "border-hairline bg-white"}`}
                   style={{ "--i": i } as React.CSSProperties}
                 >
                   <span className="min-w-0 flex-1">
@@ -244,7 +244,7 @@ export function Narrow() {
         </div>
       ) : ctx ? (
         <div key="summary" className="rise mt-10">
-          <h1 className="display text-[28px] leading-[1.2] text-ink">What we’ll search for</h1>
+          <h1 className="text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">What we’ll search for</h1>
           <p className="mt-3 text-[15px] text-grey">You can change this on the results page.</p>
           <dl className="mt-6 rounded-[22px] px-5 py-2" style={{ background: "#f5f8f6" }}>
             <div className="border-b border-[#e3ebe5] py-3">
