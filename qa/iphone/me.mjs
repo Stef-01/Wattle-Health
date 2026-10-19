@@ -1,0 +1,10 @@
+import { chromium, devices } from "@playwright/test";
+const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
+const b = await chromium.launch();
+const page = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
+await page.goto(`${BASE}/me`);
+await page.waitForTimeout(1500);
+const rows = await page.locator("a[href^='/me/'], a[href='/healthspan']").allInnerTexts();
+const broken = await page.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src));
+console.log(JSON.stringify({ rows: rows.map((r) => r.split("\n")[0]), broken }));
+await b.close();
