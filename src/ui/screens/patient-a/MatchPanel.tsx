@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
+import { demoOpenings } from "@/src/data/calendar";
 import { Check, Labelled } from "@/src/ui/kit";
 import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
@@ -89,6 +90,11 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const source = wordsSource(d);
   const ownWords = [personal?.philosophyOfCare, personal?.philosophy, personal?.communicationApproach, personal?.purpose, personal?.professionalPurpose].find((t) => t && t.trim().length > 30)?.trim();
   const ownLine = ownWords ? (ownWords.match(/^.{30,220}?[.!?](\s|$)/)?.[0] ?? ownWords.slice(0, 200) + "…").trim() : null;
+  const [next, setNext] = useState<string | null>(null);
+  useEffect(() => {
+    const o = demoOpenings(d.id, d.declared?.telehealth === true && d.telehealth?.value !== "none", Date.now())[0];
+    setNext(o ? `${new Date(o.start).toLocaleString("en-AU", { weekday: "short", hour: "numeric", minute: "2-digit" })}${o.mode === "telehealth" ? ", telehealth" : ""}` : null);
+  }, [d]);
   const hobbies = personal ? [personal.hobbies ?? []].flat().filter(Boolean) : [];
   const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.map((h, i) => (i && !/^[A-Z]{2}/.test(h) ? h.charAt(0).toLowerCase() + h.slice(1) : h)).join(", ").replace(/, (?=[^,]*$)/, " and ") : null);
   let highlights = card.highlights ?? [];
@@ -108,6 +114,9 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <p className="text-[15px] leading-snug text-charcoal">{line}</p>
         <p className="text-[14px] text-grey">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
       </Link>
+      {next ? (
+        <p className="mt-3 text-[15px] text-charcoal"><span className="text-[#2f5d3a]">Next opening</span> {next} <span className="text-[13px] text-grey">· demo</span></p>
+      ) : null}
       {outside ? (
         <p className="mt-4 rounded-[16px] bg-[#f8f6f3] px-4 py-3 text-[15px] leading-[1.5] text-charcoal"><span className="block text-[13px] font-medium text-[#8a6a3b]">Outside the clinic</span>{outside.charAt(0).toUpperCase() + outside.slice(1)}</p>
       ) : null}
