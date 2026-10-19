@@ -1,0 +1,564 @@
+{
+  "category": "healthspan",
+  "researched_at": "2026-10-19",
+  "doctors": [
+    {
+      "name": "Dr Joshua Hatch",
+      "given": "Joshua",
+      "family": "Hatch",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Opse Health",
+        "address": "95 Robertson Street",
+        "suburb": "Fortitude Valley",
+        "postcode": "4006",
+        "phone": null,
+        "website": "https://opse.com.au/about/"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": 950,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "cardiovascular-risk",
+        "metabolic-health"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "longevity medicine",
+        "preventive medicine",
+        "DEXA body composition",
+        "VO2 max and strength",
+        "cardiovascular and cancer risk",
+        "menopause",
+        "whole-body MRI review"
+      ],
+      "personal": {
+        "philosophy_of_care": "Judgement over testing: map risk, decide what is worth doing, interpret results as one picture and follow through over years.",
+        "why_medicine": null,
+        "communication_approach": "Every screening test is talked through and weighed against its downsides; recommendations are tied to the strength of the evidence.",
+        "communication": [
+          "collaborative",
+          "evidence-based"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": "Spent roughly a decade as an MRI and emergency radiographer before medicine, then four years as a hospital orthopaedic registrar; still assists in surgery; chairs the RACGP Musculoskeletal, Sports & Exercise Medicine faculty.",
+        "quotes": [
+          {
+            "text": "The value isn't in ordering more tests. It's in deciding what's worth doing, and following it through.",
+            "about": "approach"
+          },
+          {
+            "text": "Every screening test is talked through and weighed against its downsides, never assumed.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://opse.com.au/about/",
+        "page_title": "Dr Joshua Hatch | Longevity Doctor Brisbane | Opse Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://opse.com.au/insights/exercise-is-the-most-powerful-longevity-medicine/",
+        "secondary_note": "Wearables quote is from Dr Hatch's signed article on opse.com.au. Homepage: 'Metabolic and neurodegenerative risk, with targeted testing (DEXA, CGM, OGTT, APOE) only where it changes a decision.' (supports cgm + genetics). Fee from opse.com.au/longevity-doctor-australia/: 'Opse Baseline is $950.' Entry is by application form."
+      },
+      "personal_richness": 3,
+      "healthspan": {
+        "areas": [
+          "heart",
+          "fitness",
+          "metabolic",
+          "strength",
+          "brain",
+          "sleep",
+          "hormones"
+        ],
+        "opens_to": [
+          "wearables",
+          "cgm",
+          "biomarkers",
+          "genetics"
+        ],
+        "evidence": "Wearables can also help. They can show activity levels, sleep patterns, heart rate trends, training load and recovery data."
+      },
+      "photo_url": "https://opse.com.au/imagery/dr-hatch.webp"
+    },
+    {
+      "name": "Dr Huw Adams",
+      "given": "Huw",
+      "family": "Adams",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Peregian Beach Medical",
+        "address": "247 David Low Way",
+        "suburb": "Peregian Beach",
+        "postcode": "4573",
+        "phone": "07 5471 2100",
+        "website": "https://www.drhuwadams.com.au/"
+      },
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "cardiovascular-risk",
+        "metabolic-health",
+        "diabetes",
+        "hypertension"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "longevity medicine",
+        "preventative health review",
+        "cardiovascular health",
+        "metabolic health",
+        "men's health",
+        "chronic disease"
+      ],
+      "personal": {
+        "philosophy_of_care": "Identify and address health risk before it becomes disease; unhurried appointments; investigations only where they genuinely change management.",
+        "why_medicine": "In UK and Australian practice he saw serious health events that had been building quietly for years and were often preventable, which led him to build a structured preventative health service.",
+        "communication_approach": "Unhurried appointments; patients leave knowing where things stand and what comes next.",
+        "communication": [
+          "evidence-based"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": "Originally from Cardiff, Wales; trained at the University of Birmingham and in UK general practice before moving to the Sunshine Coast.",
+        "quotes": [
+          {
+            "text": "Too often, the serious health events he encountered in clinical practice had been building quietly for years — detectable, and in many cases preventable with earlier intervention.",
+            "about": "why_medicine"
+          },
+          {
+            "text": "Appointments are unhurried.",
+            "about": "approach"
+          },
+          {
+            "text": "Living longer only matters if you're living well.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.drhuwadams.com.au/about-1",
+        "page_title": "Dr Huw Adams | GP | Peregian Beach Medical",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://www.drhuwadams.com.au/preventative-health-review",
+        "secondary_note": "Healthspan framing and evidence quote from the Preventative Health Review page (cardiovascular, metabolic, cognitive, structural). No wearable mention."
+      },
+      "personal_richness": 3,
+      "healthspan": {
+        "areas": [
+          "heart",
+          "metabolic",
+          "brain",
+          "strength",
+          "sleep",
+          "fitness"
+        ],
+        "opens_to": [
+          "biomarkers"
+        ],
+        "evidence": "Blood glucose, HbA1c, insulin resistance markers, and body composition assessment to evaluate your metabolic health and diabetes risk."
+      },
+      "photo_url": "https://images.squarespace-cdn.com/content/v1/6870fbf85baf260013172eab/813f6e73-f53c-4bf1-b9a7-f3ae6c1b97cc/HGP_PBM_DR+Adam+Huw+%401600px-2.jpg"
+    },
+    {
+      "name": "Dr Wayne Lee",
+      "given": "Wayne",
+      "family": "Lee",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Next Practice Newstead",
+        "address": null,
+        "suburb": "Newstead",
+        "postcode": "4006",
+        "phone": null,
+        "website": "https://newstead.nextpracticehealth.com/team/dr-wayne-lee"
+      },
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English",
+        "Mandarin",
+        "Tagalog",
+        "Hokkien"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "cardiovascular-risk",
+        "metabolic-health",
+        "chronic-pain"
+      ],
+      "populations": [
+        "adult",
+        "lgbtqia+",
+        "veterans",
+        "older-adults"
+      ],
+      "focus_tags": [
+        "executive health",
+        "preventive medicine",
+        "longevity clinic",
+        "men's health",
+        "LGBTQIA+ health",
+        "musculoskeletal medicine",
+        "iron infusions"
+      ],
+      "personal": {
+        "philosophy_of_care": "Holistic, collaborative, personalised evidence-based care; builds structured long-term health programs tailored to each patient's goals.",
+        "why_medicine": null,
+        "communication_approach": "Thorough, analytical and highly personalised.",
+        "communication": [
+          "collaborative",
+          "holistic"
+        ],
+        "lived_experience": null,
+        "hobbies": [
+          "Singing (award-winning vocalist)"
+        ],
+        "outside_medicine": "Award-winning vocalist known as the \"Singing Doctor from Down Under\"; founder of Readimedic; speaks English, Mandarin, Tagalog and Hokkien.",
+        "quotes": [
+          {
+            "text": "Outside medicine, Dr Lee is an award-winning vocalist known as the \"Singing Doctor from Down Under\" and enjoys supporting community wellbeing initiatives.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Dr Lee supports patients to build structured long-term health programs tailored to their goals, integrating preventative care, government-funded health assessments, cancer screening, chronic disease plans, and lifestyle interventions.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://newstead.nextpracticehealth.com/team/dr-wayne-lee",
+        "page_title": "Dr Wayne Lee - General Practitioner and Clinical Director - Next Practice Newstead",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://newstead.nextpracticehealth.com/longevity-clinic",
+        "secondary_note": "Evidence quote is from the practice's Longevity Clinic page (led by Dr Lee and Dr Tristan Nguyen), which lists 'In depth blood work and biomarker analysis' plus sleep, cognitive and fitness services. Street address not on page."
+      },
+      "personal_richness": 4,
+      "healthspan": {
+        "areas": [
+          "heart",
+          "metabolic",
+          "hormones",
+          "sleep",
+          "brain",
+          "fitness"
+        ],
+        "opens_to": [
+          "biomarkers"
+        ],
+        "evidence": "His expertise spans metabolic health, cardiovascular prevention, hormonal optimisation and advanced health screening."
+      },
+      "photo_url": "https://cdn.prod.website-files.com/68905ae2ecd1c29b8bc90c33/6a1e68c4a5f07780ab37263f_Dr%20Wayne%20(1).jpg.jpeg"
+    },
+    {
+      "name": "Dr Max Po",
+      "given": "Max",
+      "family": "Po",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Bespoke Longevity and Aesthetic Medicine",
+        "address": "Level 2, 63 Ferry Road",
+        "suburb": "Southport",
+        "postcode": "4215",
+        "phone": "07 5623 3310",
+        "website": "https://bespokelongevity.com.au/our-core-team/"
+      },
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "cardiovascular-risk",
+        "metabolic-health"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "longevity medicine",
+        "lifestyle optimisation",
+        "performance health",
+        "metabolic health",
+        "cardiovascular risk reduction",
+        "hormonal balance",
+        "cognitive performance"
+      ],
+      "personal": {
+        "philosophy_of_care": "Structured, proactive care aiming not only to prevent disease but to optimise function, recovery and quality of life.",
+        "why_medicine": null,
+        "communication_approach": "Translates complex medical concepts into clear, achievable strategies tailored to each individual.",
+        "communication": [
+          "holistic"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "He is particularly focused on translating complex medical concepts into clear, achievable strategies tailored to each individual.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://bespokelongevity.com.au/our-core-team/",
+        "page_title": "Our Team | Bespoke Longevity",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Clinic shows VO2 max and DEXA assessment imagery on its longevity page; his own bio does not mention wearables or biomarkers. Clinic also offers IV therapy and aesthetics."
+      },
+      "personal_richness": 2,
+      "healthspan": {
+        "areas": [
+          "heart",
+          "metabolic",
+          "hormones",
+          "brain",
+          "sleep",
+          "fitness"
+        ],
+        "opens_to": [],
+        "evidence": "Dr. Po integrates evidence-based medicine with practical lifestyle strategies, drawing on principles of exercise physiology, nutrition, sleep optimisation, and targeted supplementation to support healthy ageing."
+      },
+      "photo_url": "https://bespokelongevity.com.au/wp-content/uploads/2026/09/Dr-Max-Po-e1790744097398.jpg"
+    },
+    {
+      "name": "Dr Donna Tanchev",
+      "given": "Donna",
+      "family": "Tanchev",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Bespoke Longevity and Aesthetic Medicine",
+        "address": "Level 2, 63 Ferry Road",
+        "suburb": "Southport",
+        "postcode": "4215",
+        "phone": "07 5623 3310",
+        "website": "https://bespokelongevity.com.au/our-core-team/"
+      },
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause",
+        "pcos",
+        "endometriosis",
+        "fertility"
+      ],
+      "populations": [
+        "women",
+        "adult"
+      ],
+      "focus_tags": [
+        "women's health",
+        "longevity medicine",
+        "menopause",
+        "PCOS",
+        "fertility",
+        "antenatal shared care"
+      ],
+      "personal": {
+        "philosophy_of_care": "Clinical assessment, evidence-based medicine and individualised care planning across life stages.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [
+          "evidence-based"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": "Founder of Her Medical, a women's health general practice, and of Bespoke Longevity; background in psychology from the University of Newcastle.",
+        "quotes": [
+          {
+            "text": "Dr Donna provides care across a broad range of women’s health presentations, with a focus on clinical assessment, evidence-based medicine, and individualised care planning.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://bespokelongevity.com.au/our-core-team/",
+        "page_title": "Our Team | Bespoke Longevity",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 2,
+      "healthspan": {
+        "areas": [
+          "hormones"
+        ],
+        "opens_to": [],
+        "evidence": "Her clinical experience includes antenatal shared care, fertility support, contraception, endometriosis, PCOS, menopause, and long-term health management across different life stages."
+      },
+      "photo_url": "https://bespokelongevity.com.au/wp-content/uploads/2026/09/Dr.-Donna-Tacnhev-01.webp"
+    },
+    {
+      "name": "Dr Sarah Chiapello",
+      "given": "Sarah",
+      "family": "Chiapello",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Bespoke Longevity and Aesthetic Medicine",
+        "address": "Level 2, 63 Ferry Road",
+        "suburb": "Southport",
+        "postcode": "4215",
+        "phone": "07 5623 3310",
+        "website": "https://bespokelongevity.com.au/our-core-team/"
+      },
+      "telehealth": null,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "women",
+        "adult"
+      ],
+      "focus_tags": [
+        "preventative care",
+        "women's health",
+        "longevity-focused care",
+        "aesthetic medicine"
+      ],
+      "personal": {
+        "philosophy_of_care": "Consultations centred on medical assessment, patient education and evidence-based decision-making.",
+        "why_medicine": null,
+        "communication_approach": "Patient education and evidence-based decision-making.",
+        "communication": [
+          "evidence-based"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": "Trained locally and did GP training on the Gold Coast and in northern NSW.",
+        "quotes": [
+          {
+            "text": "Dr Chiapello has a particular interest in women’s health and preventative care, with consultations centred on medical assessment, patient education, and evidence-based decision-making.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://bespokelongevity.com.au/our-core-team/",
+        "page_title": "Our Team | Bespoke Longevity",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+      },
+      "personal_richness": 1,
+      "healthspan": {
+        "areas": [],
+        "opens_to": [],
+        "evidence": "Her clinical work spans general practice, longevity-focused care, and aesthetic medicine delivered within a regulated clinical framework."
+      },
+      "photo_url": "https://bespokelongevity.com.au/wp-content/uploads/2026/09/Dr-sarah-chiapello-01.webp"
+    },
+    {
+      "name": "Dr Phoebe Slape",
+      "given": "Phoebe",
+      "family": "Slape",
+      "specialty": "rehabilitation-medicine",
+      "gender": "woman",
+      "practice": {
+        "name": "Thompson Brain & Mind Hub (Sunshine Coast)",
+        "address": null,
+        "suburb": "Birtinya",
+        "postcode": "4575",
+        "phone": null,
+        "website": "https://www.brainandmindhub.org.au/about-us/meet-the-team/dr-phoebe-slape/"
+      },
+      "telehealth": true,
+      "referral_required": null,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "lifestyle medicine",
+        "rehabilitation medicine",
+        "lifestyle prescriptions",
+        "mental and physical wellbeing",
+        "assistive technology"
+      ],
+      "personal": {
+        "philosophy_of_care": "Evidence-based, patient-centred lifestyle interventions; personalised care that empowers people to maximise mental and physical health.",
+        "why_medicine": null,
+        "communication_approach": "Collaborative; happy to liaise with referring doctors at any stage.",
+        "communication": [
+          "collaborative"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": "Holds dual fellowships in Rehabilitation and Lifestyle Medicine; helped introduce robotic-assisted rehabilitation therapy in a hospital setting.",
+        "quotes": [
+          {
+            "text": "Dr Slape is excited about the development of cutting edge technology and innovative approaches in health care such as assistive technology, diagnostics, robotics, and AI.",
+            "about": "outside_medicine"
+          },
+          {
+            "text": "She is passionate about providing personalised care that supports and empowers people to maximise their mental and physical health and live their best life.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.brainandmindhub.org.au/about-us/meet-the-team/dr-phoebe-slape/",
+        "page_title": "Dr Phoebe Slape – Brain & Mind Hub",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_note": "Specialist physician (FAFRM, FASLM). Specialty id 'lifestyle-medicine' is new; no existing id fits. Referral requirement not stated."
+      },
+      "personal_richness": 2,
+      "healthspan": {
+        "areas": [
+          "brain",
+          "fitness"
+        ],
+        "opens_to": [],
+        "evidence": "Dr. Slape provides in-person and telehealth consultations, specialising in personalised lifestyle medicine assessment and prescriptions which are aligned with client goals."
+      },
+      "photo_url": "https://www.brainandmindhub.org.au/wp-content/uploads/brizy/imgs/Phoebe-440x500x0x11x440x428x1773185670.jpg"
+    }
+  ]
+}

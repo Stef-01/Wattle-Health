@@ -20,7 +20,8 @@ export function matchHealthspan(doctors: DoctorRecord[], ask: HealthspanAsk): He
     const shared = ask.areas.filter((a) => h.areas.includes(a));
     if (shared.length) {
       score += shared.length * 2;
-      reasons.push(`Works on ${shared.map((a) => AREA_LABEL[a] ?? a).join(" and ")}`);
+      const names = shared.map((a) => AREA_LABEL[a] ?? a);
+      reasons.push(`Works on ${names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names.at(-1)}` : names[0]}`);
     }
     const wantsDevice = ask.device !== "none";
     const deviceOk = ask.device === "cgm" ? h.opensTo.includes("cgm") || h.opensTo.includes("wearables") : h.opensTo.includes("wearables");
