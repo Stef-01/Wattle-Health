@@ -87,11 +87,11 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
 
       {cat === null ? (
         <div className="rise mt-6">
-          <p className="text-[16px] leading-[1.5] text-charcoal">Newer kinds of care, from Australian services you can book directly. Pick one to see what fits you.</p>
+          <p className="text-[16px] leading-[1.5] text-charcoal">Newer kinds of care you can book directly.</p>
           <div className="mt-6 flex flex-col gap-3">
             <a href="/healthspan" className="rise press press-soft block rounded-[22px] bg-[#2f5d3a] px-5 py-5 text-left">
               <span className="block font-display text-[22px] leading-tight text-white">Plan your healthspan</span>
-              <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Tell us what you want more good years for. See what to measure, what your wearable can show, and who can help.</span>
+              <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Doctors who help you prevent illness and use your wearable and bloodwork.</span>
             </a>
             {CATEGORIES.map((c, i) => {
               const n = offerings.filter((o) => o.category === c.id).length;

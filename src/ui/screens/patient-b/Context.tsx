@@ -78,7 +78,7 @@ export function ContextSettings() {
         <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
         <h1 className="display text-[22px] text-ink">Your health context</h1>
       </div>
-      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Let Wattle understand more about you, so matches fit your life. What you add stays on this phone and only travels with a search you run.</p>
+      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell Wattle about your life so matches fit it. It stays on this phone.</p>
 
       <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f5f8f6" }}>
         <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#2f5d3a]">Bring it from ChatGPT</p>

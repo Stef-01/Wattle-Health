@@ -147,7 +147,7 @@ export function Me() {
       <Space h={30} />
       <h2 className="display text-[20px] text-charcoal">About Wattle</h2>
       <Space h={8} />
-      <p className="text-[14px] leading-[1.5] text-grey">One sentence finds Queensland doctors who list what you need. Every fact names its source and date. Nothing is rated or ranked by opinion.</p>
+      <p className="text-[14px] leading-[1.5] text-grey">Matched on how doctors work, in their own words. Every fact names its source. No one pays to be listed.</p>
       <TabBar active="/me" />
     </Screen>
   );

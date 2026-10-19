@@ -89,7 +89,7 @@ export function Openings() {
         <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
         <h1 className="display text-[22px] text-ink">Openings</h1>
       </div>
-      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">When a doctor you saved has a time that fits your calendar, it shows here and we let you know.</p>
+      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Times that fit your calendar, from doctors you saved.</p>
 
       <details className="mt-6 rounded-[22px] bg-[#f5f8f6] px-5 py-4" open={!cal}>
         <summary className="flex cursor-pointer list-none items-center justify-between">
