@@ -76,7 +76,8 @@ export function rerankWith(doctors: readonly DoctorRecord[], discipline: Discipl
 
   const weights: Partial<HumanFitWeights> = body.weights ?? {};
   const reranked = rerank(kept, edited, weights, discipline);
-  const cards = shown(reranked).map((r) => toCard(r, byId)).filter((c): c is Card => c !== null);
+  const labels = Object.fromEntries(discipline.conditions.map((c) => [c.id, c.label]));
+  const cards = shown(reranked).map((r) => toCard(r, byId, edited, labels)).filter((c): c is Card => c !== null);
 
   const response: SearchResponse = {
     order: cards.length === 0 ? "unserved" : order,

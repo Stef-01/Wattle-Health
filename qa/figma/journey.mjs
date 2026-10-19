@@ -24,10 +24,10 @@ await page.waitForURL(/\/results/, { timeout: 20000 }); await page.waitForTimeou
 const counts = [];
 for (let i = 0; i < 40; i++) {
   await page.mouse.wheel(0, 1600); await page.waitForTimeout(250);
-  counts.push(await page.locator("section[aria-label]").count());
+  counts.push(await page.locator("section[data-match]").count());
   if (await page.getByRole("button", { name: "Search again" }).isVisible().catch(() => false)) break;
 }
 await page.waitForTimeout(500); await shot("05-end");
-const sections = await page.locator("section[aria-label]").evaluateAll((els) => els.map((e) => e.getAttribute("aria-label")));
+const sections = await page.locator("section[data-match]").evaluateAll((els) => els.map((e) => e.getAttribute("aria-label")));
 console.log(JSON.stringify({ questionsAnswered: asked, sections, revealSteps: [...new Set(counts)], searchAgain: await page.getByRole("button", { name: "Search again" }).isVisible() }));
 await browser.close();

@@ -58,7 +58,7 @@ function similar(a: string | null, b: string | null): boolean {
   return shared / Math.max(1, Math.min(wa.size, wb.size)) > 0.5;
 }
 
-function Words({ d }: { d: DoctorRecord }) {
+function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boolean }) {
   const p = personalOf(d);
   if (!p) return null;
   const pr = pronouns(d);
@@ -77,7 +77,7 @@ function Words({ d }: { d: DoctorRecord }) {
   const purpose = p.professionalPurpose ?? p.purpose ?? null;
   return (
     <div className="flex flex-col gap-8">
-      {philosophy ? (
+      {philosophy && !skipMeet ? (
         <Labelled label={`Meet ${drShort(d)}`}>
           <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" more={more} />
         </Labelled>
@@ -157,7 +157,7 @@ function Research({ d }: { d: DoctorRecord }) {
 }
 
 /** Everything below the header: facts, their words, what they see, the folded panels, the source line. */
-export function ProfileBody({ doctor: d, labels }: { doctor: DoctorRecord; labels: Record<string, string> }) {
+export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: DoctorRecord; labels: Record<string, string>; fold?: boolean }) {
   const personal = personalOf(d);
   const conditions = conditionLabels(d, labels);
   const source = wordsSource(d);
@@ -166,7 +166,24 @@ export function ProfileBody({ doctor: d, labels }: { doctor: DoctorRecord; label
     <>
       <Facts d={d} />
       <Space h={28} />
-      {personal ? (
+      {fold && personal ? (
+        <>
+          {(personal.philosophyOfCare ?? personal.philosophy) ? (
+            <Labelled label={`Meet ${drShort(d)}`}>
+              <Clamp text={`“${personal.philosophyOfCare ?? personal.philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" />
+            </Labelled>
+          ) : null}
+          <Space h={16} />
+          <Disclosure title={`More about ${drShort(d)}`} sub="How they work, why medicine, life outside, what they see">
+            <div className="flex flex-col gap-7 pt-2">
+              <Words d={d} skipMeet />
+              <Labelled label="Sees">
+                <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
+              </Labelled>
+            </div>
+          </Disclosure>
+        </>
+      ) : personal ? (
         <div className="rise" style={{ "--i": 2 } as React.CSSProperties}>
           <Words d={d} />
         </div>
@@ -175,10 +192,14 @@ export function ProfileBody({ doctor: d, labels }: { doctor: DoctorRecord; label
           {pr.hasnt} shared how {pr.subject} {pr.practises} yet. What is here comes from the public listing.
         </p>
       )}
-      <Space h={28} />
-      <Labelled label="Sees">
-        <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
-      </Labelled>
+      {fold && personal ? null : (
+        <>
+          <Space h={28} />
+          <Labelled label="Sees">
+            <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
+          </Labelled>
+        </>
+      )}
       <Space h={16} />
       <div className="rise flex flex-col" style={{ "--i": 5 } as React.CSSProperties}>
         <Research d={d} />

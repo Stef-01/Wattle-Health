@@ -7,6 +7,7 @@ import { match, type HumanFitWeights } from "@/src/matching";
 import { hardAsks, languageNeeds, lexiconFor, readNeeds, type NeedSignal } from "@/src/matching/needs";
 import type { Intent, Ranked, SpecialtyField } from "@/src/matching/types";
 import type { Discipline } from "@/src/disciplines/load";
+import { highlightsFor } from "./highlights";
 import { resolveSuburb } from "./places";
 import type { DoctorRecord } from "./types";
 import { DEFAULT_WEIGHTS, type Card, type Chip, type FitBand, type SearchRequest, type SearchResponse, type Weights } from "./search-types";
@@ -84,7 +85,7 @@ function stripPhrases(sentence: string, phrases: string[]): string {
 const BAND: Record<Ranked["clinicalFit"]["band"], FitBand> = { documented: "strong", plausible: "some", listed: "listed" };
 
 /** A ranked result as the screens' Card; shared with the rerank path (rerank-core.ts). */
-export function toCard(ranked: Ranked, byId: Map<string, DoctorRecord>): Card | null {
+export function toCard(ranked: Ranked, byId: Map<string, DoctorRecord>, intent?: Intent, labels: Record<string, string> = {}): Card | null {
   const doctor = byId.get(ranked.doctor.id);
   if (!doctor) return null;
   const clinical = ranked.clinicalFit ?? { band: "listed" as const, reasons: [] };
@@ -99,6 +100,7 @@ export function toCard(ranked: Ranked, byId: Map<string, DoctorRecord>): Card | 
     missed: ranked.missed,
   };
   if (ranked.distanceKm !== undefined) card.distanceKm = ranked.distanceKm;
+  card.highlights = highlightsFor(doctor, intent, labels);
   return card;
 }
 
@@ -116,7 +118,8 @@ export function searchWith(doctors: readonly DoctorRecord[], discipline: Discipl
   const chips = chipsAll.filter((c) => !removed.has(c.id));
 
   const byId = new Map(doctors.map((d) => [d.id, d]));
-  const cards = result.results.map((r) => toCard(r, byId)).filter((c): c is Card => c !== null);
+  const conditionLabels = Object.fromEntries(discipline.conditions.map((c) => [c.id, c.label]));
+  const cards = result.results.map((r) => toCard(r, byId, result.intent, conditionLabels)).filter((c): c is Card => c !== null);
 
   const response: SearchResponse = {
     order: result.order,
@@ -126,7 +129,7 @@ export function searchWith(doctors: readonly DoctorRecord[], discipline: Discipl
     clarifiers: result.clarifiers,
     place: { typed, suburb: place?.suburb ?? null },
     rosterSize: doctors.length,
-    conditionLabels: Object.fromEntries(discipline.conditions.map((c) => [c.id, c.label])),
+    conditionLabels,
   };
   if (result.careGuidance) response.careGuidance = result.careGuidance;
   if (result.emergency) response.emergency = result.emergency;

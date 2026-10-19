@@ -7,13 +7,15 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Card, SearchResponse } from "@/src/data/search-types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Avatar, Body, Cta, Divider, Gap, Row, Screen, TabBar } from "@/src/ui/kit";
+import { Avatar, Body, Cta, Divider, Gap, Row, Screen, Sliders, TabBar } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
 import { placeOf, primaryRoom, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
 import { Dock } from "./Dock";
 import { fitSentence, Portrait } from "./DoctorCard";
+import { Highlights } from "./Highlights";
+import { applyRefine, readRefine, Refine, type RefineState } from "./Refine";
 import { REACH_KM, restoreCounts, runMatch } from "./lib";
 
 const ORDINAL = ["Your top match", "Your second match", "Your third match"];
@@ -24,7 +26,7 @@ function heardSentence(req: StoredRequest): string {
   const chips = req.response.chips.filter((c) => c.kind !== "specialty");
   const words = chips.map((c, i) => (i === 0 ? c.label : c.label.toLowerCase()));
   const place = req.response.place.suburb?.replace(/ City$/, "");
-  const where = req.anywhere ? "All of Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
+  const where = req.anywhere ? "All of Queensland." : /telehealth only/i.test(req.sentence) ? "By telehealth, anywhere in Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
   return [words.length ? `${words.join(", ")}.` : "", where].filter(Boolean).join(" ");
 }
 
@@ -50,7 +52,13 @@ function MatchSection({ card, index, total, labels, saved, onSave }: { card: Car
         <ShareCircle name={d.name.display} path={doctorHref(d.id)} />
       </div>
       <Gap h={16} />
-      <ProfileBody doctor={d} labels={labels} />
+      {card.highlights?.length ? (
+        <>
+          <Highlights items={card.highlights} name={d.name.display} />
+          <Gap h={24} />
+        </>
+      ) : null}
+      <ProfileBody doctor={d} labels={labels} fold />
       <Gap h={24} />
       <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
     </section>
@@ -65,6 +73,7 @@ export function Matches() {
   const [busy, setBusy] = useState(false);
   const [shown, setShown] = useState(1);
   const [reading, setReading] = useState(0);
+  const [refining, setRefining] = useState(false);
   const sentinel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -126,6 +135,13 @@ export function Matches() {
     }
   }
 
+  async function refine(s: RefineState) {
+    if (!req) return;
+    setRefining(false);
+    await rerun({ sentence: applyRefine(req.sentence, s), anywhere: s.anywhere });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   function searchAgain() {
     setDraft("");
     router.push("/");
@@ -141,11 +157,17 @@ export function Matches() {
         </div>
       ) : null}
       {req ? (
-        <p className="text-[15px] leading-[1.5] text-grey">
-          {heardSentence(req)}{" "}
-          <Link href="/" onClick={() => setDraft(req.sentence)} className="press-dim text-accent">Edit</Link>
-        </p>
+        <div className="flex items-start gap-4">
+          <p className="min-w-0 flex-1 text-[15px] leading-[1.5] text-grey">
+            {heardSentence(req)}{" "}
+            <Link href="/" onClick={() => setDraft(req.sentence)} className="press-dim text-accent">Edit</Link>
+          </p>
+          <button type="button" onClick={() => setRefining(true)} className="press inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-hairline px-4 text-[15px] text-ink">
+            <Sliders size={16} /> Refine
+          </button>
+        </div>
       ) : null}
+      {req ? <Refine key={`${req.sentence}|${req.anywhere}`} open={refining} onClose={() => setRefining(false)} initial={readRefine(req.sentence, req.anywhere === true)} onApply={(s) => void refine(s)} place={place} /> : null}
       {res?.emergency ? (
         <>
           <Gap h={16} />

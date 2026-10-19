@@ -1,6 +1,8 @@
 // Shapes shared by the API route and the browser. No fs here: client components import this file.
 import type { MatchResult, Ranked } from "@/src/matching/types";
 import type { DoctorRecord } from "./types";
+import type { Highlight } from "./highlights";
+export type { Highlight } from "./highlights";
 
 /** The four sliders on the results screen, 0..1 each. */
 export interface Weights {
@@ -33,6 +35,8 @@ export interface Card {
   humanFit: { score: number; reasons: string[]; basis: string };
   evidence: Ranked["evidence"];
   missed: Ranked["missed"];
+  /** What matters most about this doctor for this patient, ranked on the server (src/data/highlights.ts). */
+  highlights?: Highlight[];
 }
 
 export interface SearchResponse {
