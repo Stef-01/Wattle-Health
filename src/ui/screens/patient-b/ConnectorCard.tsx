@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 // Wattle as an app connector for Claude and ChatGPT (founder 2026-10-19: "make the connector look
 // like a real app MCP connector"). A connector tile like the ones in Claude's and ChatGPT's
 // directories: app icon, name, what it can do (its MCP tools), what it can't, a live status read
@@ -41,7 +42,7 @@ export function ConnectorCard({ origin }: { origin: string }) {
         <span className="inline-flex size-14 shrink-0 items-center justify-center rounded-[14px] bg-[#f4f4f4] ring-1 ring-black/5"><Orb size={36} /></span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="text-[18px] font-semibold text-ink">Wattle</p>
+            <p className="text-[18px] font-semibold text-ink"><Brand /></p>
             <span className="rounded-[4px] bg-[#f4f4f4] px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#4a4a4a]">MCP</span>
           </div>
           <p className="text-[14px] text-[#6b6b6b]">Find a doctor who fits you, from inside your assistant</p>

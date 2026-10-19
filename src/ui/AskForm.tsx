@@ -111,7 +111,7 @@ export function AskForm() {
         />
       </label>
       <button type="submit" className="min-h-12 rounded-full bg-foliage px-6 text-base font-medium text-paper transition-transform active:scale-[0.99]">
-        Find my doctors
+        Find my providers
       </button>
       <p className="text-xs text-ink-soft">Leave out names. If someone is in danger now, call 000.</p>
     </form>

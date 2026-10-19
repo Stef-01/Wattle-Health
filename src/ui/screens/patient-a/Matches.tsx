@@ -2,7 +2,7 @@
 import { Orb } from "@/src/ui/kit/Orb";
 // Results as a journey (2026-10-17): the top match first, as a whole profile. Reaching the end of
 // it reveals the second, then the third. Three is the limit; more means searching again with a
-// different sentence. Empty: "No strong match yet" with the counts the engine reported.
+// different sentence. Empty: "No strong pick yet" with the counts the engine reported.
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -19,7 +19,7 @@ import { Highlights } from "./Highlights";
 import { applyRefine, readRefine, Refine, type RefineState } from "./Refine";
 import { REACH_KM, restoreCounts, runMatch } from "./lib";
 
-const ORDINAL = ["Your top match", "Your second match", "Your third match"];
+const ORDINAL = ["Your top pick", "Your second pick", "Your third pick"];
 const MAX = 3;
 
 /** "Endometriosis, with a doctor who listens. Telehealth, anywhere in Queensland." Specialties stay implicit; nothing is said twice. */
@@ -27,13 +27,15 @@ function heardSentence(req: StoredRequest): string {
   const tele = /telehealth only/i.test(req.sentence);
   const chips = req.response.chips.filter((c) => c.kind !== "specialty" && !(tele && /telehealth|video/i.test(c.label)));
   const what = chips.filter((c) => c.kind === "condition").map((c) => c.label);
-  const how = chips.filter((c) => c.kind !== "condition").map((c) => c.label.toLowerCase());
+  const how = chips.filter((c) => c.kind !== "condition" && c.kind !== "population").map((c) => c.label.toLowerCase());
+  const forWho = chips.filter((c) => c.kind === "population").map((c) => c.label.toLowerCase()).map((l) => `for ${/^[aeiou]/.test(l) ? "an" : "a"} ${l}`);
   const parts = how.map((l) => (/^(listens|explains|takes|believes|gets)/.test(l) ? `who ${l}` : `with ${l.replace(/^(a |an )/, "")}`));
   const head = what.length ? what.join(" and ") : "";
   const who = parts.length ? `${head ? ", " : ""}a doctor ${parts.join(" and ")}` : "";
   const place = req.response.place.suburb?.replace(/ City$/, "");
   const where = req.anywhere ? "All of Queensland." : tele ? "Telehealth, anywhere in Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
-  return [head || who ? `${(head + who).charAt(0).toUpperCase()}${(head + who).slice(1)}.` : "", where].filter(Boolean).join(" ");
+  const line = [head, forWho.join(" and ")].filter(Boolean).join(" ") + who;
+  return [line ? `${line.charAt(0).toUpperCase()}${line.slice(1)}.` : "", where].filter(Boolean).join(" ");
 }
 
 export function Matches() {
@@ -121,42 +123,42 @@ export function Matches() {
   return (
     <Screen padBottom="pb-[120px]" className="frame-wide">
       {cards.length > 1 ? (
-        <div className="material sticky top-0 z-10 -mx-7 mb-3 flex items-center justify-center gap-2 px-7 py-3" aria-label={`Reading match ${reading + 1} of ${cards.length}`}>
+        <div className="material sticky top-0 z-10 -mx-7 mb-3 flex items-center justify-center gap-2 px-7 py-3" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
           {cards.map((c, i) => (
             <span key={c.doctor.id} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === reading ? 28 : 8, background: i === reading ? "#1b1b1b" : i < shown ? "#bdbdbd" : "#e3e3e3", transitionTimingFunction: "var(--ease-out)" }} />
           ))}
         </div>
       ) : null}
       {req ? (
-        <div className="flex items-start gap-4">
-          <p className="min-w-0 flex-1 text-[15px] leading-[1.5] text-grey">
-            {heardSentence(req)}{" "}
-            <Link href="/" onClick={() => setDraft(req.sentence)} className="press-dim text-accent">Edit</Link>
-          </p>
-          <button type="button" onClick={() => setRefining(true)} className="press inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-hairline px-4 text-[15px] text-ink">
-            <Sliders size={16} /> Refine
-          </button>
-        </div>
-      ) : null}
-      {req?.answers?.some((a) => /Talking it through|talk to someone/i.test(a.answer)) ? (
-        <p className="mt-3 rounded-[16px] px-4 py-3 text-[14px] leading-[1.5] text-charcoal" style={{ background: "#f8f6f3" }}>
-          Wattle lists doctors. For talking therapy, start with a GP. A Mental Health Treatment Plan gives you Medicare-subsidised sessions with a psychologist.
-        </p>
-      ) : null}
-      {req && cards.length > 0 ? (
-        <p className="mt-3 text-[14px] leading-[1.6] text-grey">
-          Also try:{" "}
-          {[
-            { label: "By video instead", on: { telehealth: true } },
-            { label: "A woman doctor", on: { woman: true } },
-            { label: "Anywhere in Queensland", on: { anywhere: true } },
-          ].map((f, i) => (
-            <span key={f.label}>
-              {i > 0 ? " · " : ""}
-              <button type="button" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })} className="press-dim text-accent">{f.label}</button>
-            </span>
-          ))}
-        </p>
+        <section aria-label="Your search" className="rounded-[8px] bg-[#f7f7f7] px-4 py-4 lg:max-w-[calc(100%-564px)]">
+          <div className="flex items-start gap-3">
+            <div className="min-w-0 flex-1">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#6b6b6b]">You searched</p>
+              <p className="mt-1 text-[17px] font-semibold leading-[1.35] text-ink">{heardSentence(req)}</p>
+            </div>
+            <div className="flex shrink-0 gap-2">
+              <Link href="/" onClick={() => setDraft(req.sentence)} className="press inline-flex h-9 items-center rounded-[6px] border border-ink bg-white px-3 text-[14px] font-medium text-ink">Edit</Link>
+              <button type="button" onClick={() => setRefining(true)} className="press inline-flex h-9 items-center gap-1.5 rounded-[6px] border border-ink bg-white px-3 text-[14px] font-medium text-ink">
+                <Sliders size={15} /> Refine
+              </button>
+            </div>
+          </div>
+          {cards.length > 0 ? (
+            <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-[#e6e6e6] pt-3">
+              <span className="text-[13px] text-[#6b6b6b]">Also try</span>
+              {[
+                { label: "By video", on: { telehealth: true } },
+                { label: "A woman", on: { woman: true } },
+                { label: "All of Queensland", on: { anywhere: true } },
+              ].map((f) => (
+                <button key={f.label} type="button" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })} className="press inline-flex h-8 items-center rounded-[6px] border border-hairline bg-white px-2.5 text-[13px] font-medium text-ink">{f.label}</button>
+              ))}
+            </div>
+          ) : null}
+          {req.answers?.some((a) => /Talking it through|talk to someone/i.test(a.answer)) ? (
+            <p className="mt-3 border-t border-[#e6e6e6] pt-3 text-[14px] leading-[1.5] text-[#4a4a4a]">For talking therapy, a psychologist is often the place to start. A GP’s Mental Health Treatment Plan gives you Medicare-subsidised sessions.</p>
+          ) : null}
+        </section>
       ) : null}
       {req ? <Refine key={`${req.sentence}|${req.anywhere}`} open={refining} onClose={() => setRefining(false)} initial={readRefine(req.sentence, req.anywhere === true)} onApply={(s) => void refine(s)} place={place} /> : null}
       {res?.emergency ? (
@@ -195,7 +197,7 @@ export function Matches() {
                 ),
               )}
             </div>
-            <p className="font-display text-[24px] leading-tight text-ink">That’s your {cards.length === 1 ? "match" : cards.length === 2 ? "two" : "three"}.</p>
+            <p className="font-display text-[24px] leading-tight text-ink">That’s your {cards.length === 1 ? "pick" : cards.length === 2 ? "two" : "three"}.</p>
             <p className="mt-2 text-[15px] leading-[1.5] text-grey">We show three at a time, so you can read each one properly. Search again to meet others.</p>
             <div className="mt-6">
               <Cta fixed={false} onClick={searchAgain}>Search again</Cta>
@@ -219,7 +221,7 @@ function Empty({ res, place, busy, onWiden, onTelehealth, onChange, onClosest }:
   const count = (v: number | null, unit: string) => (v !== null ? ` (${v}${unit})` : "");
   return (
     <div style={busy ? { opacity: 0.5 } : undefined}>
-      <h2 className="display text-[20px] text-charcoal">No strong match yet</h2>
+      <h2 className="display text-[20px] text-charcoal">No strong pick yet</h2>
       <p className="pt-2 text-[14px] text-grey">
         Within {REACH_KM} km of {place}
       </p>

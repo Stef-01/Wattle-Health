@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 // Patient reviews on a profile (2026-10-18): a summary (average, count, "Highly recommended by
 // Wattle patients" at 3+ reviews averaging 4.5+), the latest three with "Show all", and a "Write a
 // review" sheet. Real reviews are checked before they appear. Until a doctor has any, labelled demo
@@ -62,7 +63,7 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
           <span className="font-display text-[28px] leading-none text-ink">{data.average?.toFixed(1)}</span>
           <Stars value={data.average ?? 0} size={18} />
           <span className="text-[14px] text-grey">{data.count} {data.demo ? "example" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
-          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#1b1b1b]">Recommended by Wattle patients</span> : null}
+          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#1b1b1b]">Recommended by <Brand /> patients</span> : null}
           {data.demo ? <span className="w-full text-[12px] text-grey">Example reviews, showing how patient reviews will look.</span> : null}
         </div>
       ) : (

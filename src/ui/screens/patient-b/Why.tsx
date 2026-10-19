@@ -1,5 +1,5 @@
 "use client";
-// P09 Why this match (226:257). Clinical and Personal sections built strictly from the engine's
+// P09 Why this pick (226:257). Clinical and Personal sections built strictly from the engine's
 // clinicalFit.reasons and humanFit.reasons for this doctor in the current request. Each row's
 // sub is the source, tier and date the reason rests on, with an external link when the source
 // has a URL. No personal profile → "No personal profile yet". No search yet → say so.
@@ -72,8 +72,8 @@ export function Why({ doctor: d }: { doctor: DoctorRecord }) {
     <Screen padBottom="pb-[60px]">
       <TopBar title={`Why ${drShort(d)}`} back={`/doctor/${id}`} />
       <Space h={30} />
-      {state.kind === "loading" ? <Body>Reading the match…</Body> : null}
-      {state.kind === "none" ? <Body>Search first to see why this doctor was matched.</Body> : null}
+      {state.kind === "loading" ? <Body>Reading the pick…</Body> : null}
+      {state.kind === "none" ? <Body>Search first to see why this provider was picked.</Body> : null}
       {state.kind === "absent" ? <Body>{drShort(d)} was not in your last matches.</Body> : null}
       {state.kind === "ready" ? (
         <>

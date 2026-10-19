@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 import { ConnectorCard } from "./ConnectorCard";
 // Settings › Your health context (2026-10-18). Two ways to bring what an assistant knows about you:
 // 1. Ask ChatGPT for a short summary (prompt provided), paste it here; Wattle reads it on its server
@@ -79,7 +80,7 @@ export function ContextSettings() {
         <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
         <h1 className="display text-[22px] text-ink">Your health context</h1>
       </div>
-      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your matches fit. It stays on this phone.</p>
+      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your picks fit. It stays on this phone.</p>
 
       <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f4f4f4" }}>
         <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#1b1b1b]">Bring it from ChatGPT</p>
@@ -99,7 +100,7 @@ export function ContextSettings() {
         </ol>
         {items ? (
           <div className="mt-5">
-            <p className="text-[15px] font-medium text-ink">3. What Wattle understood</p>
+            <p className="text-[15px] font-medium text-ink">3. What <Brand /> understood</p>
             {items.length === 0 ? <p className="mt-2 text-[14px] text-grey">Nothing to search on yet. Mention a condition, who it’s for, or how you like a doctor to work.</p> : null}
             <ul className="mt-2 flex flex-col">
               {items.map((it, i) => (

@@ -1,5 +1,5 @@
 "use client";
-// P05 "Your matches" card (Figma 226:15, re-read 2026-10-16): a 405-tall photo with a 30 px
+// P05 "Your picks" card (Figma 226:15, re-read 2026-10-16): a 405-tall photo with a 30 px
 // radius and the photo shadow, a blurred caption bottom-left (name 16 medium, map-pin + suburb
 // 14 in #cac8c8) and a blurred heart circle top-right. Under it, one sentence of why this
 // doctor fits, in closed vocabulary, and the practical line. The portrait is the one the

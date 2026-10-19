@@ -1,4 +1,5 @@
 "use client";
+import { Brand, BRANDS, setBrand, useBrandName, type BrandId } from "@/src/ui/brand";
 // Tab pages: /recent (localStorage recent searches), /saved (wattle.saved.v1 ids → cards),
 // /me (name, join as a doctor, about). Each sits under the TabBar with its own dot.
 import { useRouter } from "next/navigation";
@@ -57,7 +58,7 @@ export function Recent() {
             {groups.length > 1 && !only ? <h2 className="text-[18px] text-ink">{g.condition}</h2> : null}
             {g.rows.map((r) => (
               <div key={r.id}>
-                <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <FigmaIcon name="clock" size={17} />} title={groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} />
+                <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <FigmaIcon name="clock" size={17} />} title={groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} />
                 <Divider />
               </div>
             ))}
@@ -115,7 +116,7 @@ export function Saved() {
     <Screen padBottom="pb-[110px]">
       <SectionTitle>Saved</SectionTitle>
       <Space h={16} />
-      {ids && ids.length === 0 ? <Body>Nothing saved yet. Tap the heart on a match to keep them here and watch for openings.</Body> : null}
+      {ids && ids.length === 0 ? <Body>Nothing saved yet. Tap the heart on a pick to keep them here and watch for openings.</Body> : null}
       {groups.length > 1 ? (
         <div role="tablist" aria-label="Filter saved doctors" className="-mx-1 flex gap-1 overflow-x-auto pb-2">
           {[null, ...groups.map((g) => g.category)].map((c) => {
@@ -172,14 +173,32 @@ export function Saved() {
 }
 
 /** Saved doctors grouped by why they were saved (the search's condition), else their first listed condition, else specialty. */
-export function groupSaved(doctors: DoctorRecord[], ctx: Record<string, string>): { category: string; doctors: DoctorRecord[] }[] {
+/** Provider group for Saved (founder 2026-10-19: "My doctors", "My psychologists"…). */
+export function providerGroup(d: DoctorRecord): string {
+  const prof = ((d as { profession?: string }).profession ?? "").toLowerCase();
+  if (d.specialty === "psychology") return "psychologists";
+  if (d.specialty === "occupational-therapy") return "occupational therapists";
+  if (d.specialty === "allied-health") {
+    if (prof.includes("coach")) return "coaches";
+    if (prof.includes("physio")) return "physios";
+    if (prof.includes("dietitian")) return "dietitians";
+    if (prof.includes("social worker")) return "social workers";
+    if (prof.includes("counsell")) return "counsellors";
+    if (prof.includes("exercise")) return "exercise physiologists";
+    return "allied health providers";
+  }
+  return "doctors";
+}
+
+/** Saved providers grouped by kind: My doctors, My psychologists, … (doctors first, then by size). */
+export function groupSaved(doctors: DoctorRecord[], _ctx: Record<string, string>): { category: string; doctors: DoctorRecord[] }[] {
+  void _ctx;
   const map = new Map<string, DoctorRecord[]>();
   for (const d of doctors) {
-    const first = d.conditions?.value?.[0];
-    const c = ctx[d.id] ?? (first ? first.replace(/-/g, " ").replace(/^./, (x) => x.toUpperCase()) : providerTitle(d));
+    const c = `My ${providerGroup(d)}`;
     map.set(c, [...(map.get(c) ?? []), d]);
   }
-  return [...map.entries()].map(([category, ds]) => ({ category, doctors: ds })).sort((a, b) => b.doctors.length - a.doctors.length || a.category.localeCompare(b.category));
+  return [...map.entries()].map(([category, ds]) => ({ category, doctors: ds })).sort((a, b) => Number(b.category === "My doctors") - Number(a.category === "My doctors") || b.doctors.length - a.doctors.length || a.category.localeCompare(b.category));
 }
 
 export function Me() {
@@ -209,16 +228,18 @@ export function Me() {
       <Divider />
       <Row icon={<FigmaIcon name="clock" size={17} />} title="Openings" sub="Times from saved doctors that fit your week" href="/me/openings" />
       <Divider />
-      <Row icon={<FigmaIcon name="sliders" size={17} />} title="Your health context" sub="Bring it from ChatGPT, or use Wattle inside it" href="/me/context" />
+      <Row icon={<FigmaIcon name="sliders" size={17} />} title="Your health context" sub={<>Bring it from ChatGPT, or use <Brand /> inside it</>} href="/me/context" />
       <Divider />
       <Row icon={<FigmaIcon name="book" size={17} />} title="Discover" sub="Healthspan, biomarkers, wearables, menopause care" href="/me/discover" />
       <Divider />
-      <Row icon={<FigmaIcon name="file" size={17} />} title="Join as a doctor" sub="Claim or add your profile" href="/join" />
+      <Row icon={<FigmaIcon name="file" size={17} />} title="Join as a provider" sub="Claim or add your profile" href="/join" />
       <Divider />
       <Space h={30} />
-      <h2 className="display text-[20px] text-charcoal">About Wattle</h2>
+      <BrandSwitch />
+      <Space h={30} />
+      <h2 className="display text-[20px] text-charcoal">About <Brand /></h2>
       <Space h={8} />
-      <p className="text-[14px] leading-[1.5] text-grey">We match on how doctors say they work. Every fact names its source. No one pays to be listed.</p>
+      <p className="text-[14px] leading-[1.5] text-grey">We pick on how providers say they work. Every fact names its source. No one pays to be listed.</p>
       <TabBar active="/me" />
     </Screen>
   );
@@ -235,5 +256,25 @@ function SavedCard({ doctor: d, index, onRemove }: { doctor: DoctorRecord; index
         <p className="mt-2 text-[14px] text-grey">{practical.join(" · ")}</p>
       </Link>
     </article>
+  );
+}
+
+/** Settings › App name: Wattle or ADHDme (founder 2026-10-19). */
+function BrandSwitch() {
+  const name = useBrandName();
+  return (
+    <section aria-label="App name">
+      <p className="text-[14px] text-grey">App name</p>
+      <div role="radiogroup" aria-label="App name" className="mt-2 grid grid-cols-2 overflow-hidden rounded-[6px] border border-ink">
+        {(Object.keys(BRANDS) as BrandId[]).map((id, i) => {
+          const on = name === BRANDS[id];
+          return (
+            <button key={id} type="button" role="radio" aria-checked={on} onClick={() => setBrand(id)} className={`press h-11 text-[16px] ${i ? "border-l border-ink" : ""} ${on ? "bg-ink font-semibold text-white" : "text-ink"}`}>
+              {BRANDS[id]}
+            </button>
+          );
+        })}
+      </div>
+    </section>
   );
 }

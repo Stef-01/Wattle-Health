@@ -18,7 +18,7 @@ import { fitSentence, Portrait } from "./DoctorCard";
 import { BookCard, NextFree, nextFreeLabel } from "./BookCard";
 import type { Highlight } from "@/src/data/search-types";
 
-const ORDINAL = ["Your top match", "Your second match", "Your third match"];
+const ORDINAL = ["Your top pick", "Your second pick", "Your third pick"];
 const TABS = ["Highlights", "About", "Location", "Reviews", "FAQs"] as const;
 type Tab = (typeof TABS)[number];
 

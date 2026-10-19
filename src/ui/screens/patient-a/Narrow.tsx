@@ -275,15 +275,15 @@ export function Narrow() {
           {index < 0 ? (
             <>
               <Cta fixed={false} disabled={!ctx} onClick={() => (steps.length ? setIndex(0) : void finish({}))}>Continue</Cta>
-              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Skip to my matches</button>
+              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Skip to my picks</button>
             </>
           ) : step ? (
             <>
               <Cta fixed={false} disabled={!picked} onClick={next}>Continue</Cta>
-              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Skip to my matches</button>
+              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Skip to my picks</button>
             </>
           ) : ctx ? (
-            <Cta fixed={false} onClick={() => void finish(answers)}>See your matches</Cta>
+            <Cta fixed={false} onClick={() => void finish(answers)}>See your picks</Cta>
           ) : null}
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 // P02 Home (225:17): greeting + avatar, the sentence field with mic and send, "Try" examples,
-// "Recent" rows, "Find my doctor" CTA over the tab bar. Submit runs POST /api/match and goes
+// "Recent" rows, "Find my provider" CTA over the tab bar. Submit runs POST /api/match and goes
 // straight to /results (one field, one gate, then cards) with the response parked under a request id.
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -125,7 +125,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
       {error ? <p className="pt-2 text-[14px] text-grey">{error}</p> : null}
       <Gap h={16} />
       <Cta fixed={false} onClick={() => void submit(text)} disabled={busy || !text.trim()}>
-        Find my doctor
+        Find my provider
       </Cta>
       <OpeningsBanner />
       <Gap h={40} />
@@ -154,7 +154,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
           <Gap h={8} />
           {recent.map((r) => (
             <div key={r.id}>
-              <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}`} href={`/results`} onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
+              <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}`} href={`/results`} onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
               <Divider />
             </div>
           ))}

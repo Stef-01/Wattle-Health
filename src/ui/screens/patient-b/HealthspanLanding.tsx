@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 // /healthspan (2026-10-19): an editorial landing page and a guided match in one scroll.
 // 1) What healthspan is, in three short beats. 2) Pick what matters to you, your wearable and
 // whether you want bloodwork read with you. 3) Doctors who say, in their own published words, that
@@ -74,7 +75,7 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
 
       <div ref={plan} className="mt-14 scroll-mt-6 rounded-[8px] bg-[#f4f4f4] px-5 py-6">
         <h2 className="display text-[26px] leading-tight text-ink">What matters most to you?</h2>
-        <p className="mt-1 text-[15px] text-grey">Pick any. We match doctors who work on these.</p>
+        <p className="mt-1 text-[15px] text-grey">Pick any. We pick doctors who work on these.</p>
         <div className="mt-5 grid grid-cols-1 gap-2.5">
           {AREAS.map((a) => {
             const on = areas.includes(a.id);
@@ -101,13 +102,13 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
           <div className="flex items-center justify-between gap-3 px-4 py-3"><span className="text-[15px] text-ink">Read extended bloodwork with me</span><Toggle on={bloodwork} onChange={setBloodwork} label="Read extended bloodwork with me" /></div>
           <div className="flex items-center justify-between gap-3 px-4 py-3"><span className="text-[15px] text-ink">Telehealth is fine</span><Toggle on={telehealth} onChange={setTelehealth} label="Telehealth is fine" /></div>
         </div>
-        <div className="mt-6"><Cta fixed={false} disabled={busy} onClick={() => void find()}>{busy ? "Matching" : "Match me"}</Cta></div>
+        <div className="mt-6"><Cta fixed={false} disabled={busy} onClick={() => void find()}>{busy ? "Picking" : "Show my picks"}</Cta></div>
       </div>
 
       <div ref={results} className="scroll-mt-6">
         {matches ? (
           <section className="mt-12">
-            <h2 className="display text-[28px] leading-tight text-ink">{matches.length ? "Doctors who work forwards" : "No match yet"}</h2>
+            <h2 className="display text-[28px] leading-tight text-ink">{matches.length ? "Providers who work forwards" : "No picks yet"}</h2>
             {matches.length ? <p className="mt-1 text-[15px] text-grey">Each says so on their own practice page.</p> : <p className="mt-1 text-[15px] text-grey">Try fewer areas, or the services below.</p>}
             <div className="mt-6 flex flex-col gap-10">
               {matches.map((m, i) => {
@@ -145,7 +146,7 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
                 ))}
               </div>
             ) : null}
-            <p className="mt-10 text-[12px] leading-[1.5] text-grey">General information, not medical advice. Matches use each doctor’s own published words. Wattle doesn’t take payment from doctors or services.</p>
+            <p className="mt-10 text-[12px] leading-[1.5] text-grey">General information, not medical advice. Picks use each provider’s own published words. <Brand /> doesn’t take payment from doctors or services.</p>
           </section>
         ) : null}
       </div>

@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 // The proactive prompt (founder 2026-10-19): "an appointment for X has just opened up, you are free,
 // would you like to book a follow-up?" Shown as a notification-style card when a saved doctor you're
 // watching has a new time that fits your calendar. Book → a confirmation and it lands in Openings as
@@ -59,7 +60,7 @@ export function OpeningPrompt() {
       <div role="dialog" aria-label="Appointment opening" className="rise pointer-events-auto w-full max-w-[400px] rounded-[18px] bg-white/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur-[20px]">
         <div className="flex items-center gap-2 text-[12px] text-[#6b6b6b]">
           <span className="inline-flex size-5 items-center justify-center rounded-[5px] bg-[#f4f4f4]"><Orb size={14} /></span>
-          <span className="font-medium uppercase tracking-[0.06em]">Wattle</span>
+          <span className="font-medium uppercase tracking-[0.06em]"><Brand /></span>
           <span className="ml-auto">now</span>
         </div>
         {state === "booked" ? (

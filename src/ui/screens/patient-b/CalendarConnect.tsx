@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 // Calendar connection, styled like a real app connector (founder 2026-10-19: "make calendar
 // functionality look real"). Pick Google, Apple or Outlook; a permission sheet shows exactly what
 // Wattle gets (free/busy only, never titles, people or notes); Allow connects. Provider OAuth is not
@@ -139,7 +140,7 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
               <svg width="40" height="12" viewBox="0 0 40 12" aria-hidden="true"><path d="M2 6h36M32 1l6 5-6 5M8 1 2 6l6 5" fill="none" stroke="#9a9a9a" strokeWidth="1.5" /></svg>
               <ProviderIcon id={asking} size={56} />
             </div>
-            <p className="text-center text-[17px] leading-[1.45] text-ink"><span className="font-semibold">Wattle</span> wants to access your {PROVIDERS[asking].account}</p>
+            <p className="text-center text-[17px] leading-[1.45] text-ink"><span className="font-semibold"><Brand /></span> wants to access your {PROVIDERS[asking].account}</p>
             <ul className="flex flex-col gap-3 rounded-[8px] bg-[#f7f7f7] px-4 py-4 text-[15px] leading-[1.45]">
               <li className="flex gap-3"><span aria-hidden="true" className="text-[#1b1b1b]">✓</span><span className="text-ink">See when you’re busy or free in the next three weeks</span></li>
               <li className="flex gap-3"><span aria-hidden="true" className="text-[#9a9a9a]">✕</span><span className="text-[#6b6b6b]">Can’t see event titles, people, locations or notes</span></li>

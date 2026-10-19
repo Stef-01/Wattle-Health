@@ -5,10 +5,10 @@ export const metadata = { title: "About · Wattle Health" };
 export const revalidate = 3600;
 
 const POINTS = [
-  { title: "Matched on how they work", body: "We match doctors on what they treat and how they work: their approach, why they chose medicine, and life outside the clinic. It all comes from their own words on their own pages." },
+  { title: "Picked for how they work", body: "We pick providers on what they treat and how they work: their approach, why they chose medicine, and life outside the clinic. It all comes from their own words on their own pages." },
   { title: "Every fact has a source", body: "Each fact links to where it came from, the doctor’s practice page or a public listing, with the date we read it." },
   { title: "Reviews", body: "For now, reviews here are labelled demo examples. Real ones will come only from patients who saw the doctor, and a person checks each one first." },
-  { title: "Nobody pays", body: "No doctor or service pays to be listed, matched or ranked." },
+  { title: "Nobody pays", body: "No doctor or service pays to be listed, picked or ranked." },
 ];
 
 export default async function AboutPage() {

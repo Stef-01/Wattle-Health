@@ -1,10 +1,10 @@
 // Walks the guided questions: Continue on the entry screen, the given option (default first) on
-// each question, then "See your matches" on the summary. Optional `shot(name)` captures each screen.
+// each question, then "See your picks" on the summary. Optional `shot(name)` captures each screen.
 export async function throughNarrow(p, { pick = 0, shot } = {}) {
   await p.waitForURL(/\/narrow/);
   for (let i = 0; i < 14; i++) {
     if (/\/results/.test(p.url())) break;
-    const see = p.getByRole("button", { name: "See your matches" });
+    const see = p.getByRole("button", { name: "See your picks" });
     const radios = p.locator("[data-answer]");
     const cont = p.getByRole("button", { name: "Continue" });
     await p.waitForFunction(() => /A few questions|of \d+|search for/.test(document.body.innerText) || /results/.test(location.href), null, { timeout: 15000 }).catch(() => {});

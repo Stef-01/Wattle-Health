@@ -117,7 +117,7 @@ export function Openings() {
 
       <h2 className="mt-8 text-[22px] text-ink">{fit === null ? "Checking…" : fit.length ? `${fit.length} ${fit.length === 1 ? "time fits" : "times fit"} your next two weeks` : doctors.length ? "Nothing fits yet" : "Save a doctor to watch them"}</h2>
       {fit && fit.length === 0 ? (
-        <p className="mt-2 text-[15px] leading-[1.5] text-grey">{doctors.length ? "Turn on more times above to see more." : "Tap the heart on a match to see their openings here."}</p>
+        <p className="mt-2 text-[15px] leading-[1.5] text-grey">{doctors.length ? "Turn on more times above to see more." : "Tap the heart on a pick to see their openings here."}</p>
       ) : null}
       {doctors.length ? <p className="mt-1 text-[14px] text-grey">Watching {doctors.map((d) => drName(d)).join(", ")}</p> : null}
 

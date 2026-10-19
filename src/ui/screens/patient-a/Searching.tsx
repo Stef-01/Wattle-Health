@@ -1,6 +1,6 @@
 "use client";
 import { Orb } from "@/src/ui/kit/Orb";
-// The moment between "Find my doctor" and the results: the sentence replays word by word, a
+// The moment between "Find my provider" and the results: the sentence replays word by word, a
 // wattle-green orb breathes, and the status changes as the search runs. Shown for at least
 // 1.4 s so the arrival feels deliberate rather than a flash.
 import { useEffect, useState } from "react";

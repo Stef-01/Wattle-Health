@@ -49,7 +49,7 @@ export function Refine({ open, onClose, initial, onApply, place }: { open: boole
         <Switch on={s.woman} onChange={set("woman")} label="A woman doctor" sub="Only doctors who are women" />
         <Switch on={s.child} onChange={set("child")} label="Sees children" sub="For a child under 12" />
       </div>
-      <Cta fixed={false} onClick={() => onApply(s)}>Show my matches</Cta>
+      <Cta fixed={false} onClick={() => onApply(s)}>Show my picks</Cta>
     </Sheet>
   );
 }

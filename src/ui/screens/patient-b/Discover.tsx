@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 // Settings › Discover (2026-10-18): guided flows into newer, concierge-style care that most people
 // don't know exists: doctor-led biomarker analysis, consults that use your wearable data, and
 // holistic menopause care. Three short questions, then real Australian services that fit, each
@@ -104,7 +105,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
               );
             })}
           </div>
-          <p className="mt-6 text-[12px] leading-[1.5] text-grey">Listings are facts from each provider’s own website. Wattle doesn’t endorse or take payment from them. Talk to your GP about whether a test or program is right for you.</p>
+          <p className="mt-6 text-[12px] leading-[1.5] text-grey">Listings are facts from each provider’s own website. <Brand /> doesn’t endorse or take payment from them. Talk to your GP about whether a test or program is right for you.</p>
         </div>
       ) : cat === "healthspan" ? (
         <Healthspan offerings={offerings} />

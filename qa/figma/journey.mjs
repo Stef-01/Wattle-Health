@@ -10,7 +10,7 @@ const page = await (await browser.newContext({ viewport: { width: 430, height: 9
 const shot = (n) => page.screenshot({ path: path.join(OUT, `${n}.png`) });
 await page.goto(`${BASE}/`); await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await page.goto(`${BASE}/`);
 await page.fill("textarea", "Endometriosis, I feel like nobody listens");
-await page.click("text=Find my doctor"); await page.waitForURL(/\/narrow/);
+await page.click("text=Find my provider"); await page.waitForURL(/\/narrow/);
 await throughNarrow(page, { pick: 1, shot });
 const asked = (await import("node:fs")).readdirSync(OUT).filter((f) => f.startsWith("narrow-")).length - 2;
 await page.waitForURL(/\/results/, { timeout: 20000 }); await page.waitForTimeout(1800); await shot("04-top-match");

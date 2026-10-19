@@ -29,7 +29,7 @@ await page.waitForURL(`${base}/match/2`);
 await page.waitForTimeout(500);
 await shot("p04-match-2");
 await page.goto(`${base}/results`);
-await page.waitForSelector("text=Your matches");
+await page.waitForSelector("text=Your picks");
 await page.waitForTimeout(600);
 await shot("p05-results");
 await page.goto(`${base}/`);
@@ -44,7 +44,7 @@ await page.evaluate(() => {
   sessionStorage.setItem("wattle.req.current", JSON.stringify(id));
 });
 await page.goto(`${base}/results`);
-await page.waitForSelector("text=No strong match yet");
+await page.waitForSelector("text=No strong pick yet");
 await page.waitForTimeout(400);
 await shot("p05-results-empty");
 await browser.close();

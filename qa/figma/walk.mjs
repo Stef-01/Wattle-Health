@@ -33,12 +33,12 @@ const go = (route) => page.goto(route.startsWith(new URL(BASE).pathname) && new 
 await go("/splash"); await shot("P01-splash");
 await go("/"); await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await go("/"); await shot("P02-home");
 await page.fill("textarea", SENTENCE); await shot("P02-home-filled");
-await page.click("text=Find my doctor"); await page.waitForURL(/\/narrow/); await page.waitForTimeout(900); await shot("P03-narrow");
+await page.click("text=Find my provider"); await page.waitForURL(/\/narrow/); await page.waitForTimeout(900); await shot("P03-narrow");
 await throughNarrow(page); await page.waitForTimeout(1500); await shot("P05-results");
 const first = (await page.locator("a[href*='/doctor/']").first().getAttribute("href")).replace(/\/$/, "");
 await go(first); await page.waitForTimeout(700); await shot("P06-profile");
 await page.evaluate(() => window.scrollBy(0, 700)); await page.waitForTimeout(300); await shot("P06-profile-2");
-for (const t of ["Research", "Practical", "Why this match"]) { const b = page.getByRole("button", { name: new RegExp(`^${t}`) }); if (await b.count()) await b.first().click(); }
+for (const t of ["Research", "Practical", "Why this pick"]) { const b = page.getByRole("button", { name: new RegExp(`^${t}`) }); if (await b.count()) await b.first().click(); }
 await page.waitForTimeout(400); await shot("P06-profile-open");
 await page.getByRole("button", { name: /^Call to book/ }).first().click(); await page.waitForTimeout(500); await shot("P06-contact");
 await go("/heard"); await shot("P03-heard");
@@ -61,7 +61,7 @@ await go("/join/review"); await shot("C08-review");
 // Laptop: the 560 px reading column on white.
 const lap = await browser.newPage({ viewport: { width: 1280, height: 800 }, deviceScaleFactor: 1 });
 await lap.goto(`${BASE}/`); await lap.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await lap.goto(`${BASE}/`);
-await lap.fill("textarea", SENTENCE); await lap.click("text=Find my doctor"); await throughNarrow(lap); await lap.waitForTimeout(1500);
+await lap.fill("textarea", SENTENCE); await lap.click("text=Find my provider"); await throughNarrow(lap); await lap.waitForTimeout(1500);
 await lap.screenshot({ path: path.join(OUT, "99-laptop-results.png") }); shots.push({ name: "laptop-results", file: path.join(OUT, "99-laptop-results.png"), url: lap.url() });
 await lap.goto(`${BASE}/`); await lap.waitForTimeout(900);
 await lap.screenshot({ path: path.join(OUT, "99-laptop-home.png") }); shots.push({ name: "laptop-home", file: path.join(OUT, "99-laptop-home.png"), url: lap.url() });
