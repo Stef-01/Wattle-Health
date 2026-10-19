@@ -1,4 +1,5 @@
 "use client";
+import { Orb } from "@/src/ui/kit/Orb";
 // Guided questions (2026-10-18), reconstructed from Zocdoc SearchAI's shipped mental-health fit
 // questionnaire (recovered with REA from the archived searchai bundle; see
 // qa/benchmark-zocdoc/archive): entry → specific issue → experience → type of care → medication →
@@ -202,12 +203,12 @@ export function Narrow() {
         {index >= 0 && step ? <span className="text-[14px] text-grey">{index + 1} of {total}</span> : null}
       </div>
       <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-surface" role="progressbar" aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100}>
-        <div className="bar-fill h-full w-full rounded-full" style={{ transform: `scaleX(${progress})`, background: "#2f5d3a" }} />
+        <div className="bar-fill h-full w-full rounded-full" style={{ transform: `scaleX(${progress})`, background: "#1b1b1b" }} />
       </div>
 
       {index < 0 ? (
         <div key="entry" className="rise mt-16 flex flex-col items-center text-center">
-          <span className="search-orb" style={{ width: 72, height: 72 }} aria-hidden="true" />
+          <Orb size={72} />
           <h1 className="mt-10 text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">A few questions to narrow your search</h1>
           <p className="mt-3 text-[16px] leading-[1.5] text-grey">Your answers shape who we show you.</p>
           {sentence ? <p className="mt-8 rounded-[6px] bg-surface-soft px-5 py-3 text-[15px] leading-[1.45] text-charcoal">“{sentence}”</p> : null}
@@ -227,14 +228,14 @@ export function Narrow() {
                   aria-checked={on}
                   data-answer={i}
                   onClick={() => setPicked(o.id)}
-                  className={`rise press press-soft flex w-full items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#2f5d3a] bg-[#f5f8f6]" : "border-hairline bg-white"}`}
+                  className={`rise press press-soft flex w-full items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#1b1b1b] bg-[#f4f4f4]" : "border-hairline bg-white"}`}
                   style={{ "--i": i } as React.CSSProperties}
                 >
                   <span className="min-w-0 flex-1">
                     <span className="block text-[17px] text-ink">{o.label}</span>
                     {o.sub ? <span className="block text-[14px] text-grey">{o.sub}</span> : null}
                   </span>
-                  <span aria-hidden="true" className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border ${on ? "border-[#2f5d3a] bg-[#2f5d3a] text-white" : "border-hairline text-transparent"}`}>
+                  <span aria-hidden="true" className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border ${on ? "border-[#1b1b1b] bg-[#1b1b1b] text-white" : "border-hairline text-transparent"}`}>
                     <Check size={13} />
                   </span>
                 </button>
@@ -246,19 +247,19 @@ export function Narrow() {
         <div key="summary" className="rise mt-10">
           <h1 className="text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">What we’ll search for</h1>
           <p className="mt-3 text-[15px] text-grey">You can change this on the results page.</p>
-          <dl className="mt-6 rounded-[8px] px-5 py-2" style={{ background: "#f5f8f6" }}>
-            <div className="border-b border-[#e3ebe5] py-3">
+          <dl className="mt-6 rounded-[8px] px-5 py-2" style={{ background: "#f4f4f4" }}>
+            <div className="border-b border-[#e6e6e6] py-3">
               <dt className="text-[13px] text-grey">In your words</dt>
               <dd className="text-[16px] text-ink">{sentence}</dd>
             </div>
             {contextPhrases(sentence ?? "").labels.length ? (
-              <div className="border-b border-[#e3ebe5] py-3">
+              <div className="border-b border-[#e6e6e6] py-3">
                 <dt className="text-[13px] text-grey">From your health context</dt>
                 <dd className="text-[16px] text-ink">{contextPhrases(sentence ?? "").labels.join(", ")}</dd>
               </div>
             ) : null}
             {steps.filter((s) => answers[s.id]).map((s) => (
-              <div key={s.id} className="border-b border-[#e3ebe5] py-3 last:border-b-0">
+              <div key={s.id} className="border-b border-[#e6e6e6] py-3 last:border-b-0">
                 <dt className="text-[13px] text-grey">{s.summary}</dt>
                 <dd className="text-[16px] text-ink">{answers[s.id]!.label}</dd>
               </div>
@@ -274,15 +275,15 @@ export function Narrow() {
           {index < 0 ? (
             <>
               <Cta fixed={false} disabled={!ctx} onClick={() => (steps.length ? setIndex(0) : void finish({}))}>Continue</Cta>
-              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Skip to my matches</button>
+              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Skip to my picks</button>
             </>
           ) : step ? (
             <>
               <Cta fixed={false} disabled={!picked} onClick={next}>Continue</Cta>
-              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Skip to my matches</button>
+              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Skip to my picks</button>
             </>
           ) : ctx ? (
-            <Cta fixed={false} onClick={() => void finish(answers)}>See your matches</Cta>
+            <Cta fixed={false} onClick={() => void finish(answers)}>See your picks</Cta>
           ) : null}
         </div>
       </div>

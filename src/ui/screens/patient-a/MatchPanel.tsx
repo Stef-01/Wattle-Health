@@ -13,12 +13,12 @@ import { Check, Labelled } from "@/src/ui/kit";
 import { Facts, Research, Sources, WordsFull } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
-import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, specialtyTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
+import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, providerTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
 import { fitSentence, Portrait } from "./DoctorCard";
 import { BookCard, NextFree, nextFreeLabel } from "./BookCard";
 import type { Highlight } from "@/src/data/search-types";
 
-const ORDINAL = ["Your top match", "Your second match", "Your third match"];
+const ORDINAL = ["Your top pick", "Your second pick", "Your third pick"];
 const TABS = ["Highlights", "About", "Location", "Reviews", "FAQs"] as const;
 type Tab = (typeof TABS)[number];
 
@@ -51,7 +51,7 @@ function HighlightRows({ items }: { items: Highlight[] }) {
           <span aria-hidden="true" className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-full" style={{ background: "#fbf1cf", color: "#8a6a00" }}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d={ICONS[h.kind]} /></svg>
             {h.matched ? (
-              <span className="absolute -bottom-0.5 -right-0.5 inline-flex size-[18px] items-center justify-center rounded-full border-2 border-white bg-[#2f5d3a] text-white">
+              <span className="absolute -bottom-0.5 -right-0.5 inline-flex size-[18px] items-center justify-center rounded-full border-2 border-white bg-[#1b1b1b] text-white">
                 <Check size={10} />
               </span>
             ) : null}
@@ -83,7 +83,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const [tab, setTab] = useState<Tab>("Highlights");
   const reviews = useReviewSummary(d.id);
   const room = primaryRoom(d);
-  const line = [specialtyTitle(d.specialty), room?.name ?? null].filter(Boolean).join(" · ");
+  const line = [providerTitle(d), room?.name ?? null].filter(Boolean).join(" · ");
   const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km away` : null;
   const referral = d.referralRequired?.value === true;
   const personal = personalOf(d);
@@ -111,7 +111,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
     <section className="rise" aria-label={variant === "match" ? ORDINAL[index] : d.name.display} data-match={variant === "match" ? index : undefined}>
       {variant === "match" ? (
         <div className="mb-5 flex items-baseline justify-between">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2f5d3a]">{ORDINAL[index]}</p>
+          <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#1b1b1b]">{ORDINAL[index]}</p>
           <p className="text-[13px] text-grey">{index + 1} of {total}</p>
         </div>
       ) : null}
@@ -137,7 +137,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
           <span className="min-w-0 flex-1 self-center">
             {reviews.commentary ? <span className="line-clamp-3 text-[15px] leading-[1.5] text-ink lg:text-[16px] lg:leading-[1.55]">{reviews.commentary}</span> : null}
             <span className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <span className="text-[13px] text-[#6b6b6b] lg:text-[14px]">{reviews.demo ? "Demo reviews" : `${reviews.count} verified reviews`}</span>
+              <span className="text-[13px] text-[#6b6b6b] lg:text-[14px]">{reviews.demo ? "Example reviews" : `${reviews.count} verified reviews`}</span>
               <span className="text-[15px] font-semibold text-ink underline underline-offset-4">See all {reviews.count} reviews</span>
             </span>
           </span>

@@ -6,6 +6,8 @@ d = json.load(open(p, encoding="utf8"))
 def norm(s):
     s = html.unescape(re.sub(r"<[^>]+>", " ", s))
     s = s.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"').replace("–", "-").replace("—", "-").replace("\xa0", " ")
+    s = re.sub(r"[\"'‘’“”�`]", "", s)  # quote marks vary in spacing and form across pages
+    s = re.sub(r"\s+([,.;:!?])", r"\1", s)
     return re.sub(r"\s+", " ", s).strip().lower()
 pages = {}
 for doc in d["doctors"]:

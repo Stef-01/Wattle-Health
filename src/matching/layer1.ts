@@ -44,6 +44,9 @@ export const SPECIALTY_LABELS: Readonly<Record<SpecialtyField, string>> = {
   "respiratory-sleep-medicine": "respiratory and sleep medicine",
   "infectious-diseases": "infectious diseases",
   "clinical-genetics": "clinical genetics",
+  psychology: "psychology",
+  "occupational-therapy": "occupational therapy",
+  "allied-health": "allied health",
 };
 
 const POPULATION_LABELS: Readonly<Record<Population, string>> = {

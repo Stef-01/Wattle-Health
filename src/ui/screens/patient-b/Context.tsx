@@ -1,4 +1,6 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
+import { ConnectorCard } from "./ConnectorCard";
 // Settings › Your health context (2026-10-18). Two ways to bring what an assistant knows about you:
 // 1. Ask ChatGPT for a short summary (prompt provided), paste it here; Wattle reads it on its server
 //    without any model, shows what it understood as switches, and keeps it on this device only.
@@ -78,10 +80,10 @@ export function ContextSettings() {
         <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
         <h1 className="text-[22px] text-ink">Your health context</h1>
       </div>
-      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your matches fit. It stays on this phone.</p>
+      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your picks fit. It stays on this phone.</p>
 
-      <section className="mt-8 rounded-[8px] px-5 py-5" style={{ background: "#f5f8f6" }}>
-        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2f5d3a]">Bring it from ChatGPT</p>
+      <section className="mt-8 rounded-[8px] px-5 py-5" style={{ background: "#f4f4f4" }}>
+        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#1b1b1b]">Bring it from ChatGPT</p>
         <ol className="mt-3 flex flex-col gap-4 text-[15px] leading-[1.5] text-charcoal">
           <li>
             <span className="font-semibold text-ink">1. Ask ChatGPT for a short summary.</span>
@@ -98,16 +100,16 @@ export function ContextSettings() {
         </ol>
         {items ? (
           <div className="mt-5">
-            <p className="text-[15px] font-semibold text-ink">3. What Wattle understood</p>
+            <p className="text-[15px] font-semibold text-ink">3. What <Brand /> understood</p>
             {items.length === 0 ? <p className="mt-2 text-[14px] text-grey">Nothing to search on yet. Mention a condition, who it’s for, or how you like a doctor to work.</p> : null}
             <ul className="mt-2 flex flex-col">
               {items.map((it, i) => (
-                <li key={it.id} className="flex items-center gap-4 border-b border-[#e3ebe5] py-3 last:border-b-0">
+                <li key={it.id} className="flex items-center gap-4 border-b border-[#e6e6e6] py-3 last:border-b-0">
                   <span className="min-w-0 flex-1">
                     <span className="block text-[16px] text-ink">{it.label}</span>
                     <span className="block text-[13px] text-grey">{KIND[it.kind] ?? "Context"}</span>
                   </span>
-                  <button type="button" role="switch" aria-checked={it.on} aria-label={`Use ${it.label}`} onClick={() => setItems(items.map((x, j) => (j === i ? { ...x, on: !x.on } : x)))} className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: it.on ? "#2f5d3a" : "#e3e3e3" }}>
+                  <button type="button" role="switch" aria-checked={it.on} aria-label={`Use ${it.label}`} onClick={() => setItems(items.map((x, j) => (j === i ? { ...x, on: !x.on } : x)))} className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: it.on ? "#1b1b1b" : "#e3e3e3" }}>
                     <span className="absolute top-[2px] size-[27px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] transition-transform duration-200" style={{ transform: `translateX(${it.on ? 22 : 2}px)` }} />
                   </button>
                 </li>
@@ -119,22 +121,7 @@ export function ContextSettings() {
         ) : null}
       </section>
 
-      <section className="mt-6 rounded-[8px] border border-hairline px-5 py-5">
-        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-grey">Use Wattle inside ChatGPT or Claude</p>
-        <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">Your assistant already knows your context. Connect Wattle, then ask it to find you a doctor. It searches Wattle with what it knows.</p>
-        <dl className="mt-4 flex flex-col gap-4 text-[14px]">
-          <div>
-            <dt className="font-semibold text-ink">ChatGPT or Claude connector (MCP)</dt>
-            <dd className="mt-1 text-grey">Settings › Connectors › Add, then paste this URL.</dd>
-            <dd className="mt-2 flex flex-wrap items-center gap-2"><code className="rounded-[4px] bg-surface px-3 py-2 text-[13px] text-ink">{origin}/api/mcp</code><Copy text={`${origin}/api/mcp`} label="Copy" /></dd>
-          </div>
-          <div>
-            <dt className="font-semibold text-ink">Custom GPT Action</dt>
-            <dd className="mt-1 text-grey">In the GPT editor › Actions › Import from URL.</dd>
-            <dd className="mt-2 flex flex-wrap items-center gap-2"><code className="rounded-[4px] bg-surface px-3 py-2 text-[13px] text-ink">{origin}/api/openapi.json</code><Copy text={`${origin}/api/openapi.json`} label="Copy" /></dd>
-          </div>
-        </dl>
-      </section>
+      <ConnectorCard origin={origin} />
 
       {saved ? (
         <button type="button" onClick={clear} className="press-dim mt-6 text-[15px] text-danger">Delete my health context</button>

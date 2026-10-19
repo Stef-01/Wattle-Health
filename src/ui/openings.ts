@@ -8,7 +8,7 @@ import { demoBusy, demoOpenings, fitting, type Busy, type Opening, type Window }
 import { getSaved, getSavedIds } from "./store";
 
 const KEY = "wattle.openings.v1";
-export type CalendarSource = "ics-file" | "ics-link" | "demo";
+export type CalendarSource = "ics-file" | "ics-link" | "demo" | "google" | "apple" | "outlook";
 export type OpeningsState = {
   calendar: { source: CalendarSource; label: string; busy: Busy[]; at: number } | null;
   windows: Window[];
@@ -16,6 +16,9 @@ export type OpeningsState = {
   seen: string[];
   /** Saved doctors you've switched off in Saved; Openings skips them. */
   muted?: string[];
+  /** Openings the person said "Not now" to, and ones they booked from the prompt. */
+  dismissed?: string[];
+  booked?: { id: string; doctorId: string; start: number; mode: string }[];
 };
 const EMPTY: OpeningsState = { calendar: null, windows: ["morning", "midday", "afternoon", "evening"], notify: false, seen: [] };
 
@@ -78,8 +81,8 @@ export async function notifyFresh(): Promise<number> {
   {
     const first = fresh[0]!;
     const more = fresh.length > 1 ? ` and ${fresh.length - 1} more` : "";
-    new Notification("An appointment opened up", {
-      body: `${first.doctor.name.display}, ${whenLabel(first.start)}, fits your calendar${more}. (Demo)`,
+    new Notification(`An appointment with ${first.doctor.name.display} just opened up`, {
+      body: `${whenLabel(first.start)}. You're free then. Book a follow-up?${more}`,
       tag: "wattle-openings",
     });
   }

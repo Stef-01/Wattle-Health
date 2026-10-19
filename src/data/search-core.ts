@@ -4,6 +4,26 @@
 // (client-match.ts). The sentence is read here and returned in closed vocabulary only; it
 // never goes into a URL or a log.
 import { deprioritiseThin } from "./completeness";
+
+/** Profession words in the sentence (founder 2026-10-19: "add in all providers"). Deterministic. */
+const PROFESSIONS: { re: RegExp; test: (specialty: string, profession: string) => boolean }[] = [
+  { re: /\bpsycholog/i, test: (s) => s === "psychology" },
+  { re: /\b(occupational therap|OT)\b/, test: (s) => s === "occupational-therapy" },
+  { re: /\bcoach(ing)?\b/i, test: (_s, p) => /coach/i.test(p) },
+  { re: /\bphysio/i, test: (_s, p) => /physio/i.test(p) },
+  { re: /\b(dietitian|nutrition)/i, test: (_s, p) => /dietitian/i.test(p) },
+  { re: /exercise physiolog/i, test: (_s, p) => /exercise physiolog/i.test(p) },
+  { re: /\bsocial worker/i, test: (_s, p) => /social worker/i.test(p) },
+  { re: /\bcounsell/i, test: (_s, p) => /counsell/i.test(p) },
+];
+
+/** When the sentence names a profession, providers of it lead (stable); nobody is removed. */
+export function byAskedProfession<T extends { doctor: { specialty: string; profession?: string } }>(sentence: string, cards: T[]): T[] {
+  const asked = PROFESSIONS.filter((p) => p.re.test(sentence));
+  if (!asked.length) return cards;
+  const hit = (c: T) => asked.some((p) => p.test(c.doctor.specialty, c.doctor.profession ?? ""));
+  return [...cards.filter(hit), ...cards.filter((c) => !hit(c))];
+}
 import { match, type HumanFitWeights } from "@/src/matching";
 import { hardAsks, languageNeeds, lexiconFor, readNeeds, type NeedSignal } from "@/src/matching/needs";
 import type { Intent, Ranked, SpecialtyField } from "@/src/matching/types";
@@ -107,7 +127,11 @@ export function toCard(ranked: Ranked, byId: Map<string, DoctorRecord>, intent?:
 
 export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Discipline, req: SearchRequest): SearchResponse {
   const exclude = new Set(req.exclude ?? []);
-  const doctors = exclude.size ? allDoctors.filter((d) => !exclude.has(d.specialty)) : allDoctors;
+  const pool = exclude.size ? allDoctors.filter((d) => !exclude.has(d.specialty)) : allDoctors;
+  // A named profession ("a psychologist", "ADHD coach") narrows the pool to it when we list any.
+  const asked = PROFESSIONS.filter((p) => p.re.test(req.sentence));
+  const narrowed = asked.length ? pool.filter((d) => asked.some((p) => p.test(d.specialty, (d as { profession?: string }).profession ?? ""))) : [];
+  const doctors = narrowed.length ? narrowed : pool;
   const weights: Weights = { ...DEFAULT_WEIGHTS, ...(req.weights ?? {}) };
   const typed = (req.suburb ?? "").trim() || "Brisbane";
   const place = resolveSuburb(typed, doctors);
@@ -122,7 +146,7 @@ export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Disc
 
   const byId = new Map(doctors.map((d) => [d.id, d]));
   const conditionLabels = Object.fromEntries(discipline.conditions.map((c) => [c.id, c.label]));
-  const cards = deprioritiseThin(result.results.map((r) => toCard(r, byId, result.intent, conditionLabels)).filter((c): c is Card => c !== null));
+  const cards = byAskedProfession(original, deprioritiseThin(result.results.map((r) => toCard(r, byId, result.intent, conditionLabels)).filter((c): c is Card => c !== null)));
 
   const response: SearchResponse = {
     order: result.order,

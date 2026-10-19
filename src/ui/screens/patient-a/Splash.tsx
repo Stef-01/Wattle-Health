@@ -1,4 +1,5 @@
 "use client";
+import { useBrandName } from "@/src/ui/brand";
 // P01 Splash (225:10): green gradient, Lobster wordmark + leaf, "Doctors who listen".
 // Tapping anywhere goes home; the flag stops "/" sending the reader back here.
 import "@fontsource/lobster/400.css";
@@ -9,6 +10,7 @@ import { markSplashSeen } from "@/src/ui/store";
 
 export function Splash() {
   const router = useRouter();
+  const brand = useBrandName();
   useEffect(() => {
     markSplashSeen();
     router.prefetch("/");
@@ -23,11 +25,11 @@ export function Splash() {
         if (e.key === "Enter" || e.key === " ") router.push("/");
       }}
       className="frame cursor-pointer overflow-clip"
-      style={{ background: "linear-gradient(180deg, #2f5d3a 0%, #0f2c1c 100%)" }}
+      style={{ background: "linear-gradient(180deg, #1b1b1b 0%, #000000 100%)" }}
     >
-      <div className="settle absolute left-[141px] top-[390px] flex items-center gap-[10px]">
+      <div className="settle absolute inset-x-0 top-[390px] flex items-center justify-center gap-[10px]">
         <span className="text-[44px] leading-normal text-white" style={{ fontFamily: '"Lobster", cursive' }}>
-          wattle
+          {brand === "ADHDme" ? "ADHDme" : "wattle"}
         </span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={asset("/figma/leaf.svg")} alt="" width={34} height={34} className="float block size-[34px]" />

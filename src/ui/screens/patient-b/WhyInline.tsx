@@ -1,5 +1,5 @@
 "use client";
-// "Why this match" folded into the profile: the engine's clinical and human-fit reasons for this
+// "Why this pick" folded into the profile: the engine's clinical and human-fit reasons for this
 // doctor in the current request, each with its source. Renders nothing when there is no
 // current search or the doctor was not in it (a profile opened from Saved, say).
 import { useEffect, useState } from "react";
@@ -42,7 +42,7 @@ export function WhyInline({ doctor: d }: { doctor: DoctorRecord }) {
   if (reasons.length === 0) return null;
   const first = humanReason(reasons[0]!.text);
   return (
-    <Disclosure tint="why" title="Why this match" sub={`${first}${reasons.length > 1 ? ` and ${reasons.length - 1} more` : ""}`}>
+    <Disclosure tint="why" title="Why this pick" sub={`${first}${reasons.length > 1 ? ` and ${reasons.length - 1} more` : ""}`}>
       {reasons.map((r, i) => {
         const s = sourceForReason(d, r);
         return <SourceRow key={`${r.field}-${r.label ?? i}`} icon={<FigmaIcon name="check" size={17} />} title={humanReason(r.text)} sub={s.text} href={s.href} />;

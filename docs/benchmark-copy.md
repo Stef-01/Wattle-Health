@@ -25,12 +25,12 @@ Measured with `qa/iphone/words.mjs`:
 
 | Screen | Words above the fold |
 |---|---|
-| Home | 48 |
+| Home | 46 |
 | Me | 47 |
-| Openings | 53 |
-| Context | 49 |
+| Openings | 40 |
+| Context | 45 |
 | Discover | 55 (was 72; tile copy trimmed, text arrows replaced by a chevron icon) |
 | Healthspan | 75, an editorial landing on purpose |
 | About | 102, an editorial page on purpose |
 
-Re-measured 2026-10-19 after the Zocdoc token pass (sans semibold headings everywhere outside the doctor's own words and the editorial landings; 8 px cards, 6 px controls and fields, 56 px r6 CTA). Big portraits stay on matches, profiles, healthspan results and Saved (founder, same day: big faces are more personable).
+Re-measured 2026-10-19 after the Zocdoc token pass (sans semibold headings everywhere outside the doctor's own words and the editorial landings; 8 px cards, 6 px controls and fields, 56 px r6 CTA). Big portraits stay on matches, profiles, healthspan results and Saved (founder, same day: big faces are more personable). Re-measured again after merging the same day's main (picks, no green, calendar and connector cards).

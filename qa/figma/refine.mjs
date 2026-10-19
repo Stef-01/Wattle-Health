@@ -15,7 +15,7 @@ const all = p.getByRole("button", { name: /Show all \d+ highlights/ }).first(); 
 const more = p.getByRole("button", { name: /^More about/ }).first(); await more.scrollIntoViewIfNeeded(); await p.screenshot({ path: `${OUT}/09-folded.png` }); await more.click(); await p.waitForTimeout(600); await p.screenshot({ path: `${OUT}/10-unfolded.png` });
 await p.evaluate(() => window.scrollTo(0, 0)); await p.getByRole("button", { name: /Refine/ }).click(); await p.waitForTimeout(600); await p.screenshot({ path: `${OUT}/11-refine.png` });
 await p.getByRole("switch", { name: /Telehealth only/ }).click(); await p.getByRole("switch", { name: /A woman doctor/ }).click(); await p.waitForTimeout(300); await p.screenshot({ path: `${OUT}/12-refine-on.png` });
-await p.getByRole("button", { name: "Show my matches" }).click(); await p.waitForTimeout(2500); await p.screenshot({ path: `${OUT}/13-refined.png` });
+await p.getByRole("button", { name: "Show my picks" }).click(); await p.waitForTimeout(2500); await p.screenshot({ path: `${OUT}/13-refined.png` });
 const heard = await p.locator("p.min-w-0").first().textContent();
 console.log(JSON.stringify({ showAll: hadAll > 0, heardAfterRefine: heard }));
 await browser.close();

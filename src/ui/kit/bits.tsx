@@ -79,7 +79,7 @@ export function Clamp({ text, lines = 3, className, more }: { text: string; line
 
 /** A row that opens its content in place. Summary is one line; the chevron turns. */
 /** Subtle panel tints, one per kind of drill-down, so the eye can tell them apart without colour shouting. */
-export const PANEL_TINTS = { research: "#f6f7fa", practical: "#f8f6f3", why: "#f5f8f6", sources: "#f7f7f7" } as const;
+export const PANEL_TINTS = { research: "#f6f7fa", practical: "#f8f6f3", why: "#f4f4f4", sources: "#f7f7f7" } as const;
 
 export function Disclosure({ title, sub, children, defaultOpen = false, tint }: { title: ReactNode; sub?: ReactNode; children: ReactNode; defaultOpen?: boolean; tint?: keyof typeof PANEL_TINTS }) {
   const [open, setOpen] = useState(defaultOpen);

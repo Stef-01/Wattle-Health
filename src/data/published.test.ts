@@ -75,7 +75,10 @@ describe("published profiles", () => {
     const published = roster.filter((d) => d.personal?.status === "published");
     expect(published.length).toBe(new Set(researched.map((r) => `${r.specialty}|${nameKey(r.name)}`)).size);
     for (const d of published) {
-      expect(d.locations.length, `${d.name.display} has no geocoded room`).toBeGreaterThan(0);
+      // A provider whose practice is outside Queensland (ADHDme allied, 2026-10-19) is listed as
+      // telehealth-only with no geocoded room; everyone else must geocode.
+      if (d.rooms.every((r) => r.state !== "QLD")) expect(d.telehealth.value, `${d.name.display} is out of state and not telehealth-only`).toBe("only");
+      else expect(d.locations.length, `${d.name.display} has no geocoded room`).toBeGreaterThan(0);
       expect(d.personal?.sourceUrl).toMatch(/^https?:\/\//);
       expect(d.sources.some((s) => s.source === "practice-website")).toBe(true);
     }

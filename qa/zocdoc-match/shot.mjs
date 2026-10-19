@@ -9,9 +9,9 @@ for (const [tag, opts] of [["desktop", { viewport: { width: 1600, height: 800 },
   await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true"));
   await page.goto(`${BASE}/`);
   await page.locator("textarea, input[type=text]").first().fill("Endometriosis, someone who listens");
-  await page.getByText("Find my doctor").click();
+  await page.getByText("Find my provider").click();
   await throughNarrow(page).catch(() => null);
-  await page.waitForSelector("text=Your top match", { timeout: 30000 });
+  await page.waitForSelector("text=Your top pick", { timeout: 30000 });
   await page.waitForSelector("text=/See all \d+ reviews/", { timeout: 15000 }).catch(() => null);
   await page.waitForTimeout(800);
   await page.locator("section[data-match='0']").scrollIntoViewIfNeeded();

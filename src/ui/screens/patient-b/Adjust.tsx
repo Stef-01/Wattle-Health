@@ -2,7 +2,7 @@
 // P08 What matters most (226:209). Three sections of toggle pills. Clinical pills weight the
 // documented-interest and research signals, Personal pills weight the philosophy and lived-
 // experience signals and add the matching human-fit labels to the intent, Practical pills edit
-// the distance, gender and telehealth constraints. "Update matches" reranks the stored Layer-1
+// the distance, gender and telehealth constraints. "Update picks" reranks the stored Layer-1
 // survivors (server side, the vocabulary lives on disk) and returns to /results. Choices persist
 // in sessionStorage under the request id.
 import { useRouter } from "next/navigation";
@@ -112,7 +112,7 @@ export function Adjust() {
       ))}
       <Space h={30} />
       <p className="text-[14px] leading-normal text-grey">{req === null ? "Search first, then choose what matters." : failed ? "Couldn’t update. Try again." : "Clinical needs come first."}</p>
-      <Cta onClick={() => void update()} disabled={busy}>{busy ? "Updating" : "Update matches"}</Cta>
+      <Cta onClick={() => void update()} disabled={busy}>{busy ? "Updating" : "Update picks"}</Cta>
     </Screen>
   );
 }

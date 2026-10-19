@@ -7,7 +7,7 @@ import type { DoctorRecord } from "@/src/data/types";
 import { asList } from "@/src/data/types";
 import { Avatar, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
 import { HeroScreen, Space } from "./bits";
-import { approachSentence, clip, conditionLabels, hobbySentence, listSentence, niceSource, TIER_WORD, drName, drShort, feeOf, hobbyChips, personalOf, placeOf, practicalChips, primaryRoom, pronouns, specialtyTitle, verifiedPublications, wordsSource, yearsLine } from "./facts";
+import { approachSentence, clip, conditionLabels, drName, drShort, feeOf, hobbyChips, hobbySentence, listSentence, niceSource, personalOf, placeOf, practicalChips, primaryRoom, pronouns, providerTitle, TIER_WORD, verifiedPublications, wordsSource, yearsLine } from "./facts";
 import { BookmarkCircle, ContactCta, ShareCircle } from "./ProfileClient";
 import { WhyInline } from "./WhyInline";
 import { Reviews } from "./Reviews";
@@ -15,7 +15,7 @@ import { Reviews } from "./Reviews";
 function Header({ d }: { d: DoctorRecord }) {
   const name = drName(d);
   const room = primaryRoom(d);
-  const line = [specialtyTitle(d.specialty), room?.name ?? null].filter(Boolean).join(" · ");
+  const line = [providerTitle(d), room?.name ?? null].filter(Boolean).join(" · ");
   return (
     <>
       <div className="flex h-11 items-center justify-between">
@@ -237,7 +237,7 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
       <Facts d={d} />
       <Space h={28} />
       {personal?.healthspan ? (
-        <a href="/healthspan" className="press press-soft mb-7 block rounded-[8px] bg-[#2f5d3a] px-5 py-4 text-white">
+        <a href="/healthspan" className="press press-soft mb-7 block rounded-[8px] bg-[#1b1b1b] px-5 py-4 text-white">
           <span className="block text-[13px] font-medium uppercase tracking-[0.12em] text-white/75">Healthspan</span>
           <span className="mt-1 block text-[17px] font-semibold leading-snug">{drShort(d)} works on prevention{personal.healthspan.opensTo.includes("wearables") ? " and welcomes your wearable data" : personal.healthspan.opensTo.includes("biomarkers") ? " and reads bloodwork with you" : ""}.</span>
           <span className="mt-1 block text-[14px] text-white/85">How healthspan care works →</span>

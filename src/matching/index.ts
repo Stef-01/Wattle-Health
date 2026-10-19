@@ -30,7 +30,7 @@ import {
 } from "./rank";
 import type { Discipline } from "@/src/disciplines/load";
 import type { SuburbPoint } from "@/src/geo/suburbs";
-import type { Doctor, Evidence, FilterReason, MatchResult, Place, Ranked } from "./types";
+import { isAllied, type Doctor, type Evidence, type FilterReason, type MatchResult, type Place, type Ranked } from "./types";
 
 export { REACH_KM, CARE_GUIDANCE } from "./layer1";
 export { DEFAULT_WEIGHTS, ZERO_WEIGHTS, NO_PROFILE_REASON, normaliseWeights, rerank, humanFitFor, type HumanFitWeights, type WeightsInput } from "./layer2";
@@ -220,7 +220,7 @@ export function match(
 
   const order = matchQuality(sentence, roster, lexicon);
   const needs = needsFor(sentence, roster, lexicon);
-  const ranked = rankCliniciansNear(sentence, origin, roster, today, lexicon);
+  const byFit = rankCliniciansNear(sentence, origin, roster, today, lexicon);
 
   // The Layer-1 band is the tier vector rankClinicians sorts on plus the capacity grade: the
   // exact tie inside which distance already reordered, and the only place Layer 2 may reorder.
@@ -228,6 +228,17 @@ export function match(
     const profile = rankingProfile(clinician, needs);
     return `${profile.constraintCoverage}|${profile.constraintScore}|${profile.careScore}|${profile.mannerScore}|${profile.coverage}|${CAPACITY_ORDER[capacityGrade(clinician, today)]}`;
   };
+  // An allied provider's band carries its own suffix, so Layer 2 never lifts one past a doctor.
+  const layer1Band = (clinician: Clinician) => `${bandOf(clinician)}${allied(clinician) ? "|allied" : ""}`;
+  // ALLIED PROVIDERS NEVER LEAD WHERE A PRESCRIBER IS NEEDED (2026-10-19). For a condition the
+  // yaml marks `prescriber: true` (ADHD), every doctor who passed Layer 1 ranks above every
+  // allied provider; for any other ask, a doctor still ranks above an allied provider at an
+  // exactly equal Layer-1 band. Stable partitions, so each side keeps the ranker's order.
+  const allied = (clinician: Clinician) => isAllied(byId.get(clinician.id)!.specialty);
+  const prescriberAsk = intent.conditions.some((id) => discipline.conditions.find((c) => c.id === id)?.prescriber === true);
+  // Founder 2026-10-19 ("add in all providers"): ADHD uses the tie-break rule too, so a psychologist who documents ADHD can rank above a doctor who does not; doctors still win ties.
+  void prescriberAsk;
+  const ranked = medicalFirstWithinBands(byFit, allied, (c) => bandOf(c));
 
   const layer1: Ranked[] = ranked.map((clinician, position) => {
     const doctor = byId.get(clinician.id)!;
@@ -251,7 +262,7 @@ export function match(
       headline: "",
       clinicalFit: clinicalFitFor(doctor, intent, discipline),
       humanFit: { score: 0, reasons: [], basis: "none" },
-      layer1: { band: bandOf(clinician), position },
+      layer1: { band: layer1Band(clinician), position },
     };
     // The figure is shown whenever the doctor has rooms; whether it SORTS them is the
     // telehealth-first rule in rankCliniciansNear (PRD §4.12), not this line.
@@ -281,4 +292,18 @@ export function match(
     result.unserved = unservedNeeds(sentence, roster, lexicon).map((need) => ({ ask: need.label, restoreCount: 0 }));
   }
   return result;
+}
+
+/** Inside each run of equal Layer-1 band, doctors before allied providers; runs keep their order. */
+function medicalFirstWithinBands(ranked: readonly Clinician[], allied: (c: Clinician) => boolean, band: (c: Clinician) => string): Clinician[] {
+  const out: Clinician[] = [];
+  let start = 0;
+  while (start < ranked.length) {
+    let end = start + 1;
+    while (end < ranked.length && band(ranked[end]!) === band(ranked[start]!)) end += 1;
+    const run = ranked.slice(start, end);
+    out.push(...run.filter((c) => !allied(c)), ...run.filter(allied));
+    start = end;
+  }
+  return out;
 }

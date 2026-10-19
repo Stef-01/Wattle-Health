@@ -21,7 +21,28 @@ export interface Observed<T> {
  * `specialty` is one of these. The last three are held only by illustrative (fictional) profiles
  * in data/illustrative/ until real general-practice, pain and rheumatology records are ingested.
  */
-export type Specialty = "psychiatry" | "paediatrics" | "obstetrics-gynaecology" | "general-practice" | "pain-medicine" | "rheumatology";
+export type Specialty =
+  | "psychiatry"
+  | "paediatrics"
+  | "obstetrics-gynaecology"
+  | "general-practice"
+  | "pain-medicine"
+  | "rheumatology"
+  | AlliedSpecialty;
+
+/**
+ * Allied health and coaching providers (founder 2026-10-19: "add in all providers not just GPs").
+ * Not Ahpra medical specialties and never prescribers: `psychology` (every psychologist,
+ * registered, clinical, provisional), `occupational-therapy`, and `allied-health` for the rest
+ * (coaches, dietitians, physiotherapists, exercise physiologists, social workers, counsellors,
+ * therapy assistants, neurotherapy). The record's `profession` carries the title they use.
+ */
+export const ALLIED_SPECIALTIES = ["psychology", "occupational-therapy", "allied-health"] as const;
+export type AlliedSpecialty = (typeof ALLIED_SPECIALTIES)[number];
+
+export function isAllied(specialty: string): specialty is AlliedSpecialty {
+  return (ALLIED_SPECIALTIES as readonly string[]).includes(specialty);
+}
 
 /**
  * Every Ahpra specialty / field of specialty practice the cross-specialty vocabulary
@@ -46,6 +67,7 @@ export const SPECIALTY_FIELDS = [
   "respiratory-sleep-medicine",
   "infectious-diseases",
   "clinical-genetics",
+  ...ALLIED_SPECIALTIES,
 ] as const;
 
 export type SpecialtyField = (typeof SPECIALTY_FIELDS)[number];
@@ -130,6 +152,8 @@ export interface Doctor {
   synthetic: boolean;
   name: { given: string; family: string; display: string };
   specialty: Specialty;
+  /** The title the provider uses, e.g. "Clinical psychologist" or "ADHD coach". Display only: matching reads `specialty`. */
+  profession?: string;
   /** Ahpra register fields. Absent on synthetic profiles. */
   register?: {
     ahpraNumber: Observed<string>;

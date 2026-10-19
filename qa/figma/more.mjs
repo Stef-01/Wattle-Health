@@ -9,7 +9,7 @@ await page.goto(`${BASE}/`); await page.getByRole("button", { name: "ADHD, lived
 const first = (await page.locator("a[href*='/doctor/']").first().getAttribute("href")).replace(/\/$/, "");
 await page.goto(`${BASE}${first}`); await page.waitForTimeout(700);
 for (let i = 0; i < 6; i++) { const b = page.getByRole("button", { name: "More", exact: true }); if (!(await b.count())) break; await b.first().click(); await page.waitForTimeout(150); }
-for (const t of ["Research", "Practical", "Why this match", "Where this comes from"]) { const b = page.getByRole("button", { name: new RegExp(`^${t}`) }); if (await b.count()) await b.first().click(); }
+for (const t of ["Research", "Practical", "Why this pick", "Where this comes from"]) { const b = page.getByRole("button", { name: new RegExp(`^${t}`) }); if (await b.count()) await b.first().click(); }
 await page.waitForTimeout(500);
 await page.screenshot({ path: path.join("qa/figma/demos", "x1-more-open.png"), fullPage: true });
 await browser.close();

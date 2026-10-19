@@ -1,5 +1,5 @@
 "use client";
-// P05 "Your matches" card (Figma 226:15, re-read 2026-10-16): a 405-tall photo with a 30 px
+// P05 "Your picks" card (Figma 226:15, re-read 2026-10-16): a 405-tall photo with a 30 px
 // radius and the photo shadow, a blurred caption bottom-left (name 16 medium, map-pin + suburb
 // 14 in #cac8c8) and a blurred heart circle top-right. Under it, one sentence of why this
 // doctor fits, in closed vocabulary, and the practical line. The portrait is the one the
@@ -11,7 +11,7 @@ import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
 import { Heart, MapPin, initialsFor, tintFor } from "@/src/ui/kit";
-import { clip, drName, listSentence, practicalChips, pronouns, quoteOf, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
+import { clip, drName, listSentence, practicalChips, pronouns, providerTitle, quoteOf, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
 import { listedOnly, matchChips } from "./card";
 import { suburbOf } from "./lib";
 
@@ -88,7 +88,7 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false, captio
 export function DoctorCard({ card, labels, saved, onSave, index = 0 }: { card: Card; labels: Record<string, string>; saved: boolean; onSave: () => void; index?: number }) {
   const d: DoctorRecord = card.doctor;
   const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km` : d.telehealth.value === "only" ? "telehealth" : null;
-  const where = [specialtyTitle(d.specialty), km].filter(Boolean).join(" · ");
+  const where = [providerTitle(d), km].filter(Boolean).join(" · ");
   const practical = [where, ...practicalChips(d).slice(0, 2)].filter(Boolean);
   const quote = quoteOf(d, 32);
   void suburbOf;

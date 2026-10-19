@@ -1,6 +1,6 @@
 "use client";
 // P10 No match (226:308). The results owner imports this; /results/none mounts it for QA.
-// Header "Your matches" + "Edit", 30 px "No strong match yet", 20 px Inter place line, three
+// Header "Your picks" + "Edit", 30 px "No strong pick yet", 20 px Inter place line, three
 // rows (map-pin, video, sliders), CTA "Show closest fits" at y=810.
 import { Cta, Divider, FigmaIcon, Row, Screen, TopBar } from "@/src/ui/kit";
 import { Space } from "./bits";
@@ -28,9 +28,9 @@ const doctors = (n: number | null) => (n === null ? undefined : `${n} ${n === 1 
 export function NoMatch({ radiusKm, widenCount, telehealthCount, onWiden, onTelehealth, place = "Brisbane", widenToKm = 50, onChange, changeHref = "/adjust", onClosest, editHref = "/heard", backHref = "/", busy = false }: NoMatchProps) {
   return (
     <Screen padBottom="pb-[140px]">
-      <TopBar title="Your matches" back={backHref} right="Edit" rightHref={editHref} />
+      <TopBar title="Your picks" back={backHref} right="Edit" rightHref={editHref} />
       <Space h={40} />
-      <h1 className="font-sans text-[30px] font-medium leading-normal text-charcoal">No strong match yet</h1>
+      <h1 className="font-sans text-[30px] font-medium leading-normal text-charcoal">No strong pick yet</h1>
       <Space h={8} />
       <p className="font-inter text-[20px] font-medium leading-normal text-grey">
         Within {radiusKm} km of {place}

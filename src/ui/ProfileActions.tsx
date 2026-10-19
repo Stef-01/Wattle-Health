@@ -28,14 +28,14 @@ export function ProfileActions({ doctor }: { doctor: DoctorRecord }) {
   );
 }
 
-/** "Why this doctor matches": both explanations from the last search, if this doctor was in it. */
+/** "Why this pick": both explanations from the last search, if this doctor was in it. */
 export function WhyMatches({ doctorId }: { doctorId: string }) {
   const [card, setCard] = useState<Card | null | undefined>(undefined);
   useEffect(() => {
     setCard(getResults()?.cards.find((c) => c.doctor.id === doctorId) ?? null);
   }, [doctorId]);
   if (card === undefined) return null;
-  if (card === null) return <p className="text-sm text-ink-soft">Search first to see how this doctor matches what you asked for.</p>;
+  if (card === null) return <p className="text-sm text-ink-soft">Search first to see why this provider is a pick for you.</p>;
   return (
     <dl className="flex flex-col gap-2 text-sm">
       <div>

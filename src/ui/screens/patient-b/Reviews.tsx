@@ -1,4 +1,5 @@
 "use client";
+import { Brand } from "@/src/ui/brand";
 // Patient reviews on a profile (2026-10-18): a summary (average, count, "Highly recommended by
 // Wattle patients" at 3+ reviews averaging 4.5+), the latest three with "Show all", and a "Write a
 // review" sheet. Real reviews are checked before they appear. Until a doctor has any, labelled demo
@@ -61,16 +62,16 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="text-[28px] font-medium leading-none tracking-[-0.02em] text-ink">{data.average?.toFixed(1)}</span>
           <Stars value={data.average ?? 0} size={18} />
-          <span className="text-[14px] text-grey">{data.count} {data.demo ? "demo" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
-          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#2f5d3a]">Recommended by Wattle patients</span> : null}
-          {data.demo ? <span className="w-full text-[12px] text-grey">Demo reviews, not real patients. They show how reviews will look.</span> : null}
+          <span className="text-[14px] text-grey">{data.count} {data.demo ? "example" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
+          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#1b1b1b]">Recommended by <Brand /> patients</span> : null}
+          {data.demo ? <span className="w-full text-[12px] text-grey">Example reviews, showing how patient reviews will look.</span> : null}
         </div>
       ) : (
         <p className="text-[15px] leading-[1.5] text-grey">No reviews yet. We only show reviews from people who saw this doctor, and a person checks each one first.</p>
       )}
       {data?.commentary ? (
-        <div className="rounded-[8px] bg-[#f6f4ee] px-4 py-4">
-          <p className="text-[13px] font-semibold text-[#2f5d3a]">What patients say</p>
+        <div className="rounded-[8px] bg-[#f4f4f4] px-4 py-4">
+          <p className="text-[13px] font-semibold text-[#1b1b1b]">What patients say</p>
           <p className="mt-1 text-[16px] leading-[1.5] text-ink">{data.commentary}</p>
           {data.themes && data.themes.length ? (
             <ul className="mt-3 flex flex-col gap-1">
@@ -113,13 +114,13 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
             </div>
             <div className="flex flex-wrap gap-2">
               {Object.entries(VISITED).map(([k, v]) => (
-                <button key={k} type="button" onClick={() => setVisited(k)} className={`press rounded-[6px] border px-3 py-2 text-[14px] ${visited === k ? "border-[#2f5d3a] bg-[#f5f8f6] text-ink" : "border-hairline text-grey"}`}>{v}</button>
+                <button key={k} type="button" onClick={() => setVisited(k)} className={`press rounded-[6px] border px-3 py-2 text-[14px] ${visited === k ? "border-[#1b1b1b] bg-[#f4f4f4] text-ink" : "border-hairline text-grey"}`}>{v}</button>
               ))}
             </div>
             <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1000} placeholder="What was it like? How did they listen and explain things?" className="field w-full rounded-[6px] border border-line p-3 text-[15px] outline-none" />
             <p className="text-[12px] leading-[1.45] text-grey">Describe how they communicated and how you felt. Please don’t name medicines or describe results; we remove those before publishing.</p>
             <label className="flex items-start gap-3 text-[14px] text-charcoal">
-              <input type="checkbox" checked={saw} onChange={(e) => setSaw(e.target.checked)} className="mt-1 size-4 accent-[#2f5d3a]" />
+              <input type="checkbox" checked={saw} onChange={(e) => setSaw(e.target.checked)} className="mt-1 size-4 accent-[#1b1b1b]" />
               I saw this doctor, myself or with someone I care for.
             </label>
             {state === "error" ? <p className="text-[14px] text-danger">{error}</p> : null}

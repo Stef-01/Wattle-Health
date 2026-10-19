@@ -30,8 +30,8 @@
   --color-placeholder: #d9d9d9;
   --color-caption: rgba(29, 29, 29, 0.4);
   --color-caption-text: #d6d4d4;
-  --color-splash: #2f5d3a;
-  --color-splash-deep: #0f2c1c;
+  --color-splash: #1b1b1b;
+  --color-splash-deep: #000000;
   --color-accent: #0066cc;
   --color-accent-focus: #0071e3;
   --color-accent-soft: #e3effb;
@@ -359,8 +359,8 @@ details > summary::-webkit-details-marker {
   width: 96px;
   height: 96px;
   border-radius: 999px;
-  background: radial-gradient(circle at 35% 30%, #cfe3d4, #2f5d3a 70%);
-  box-shadow: 0 24px 60px rgba(47, 93, 58, 0.28);
+  background: radial-gradient(circle at 35% 30%, #8a8a8a, #1b1b1b 70%);
+  box-shadow: 0 24px 60px rgba(27, 27, 27, 0.28);
   animation: breathe 2.4s ease-in-out infinite;
 }
 .search-orb::after {
@@ -368,8 +368,8 @@ details > summary::-webkit-details-marker {
   position: absolute;
   inset: -14px;
   border-radius: 999px;
-  border: 1.5px solid rgba(47, 93, 58, 0.25);
-  border-top-color: rgba(47, 93, 58, 0.9);
+  border: 1.5px solid rgba(27, 27, 27, 0.25);
+  border-top-color: rgba(27, 27, 27, 0.9);
   animation: orbit 1.6s linear infinite;
 }
 .word-in {
