@@ -58,7 +58,7 @@ function HighlightRows({ items }: { items: Highlight[] }) {
           </span>
           <span className="min-w-0">
             <span className="block text-[17px] font-semibold leading-[1.3] tracking-[-0.01em] text-ink">{h.label}</span>
-            <span className="mt-1 line-clamp-2 block text-[15px] leading-[1.5] text-[#6b6b6b]">{h.detail ?? (h.matched ? "Matches what you asked for" : "")}</span>
+            <span className="mt-1 line-clamp-2 text-[15px] leading-[1.5] text-[#6b6b6b]">{h.detail ?? (h.matched ? "Matches what you asked for" : "")}</span>
           </span>
         </li>
       ))}
@@ -102,6 +102,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   let highlights = card.highlights ?? [];
   if (newPatientMatters) highlights = highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched));
   if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Recommended by patients", detail: `${reviews.count} verified Wattle patients, ${reviews.average?.toFixed(1)} of 5 on average`, matched: false }, ...highlights];
+  if (outside) highlights = highlights.filter((h) => h.kind !== "personal");
   const tabs = TABS.filter((t) => t !== "Highlights" || highlights.length > 0);
 
   return (

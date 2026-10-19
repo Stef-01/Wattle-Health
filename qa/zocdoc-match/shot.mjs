@@ -12,7 +12,8 @@ for (const [tag, opts] of [["desktop", { viewport: { width: 1600, height: 800 },
   await page.getByText("Find my doctor").click();
   await throughNarrow(page).catch(() => null);
   await page.waitForSelector("text=Your top match", { timeout: 30000 });
-  await page.waitForTimeout(1800);
+  await page.waitForSelector("text=/See all \d+ reviews/", { timeout: 15000 }).catch(() => null);
+  await page.waitForTimeout(800);
   await page.locator("section[data-match='0']").scrollIntoViewIfNeeded();
   await page.evaluate(() => { const s = document.querySelector("section[data-match='0']"); window.scrollTo(0, s.getBoundingClientRect().top + window.scrollY - 70); });
   await page.waitForTimeout(600);
