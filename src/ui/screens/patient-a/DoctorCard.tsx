@@ -48,7 +48,7 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false }: { d:
         // eslint-disable-next-line @next/next/no-img-element
         <>
           {!loaded ? <span aria-hidden="true" className="shimmer absolute inset-0" /> : null}
-          <img src={d.photo.url} alt={d.photo.alt ?? name} loading={eager ? "eager" : "lazy"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} data-loaded={loaded} className="img-fade absolute inset-0 size-full object-cover object-top" />
+          <img src={d.photo.url} alt={d.photo.alt && !/^(picture|image|photo|headshot)$/i.test(d.photo.alt.trim()) ? d.photo.alt : name} loading={eager ? "eager" : "lazy"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} data-loaded={loaded} className="img-fade absolute inset-0 size-full object-cover object-top" />
         </>
       ) : (
         <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-display text-[72px]" style={{ color: fg }}>
