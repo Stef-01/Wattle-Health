@@ -247,19 +247,19 @@ export function Narrow() {
         <div key="summary" className="rise mt-10">
           <h1 className="text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">What we’ll search for</h1>
           <p className="mt-3 text-[15px] text-grey">You can change this on the results page.</p>
-          <dl className="mt-6 rounded-[22px] px-5 py-2" style={{ background: "#f4f4f4" }}>
-            <div className="border-b border-[#e3ebe5] py-3">
+          <dl className="mt-6 rounded-[8px] px-5 py-2" style={{ background: "#f4f4f4" }}>
+            <div className="border-b border-[#e6e6e6] py-3">
               <dt className="text-[13px] text-grey">In your words</dt>
               <dd className="text-[16px] text-ink">{sentence}</dd>
             </div>
             {contextPhrases(sentence ?? "").labels.length ? (
-              <div className="border-b border-[#e3ebe5] py-3">
+              <div className="border-b border-[#e6e6e6] py-3">
                 <dt className="text-[13px] text-grey">From your health context</dt>
                 <dd className="text-[16px] text-ink">{contextPhrases(sentence ?? "").labels.join(", ")}</dd>
               </div>
             ) : null}
             {steps.filter((s) => answers[s.id]).map((s) => (
-              <div key={s.id} className="border-b border-[#e3ebe5] py-3 last:border-b-0">
+              <div key={s.id} className="border-b border-[#e6e6e6] py-3 last:border-b-0">
                 <dt className="text-[13px] text-grey">{s.summary}</dt>
                 <dd className="text-[16px] text-ink">{answers[s.id]!.label}</dd>
               </div>
@@ -267,7 +267,7 @@ export function Narrow() {
           </dl>
         </div>
       ) : (
-        <p className="rise mt-16 text-center font-display text-[22px] text-grey">Reading that…</p>
+        <p className="rise mt-16 text-center text-[18px] text-grey">Reading that…</p>
       )}
 
       <div className="frame-fixed pointer-events-none bottom-0 z-20 bg-white">

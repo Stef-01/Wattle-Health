@@ -23,7 +23,7 @@ function Copy({ text, label }: { text: string; label: string }) {
           setTimeout(() => setDone(false), 1500);
         });
       }}
-      className="press rounded-full border border-hairline px-4 py-2 text-[14px] text-ink"
+      className="press inline-flex h-10 items-center rounded-[6px] border border-ink px-4 text-[14px] font-medium text-ink"
     >
       {done ? "Copied" : label}
     </button>
@@ -78,33 +78,33 @@ export function ContextSettings() {
     <Screen padBottom="pb-[140px]">
       <div className="flex h-11 items-center gap-4">
         <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
-        <h1 className="display text-[22px] text-ink">Your health context</h1>
+        <h1 className="text-[22px] text-ink">Your health context</h1>
       </div>
       <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your picks fit. It stays on this phone.</p>
 
-      <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f4f4f4" }}>
-        <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#1b1b1b]">Bring it from ChatGPT</p>
+      <section className="mt-8 rounded-[8px] px-5 py-5" style={{ background: "#f4f4f4" }}>
+        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#1b1b1b]">Bring it from ChatGPT</p>
         <ol className="mt-3 flex flex-col gap-4 text-[15px] leading-[1.5] text-charcoal">
           <li>
-            <span className="font-medium text-ink">1. Ask ChatGPT for a short summary.</span>
+            <span className="font-semibold text-ink">1. Ask ChatGPT for a short summary.</span>
             <span className="mt-2 flex flex-wrap gap-2">
-              <a href={chatgptUrl} target="_blank" rel="noreferrer" className="press rounded-full bg-ink px-4 py-2 text-[14px] text-white">Open ChatGPT with the prompt</a>
+              <a href={chatgptUrl} target="_blank" rel="noreferrer" className="press inline-flex h-10 items-center rounded-[6px] bg-ink px-4 text-[14px] font-semibold text-white">Open ChatGPT with the prompt</a>
               <Copy text={CHATGPT_PROMPT} label="Copy the prompt" />
             </span>
           </li>
           <li>
-            <span className="font-medium text-ink">2. Paste what it wrote.</span>
-            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} maxLength={4000} placeholder="For example: I’m in my 30s with endometriosis and pelvic pain. I prefer telehealth and a woman doctor who listens and explains things plainly." className="field mt-2 w-full rounded-[16px] border-2 border-line bg-white p-3 text-[15px] outline-none" />
-            <button type="button" disabled={!text.trim() || busy} onClick={() => void read()} className="press mt-2 rounded-full border border-hairline bg-white px-4 py-2 text-[14px] text-ink disabled:opacity-50">{busy ? "Reading" : "Read it"}</button>
+            <span className="font-semibold text-ink">2. Paste what it wrote.</span>
+            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} maxLength={4000} placeholder="For example: I’m in my 30s with endometriosis and pelvic pain. I prefer telehealth and a woman doctor who listens and explains things plainly." className="field mt-2 w-full rounded-[6px] border border-line bg-white p-3 text-[15px] outline-none" />
+            <button type="button" disabled={!text.trim() || busy} onClick={() => void read()} className="press mt-2 inline-flex h-10 items-center rounded-[6px] border border-ink bg-white px-4 text-[14px] font-medium text-ink disabled:opacity-50">{busy ? "Reading" : "Read it"}</button>
           </li>
         </ol>
         {items ? (
           <div className="mt-5">
-            <p className="text-[15px] font-medium text-ink">3. What <Brand /> understood</p>
+            <p className="text-[15px] font-semibold text-ink">3. What <Brand /> understood</p>
             {items.length === 0 ? <p className="mt-2 text-[14px] text-grey">Nothing to search on yet. Mention a condition, who it’s for, or how you like a doctor to work.</p> : null}
             <ul className="mt-2 flex flex-col">
               {items.map((it, i) => (
-                <li key={it.id} className="flex items-center gap-4 border-b border-[#e3ebe5] py-3 last:border-b-0">
+                <li key={it.id} className="flex items-center gap-4 border-b border-[#e6e6e6] py-3 last:border-b-0">
                   <span className="min-w-0 flex-1">
                     <span className="block text-[16px] text-ink">{it.label}</span>
                     <span className="block text-[13px] text-grey">{KIND[it.kind] ?? "Context"}</span>

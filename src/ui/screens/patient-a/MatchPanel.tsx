@@ -170,7 +170,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
             {d.rooms.filter((r) => r.state === "QLD").slice(0, 3).map((r) => {
               const address = [r.name, r.address, `${r.suburb} ${r.state} ${r.postcode}`.trim()].filter(Boolean).join(", ");
               return (
-                <div key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">
+                <div key={r.id} className="rounded-[8px] border border-hairline px-4 py-3">
                   <p className="text-[16px] font-medium text-ink">{r.name ?? r.suburb}</p>
                   <p className="mt-0.5 text-[14px] leading-[1.45] text-grey">{address}</p>
                   <div className="mt-2 flex gap-4 text-[14px]">

@@ -124,9 +124,9 @@ export function Pills({ children }: { children: ReactNode }) {
 
 /* -------------------------------------------------------------- fields */
 
-/** Field r20 2px #D2D2D2. */
+/** Field r6 with a 1 px #D2D2D2 line (the Zocdoc input). */
 export function FieldBox({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cx("field rounded-field border-2 border-line bg-white", className)}>{children}</div>;
+  return <div className={cx("field rounded-field border border-line bg-white", className)}>{children}</div>;
 }
 
 /* -------------------------------------------------------------- rows */
@@ -187,7 +187,7 @@ export function Stat({ icon, children }: { icon: ReactNode; children: ReactNode 
 /** On/Off toggle pill (C07). */
 export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("press inline-flex h-8 w-[38px] items-center justify-center rounded-[10px] text-[12px] font-medium", on ? "bg-accent text-white" : "bg-surface text-grey")}>
+    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("press inline-flex h-8 w-[38px] items-center justify-center rounded-[6px] text-[12px] font-medium", on ? "bg-accent text-white" : "bg-surface text-grey")}>
       {on ? "On" : "Off"}
     </button>
   );
@@ -253,16 +253,16 @@ export function PhotoCard({ name, place, fee, photo, height = 460, caption = tru
 
 /* ----------------------------------------------------------------- cta */
 
-/** CTA 373x66 r20 #1B1B1B, fixed to the frame bottom. `arrow` shows the trailing arrow. */
+/** CTA: full width, 56 high, r6 ink, semibold (the Zocdoc button), fixed to the frame bottom. `arrow` shows the trailing arrow. */
 export function Cta({ children, href, onClick, type = "button", arrow = true, icon, disabled, fixed = true, secondary, note }: { children: ReactNode; href?: string; onClick?: () => void; type?: "button" | "submit"; arrow?: boolean; icon?: ReactNode; disabled?: boolean; fixed?: boolean; secondary?: ReactNode; note?: ReactNode }) {
   const cls = cx(
-    "press flex h-[66px] w-full items-center justify-center gap-5 rounded-cta text-[20px] font-medium",
-    disabled ? "bg-surface text-grey" : "bg-ink text-white shadow-cta",
+    "press flex h-14 w-full items-center justify-center gap-3 rounded-cta text-[17px] font-semibold",
+    disabled ? "bg-surface text-grey" : "bg-ink text-white",
   );
   const inner = (
     <>
       {children}
-      {icon ?? (arrow ? <ArrowRight size={22} /> : null)}
+      {icon ?? (arrow ? <ArrowRight size={20} /> : null)}
     </>
   );
   const button = href ? (
@@ -360,7 +360,7 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
     <Portal>
     <div className="frame-fixed inset-y-0 z-50" role="dialog" aria-modal="true" aria-label={title}>
       <button type="button" aria-label="Close" onClick={onClose} className="sheet-scrim absolute inset-0 bg-ink/40" />
-      <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto rounded-t-[25.5px] bg-white pb-[34px] pt-6">
+      <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto rounded-t-[12px] bg-white pb-[34px] pt-6">
         <h2 className="text-[20px] text-charcoal">{title}</h2>
         {children}
       </div>

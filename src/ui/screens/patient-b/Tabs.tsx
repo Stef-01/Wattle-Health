@@ -237,7 +237,7 @@ export function Me() {
       <Space h={30} />
       <BrandSwitch />
       <Space h={30} />
-      <h2 className="display text-[20px] text-charcoal">About <Brand /></h2>
+      <h2 className="text-[20px] text-charcoal">About <Brand /></h2>
       <Space h={8} />
       <p className="text-[14px] leading-[1.5] text-grey">We pick on how providers say they work. Every fact names its source. No one pays to be listed.</p>
       <TabBar active="/me" />

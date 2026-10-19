@@ -84,7 +84,7 @@ export const PANEL_TINTS = { research: "#f6f7fa", practical: "#f8f6f3", why: "#f
 export function Disclosure({ title, sub, children, defaultOpen = false, tint }: { title: ReactNode; sub?: ReactNode; children: ReactNode; defaultOpen?: boolean; tint?: keyof typeof PANEL_TINTS }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className={cx(tint ? "mb-2 rounded-[18px] px-4" : "border-b border-divider")} style={tint ? { background: PANEL_TINTS[tint] } : undefined}>
+    <div className={cx(tint ? "mb-2 rounded-[8px] px-4" : "border-b border-divider")} style={tint ? { background: PANEL_TINTS[tint] } : undefined}>
       <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="press press-soft flex w-full items-center gap-3 py-4 text-left">
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="text-[16px] font-medium text-charcoal">{title}</span>
