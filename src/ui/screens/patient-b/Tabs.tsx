@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { lookup } from "@/src/data/api";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { DoctorRecord } from "@/src/data/types";
-import { Body, Divider, FaceStack, FieldBox, FigmaIcon, Heart, initialsOf, Row, Screen, SectionTitle, TabBar, Toggle } from "@/src/ui/kit";
+import { Body, Divider, FaceStack, FieldBox, FigmaIcon, initialsOf, Row, Screen, SectionTitle, TabBar, Toggle } from "@/src/ui/kit";
 import { getOpeningsState, setOpeningsState } from "@/src/ui/openings";
+import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
 import { getName, getRecent, getRequest, getSavedContext, getSavedIds, setName, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
 import { Space } from "./bits";
-import { drName, placeOf, practicalChips, primaryRoom, quoteOf, specialtyTitle } from "./facts";
+import { drName, placeOf, practicalChips, quoteOf, specialtyTitle } from "./facts";
 
 const day = (iso: string) => {
   const d = new Date(iso);
@@ -223,40 +224,15 @@ export function Me() {
   );
 }
 
-/** A saved doctor on the same round-photo header as a match: portrait, name, specialty, place, then their words. */
 function SavedCard({ doctor: d, index, onRemove }: { doctor: DoctorRecord; index: number; onRemove: () => void }) {
   const quote = quoteOf(d);
-  const room = primaryRoom(d);
-  const line = [specialtyTitle(d.specialty), room?.name ?? null].filter(Boolean).join(" · ");
-  const practical = practicalChips(d).slice(0, 2);
-  const href = doctorHref(d.id);
+  const practical = [specialtyTitle(d.specialty), placeOf(d), ...practicalChips(d).slice(0, 2)].filter(Boolean);
   return (
     <article className="rise" style={{ "--i": index } as React.CSSProperties}>
-      <div className="flex items-start gap-4">
-        <div className="relative shrink-0">
-          <Link href={href} className="press block">
-            {d.photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={d.photo.url} alt={drName(d)} referrerPolicy="no-referrer" className="size-[72px] rounded-full bg-[#f5f8f6] object-cover object-top" />
-            ) : (
-              <span className="inline-flex size-[72px] items-center justify-center rounded-full bg-[#f5f8f6] text-[22px] text-[#2f5d3a]">{initialsOf(d.name.display)}</span>
-            )}
-          </Link>
-          <button type="button" aria-label="Remove from saved" aria-pressed={true} onClick={onRemove} className="press absolute -bottom-1 -right-1 inline-flex size-8 items-center justify-center rounded-full border border-hairline bg-white text-ink shadow-[0_1px_4px_rgba(0,0,0,0.14)]">
-            <Heart size={15} fill="currentColor" />
-          </button>
-        </div>
-        <div className="min-w-0 flex-1 pt-1">
-          <Link href={href} className="press-dim block">
-            <p role="heading" aria-level={3} className="text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{drName(d)}</p>
-          </Link>
-          <p className="mt-0.5 text-[15px] font-medium leading-snug text-ink">{line}</p>
-          <p className="text-[15px] leading-snug text-[#6b6b6b]">{placeOf(d)}</p>
-        </div>
-      </div>
-      <Link href={href} className="press-dim block">
-        {quote ? <p className="mt-4 font-display text-[19px] leading-[1.45] text-ink">“{quote.text}”</p> : null}
-        {practical.length ? <p className="mt-2 text-[14px] text-grey">{practical.join(" · ")}</p> : null}
+      <Link href={doctorHref(d.id)} className="press press-soft block">
+        <Portrait d={d} height={300} saved onSave={onRemove} />
+        {quote ? <p className="mt-4 font-display text-[19px] leading-[1.35] text-ink">“{quote.text}”</p> : null}
+        <p className="mt-2 text-[14px] text-grey">{practical.join(" · ")}</p>
       </Link>
     </article>
   );

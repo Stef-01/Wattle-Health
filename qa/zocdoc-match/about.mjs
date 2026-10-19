@@ -1,0 +1,16 @@
+import { chromium, devices } from "@playwright/test";
+const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
+const b = await chromium.launch();
+const page = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
+await page.goto(`${BASE}/doctor/obstetrics-gynaecology~erin-wilson`);
+await page.getByRole("tab", { name: "About" }).click();
+await page.waitForTimeout(700);
+const panel = page.locator("[role=tabpanel]");
+await panel.scrollIntoViewIfNeeded();
+await page.evaluate(() => window.scrollBy(0, -120));
+await page.screenshot({ path: "qa/zocdoc-match/about.png" });
+const text = await page.locator("main").innerText();
+const count = (s) => text.split(s).length - 1;
+const h = await panel.locator("h2").first().evaluate((e) => getComputedStyle(e).fontWeight + " " + getComputedStyle(e).fontFamily.split(",")[0]).catch(() => "none");
+console.log(JSON.stringify({ outside: count("Outside the clinic"), meet: count("Meet Dr"), headerStyle: h }));
+await b.close();

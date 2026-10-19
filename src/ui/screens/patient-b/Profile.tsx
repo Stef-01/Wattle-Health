@@ -59,7 +59,76 @@ function similar(a: string | null, b: string | null): boolean {
   return shared / Math.max(1, Math.min(wa.size, wb.size)) > 0.5;
 }
 
-export function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boolean }) {
+/**
+ * The About tab, long form (founder 2026-10-19: "have them be lengthy"). Every piece of the doctor's
+ * own published words, in full, no clamps. Only text the panel above already shows word for word
+ * (the opening line, the outside-the-clinic line) is left out, so nothing is said twice.
+ */
+export function WordsFull({ d, shown = [] }: { d: DoctorRecord; shown?: (string | null | undefined)[] }) {
+  const p = personalOf(d);
+  if (!p) return null;
+  const pr = pronouns(d);
+  const seen: string[] = shown.filter((x): x is string => Boolean(x && x.trim()));
+  const norm = (t: string) => t.toLowerCase().replace(/[“”"'’.,;:!?()\-–—]/g, " ").replace(/\s+/g, " ").trim();
+  const isShown = (t: string | null | undefined) => {
+    if (!t) return true;
+    const n = norm(t);
+    return seen.some((x) => { const m = norm(x); return n === m || (m.includes(n) && n.length > 20); });
+  };
+  const take = (t: string | null | undefined) => {
+    if (!t || isShown(t)) return null;
+    seen.push(t);
+    return t;
+  };
+  const para = (t: string, k?: string) => <p key={k} className="text-[17px] leading-[1.6] text-charcoal">{t}</p>;
+  const philosophy = take(p.philosophyOfCare ?? p.philosophy ?? null);
+  const approach = take(p.communicationApproach ?? null);
+  const purpose = take(p.professionalPurpose ?? p.purpose ?? null);
+  const why = take(p.whyMedicine ?? null);
+  const lived = asList(p.livedExperience).filter((x) => take(x));
+  const hobbies = [p.hobbies ?? []].flat().filter(Boolean) as string[];
+  const outsideMed = take(p.outsideMedicine ?? null);
+  const hobbiesShown = isShown(hobbies.join(", ")) || seen.some((x) => hobbies.length > 1 && hobbies.every((h) => norm(x).includes(norm(h))));
+  const ABOUT: Record<string, string> = { why: "Why medicine", approach: "How they work", lived: "Lived experience", hobbies: "Outside the clinic", other: "From their page" };
+  const quotes = (p.quotes ?? []).filter((q) => !seen.some((x) => similar(q.text, x)) && take(q.text));
+  const own = [philosophy, approach, purpose].filter((x): x is string => Boolean(x));
+  return (
+    <div className="flex flex-col gap-9">
+      {own.length ? (
+        <Labelled label={`In ${pr.possessive.toLowerCase()} own words`}>
+          <div className="flex flex-col gap-4">{own.map((t, i) => para(i === 0 && philosophy === t ? `“${t.replace(/^[“"]|[”"]$/g, "")}”` : t, `o${i}`))}</div>
+        </Labelled>
+      ) : null}
+      {why ? <Labelled label="Why medicine">{para(why)}</Labelled> : null}
+      {lived.length ? <Labelled label="Lived experience"><div className="flex flex-col gap-3">{lived.map((t, i) => para(t, `l${i}`))}</div></Labelled> : null}
+      {outsideMed || (hobbies.length && !hobbiesShown) ? (
+        <Labelled label="Outside the clinic">
+          <div className="flex flex-col gap-3">
+            {outsideMed ? para(outsideMed) : null}
+            {hobbies.length && !hobbiesShown ? (
+              <ul className="flex flex-col gap-1.5">{hobbies.map((h) => <li key={h} className="flex gap-2.5 text-[17px] leading-[1.5] text-charcoal"><span aria-hidden="true" className="mt-[11px] size-1.5 shrink-0 rounded-full bg-[#8a6a3b]" />{h}</li>)}</ul>
+            ) : null}
+          </div>
+        </Labelled>
+      ) : null}
+      {quotes.length ? (
+        <Labelled label="From their page">
+          <div className="flex flex-col gap-5">
+            {quotes.map((q, i) => (
+              <blockquote key={i} className="border-l-2 border-[#d9d5ca] pl-4">
+                <p className="font-display text-[19px] leading-[1.5] text-ink">“{q.text.replace(/^[“"]|[”"]$/g, "")}”</p>
+                <p className="mt-1 text-[14px] text-[#6b6b6b]">{ABOUT[q.about] ?? "From their page"}</p>
+              </blockquote>
+            ))}
+          </div>
+        </Labelled>
+      ) : null}
+    </div>
+  );
+}
+
+/** skipOutside / shown: leave out what the panel above already says (no repetition). */
+export function Words({ d, skipMeet = false, skipOutside = false, shown = null }: { d: DoctorRecord; skipMeet?: boolean; skipOutside?: boolean; shown?: string | null }) {
   const p = personalOf(d);
   if (!p) return null;
   const pr = pronouns(d);
@@ -83,8 +152,8 @@ export function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boo
           <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" more={more} />
         </Labelled>
       ) : null}
-      {approach && !similar(approach, philosophy) ? (
-        <Labelled label={`How ${pr.subject} ${pr.practises}`}>
+      {approach && !similar(approach, philosophy) && !similar(approach, shown) ? (
+        <Labelled label={`In ${pr.possessive.toLowerCase()} own words`}>
           <Clamp text={approach} more={purpose ? <p className="text-[16px] leading-[1.5] text-charcoal">{purpose}</p> : undefined} />
         </Labelled>
       ) : null}
@@ -93,7 +162,7 @@ export function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boo
           <Clamp text={why} />
         </Labelled>
       ) : null}
-      {outside ? (
+      {outside && !skipOutside ? (
         <Labelled label="Outside the clinic">
           <Clamp text={outside} lines={4} />
         </Labelled>

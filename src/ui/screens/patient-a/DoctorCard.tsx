@@ -37,7 +37,7 @@ export function fitSentence(card: Card, labels: Record<string, string>): string 
 }
 
 /** The P05 photo block on its own, reused by Saved. */
-export function Portrait({ d, height = 405, saved, onSave, eager = false }: { d: DoctorRecord; height?: number; saved?: boolean; onSave?: () => void; eager?: boolean }) {
+export function Portrait({ d, height = 405, saved, onSave, eager = false, caption = true }: { d: DoctorRecord; height?: number; saved?: boolean; onSave?: () => void; eager?: boolean; caption?: boolean }) {
   const name = drName(d);
   const [bg, fg] = tintFor(name);
   const [loaded, setLoaded] = useState(false);
@@ -70,7 +70,7 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false }: { d:
           <Heart key={saved ? "on" : "off"} size={22} fill={saved ? "currentColor" : "none"} className={saved ? "pop" : undefined} />
         </button>
       ) : null}
-      <div className="absolute bottom-5 left-5 flex h-[75px] max-w-[calc(100%-40px)] items-center rounded-[15px] bg-caption px-4 py-3 text-white shadow-[0_5px_4.5px_rgba(0,0,0,0.1)] backdrop-blur-[20px]">
+      {caption ? <div className="absolute bottom-5 left-5 flex h-[75px] max-w-[calc(100%-40px)] items-center rounded-[15px] bg-caption px-4 py-3 text-white shadow-[0_5px_4.5px_rgba(0,0,0,0.1)] backdrop-blur-[20px]">
         <span className="flex min-w-0 flex-col gap-2">
           <span className="truncate text-[16px] font-medium leading-normal">{name}{d.synthetic ? " (example)" : ""}</span>
           {suburb ? (
@@ -80,7 +80,7 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false }: { d:
             </span>
           ) : null}
         </span>
-      </div>
+      </div> : null}
     </div>
   );
 }

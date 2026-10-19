@@ -10,6 +10,7 @@ import type { HealthspanMatch } from "@/src/data/healthspan-match";
 import { ArrowLeft, Check, Circle, Cta, Screen, Toggle } from "@/src/ui/kit";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { Offering } from "./Discover";
+import { Portrait } from "../patient-a/DoctorCard";
 import { drName, placeOf, specialtyTitle } from "./facts";
 
 const BEATS = [
@@ -113,16 +114,13 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
                 const outside = hobbiesOf(m);
                 return (
                   <article key={m.doctor.id} className="rise border-b border-divider pb-8 last:border-b-0" style={{ "--i": i } as React.CSSProperties}>
-                    <Link href={doctorHref(m.doctor.id)} className="press-dim flex items-start gap-4">
-                      {m.doctor.photo ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={m.doctor.photo.url} alt={drName(m.doctor)} referrerPolicy="no-referrer" className="size-[72px] shrink-0 rounded-full bg-[#f5f8f6] object-cover object-top" />
-                      ) : <span className="inline-flex size-[72px] shrink-0 items-center justify-center rounded-full bg-[#f5f8f6] text-[22px] text-[#2f5d3a]">{drName(m.doctor).replace(/^Dr /, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>}
-                      <span className="min-w-0 pt-1">
-                        <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{drName(m.doctor)}</span>
-                        <span className="mt-0.5 block text-[15px] font-medium text-ink">{specialtyTitle(m.doctor.specialty)}</span>
-                        <span className="block text-[15px] text-[#6b6b6b]">{placeOf(m.doctor)}</span>
-                      </span>
+                    <Link href={doctorHref(m.doctor.id)} className="press block">
+                      <Portrait d={m.doctor} height={i === 0 ? 400 : 320} caption={false} />
+                    </Link>
+                    <Link href={doctorHref(m.doctor.id)} className="press-dim mt-4 block">
+                      <span role="heading" aria-level={3} className="block text-[22px] font-semibold leading-tight tracking-[-0.01em] text-ink">{drName(m.doctor)}</span>
+                      <span className="mt-0.5 block text-[15px] font-medium text-ink">{specialtyTitle(m.doctor.specialty)}</span>
+                      <span className="block text-[15px] text-[#6b6b6b]">{placeOf(m.doctor)}</span>
                     </Link>
                     <p className="mt-4 font-display text-[19px] leading-[1.45] text-ink">“{m.evidence.replace(/^[“"]|[”"]$/g, "")}”</p>
                     {m.reasons.length ? (

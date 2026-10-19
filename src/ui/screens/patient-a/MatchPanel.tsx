@@ -9,13 +9,13 @@ import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
 import { demoOpenings } from "@/src/data/calendar";
-import { Check, Heart, Labelled } from "@/src/ui/kit";
-import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Profile";
+import { Check, Labelled } from "@/src/ui/kit";
+import { Facts, Research, Sources, WordsFull } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
 import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, specialtyTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
-import { fitSentence } from "./DoctorCard";
-import { BookCard } from "./BookCard";
+import { fitSentence, Portrait } from "./DoctorCard";
+import { BookCard, NextFree, nextFreeLabel } from "./BookCard";
 import type { Highlight } from "@/src/data/search-types";
 
 const ORDINAL = ["Your top match", "Your second match", "Your third match"];
@@ -92,10 +92,12 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const ownWords = [personal?.philosophyOfCare, personal?.philosophy, personal?.communicationApproach, personal?.purpose, personal?.professionalPurpose].find((t) => t && t.trim().length > 30)?.trim();
   const ownLine = ownWords ? (ownWords.match(/^.{30,220}?[.!?](\s|$)/)?.[0] ?? ownWords.slice(0, 200) + "…").trim() : null;
   const [next, setNext] = useState<string | null>(null);
+  const [nextMode, setNextMode] = useState<string | null>(null);
   useEffect(() => {
     const all = demoOpenings(d.id, d.declared?.telehealth === true && d.telehealth?.value !== "none", Date.now());
     const o = telehealthOnly ? all.find((x) => x.mode === "telehealth") : all[0];
-    setNext(o ? `${new Date(o.start).toLocaleString("en-AU", { weekday: "short", hour: "numeric", minute: "2-digit" })}${o.mode === "telehealth" ? ", telehealth" : ""}` : null);
+    setNext(o ? nextFreeLabel(o.start) : null);
+    setNextMode(o?.mode ?? null);
   }, [d, telehealthOnly]);
   const hobbies = personal ? [personal.hobbies ?? []].flat().filter(Boolean) : [];
   const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.map((h, i) => (i && !/^[A-Z]{2}/.test(h) ? h.charAt(0).toLowerCase() + h.slice(1) : h)).join(", ").replace(/, (?=[^,]*$)/, " and ") : null);
@@ -115,32 +117,15 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       ) : null}
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_500px] lg:items-start lg:gap-16">
       <div className="min-w-0">
-      <header className="flex items-start gap-5">
-        <div className="relative shrink-0">
-          <Link href={doctorHref(d.id)} className="press block">
-            {d.photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={d.photo.url} alt={drShort(d)} referrerPolicy="no-referrer" loading={index === 0 ? "eager" : "lazy"} className="size-[88px] rounded-full object-cover object-top lg:size-[104px]" />
-            ) : (
-              <span className="inline-flex size-[88px] items-center justify-center rounded-full bg-[#f5f8f6] font-display text-[30px] text-[#2f5d3a] lg:size-[104px]">{d.name.display.replace(/^Dr\.? /, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
-            )}
-          </Link>
-          {/* Phone: the heart sits on the portrait so the name keeps its width. Wider: the labelled Save button at the right. */}
-          <button type="button" aria-pressed={saved} aria-label={saved ? "Remove from saved" : "Save"} onClick={onSave} className="press absolute -bottom-1 -right-1 inline-flex size-9 items-center justify-center rounded-full border border-hairline bg-white text-ink shadow-[0_1px_4px_rgba(0,0,0,0.14)] sm:hidden">
-            <Heart size={16} fill={saved ? "currentColor" : "none"} />
-          </button>
-        </div>
-        <div className="min-w-0 flex-1 pt-1">
-          <Link href={doctorHref(d.id)} className="press-dim block">
-            <p role="heading" aria-level={2} className="text-[22px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink lg:text-[28px]">{d.name.display}</p>
-          </Link>
-          <p className="mt-1 text-[16px] font-medium leading-snug text-ink lg:text-[17px]">{line}</p>
-          <p className="mt-1 text-[15px] leading-snug text-[#6b6b6b] lg:text-[16px]">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
-        </div>
-        <button type="button" aria-pressed={saved} aria-label={saved ? "Remove from saved" : "Save"} onClick={onSave} className="press hidden h-10 shrink-0 items-center gap-2 rounded-[6px] border border-ink px-3.5 text-[15px] font-medium text-ink sm:inline-flex">
-          <Heart size={17} fill={saved ? "currentColor" : "none"} />
-          {saved ? "Saved" : "Save"}
-        </button>
+      <Link href={doctorHref(d.id)} className="press block">
+        <Portrait d={d} height={440} saved={saved} onSave={onSave} eager={index === 0} caption={false} />
+      </Link>
+      <header className="mt-5">
+        <Link href={doctorHref(d.id)} className="press-dim block">
+          <p role="heading" aria-level={2} className="text-[24px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink lg:text-[28px]">{d.name.display}</p>
+        </Link>
+        <p className="mt-1 text-[16px] font-medium leading-snug text-ink lg:text-[17px]">{line}</p>
+        <p className="mt-1 text-[15px] leading-snug text-[#6b6b6b] lg:text-[16px]">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
       </header>
       {ownLine ? <p className="mt-5 font-display text-[19px] leading-[1.45] text-ink lg:text-[21px]">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="mt-5 text-[15px] leading-[1.5] text-[#6b6b6b]">{fitSentence(card, labels)}</p>}
       {reviews && reviews.count > 0 ? (
@@ -161,7 +146,6 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       {outside ? (
         <p className="mt-4 text-[16px] leading-[1.5] text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-[#4a4a4a]">{outside.charAt(0).toUpperCase() + outside.slice(1)}</span></p>
       ) : null}
-      <div className="lg:hidden">{next ? <p className="mt-3 text-[15px] text-ink"><span className="font-semibold text-[#2f5d3a]">Next opening</span> {next} <span className="text-[13px] text-grey">· demo</span></p> : null}</div>
 
       <div role="tablist" aria-label="Doctor details" className="mt-8 flex gap-7 overflow-x-auto border-b border-divider [scrollbar-width:none] lg:gap-10">
         {tabs.map((t) => (
@@ -173,7 +157,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         {tab === "About" ? (
           <div className="flex flex-col gap-7">
             <Facts d={d} />
-            {personal ? <Words d={d} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
+            {personal ? <WordsFull d={d} shown={[ownLine, outside]} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
             <Labelled label="Sees">
               <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
             </Labelled>
@@ -213,7 +197,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         ) : null}
       </div>
       <div className="mt-6 lg:hidden">
-        <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
+        {next ? <NextFree doctor={d} when={next} mode={nextMode} referral={referral} /> : <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />}
       </div>
       </div>
       <aside className="hidden lg:sticky lg:top-20 lg:block">

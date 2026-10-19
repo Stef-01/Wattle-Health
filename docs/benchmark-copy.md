@@ -33,4 +33,4 @@ Measured with `qa/iphone/words.mjs`:
 | Healthspan | 75, an editorial landing on purpose |
 | About | 102, an editorial page on purpose |
 
-Re-measured 2026-10-19 after the Zocdoc token pass (sans semibold headings everywhere outside the doctor's own words and the editorial landings; 8 px cards, 6 px controls and fields, 56 px r6 CTA; Save on every match at phone width; Saved cards on the match header).
+Re-measured 2026-10-19 after the Zocdoc token pass (sans semibold headings everywhere outside the doctor's own words and the editorial landings; 8 px cards, 6 px controls and fields, 56 px r6 CTA). Big portraits stay on matches, profiles, healthspan results and Saved (founder, same day: big faces are more personable).

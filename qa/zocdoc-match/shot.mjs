@@ -23,7 +23,7 @@ for (const [tag, opts] of [["desktop", { viewport: { width: 1600, height: 800 },
       const q = (s) => document.querySelector(s);
       const r = (el) => el ? el.getBoundingClientRect() : null;
       const sec = q("section[data-match='0']");
-      const h2 = sec.querySelector("[role=heading]"), img = sec.querySelector("header img"), aside = sec.querySelector("aside");
+      const h2 = sec.querySelector("[role=heading]"), img = sec.querySelector("img"), aside = sec.querySelector("aside");
       const cs = getComputedStyle(h2);
       return { name: { size: cs.fontSize, weight: cs.fontWeight }, img: r(img)?.width, left: r(sec.querySelector("header")).width, aside: r(aside)?.width, gap: r(aside).left - r(sec.querySelector("header")).right };
     });
