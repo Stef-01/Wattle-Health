@@ -14,7 +14,8 @@ import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Prof
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
 import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, specialtyTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
-import { fitSentence, Portrait } from "./DoctorCard";
+import { fitSentence } from "./DoctorCard";
+import { BookCard } from "./BookCard";
 import type { Highlight } from "@/src/data/search-types";
 
 const ORDINAL = ["Your top match", "Your second match", "Your third match"];
@@ -44,9 +45,9 @@ const ICONS: Record<Highlight["kind"], string> = {
 };
 function HighlightRows({ items }: { items: Highlight[] }) {
   return (
-    <ul className="flex flex-col">
+    <ul className="grid grid-cols-1 gap-x-10 gap-y-5 lg:grid-cols-2">
       {items.map((h, i) => (
-        <li key={h.id} className="rise flex gap-4 py-3" style={{ "--i": i } as React.CSSProperties}>
+        <li key={h.id} className="rise flex gap-3.5" style={{ "--i": i } as React.CSSProperties}>
           <span aria-hidden="true" className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-full" style={{ background: "#fbf1cf", color: "#8a6a00" }}>
             <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d={ICONS[h.kind]} /></svg>
             {h.matched ? (
@@ -56,8 +57,8 @@ function HighlightRows({ items }: { items: Highlight[] }) {
             ) : null}
           </span>
           <span className="min-w-0">
-            <span className="block text-[16px] font-medium leading-snug text-ink">{h.label}</span>
-            <span className="mt-0.5 block text-[14px] leading-[1.45] text-grey">{h.detail ?? (h.matched ? "Matches what you asked for" : "")}</span>
+            <span className="block text-[17px] font-semibold leading-[1.3] tracking-[-0.01em] text-ink">{h.label}</span>
+            <span className="mt-1 line-clamp-2 block text-[15px] leading-[1.5] text-[#6b6b6b]">{h.detail ?? (h.matched ? "Matches what you asked for" : "")}</span>
           </span>
         </li>
       ))}
@@ -105,37 +106,60 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
 
   return (
     <section className="rise" aria-label={ORDINAL[index]} data-match={index}>
-      <div className="mb-4 flex items-baseline justify-between">
-        <p className="font-display text-[22px] text-ink">{ORDINAL[index]}</p>
-        <p className="text-[14px] text-grey">{index + 1} of {total}</p>
+      <div className="mb-5 flex items-baseline justify-between">
+        <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2f5d3a]">{ORDINAL[index]}</p>
+        <p className="text-[13px] text-grey">{index + 1} of {total}</p>
       </div>
-      {ownLine ? <p className="-mt-2 mb-4 font-display text-[19px] leading-[1.4] text-ink">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="-mt-2 mb-4 text-[15px] leading-[1.45] text-grey">{fitSentence(card, labels)}</p>}
-      <Portrait d={d} saved={saved} onSave={onSave} eager={index === 0} />
-      <Link href={doctorHref(d.id)} className="press-dim mt-4 block">
-        <p className="text-[15px] leading-snug text-charcoal">{line}</p>
-        <p className="text-[14px] text-grey">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
-      </Link>
-      {next ? (
-        <p className="mt-3 text-[15px] text-charcoal"><span className="text-[#2f5d3a]">Next opening</span> {next} <span className="text-[13px] text-grey">· demo</span></p>
-      ) : null}
-      {outside ? (
-        <p className="mt-4 rounded-[16px] bg-[#f8f6f3] px-4 py-3 text-[15px] leading-[1.5] text-charcoal"><span className="block text-[13px] font-medium text-[#8a6a3b]">Outside the clinic</span>{outside.charAt(0).toUpperCase() + outside.slice(1)}</p>
-      ) : null}
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_500px] lg:items-start lg:gap-16">
+      <div className="min-w-0">
+      <header className="flex items-start gap-5">
+        <Link href={doctorHref(d.id)} className="press shrink-0">
+          {d.photo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={d.photo.url} alt={drShort(d)} referrerPolicy="no-referrer" loading={index === 0 ? "eager" : "lazy"} className="size-[88px] rounded-full object-cover object-top lg:size-[104px]" />
+          ) : (
+            <span className="inline-flex size-[88px] items-center justify-center rounded-full bg-[#f5f8f6] font-display text-[30px] text-[#2f5d3a] lg:size-[104px]">{d.name.display.replace(/^Dr\.? /, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
+          )}
+        </Link>
+        <div className="min-w-0 flex-1 pt-1">
+          <Link href={doctorHref(d.id)} className="press-dim block">
+            <p role="heading" aria-level={2} className="text-[22px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink lg:text-[28px]">{d.name.display}</p>
+          </Link>
+          <p className="mt-1 text-[16px] font-medium leading-snug text-ink lg:text-[17px]">{line}</p>
+          <p className="mt-1 text-[15px] leading-snug text-[#6b6b6b] lg:text-[16px]">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
+        </div>
+        <button type="button" aria-pressed={saved} aria-label={saved ? "Remove from saved" : "Save"} onClick={onSave} className="press hidden h-10 shrink-0 items-center gap-2 rounded-[6px] border border-ink px-3.5 text-[15px] font-medium text-ink sm:inline-flex">
+          <svg width={17} height={17} viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth={1.8} aria-hidden="true"><path d="M12 20s-7-4.3-7-9.4A4 4 0 0 1 12 8a4 4 0 0 1 7 2.6C19 15.7 12 20 12 20Z" /></svg>
+          {saved ? "Saved" : "Save"}
+        </button>
+      </header>
+      {ownLine ? <p className="mt-5 font-display text-[19px] leading-[1.45] text-ink lg:text-[21px]">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="mt-5 text-[15px] leading-[1.5] text-[#6b6b6b]">{fitSentence(card, labels)}</p>}
       {reviews && reviews.count > 0 ? (
-        <button type="button" onClick={() => setTab("Reviews")} className="press-soft mt-5 block w-full text-left">
-          <span className="flex items-center gap-2"><span className="font-display text-[28px] leading-none text-ink">{reviews.average?.toFixed(1)}</span><span className="text-[#c9a227]">{"★".repeat(Math.round(reviews.average ?? 0))}</span></span>
-          {reviews.commentary ? <span className="mt-1 line-clamp-3 block text-[15px] text-charcoal">{reviews.commentary}</span> : null}
-          {reviews.demo ? <span className="mt-1 block text-[12px] text-grey">Demo reviews, not real patients</span> : null}
-          <span className="mt-1 block text-[14px] text-accent">See all {reviews.count} reviews</span>
+        <button type="button" onClick={() => setTab("Reviews")} className="press-soft mt-5 flex w-full items-stretch gap-4 rounded-[4px] bg-[#f6f4ee] px-4 py-4 text-left lg:gap-6 lg:px-8 lg:py-6">
+          <span className="flex shrink-0 flex-col items-center justify-center border-r border-[#d9d5ca] pr-4 lg:pr-6">
+            <span className="text-[32px] font-medium leading-none tracking-[-0.02em] text-ink lg:text-[48px]">{reviews.average?.toFixed(1)}</span>
+            <span className="mt-1.5 text-[13px] tracking-[1px] text-[#e8b72f] lg:text-[17px] lg:tracking-[2px]" aria-label={`${reviews.average?.toFixed(1)} out of 5`}>{"★".repeat(Math.round(reviews.average ?? 0))}</span>
+          </span>
+          <span className="min-w-0 flex-1 self-center">
+            {reviews.commentary ? <span className="line-clamp-3 text-[15px] leading-[1.5] text-ink lg:text-[16px] lg:leading-[1.55]">{reviews.commentary}</span> : null}
+            <span className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <span className="text-[13px] text-[#6b6b6b] lg:text-[14px]">{reviews.demo ? "Demo reviews" : `${reviews.count} verified reviews`}</span>
+              <span className="text-[15px] font-semibold text-ink underline underline-offset-4">See all {reviews.count} reviews</span>
+            </span>
+          </span>
         </button>
       ) : null}
+      {outside ? (
+        <p className="mt-4 text-[16px] leading-[1.5] text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-[#4a4a4a]">{outside.charAt(0).toUpperCase() + outside.slice(1)}</span></p>
+      ) : null}
+      <div className="lg:hidden">{next ? <p className="mt-3 text-[15px] text-ink"><span className="font-semibold text-[#2f5d3a]">Next opening</span> {next} <span className="text-[13px] text-grey">· demo</span></p> : null}</div>
 
-      <div role="tablist" aria-label="Doctor details" className="mt-6 flex gap-5 overflow-x-auto border-b border-divider [scrollbar-width:none]">
+      <div role="tablist" aria-label="Doctor details" className="mt-8 flex gap-7 overflow-x-auto border-b border-divider [scrollbar-width:none] lg:gap-10">
         {tabs.map((t) => (
-          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`press-soft -mb-px shrink-0 border-b-2 pb-3 text-[15px] ${tab === t ? "border-ink font-medium text-ink" : "border-transparent text-grey"}`}>{t}</button>
+          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`press-soft -mb-px shrink-0 border-b-2 pb-3.5 text-[16px] lg:text-[17px] ${tab === t ? "border-ink font-semibold text-ink" : "border-transparent text-[#6b6b6b]"}`}>{t}</button>
         ))}
       </div>
-      <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-4">
+      <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-6">
         {tab === "Highlights" ? <HighlightRows items={highlights} /> : null}
         {tab === "About" ? (
           <div className="flex flex-col gap-7">
@@ -179,8 +203,13 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
           </dl>
         ) : null}
       </div>
-      <div className="mt-6">
+      <div className="mt-6 lg:hidden">
         <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
+      </div>
+      </div>
+      <aside className="hidden lg:sticky lg:top-20 lg:block">
+        <BookCard doctor={d} telehealthOnly={telehealthOnly} referral={referral} />
+      </aside>
       </div>
     </section>
   );

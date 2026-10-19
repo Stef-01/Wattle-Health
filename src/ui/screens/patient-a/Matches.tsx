@@ -118,7 +118,7 @@ export function Matches() {
   }
 
   return (
-    <Screen padBottom="pb-[120px]">
+    <Screen padBottom="pb-[120px]" className="frame-wide">
       {cards.length > 1 ? (
         <div className="material sticky top-0 z-10 -mx-7 mb-3 flex items-center justify-center gap-2 px-7 py-3" aria-label={`Reading match ${reading + 1} of ${cards.length}`}>
           {cards.map((c, i) => (
