@@ -9,7 +9,6 @@ import { AREAS, DEVICES, type Device } from "@/src/data/healthspan";
 import type { HealthspanMatch } from "@/src/data/healthspan-match";
 import { ArrowLeft, Check, Circle, Cta, Screen, Toggle } from "@/src/ui/kit";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Portrait } from "../patient-a/DoctorCard";
 import type { Offering } from "./Discover";
 import { drName, placeOf, specialtyTitle } from "./facts";
 
@@ -113,17 +112,25 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
               {matches.map((m, i) => {
                 const outside = hobbiesOf(m);
                 return (
-                  <article key={m.doctor.id} className="rise" style={{ "--i": i } as React.CSSProperties}>
-                    <p className="font-display text-[20px] leading-[1.4] text-ink">“{m.evidence.replace(/^[“"]|[”"]$/g, "")}”</p>
-                    <div className="mt-4"><Portrait d={m.doctor} height={i === 0 ? 360 : 240} /></div>
-                    <p className="mt-3 text-[15px] text-charcoal">{specialtyTitle(m.doctor.specialty)} · {placeOf(m.doctor)}</p>
+                  <article key={m.doctor.id} className="rise border-b border-divider pb-8 last:border-b-0" style={{ "--i": i } as React.CSSProperties}>
+                    <Link href={doctorHref(m.doctor.id)} className="press-dim flex items-start gap-4">
+                      {m.doctor.photo ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={m.doctor.photo.url} alt={drName(m.doctor)} referrerPolicy="no-referrer" className="size-[72px] shrink-0 rounded-full bg-[#f5f8f6] object-cover object-top" />
+                      ) : <span className="inline-flex size-[72px] shrink-0 items-center justify-center rounded-full bg-[#f5f8f6] text-[22px] text-[#2f5d3a]">{drName(m.doctor).replace(/^Dr /, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>}
+                      <span className="min-w-0 pt-1">
+                        <span className="block text-[20px] font-semibold leading-tight tracking-[-0.01em] text-ink">{drName(m.doctor)}</span>
+                        <span className="mt-0.5 block text-[15px] font-medium text-ink">{specialtyTitle(m.doctor.specialty)}</span>
+                        <span className="block text-[15px] text-[#6b6b6b]">{placeOf(m.doctor)}</span>
+                      </span>
+                    </Link>
+                    <p className="mt-4 font-display text-[19px] leading-[1.45] text-ink">“{m.evidence.replace(/^[“"]|[”"]$/g, "")}”</p>
                     {m.reasons.length ? (
                       <ul className="mt-3 flex flex-col gap-1.5">
-                        {m.reasons.map((r) => <li key={r} className="flex gap-2 text-[15px] text-charcoal"><span className="mt-0.5 text-[#2f5d3a]"><Check size={14} /></span>{r}</li>)}
+                        {m.reasons.map((r) => <li key={r} className="flex gap-2 text-[15px] font-medium text-ink"><span className="mt-0.5 text-[#2f5d3a]"><Check size={14} /></span>{r}</li>)}
                       </ul>
                     ) : null}
-                    {outside ? <p className="mt-4 rounded-[6px] bg-[#f8f6f3] px-4 py-3 text-[15px] leading-[1.5] text-charcoal"><span className="block text-[13px] font-medium text-[#8a6a3b]">Outside the clinic</span>{outside}</p> : null}
-                    <Link href={doctorHref(m.doctor.id)} className="press mt-4 inline-flex rounded-full border border-hairline px-4 py-2.5 text-[15px] text-ink">Read {drName(m.doctor).split(" ").slice(0, 2).join(" ")}’s profile</Link>
+                    {outside ? <p className="mt-3 text-[15px] leading-[1.5] text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-[#4a4a4a]">{outside}</span></p> : null}
                   </article>
                 );
               })}
