@@ -91,7 +91,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
           <div className="mt-6 flex flex-col gap-3">
             <a href="/healthspan" className="rise press press-soft block rounded-[22px] bg-[#2f5d3a] px-5 py-5 text-left">
               <span className="block font-display text-[22px] leading-tight text-white">Plan your healthspan</span>
-              <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Doctors who help you prevent illness and use your wearable and bloodwork.</span>
+              <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Doctors who work on prevention with your wearable and bloodwork.</span>
             </a>
             {CATEGORIES.map((c, i) => {
               const n = offerings.filter((o) => o.category === c.id).length;

@@ -7,7 +7,7 @@ export async function throughNarrow(p, { pick = 0, shot } = {}) {
     const see = p.getByRole("button", { name: "See your matches" });
     const radios = p.locator("[data-answer]");
     const cont = p.getByRole("button", { name: "Continue" });
-    await p.waitForFunction(() => /Answer a few questions|of \d+|searching for/.test(document.body.innerText) || /results/.test(location.href), null, { timeout: 15000 }).catch(() => {});
+    await p.waitForFunction(() => /A few questions|of \d+|search for/.test(document.body.innerText) || /results/.test(location.href), null, { timeout: 15000 }).catch(() => {});
     if (shot) await shot(`narrow-${String(i).padStart(2, "0")}`);
     if (await see.count()) { await see.click(); break; }
     if (await radios.count()) {

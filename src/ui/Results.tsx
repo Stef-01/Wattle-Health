@@ -137,7 +137,7 @@ export function Results() {
         {data && (
           <p className="text-sm text-ink-soft" aria-live="polite">
             {data.orderNote}
-            {data.place.suburb === null ? ` We could not place "${data.place.typed}"; distances are off.` : ""}
+            {data.place.suburb === null ? ` We couldn’t find "${data.place.typed}", so distances are off.` : ""}
           </p>
         )}
 

@@ -36,7 +36,7 @@ export const AREAS: Area[] = [
   {
     id: "fitness",
     title: "Fitness and VO2 max",
-    why: "Cardiorespiratory fitness is one of the strongest predictors of how long and how well people live.",
+    why: "Cardiorespiratory fitness closely predicts how long, and how well, people live.",
     cues: /fit|fitness|vo2|run|running|hike|hiking|energy|stamina|exercise|active|play with|grandkids|keep up/i,
     measure: ["VO2 max, estimated or tested on a treadmill or bike", "Grip strength", "Resting heart rate"],
     wearable: { apple: "Cardio Fitness (a VO2 max estimate) from outdoor walks and runs", garmin: "VO2 max estimate from runs and rides", oura: "Cardio Capacity (a VO2 max estimate)", whoop: "Strain and recovery; no VO2 max estimate" },
@@ -45,10 +45,10 @@ export const AREAS: Area[] = [
   {
     id: "metabolic",
     title: "Blood sugar and metabolism",
-    why: "Insulin resistance builds quietly for years before diabetes, and responds well to early change.",
+    why: "Insulin resistance can build for years before diabetes shows, and early changes often improve it.",
     cues: /sugar|glucose|diabetes|insulin|weight|metabolic|metabolism|belly|waist|energy crash/i,
     measure: ["HbA1c and fasting glucose", "Fasting insulin", "Triglycerides", "Waist measurement"],
-    wearable: { cgm: "Glucose after meals and overnight, the most direct signal here", apple: "Activity and step trends only" },
+    wearable: { cgm: "Glucose after meals and overnight, measured directly", apple: "Activity and step trends only" },
     categories: ["biomarkers", "wearables"],
   },
   {
@@ -72,7 +72,7 @@ export const AREAS: Area[] = [
   {
     id: "hormones",
     title: "Perimenopause and hormones",
-    why: "Perimenopause can start in the early 40s. Over 45 it's usually diagnosed from symptoms, and treatment choices are best made with a doctor.",
+    why: "Perimenopause can start in the early 40s. Over 45 it’s usually diagnosed from symptoms. Talk through treatment choices with your doctor.",
     cues: /menopaus|perimenopaus|hormone|hot flush|flushes|period|cycle|hrt|mht/i,
     measure: ["Your symptoms over time", "Blood pressure and lipids", "Bone density if you have risk factors"],
     wearable: { oura: "Skin temperature trends and cycle insights", apple: "Cycle tracking with temperature on recent models", whoop: "Cycle and recovery trends" },
@@ -81,7 +81,7 @@ export const AREAS: Area[] = [
   {
     id: "strength",
     title: "Muscle and bones",
-    why: "Muscle and bone are lost from midlife; strength and balance keep people independent later on.",
+    why: "We start losing muscle and bone in midlife. Strength and balance help people stay independent later on.",
     cues: /muscle|strength|strong|bone|osteopor|fall|balance|mobility|independent|lift/i,
     measure: ["Grip strength and a sit-to-stand test", "Bone density (DEXA) if you have risk factors", "Vitamin D if at risk"],
     wearable: { garmin: "Strength workouts logged", apple: "Walking steadiness on iPhone", whoop: "Strength trainer workouts" },

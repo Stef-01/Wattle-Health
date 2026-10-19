@@ -15,8 +15,8 @@ import { drName, placeOf, specialtyTitle } from "./facts";
 
 const BEATS = [
   { n: "01", title: "Measure early", body: "Blood pressure, ApoB, HbA1c, fitness and sleep show risk years before illness does." },
-  { n: "02", title: "Read it together", body: "A doctor turns your numbers, and your wearable's trends, into what matters for you." },
-  { n: "03", title: "Adjust and recheck", body: "Small changes, measured again in three to six months. Prevention you can see." },
+  { n: "02", title: "Read it together", body: "A doctor goes through your numbers and your wearable’s trends with you." },
+  { n: "03", title: "Adjust and recheck", body: "Make small changes, then measure again in three to six months." },
 ];
 
 const hobbiesOf = (m: HealthspanMatch) => {
@@ -55,8 +55,8 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
 
       <header className="rise mt-8">
         <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-[#8a6a3b]">Healthspan</p>
-        <h1 className="display mt-3 text-[40px] leading-[1.05] text-ink">More good years, not just more years.</h1>
-        <p className="mt-5 text-[17px] leading-[1.55] text-charcoal">Healthspan is the part of life you spend well. Most Australians spend around their last decade living with illness. Much of that can be seen coming, and changed.</p>
+        <h1 className="display mt-3 text-[40px] leading-[1.05] text-ink">More years in good health.</h1>
+        <p className="mt-5 text-[17px] leading-[1.55] text-charcoal">Healthspan is the part of life you spend well. Most Australians spend around their last decade living with illness. Much of that illness shows early signs you can act on.</p>
         <button type="button" onClick={() => plan.current?.scrollIntoView({ behavior: "smooth" })} className="press mt-7 inline-flex rounded-full bg-[#2f5d3a] px-5 py-3 text-[15px] text-white">Find a doctor who works this way</button>
       </header>
 
@@ -140,7 +140,7 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
                 ))}
               </div>
             ) : null}
-            <p className="mt-10 text-[12px] leading-[1.5] text-grey">General information, not medical advice. Matches use each doctor’s own published words; Wattle doesn’t take payment from doctors or services.</p>
+            <p className="mt-10 text-[12px] leading-[1.5] text-grey">General information, not medical advice. Matches use each doctor’s own published words. Wattle doesn’t take payment from doctors or services.</p>
           </section>
         ) : null}
       </div>

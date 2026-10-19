@@ -137,7 +137,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
               <img key={f.id} src={f.url} alt="" referrerPolicy="no-referrer" className="rise size-11 rounded-full border-2 border-white object-cover object-top shadow-[0_2px_6px_rgba(0,0,0,0.12)]" style={{ "--i": i, background: "#e9e9e9" } as React.CSSProperties} />
             ))}
           </span>
-          <span className="text-[15px] leading-snug text-charcoal">{count} Queensland doctors who say who they are, in their own words.</span>
+          <span className="text-[15px] leading-snug text-charcoal">Meet {count} Queensland doctors in their own words.</span>
         </Link>
       ) : null}
       <p className="text-[14px] text-grey">Or try one of these</p>

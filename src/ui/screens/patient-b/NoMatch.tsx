@@ -39,7 +39,7 @@ export function NoMatch({ radiusKm, widenCount, telehealthCount, onWiden, onTele
       <div style={busy ? { opacity: 0.5 } : undefined}>
         <Row icon={<FigmaIcon name="map-pin-17" size={17} />} title={`Widen to ${widenToKm} km`} sub={doctors(widenCount)} onClick={onWiden} />
         <Divider />
-        <Row icon={<FigmaIcon name="video" size={17} />} title="Include telehealth only" sub={doctors(telehealthCount)} onClick={onTelehealth} />
+        <Row icon={<FigmaIcon name="video" size={17} />} title="Add telehealth-only doctors" sub={doctors(telehealthCount)} onClick={onTelehealth} />
         <Divider />
         {onChange ? (
           <Row icon={<FigmaIcon name="sliders" size={17} />} title="Change what you need" onClick={onChange} />

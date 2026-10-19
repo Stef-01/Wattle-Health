@@ -111,7 +111,7 @@ export function Adjust() {
         </div>
       ))}
       <Space h={30} />
-      <p className="text-[14px] leading-normal text-grey">{req === null ? "Search first, then choose what matters." : failed ? "Could not update. Try again." : "Clinical needs come first."}</p>
+      <p className="text-[14px] leading-normal text-grey">{req === null ? "Search first, then choose what matters." : failed ? "Couldn’t update. Try again." : "Clinical needs come first."}</p>
       <Cta onClick={() => void update()} disabled={busy}>{busy ? "Updating" : "Update matches"}</Cta>
     </Screen>
   );

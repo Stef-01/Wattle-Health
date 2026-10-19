@@ -21,7 +21,7 @@ export interface Highlight {
 const POP_WORDS: Record<string, string> = { child: "children", adolescent: "teenagers", adult: "adults", "older-adult": "older adults", perinatal: "new and expecting parents" };
 const APPROACH_WORDS: Record<string, string> = {
   listens: "Takes time to listen",
-  collaborative: "Decides with you, not for you",
+  collaborative: "Makes decisions with you",
   "evidence-based": "Evidence-based",
   holistic: "Looks at the whole person",
   gentle: "Gentle and unhurried",

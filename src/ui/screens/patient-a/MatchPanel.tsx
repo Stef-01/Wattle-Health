@@ -67,12 +67,12 @@ function HighlightRows({ items }: { items: Highlight[] }) {
 
 function faqs(d: DoctorRecord): { q: string; a: string }[] {
   const fee = feeOf(d);
-  const tele = d.declared.telehealth ? (d.telehealth.value === "none" ? "No, appointments are in person." : d.telehealth.value === "only" ? "Yes, appointments are by telehealth only." : "Yes, telehealth is available.") : "Not listed. Ask the rooms when you call.";
+  const tele = d.declared.telehealth ? (d.telehealth.value === "none" ? "No, appointments are in person." : d.telehealth.value === "only" ? "Yes, appointments are by telehealth only." : "Yes, telehealth is available.") : "Not listed. Ask the practice when you call.";
   return [
-    { q: "Do I need a referral?", a: d.referralRequired ? (d.referralRequired.value ? "Yes. Ask your GP for a referral before you book; it also lets you claim the Medicare rebate." : "No referral needed.") : "Not listed. Ask the rooms when you call." },
-    { q: "Are they taking new patients?", a: d.declared.capacity ? (d.capacity.value === "open" ? "Yes, according to their practice." : d.capacity.value === "waitlist" ? `There is a waitlist${d.waitlistWeeks ? ` of about ${d.waitlistWeeks.value} weeks` : ""}.` : d.capacity.value === "closed" ? "Not at the moment." : "Not listed.") : "Not listed. Ask the rooms when you call." },
+    { q: "Do I need a referral?", a: d.referralRequired ? (d.referralRequired.value ? "Yes. Get a referral from your GP before you book. It also lets you claim the Medicare rebate." : "No referral needed.") : "Not listed. Ask the practice when you call." },
+    { q: "Are they taking new patients?", a: d.declared.capacity ? (d.capacity.value === "open" ? "Yes, their practice says so." : d.capacity.value === "waitlist" ? `There is a waitlist${d.waitlistWeeks ? ` of about ${d.waitlistWeeks.value} weeks` : ""}.` : d.capacity.value === "closed" ? "Not at the moment." : "Not listed.") : "Not listed. Ask the practice when you call." },
     { q: "Can I see them by video?", a: tele },
-    { q: "What does the first visit cost?", a: fee ? `${fee}, as published by the practice. Medicare rebates may apply.` : "Not published. Ask the rooms when you call." },
+    { q: "What does the first visit cost?", a: fee ? `${fee}, as published by the practice. Medicare rebates may apply.` : "Not published. Ask the practice when you call." },
     { q: "What languages do they speak?", a: d.languages?.value.length ? d.languages.value.join(", ") : "Not listed." },
   ];
 }
@@ -100,7 +100,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.map((h, i) => (i && !/^[A-Z]{2}/.test(h) ? h.charAt(0).toLowerCase() + h.slice(1) : h)).join(", ").replace(/, (?=[^,]*$)/, " and ") : null);
   let highlights = card.highlights ?? [];
   if (newPatientMatters) highlights = highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched));
-  if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Highly recommended", detail: `${reviews.count} verified Wattle patients, average ${reviews.average?.toFixed(1)} of 5`, matched: false }, ...highlights];
+  if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Recommended by patients", detail: `${reviews.count} verified Wattle patients, ${reviews.average?.toFixed(1)} of 5 on average`, matched: false }, ...highlights];
   const tabs = TABS.filter((t) => t !== "Highlights" || highlights.length > 0);
 
   return (
@@ -140,7 +140,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         {tab === "About" ? (
           <div className="flex flex-col gap-7">
             <Facts d={d} />
-            {personal ? <Words d={d} /> : <p className="text-[16px] text-grey">They haven’t shared more about how they work yet.</p>}
+            {personal ? <Words d={d} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
             <Labelled label="Sees">
               <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
             </Labelled>

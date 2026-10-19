@@ -42,7 +42,7 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
         {areas.map((a) => {
           const on = open === a.id;
           const fits = offerings.filter((o) => a.categories.includes(o.category)).slice(0, 2);
-          const signal = device === "none" ? null : a.wearable[device] ?? `${dev.label} doesn’t measure much here; a test with your doctor will tell you more.`;
+          const signal = device === "none" ? null : a.wearable[device] ?? `${dev.label} doesn’t measure much here. A test with your doctor will tell you more.`;
           return (
             <section key={a.id} className="rounded-[22px] border border-hairline">
               <button type="button" aria-expanded={on} onClick={() => setOpen(on ? null : a.id)} className="flex w-full items-center justify-between px-5 py-4 text-left">

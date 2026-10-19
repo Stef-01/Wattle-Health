@@ -4,7 +4,7 @@
 // 1.4 s so the arrival feels deliberate rather than a flash.
 import { useEffect, useState } from "react";
 
-const STEPS = ["Reading what you said", "Finding doctors who fit", "Checking who is taking patients"];
+const STEPS = ["Reading what you said", "Finding doctors who fit", "Putting the closest fits first"];
 
 export function Searching({ sentence }: { sentence: string }) {
   const [step, setStep] = useState(0);

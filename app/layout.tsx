@@ -4,7 +4,7 @@ import { OpeningsWatcher } from "@/src/ui/OpeningsWatcher";
 
 export const metadata: Metadata = {
   title: "Wattle",
-  description: "Doctors who listen. Find a doctor you can trust, from one sentence. Queensland first.",
+  description: "Doctors who listen. Say what you need in one sentence and meet Queensland doctors in their own words.",
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#ffffff" };

@@ -21,7 +21,7 @@ const HUMAN = /listens|collaborative|evidence|whole-person|gentle|direct|lived e
 
 /** "Lists endometriosis. Her profile reads as listening." from the engine's reasons. */
 export function fitSentence(card: Card, labels: Record<string, string>): string {
-  if (listedOnly(card)) return `Listed under ${specialtyTitle(card.doctor.specialty).toLowerCase()}, no documented focus on this yet.`;
+  if (listedOnly(card)) return `Listed under ${specialtyTitle(card.doctor.specialty).toLowerCase()}. No stated focus on this yet.`;
   const chips = matchChips(card, 4);
   const clinical = chips.filter((c) => !HUMAN.test(c));
   const human = chips.filter((c) => HUMAN.test(c)).map((c) => c.replace(/ and takes you seriously$/, ""));

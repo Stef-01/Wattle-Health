@@ -106,7 +106,7 @@ export function Openings() {
             <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="Private iCal link" className="field min-w-0 flex-1 rounded-[14px] border border-hairline bg-white px-4 py-3 text-[15px] outline-none" />
             <button type="button" disabled={!link || busy} onClick={() => void fromLink()} className="press rounded-[14px] bg-ink px-4 text-[15px] text-white disabled:opacity-40">{busy ? "Reading" : "Connect"}</button>
           </div>
-          <p className="text-[12px] leading-[1.45] text-grey">Google: Settings › your calendar › “Secret address in iCal format”. Only start and end times are kept, on this device.</p>
+          <p className="text-[12px] leading-[1.45] text-grey">In Google, go to Settings › your calendar › “Secret address in iCal format”. We keep only start and end times, on this device.</p>
           {cal ? <button type="button" onClick={() => connect("demo", "Demo week")} className="press-dim self-start text-[14px] text-accent">Disconnect and use a demo week</button> : null}
         </div>
       </details>
@@ -134,7 +134,7 @@ export function Openings() {
 
       <h2 className="display mt-8 text-[22px] text-ink">{fit === null ? "Checking…" : fit.length ? `${fit.length} ${fit.length === 1 ? "time fits" : "times fit"} your next two weeks` : doctors.length ? "Nothing fits yet" : "Save a doctor to watch them"}</h2>
       {fit && fit.length === 0 ? (
-        <p className="mt-2 text-[15px] leading-[1.5] text-grey">{doctors.length ? "We'll keep checking. Turning on more times above widens it." : "Tap the heart on any match and their openings will show here."}</p>
+        <p className="mt-2 text-[15px] leading-[1.5] text-grey">{doctors.length ? "Turn on more times above to see more." : "Tap the heart on a match to see their openings here."}</p>
       ) : null}
       {doctors.length ? <p className="mt-1 text-[14px] text-grey">Watching {doctors.map((d) => drName(d)).join(", ")}</p> : null}
 
@@ -171,7 +171,7 @@ export function Openings() {
           </section>
         ))}
       </div>
-      <p className="mt-8 text-[12px] leading-[1.5] text-grey">Demo openings, not real availability. Connecting to practices’ booking systems comes later; until then, call to book.</p>
+      <p className="mt-8 text-[12px] leading-[1.5] text-grey">Demo openings, not real availability. Call the practice to book.</p>
     </Screen>
   );
 }

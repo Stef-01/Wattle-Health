@@ -205,9 +205,9 @@ export function Me() {
         </FieldBox>
       </label>
       <Space h={30} />
-      <Row icon={<FigmaIcon name="check" size={17} />} title="Healthspan" sub="Doctors who help you prevent illness and reach your goals" href="/healthspan" />
+      <Row icon={<FigmaIcon name="check" size={17} />} title="Healthspan" sub="Doctors who work on prevention with you" href="/healthspan" />
       <Divider />
-      <Row icon={<FigmaIcon name="clock" size={17} />} title="Openings" sub="Saved doctors' times that fit your calendar" href="/me/openings" />
+      <Row icon={<FigmaIcon name="clock" size={17} />} title="Openings" sub="Times from saved doctors that fit your week" href="/me/openings" />
       <Divider />
       <Row icon={<FigmaIcon name="sliders" size={17} />} title="Your health context" sub="Bring it from ChatGPT, or use Wattle inside it" href="/me/context" />
       <Divider />
@@ -218,7 +218,7 @@ export function Me() {
       <Space h={30} />
       <h2 className="display text-[20px] text-charcoal">About Wattle</h2>
       <Space h={8} />
-      <p className="text-[14px] leading-[1.5] text-grey">Matched on how doctors work, in their own words. Every fact names its source. No one pays to be listed.</p>
+      <p className="text-[14px] leading-[1.5] text-grey">We match on how doctors say they work. Every fact names its source. No one pays to be listed.</p>
       <TabBar active="/me" />
     </Screen>
   );

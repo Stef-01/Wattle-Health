@@ -139,12 +139,12 @@ export function Matches() {
       ) : null}
       {req?.answers?.some((a) => /Talking it through|talk to someone/i.test(a.answer)) ? (
         <p className="mt-3 rounded-[16px] px-4 py-3 text-[14px] leading-[1.5] text-charcoal" style={{ background: "#f8f6f3" }}>
-          Wattle lists doctors. For talking therapy, start with a GP: a Mental Health Treatment Plan gives you Medicare-subsidised sessions with a psychologist.
+          Wattle lists doctors. For talking therapy, start with a GP. A Mental Health Treatment Plan gives you Medicare-subsidised sessions with a psychologist.
         </p>
       ) : null}
       {req && cards.length > 0 ? (
         <p className="mt-3 text-[14px] leading-[1.6] text-grey">
-          Follow up:{" "}
+          Also try:{" "}
           {[
             { label: "By video instead", on: { telehealth: true } },
             { label: "A woman doctor", on: { woman: true } },
@@ -194,8 +194,8 @@ export function Matches() {
                 ),
               )}
             </div>
-            <p className="font-display text-[24px] leading-tight text-ink">That is your {cards.length === 1 ? "match" : cards.length === 2 ? "two" : "three"}.</p>
-            <p className="mt-2 text-[15px] leading-[1.5] text-grey">Wattle shows three at a time so each one gets a proper read. Search again to meet different doctors.</p>
+            <p className="font-display text-[24px] leading-tight text-ink">That’s your {cards.length === 1 ? "match" : cards.length === 2 ? "two" : "three"}.</p>
+            <p className="mt-2 text-[15px] leading-[1.5] text-grey">We show three at a time, so you can read each one properly. Search again to meet others.</p>
             <div className="mt-6">
               <Cta fixed={false} onClick={searchAgain}>Search again</Cta>
             </div>
@@ -225,7 +225,7 @@ function Empty({ res, place, busy, onWiden, onTelehealth, onChange, onClosest }:
       <Gap h={24} />
       <Row title={`Widen to all of Queensland${count(n.widen, " doctors")}`} onClick={onWiden} />
       <Divider />
-      <Row title={`Include telehealth only${count(n.telehealth, "")}`} onClick={onTelehealth} />
+      <Row title={`Add telehealth-only doctors${count(n.telehealth, "")}`} onClick={onTelehealth} />
       <Divider />
       <Row title="Change what you need" onClick={onChange} />
       <Divider />

@@ -78,7 +78,7 @@ export function ContextSettings() {
         <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
         <h1 className="display text-[22px] text-ink">Your health context</h1>
       </div>
-      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell Wattle about your life so matches fit it. It stays on this phone.</p>
+      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your matches fit. It stays on this phone.</p>
 
       <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f5f8f6" }}>
         <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#2f5d3a]">Bring it from ChatGPT</p>
@@ -98,8 +98,8 @@ export function ContextSettings() {
         </ol>
         {items ? (
           <div className="mt-5">
-            <p className="text-[15px] font-medium text-ink">3. Here’s what Wattle understood</p>
-            {items.length === 0 ? <p className="mt-2 text-[14px] text-grey">Nothing Wattle can search on yet. Try mentioning a condition, who it’s for or how you like doctors to work.</p> : null}
+            <p className="text-[15px] font-medium text-ink">3. What Wattle understood</p>
+            {items.length === 0 ? <p className="mt-2 text-[14px] text-grey">Nothing to search on yet. Mention a condition, who it’s for, or how you like a doctor to work.</p> : null}
             <ul className="mt-2 flex flex-col">
               {items.map((it, i) => (
                 <li key={it.id} className="flex items-center gap-4 border-b border-[#e3ebe5] py-3 last:border-b-0">
@@ -121,7 +121,7 @@ export function ContextSettings() {
 
       <section className="mt-6 rounded-[22px] border border-hairline px-5 py-5">
         <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-grey">Use Wattle inside ChatGPT or Claude</p>
-        <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">Your assistant already knows your context. Connect Wattle and ask it to find you a doctor; it searches Wattle with what it knows.</p>
+        <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">Your assistant already knows your context. Connect Wattle, then ask it to find you a doctor. It searches Wattle with what it knows.</p>
         <dl className="mt-4 flex flex-col gap-4 text-[14px]">
           <div>
             <dt className="font-medium text-ink">ChatGPT or Claude connector (MCP)</dt>

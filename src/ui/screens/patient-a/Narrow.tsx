@@ -30,7 +30,7 @@ const hasPopulation = (c: Ctx) => c.chips.some((x) => x.kind === "population");
 const STEPS: Step[] = [
   {
     id: "issue",
-    ask: "Is there a specific issue you want to address?",
+    ask: "What would you like help with?",
     summary: "Issue",
     when: (c) => !c.chips.some((x) => x.kind === "condition"),
     options: () => [
@@ -48,31 +48,31 @@ const STEPS: Step[] = [
   },
   {
     id: "experience",
-    ask: "What’s your experience with seeking care for this?",
+    ask: "Have you had care for this before?",
     summary: "Experience",
     when: hasCondition,
     options: () => [
-      { id: "first", label: "This is my first time" },
-      { id: "before", label: "I’ve seen someone before" },
-      { id: "change", label: "I’m seeing someone now and want a change" },
+      { id: "first", label: "No, this is my first time" },
+      { id: "before", label: "Yes, I’ve seen someone before" },
+      { id: "change", label: "I see someone now and want a change" },
     ],
   },
   {
     id: "care",
-    ask: "What type of care are you looking for?",
+    ask: "What kind of care do you want?",
     summary: "Type of care",
     when: isMental,
     options: () => [
       { id: "medication", label: "Medication, or a review of it", sub: "Psychiatrists and GPs" },
-      { id: "assessment", label: "An assessment or diagnosis", sub: "For example ADHD or autism" },
-      { id: "talk", label: "Talking it through", sub: "Psychologists and counsellors work with a GP referral" },
-      { id: "start", label: "I just want to talk to someone to get started" },
+      { id: "assessment", label: "An assessment or diagnosis", sub: "Such as ADHD or autism" },
+      { id: "talk", label: "Talking it through", sub: "Psychologists and counsellors, with a GP referral" },
+      { id: "start", label: "I’d like to talk to someone first" },
       { id: "either", label: "I’m open to either" },
     ],
   },
   {
     id: "meds",
-    ask: "What type of medication management are you looking for?",
+    ask: "What do you need with medication?",
     summary: "Medication",
     when: (c) => c.answers.care?.id === "medication",
     options: () => [
@@ -83,7 +83,7 @@ const STEPS: Step[] = [
   {
     id: "gp",
     ask: "Are you open to seeing a GP?",
-    help: "If you already have a prescription, GPs can often give you a refill. Some GPs can diagnose and prescribe for common issues.",
+    help: "A GP can often renew a script you already have. Some GPs diagnose and prescribe for common conditions.",
     summary: "Open to a GP",
     when: (c) => c.answers.care?.id === "medication" || c.answers.care?.id === "assessment",
     options: () => [
@@ -93,18 +93,18 @@ const STEPS: Step[] = [
   },
   {
     id: "who",
-    ask: "Who are you seeking care for?",
+    ask: "Who is the appointment for?",
     summary: "For",
     when: (c) => !hasPopulation(c),
     options: () => [
-      { id: "me", label: "Myself" },
+      { id: "me", label: "Me" },
       { id: "else", label: "Someone else" },
     ],
   },
   {
     id: "age",
     ask: "How old is the patient?",
-    help: "If you’re booking for someone else, please use their age.",
+    help: "For someone else, give their age.",
     summary: "Age",
     when: (c) => !hasPopulation(c),
     options: (c) =>
@@ -117,7 +117,7 @@ const STEPS: Step[] = [
   },
   {
     id: "how",
-    ask: "Do you want the appointment to be over video or in person?",
+    ask: "Would you like to meet by video or in person?",
     summary: "Appointment",
     when: (c) => !/telehealth|video|online/i.test(c.sentence),
     options: () => [
@@ -128,12 +128,12 @@ const STEPS: Step[] = [
   },
   {
     id: "matters",
-    ask: "What matters most in how they work with you?",
+    ask: "What matters most to you in a doctor?",
     summary: "What matters",
     when: (c) => !c.chips.some((x) => x.kind === "human"),
     options: () => [
       { id: "listen", label: "They really listen", phrase: "someone who really listens" },
-      { id: "lived", label: "They have been through it too", phrase: "lived experience" },
+      { id: "lived", label: "They’ve been through it too", phrase: "lived experience" },
       { id: "long", label: "Longer appointments", phrase: "longer appointments" },
       { id: "whole", label: "They look at the whole picture", phrase: "whole person care" },
       { id: "research", label: "Up to date with research", phrase: "up to date with research" },
@@ -208,8 +208,8 @@ export function Narrow() {
       {index < 0 ? (
         <div key="entry" className="rise mt-16 flex flex-col items-center text-center">
           <span className="search-orb" style={{ width: 72, height: 72 }} aria-hidden="true" />
-          <h1 className="display mt-10 text-[30px] leading-[1.15] text-ink">Answer a few questions to find the right doctor</h1>
-          <p className="mt-3 text-[16px] leading-[1.5] text-grey">We’ll adjust your search to what you need.</p>
+          <h1 className="display mt-10 text-[30px] leading-[1.15] text-ink">A few questions to narrow your search</h1>
+          <p className="mt-3 text-[16px] leading-[1.5] text-grey">Your answers shape who we show you.</p>
           {sentence ? <p className="mt-8 rounded-[18px] bg-surface-soft px-5 py-3 text-[15px] leading-[1.45] text-charcoal">“{sentence}”</p> : null}
         </div>
       ) : step ? (
@@ -244,8 +244,8 @@ export function Narrow() {
         </div>
       ) : ctx ? (
         <div key="summary" className="rise mt-10">
-          <h1 className="display text-[28px] leading-[1.2] text-ink">Here’s what you’ll be searching for</h1>
-          <p className="mt-3 text-[15px] text-grey">You can change it on the results page.</p>
+          <h1 className="display text-[28px] leading-[1.2] text-ink">What we’ll search for</h1>
+          <p className="mt-3 text-[15px] text-grey">You can change this on the results page.</p>
           <dl className="mt-6 rounded-[22px] px-5 py-2" style={{ background: "#f5f8f6" }}>
             <div className="border-b border-[#e3ebe5] py-3">
               <dt className="text-[13px] text-grey">In your words</dt>
@@ -274,12 +274,12 @@ export function Narrow() {
           {index < 0 ? (
             <>
               <Cta fixed={false} disabled={!ctx} onClick={() => (steps.length ? setIndex(0) : void finish({}))}>Continue</Cta>
-              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Just show my matches</button>
+              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Skip to my matches</button>
             </>
           ) : step ? (
             <>
               <Cta fixed={false} disabled={!picked} onClick={next}>Continue</Cta>
-              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Just show my matches</button>
+              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Skip to my matches</button>
             </>
           ) : ctx ? (
             <Cta fixed={false} onClick={() => void finish(answers)}>See your matches</Cta>

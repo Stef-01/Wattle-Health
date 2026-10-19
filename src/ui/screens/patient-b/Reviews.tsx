@@ -47,7 +47,7 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
     if (res?.ok) setState("sent");
     else {
       setState("error");
-      setError(((await res?.json().catch(() => null)) as { error?: string } | null)?.error ?? "Could not send it just now.");
+      setError(((await res?.json().catch(() => null)) as { error?: string } | null)?.error ?? "Couldn’t send it. Try again.");
     }
   }
 
@@ -62,11 +62,11 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
           <span className="font-display text-[28px] leading-none text-ink">{data.average?.toFixed(1)}</span>
           <Stars value={data.average ?? 0} size={18} />
           <span className="text-[14px] text-grey">{data.count} {data.demo ? "demo" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
-          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#2f5d3a]">Highly recommended by Wattle patients</span> : null}
-          {data.demo ? <span className="w-full text-[12px] text-grey">Demo reviews, not real patients. Shown to preview how reviews will look.</span> : null}
+          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#2f5d3a]">Recommended by Wattle patients</span> : null}
+          {data.demo ? <span className="w-full text-[12px] text-grey">Demo reviews, not real patients. They show how reviews will look.</span> : null}
         </div>
       ) : (
-        <p className="text-[15px] leading-[1.5] text-grey">No reviews yet. Wattle only shows reviews from people who saw this doctor, and checks each one before it appears.</p>
+        <p className="text-[15px] leading-[1.5] text-grey">No reviews yet. We only show reviews from people who saw this doctor, and a person checks each one first.</p>
       )}
       {data?.commentary ? (
         <div className="rounded-[18px] bg-[#f5f8f6] px-4 py-4">
@@ -99,7 +99,7 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
       <Sheet open={open} onClose={() => setOpen(false)} title={state === "sent" ? "Thank you" : `Review ${name}`}>
         {state === "sent" ? (
           <>
-            <p className="text-[16px] leading-[1.5] text-charcoal">Your review is with us. It appears after a quick check, usually within a few days.</p>
+            <p className="text-[16px] leading-[1.5] text-charcoal">Your review is with us. It appears once a person has checked it.</p>
             <Cta fixed={false} onClick={() => setOpen(false)}>Done</Cta>
           </>
         ) : (
