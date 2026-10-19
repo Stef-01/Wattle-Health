@@ -30,6 +30,7 @@ export function BookCard({ doctor: d, telehealthOnly, referral }: { doctor: Doct
   const room = primaryRoom(d);
   const phone = room?.phone ?? d.booking?.phone ?? null;
   const site = d.booking?.url ?? room?.website ?? null;
+  const firstSlot = days.flatMap((x) => x.slots)[0] ?? null;
   const fmt = (t: number, o: Intl.DateTimeFormatOptions) => new Date(t).toLocaleDateString("en-AU", o);
 
   return (
@@ -66,19 +67,39 @@ export function BookCard({ doctor: d, telehealthOnly, referral }: { doctor: Doct
           );
         })}
       </div>
-      {view.some((v) => v.slots.length) ? (
-        <p className="mt-4 text-[14px] text-[#4a4a4a]">
-          Next: <span className="font-semibold text-ink">{(() => { const o = view.flatMap((v) => v.slots)[0]!; return new Date(o.start).toLocaleString("en-AU", { weekday: "long", hour: "numeric", minute: "2-digit" }); })()}</span>
-        </p>
-      ) : null}
       <div className="mt-6">
         {referral ? <p className="mb-2 text-[14px] text-[#4a4a4a]">You’ll need a GP referral first.</p> : null}
-        {phone ? (
+        {firstSlot ? (
+          <NextFree doctor={d} when={nextFreeLabel(firstSlot.start)} mode={firstSlot.mode} referral={false} />
+        ) : phone ? (
           <a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="press flex h-12 w-full items-center justify-center rounded-[6px] bg-ink text-[16px] font-semibold text-white">Call {phone}</a>
         ) : site ? (
           <a href={site} target="_blank" rel="noreferrer" className="press flex h-12 w-full items-center justify-center rounded-[6px] bg-ink text-[16px] font-semibold text-white">Book on their website</a>
         ) : null}
       </div>
+    </div>
+  );
+}
+
+/** "Tue 21 Oct at 10:00 am" */
+export function nextFreeLabel(t: number): string {
+  const d = new Date(t);
+  return `${d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" })} at ${d.toLocaleTimeString("en-AU", { hour: "numeric", minute: "2-digit" })}`;
+}
+
+/** The bottom-of-page action: the next free time, which rings the practice to book it (demo times). */
+export function NextFree({ doctor: d, when, mode, referral }: { doctor: DoctorRecord; when: string; mode: string | null; referral: boolean }) {
+  const room = primaryRoom(d);
+  const phone = room?.phone ?? d.booking?.phone ?? null;
+  const site = d.booking?.url ?? room?.website ?? null;
+  const href = phone ? `tel:${phone.replace(/[^\d+]/g, "")}` : site ?? undefined;
+  return (
+    <div>
+      {referral ? <p className="mb-2 text-[14px] text-[#4a4a4a]">You’ll need a GP referral first.</p> : null}
+      <a href={href} target={phone ? undefined : "_blank"} rel="noreferrer" className="press flex w-full flex-col items-center justify-center rounded-[6px] bg-ink px-4 py-3.5 text-center text-white">
+        <span className="text-[17px] font-semibold">Next free {when}</span>
+        <span className="mt-0.5 text-[13px] text-white/75">{[mode === "telehealth" ? "Telehealth" : "In person", phone ? `call ${phone} to book` : "book on their site", "demo time"].join(" · ")}</span>
+      </a>
     </div>
   );
 }

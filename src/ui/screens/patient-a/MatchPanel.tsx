@@ -10,12 +10,12 @@ import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
 import { demoOpenings } from "@/src/data/calendar";
 import { Check, Labelled } from "@/src/ui/kit";
-import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Profile";
+import { Facts, Research, Sources, WordsFull } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
 import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, specialtyTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
 import { fitSentence, Portrait } from "./DoctorCard";
-import { BookCard } from "./BookCard";
+import { BookCard, NextFree, nextFreeLabel } from "./BookCard";
 import type { Highlight } from "@/src/data/search-types";
 
 const ORDINAL = ["Your top match", "Your second match", "Your third match"];
@@ -92,10 +92,12 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const ownWords = [personal?.philosophyOfCare, personal?.philosophy, personal?.communicationApproach, personal?.purpose, personal?.professionalPurpose].find((t) => t && t.trim().length > 30)?.trim();
   const ownLine = ownWords ? (ownWords.match(/^.{30,220}?[.!?](\s|$)/)?.[0] ?? ownWords.slice(0, 200) + "…").trim() : null;
   const [next, setNext] = useState<string | null>(null);
+  const [nextMode, setNextMode] = useState<string | null>(null);
   useEffect(() => {
     const all = demoOpenings(d.id, d.declared?.telehealth === true && d.telehealth?.value !== "none", Date.now());
     const o = telehealthOnly ? all.find((x) => x.mode === "telehealth") : all[0];
-    setNext(o ? `${new Date(o.start).toLocaleString("en-AU", { weekday: "short", hour: "numeric", minute: "2-digit" })}${o.mode === "telehealth" ? ", telehealth" : ""}` : null);
+    setNext(o ? nextFreeLabel(o.start) : null);
+    setNextMode(o?.mode ?? null);
   }, [d, telehealthOnly]);
   const hobbies = personal ? [personal.hobbies ?? []].flat().filter(Boolean) : [];
   const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.map((h, i) => (i && !/^[A-Z]{2}/.test(h) ? h.charAt(0).toLowerCase() + h.slice(1) : h)).join(", ").replace(/, (?=[^,]*$)/, " and ") : null);
@@ -144,7 +146,6 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       {outside ? (
         <p className="mt-4 text-[16px] leading-[1.5] text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-[#4a4a4a]">{outside.charAt(0).toUpperCase() + outside.slice(1)}</span></p>
       ) : null}
-      <div className="lg:hidden">{next ? <p className="mt-3 text-[15px] text-ink"><span className="font-semibold text-[#2f5d3a]">Next opening</span> {next} <span className="text-[13px] text-grey">· demo</span></p> : null}</div>
 
       <div role="tablist" aria-label="Doctor details" className="mt-8 flex gap-7 overflow-x-auto border-b border-divider [scrollbar-width:none] lg:gap-10">
         {tabs.map((t) => (
@@ -156,7 +157,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         {tab === "About" ? (
           <div className="flex flex-col gap-7">
             <Facts d={d} />
-            {personal ? <Words d={d} skipMeet skipOutside={Boolean(outside)} shown={ownLine} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
+            {personal ? <WordsFull d={d} shown={[ownLine, outside]} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
             <Labelled label="Sees">
               <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
             </Labelled>
@@ -196,7 +197,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         ) : null}
       </div>
       <div className="mt-6 lg:hidden">
-        <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
+        {next ? <NextFree doctor={d} when={next} mode={nextMode} referral={referral} /> : <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />}
       </div>
       </div>
       <aside className="hidden lg:sticky lg:top-20 lg:block">
