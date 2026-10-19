@@ -23,7 +23,7 @@ export function Splash() {
         if (e.key === "Enter" || e.key === " ") router.push("/");
       }}
       className="frame cursor-pointer overflow-clip"
-      style={{ background: "linear-gradient(180deg, #2f5d3a 0%, #0f2c1c 100%)" }}
+      style={{ background: "linear-gradient(180deg, #1b1b1b 0%, #000000 100%)" }}
     >
       <div className="settle absolute left-[141px] top-[390px] flex items-center gap-[10px]">
         <span className="text-[44px] leading-normal text-white" style={{ fontFamily: '"Lobster", cursive' }}>

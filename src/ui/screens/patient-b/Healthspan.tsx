@@ -25,7 +25,7 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
         <p className="mt-6 text-[14px] font-medium text-grey">What do you wear?</p>
         <div className="mt-2 grid grid-cols-2 gap-2">
           {DEVICES.map((d) => (
-            <button key={d.id} type="button" aria-pressed={device === d.id} onClick={() => setDevice(d.id)} className={`press rounded-[14px] border px-3 py-2.5 text-left text-[15px] ${device === d.id ? "border-[#2f5d3a] bg-[#f5f8f6] text-ink" : "border-hairline text-grey"}`}>{d.label}</button>
+            <button key={d.id} type="button" aria-pressed={device === d.id} onClick={() => setDevice(d.id)} className={`press rounded-[14px] border px-3 py-2.5 text-left text-[15px] ${device === d.id ? "border-[#1b1b1b] bg-[#f4f4f4] text-ink" : "border-hairline text-grey"}`}>{d.label}</button>
           ))}
         </div>
         <div className="mt-6"><Cta fixed={false} disabled={text.trim().length < 3} onClick={() => { const a = readHealthspan(text); setAreas(a); setOpen(a[0]?.id ?? null); }}>Show my plan</Cta></div>
@@ -52,10 +52,10 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
               {on ? (
                 <div className="px-5 pb-5">
                   <p className="text-[15px] leading-[1.5] text-charcoal">{a.why}</p>
-                  <p className="mt-4 text-[13px] font-medium text-[#2f5d3a]">Ask your doctor about</p>
+                  <p className="mt-4 text-[13px] font-medium text-[#1b1b1b]">Ask your doctor about</p>
                   <ul className="mt-1.5 flex flex-col gap-1">
                     {a.measure.map((m) => (
-                      <li key={m} className="flex gap-2 text-[15px] text-charcoal"><span className="mt-0.5 text-[#2f5d3a]"><Check size={14} /></span>{m}</li>
+                      <li key={m} className="flex gap-2 text-[15px] text-charcoal"><span className="mt-0.5 text-[#1b1b1b]"><Check size={14} /></span>{m}</li>
                     ))}
                   </ul>
                   {signal ? (

@@ -80,8 +80,8 @@ export function ContextSettings() {
       </div>
       <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your matches fit. It stays on this phone.</p>
 
-      <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f5f8f6" }}>
-        <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#2f5d3a]">Bring it from ChatGPT</p>
+      <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f4f4f4" }}>
+        <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#1b1b1b]">Bring it from ChatGPT</p>
         <ol className="mt-3 flex flex-col gap-4 text-[15px] leading-[1.5] text-charcoal">
           <li>
             <span className="font-medium text-ink">1. Ask ChatGPT for a short summary.</span>
@@ -107,7 +107,7 @@ export function ContextSettings() {
                     <span className="block text-[16px] text-ink">{it.label}</span>
                     <span className="block text-[13px] text-grey">{KIND[it.kind] ?? "Context"}</span>
                   </span>
-                  <button type="button" role="switch" aria-checked={it.on} aria-label={`Use ${it.label}`} onClick={() => setItems(items.map((x, j) => (j === i ? { ...x, on: !x.on } : x)))} className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: it.on ? "#2f5d3a" : "#e3e3e3" }}>
+                  <button type="button" role="switch" aria-checked={it.on} aria-label={`Use ${it.label}`} onClick={() => setItems(items.map((x, j) => (j === i ? { ...x, on: !x.on } : x)))} className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: it.on ? "#1b1b1b" : "#e3e3e3" }}>
                     <span className="absolute top-[2px] size-[27px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] transition-transform duration-200" style={{ transform: `translateX(${it.on ? 22 : 2}px)` }} />
                   </button>
                 </li>

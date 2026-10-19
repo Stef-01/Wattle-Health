@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { OpeningsWatcher } from "@/src/ui/OpeningsWatcher";
+import { OpeningPrompt } from "@/src/ui/OpeningPrompt";
 
 export const metadata: Metadata = {
   title: "Wattle",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <OpeningsWatcher />
+        <OpeningPrompt />
       </body>
     </html>
   );

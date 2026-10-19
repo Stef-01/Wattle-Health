@@ -1,4 +1,5 @@
 "use client";
+import { Orb } from "@/src/ui/kit/Orb";
 // Results as a journey (2026-10-17): the top match first, as a whole profile. Reaching the end of
 // it reveals the second, then the third. Three is the limit; more means searching again with a
 // different sentence. Empty: "No strong match yet" with the counts the engine reported.
@@ -122,7 +123,7 @@ export function Matches() {
       {cards.length > 1 ? (
         <div className="material sticky top-0 z-10 -mx-7 mb-3 flex items-center justify-center gap-2 px-7 py-3" aria-label={`Reading match ${reading + 1} of ${cards.length}`}>
           {cards.map((c, i) => (
-            <span key={c.doctor.id} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === reading ? 28 : 8, background: i === reading ? "#2f5d3a" : i < shown ? "#b9c9bd" : "#e3e3e3", transitionTimingFunction: "var(--ease-out)" }} />
+            <span key={c.doctor.id} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === reading ? 28 : 8, background: i === reading ? "#1b1b1b" : i < shown ? "#bdbdbd" : "#e3e3e3", transitionTimingFunction: "var(--ease-out)" }} />
           ))}
         </div>
       ) : null}
@@ -178,12 +179,12 @@ export function Matches() {
         ))}
         {shown < cards.length ? (
           <div ref={sentinel} className="mt-12 flex flex-col items-center gap-3 py-6 text-center">
-            <span className="search-orb" style={{ width: 28, height: 28 }} aria-hidden="true" />
+            <Orb size={28} />
             <p className="text-[14px] text-grey">Keep scrolling for your {shown === 1 ? "second" : "third"} match</p>
           </div>
         ) : null}
         {cards.length > 0 && shown >= cards.length ? (
-          <div className="rise mt-12 rounded-[24px] px-6 py-8 text-center" style={{ background: "#f5f8f6" }}>
+          <div className="rise mt-12 rounded-[24px] px-6 py-8 text-center" style={{ background: "#f4f4f4" }}>
             <div className="mb-5 flex justify-center -space-x-3">
               {cards.map((c) =>
                 c.doctor.photo ? (

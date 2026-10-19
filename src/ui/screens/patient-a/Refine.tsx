@@ -31,7 +31,7 @@ function Switch({ on, onChange, label, sub }: { on: boolean; onChange: (v: boole
         <span className="block text-[17px] text-ink">{label}</span>
         <span className="block text-[14px] text-grey">{sub}</span>
       </span>
-      <span className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: on ? "#2f5d3a" : "#e3e3e3" }}>
+      <span className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: on ? "#1b1b1b" : "#e3e3e3" }}>
         <span className="absolute top-[2px] size-[27px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] transition-transform duration-200" style={{ transform: `translateX(${on ? 22 : 2}px)`, transitionTimingFunction: "var(--ease-out)" }} />
       </span>
     </button>

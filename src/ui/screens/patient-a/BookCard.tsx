@@ -36,7 +36,7 @@ export function BookCard({ doctor: d, telehealthOnly, referral }: { doctor: Doct
   return (
     <div className="rounded-[8px] bg-white px-8 py-8 shadow-[0_1px_3px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.06)]">
       <p role="heading" aria-level={3} className="text-[24px] font-semibold leading-tight tracking-[-0.015em] text-ink">Openings that fit</p>
-      <p className="mt-1.5 text-[15px] leading-[1.5] text-[#4a4a4a]">Call the practice to book. These are demo times for now.</p>
+      <p className="mt-1.5 text-[15px] leading-[1.5] text-[#4a4a4a]">Times that fit your calendar. Tap to book.</p>
 
       {tele ? (
         <div className="mt-6 grid grid-cols-2 overflow-hidden rounded-[6px] border border-ink">
@@ -98,7 +98,7 @@ export function NextFree({ doctor: d, when, mode, referral }: { doctor: DoctorRe
       {referral ? <p className="mb-2 text-[14px] text-[#4a4a4a]">You’ll need a GP referral first.</p> : null}
       <a href={href} target={phone ? undefined : "_blank"} rel="noreferrer" className="press flex w-full flex-col items-center justify-center rounded-[6px] bg-ink px-4 py-3.5 text-center text-white">
         <span className="text-[17px] font-semibold">Next free {when}</span>
-        <span className="mt-0.5 text-[13px] text-white/75">{[mode === "telehealth" ? "Telehealth" : "In person", phone ? `call ${phone} to book` : "book on their site", "demo time"].join(" · ")}</span>
+        <span className="mt-0.5 text-[13px] text-white/75">{[mode === "telehealth" ? "Telehealth" : "In person", phone ? `call ${phone} to book` : "book on their site"].join(" · ")}</span>
       </a>
     </div>
   );

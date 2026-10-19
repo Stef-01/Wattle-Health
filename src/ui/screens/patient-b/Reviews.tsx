@@ -16,7 +16,7 @@ function Stars({ value, size = 16 }: { value: number; size?: number }) {
     <span className="inline-flex gap-0.5" aria-label={`${value} out of 5`}>
       {[1, 2, 3, 4, 5].map((i) => (
         <svg key={i} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= Math.round(value) ? "#2f5d3a" : "#e3e3e3"} />
+          <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= Math.round(value) ? "#1b1b1b" : "#e3e3e3"} />
         </svg>
       ))}
     </span>
@@ -61,16 +61,16 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="font-display text-[28px] leading-none text-ink">{data.average?.toFixed(1)}</span>
           <Stars value={data.average ?? 0} size={18} />
-          <span className="text-[14px] text-grey">{data.count} {data.demo ? "demo" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
-          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#2f5d3a]">Recommended by Wattle patients</span> : null}
-          {data.demo ? <span className="w-full text-[12px] text-grey">Demo reviews, not real patients. They show how reviews will look.</span> : null}
+          <span className="text-[14px] text-grey">{data.count} {data.demo ? "example" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
+          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#1b1b1b]">Recommended by Wattle patients</span> : null}
+          {data.demo ? <span className="w-full text-[12px] text-grey">Example reviews, showing how patient reviews will look.</span> : null}
         </div>
       ) : (
         <p className="text-[15px] leading-[1.5] text-grey">No reviews yet. We only show reviews from people who saw this doctor, and a person checks each one first.</p>
       )}
       {data?.commentary ? (
-        <div className="rounded-[18px] bg-[#f5f8f6] px-4 py-4">
-          <p className="text-[13px] font-medium text-[#2f5d3a]">What patients say</p>
+        <div className="rounded-[18px] bg-[#f4f4f4] px-4 py-4">
+          <p className="text-[13px] font-medium text-[#1b1b1b]">What patients say</p>
           <p className="mt-1 text-[16px] leading-[1.5] text-ink">{data.commentary}</p>
           {data.themes && data.themes.length ? (
             <ul className="mt-3 flex flex-col gap-1">
@@ -107,19 +107,19 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
             <div className="flex gap-2" role="radiogroup" aria-label="Rating">
               {[1, 2, 3, 4, 5].map((i) => (
                 <button key={i} type="button" role="radio" aria-checked={rating === i} aria-label={`${i} star${i > 1 ? "s" : ""}`} onClick={() => setRating(i)} className="press">
-                  <svg width={36} height={36} viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= rating ? "#2f5d3a" : "#e3e3e3"} /></svg>
+                  <svg width={36} height={36} viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= rating ? "#1b1b1b" : "#e3e3e3"} /></svg>
                 </button>
               ))}
             </div>
             <div className="flex flex-wrap gap-2">
               {Object.entries(VISITED).map(([k, v]) => (
-                <button key={k} type="button" onClick={() => setVisited(k)} className={`press rounded-full border px-3 py-2 text-[14px] ${visited === k ? "border-[#2f5d3a] bg-[#f5f8f6] text-ink" : "border-hairline text-grey"}`}>{v}</button>
+                <button key={k} type="button" onClick={() => setVisited(k)} className={`press rounded-full border px-3 py-2 text-[14px] ${visited === k ? "border-[#1b1b1b] bg-[#f4f4f4] text-ink" : "border-hairline text-grey"}`}>{v}</button>
               ))}
             </div>
             <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1000} placeholder="What was it like? How did they listen and explain things?" className="field w-full rounded-[16px] border-2 border-line p-3 text-[15px] outline-none" />
             <p className="text-[12px] leading-[1.45] text-grey">Describe how they communicated and how you felt. Please don’t name medicines or describe results; we remove those before publishing.</p>
             <label className="flex items-start gap-3 text-[14px] text-charcoal">
-              <input type="checkbox" checked={saw} onChange={(e) => setSaw(e.target.checked)} className="mt-1 size-4 accent-[#2f5d3a]" />
+              <input type="checkbox" checked={saw} onChange={(e) => setSaw(e.target.checked)} className="mt-1 size-4 accent-[#1b1b1b]" />
               I saw this doctor, myself or with someone I care for.
             </label>
             {state === "error" ? <p className="text-[14px] text-danger">{error}</p> : null}

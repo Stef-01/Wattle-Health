@@ -27,7 +27,7 @@ export type Offering = {
 };
 
 const CATEGORIES = [
-  { id: "biomarkers", title: "Know your biomarkers", sub: "A doctor reads an extended blood panel with you and makes a plan.", tint: "#f5f8f6" },
+  { id: "biomarkers", title: "Know your biomarkers", sub: "A doctor reads an extended blood panel with you and makes a plan.", tint: "#f4f4f4" },
   { id: "wearables", title: "Make your wearable useful", sub: "Bring your Oura, Apple Watch, Whoop or glucose monitor data to a doctor.", tint: "#f6f7fa" },
   { id: "menopause", title: "Menopause, properly", sub: "Longer, whole-person consults for perimenopause and menopause.", tint: "#f8f6f3" },
 ] as const;
@@ -89,7 +89,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
         <div className="rise mt-6">
           <p className="text-[16px] leading-[1.5] text-charcoal">Newer kinds of care you can book directly.</p>
           <div className="mt-6 flex flex-col gap-3">
-            <a href="/healthspan" className="rise press press-soft block rounded-[8px] bg-[#2f5d3a] px-5 py-5 text-left">
+            <a href="/healthspan" className="rise press press-soft block rounded-[8px] bg-[#1b1b1b] px-5 py-5 text-left">
               <span className="block font-display text-[22px] leading-tight text-white">Plan your healthspan</span>
               <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Doctors who work on prevention with your wearable and bloodwork.</span>
             </a>
@@ -99,7 +99,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
                 <button key={c.id} type="button" onClick={() => { setCat(c.id); setStep(0); setAnswers({}); }} className="rise press press-soft rounded-[8px] px-5 py-5 text-left" style={{ background: c.tint, "--i": i } as React.CSSProperties}>
                   <span className="block font-display text-[22px] leading-tight text-ink">{c.title}</span>
                   <span className="mt-1 block text-[15px] leading-[1.45] text-charcoal">{c.sub}</span>
-                  <span className="mt-3 block text-[14px] font-medium text-[#2f5d3a]">{n} {n === 1 ? "service" : "services"} →</span>
+                  <span className="mt-3 block text-[14px] font-medium text-[#1b1b1b]">{n} {n === 1 ? "service" : "services"} →</span>
                 </button>
               );
             })}
@@ -116,9 +116,9 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
             {q.options.map((o, i) => {
               const on = picked === o.id;
               return (
-                <button key={o.id} type="button" role="radio" aria-checked={on} onClick={() => setPicked(o.id)} className={`rise press press-soft flex items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#2f5d3a] bg-[#f5f8f6]" : "border-hairline"}`} style={{ "--i": i } as React.CSSProperties}>
+                <button key={o.id} type="button" role="radio" aria-checked={on} onClick={() => setPicked(o.id)} className={`rise press press-soft flex items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#1b1b1b] bg-[#f4f4f4]" : "border-hairline"}`} style={{ "--i": i } as React.CSSProperties}>
                   <span className="flex-1 text-[17px] text-ink">{o.label}</span>
-                  <span aria-hidden="true" className={`inline-flex size-6 items-center justify-center rounded-full border ${on ? "border-[#2f5d3a] bg-[#2f5d3a] text-white" : "border-hairline text-transparent"}`}><Check size={13} /></span>
+                  <span aria-hidden="true" className={`inline-flex size-6 items-center justify-center rounded-full border ${on ? "border-[#1b1b1b] bg-[#1b1b1b] text-white" : "border-hairline text-transparent"}`}><Check size={13} /></span>
                 </button>
               );
             })}
@@ -139,7 +139,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
                 <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">{o.summary}</p>
                 <ul className="mt-3 flex flex-col gap-1.5">
                   {o.includes.slice(0, 3).map((x) => (
-                    <li key={x} className="flex gap-2 text-[14px] leading-[1.45] text-charcoal"><span className="mt-0.5 text-[#2f5d3a]"><Check size={14} /></span>{x}</li>
+                    <li key={x} className="flex gap-2 text-[14px] leading-[1.45] text-charcoal"><span className="mt-0.5 text-[#1b1b1b]"><Check size={14} /></span>{x}</li>
                   ))}
                 </ul>
                 <p className="mt-3 text-[14px] text-grey">{[o.price ?? "Price on their site", o.location, o.subscription ? "Membership" : null, o.referral_needed ? "GP referral needed" : null].filter(Boolean).join(" · ")}</p>

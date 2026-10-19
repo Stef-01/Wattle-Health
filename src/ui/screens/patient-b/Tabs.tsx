@@ -137,7 +137,7 @@ export function Saved() {
               {g.doctors.map((d, i) => (
                 <div key={d.id}>
                   <SavedCard doctor={d} index={i} onRemove={() => remove(d.id)} />
-                  <div className="mt-3 flex items-center justify-between rounded-[6px] bg-[#f5f8f6] px-4 py-2.5">
+                  <div className="mt-3 flex items-center justify-between rounded-[6px] bg-[#f4f4f4] px-4 py-2.5">
                     <span className="text-[14px] text-charcoal">Tell me when {drName(d).split(" ").slice(0, 2).join(" ")} has openings</span>
                     <Toggle on={!muted.has(d.id)} onChange={(v) => toggleWatch([d.id], v)} label={`Watch ${drName(d)} for openings`} />
                   </div>
@@ -152,14 +152,14 @@ export function Saved() {
                     // eslint-disable-next-line @next/next/no-img-element
                     <img key={d.id} src={d.photo.url} alt="" referrerPolicy="no-referrer" className="size-12 rounded-full border-2 border-white object-cover object-top" />
                   ) : (
-                    <span key={d.id} className="inline-flex size-12 items-center justify-center rounded-full border-2 border-white bg-[#f5f8f6] text-[14px] text-[#2f5d3a]">{initialsOf(d.name.display)}</span>
+                    <span key={d.id} className="inline-flex size-12 items-center justify-center rounded-full border-2 border-white bg-[#f4f4f4] text-[14px] text-[#1b1b1b]">{initialsOf(d.name.display)}</span>
                   ),
                 )}
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[18px] font-semibold tracking-[-0.01em] text-ink">{g.category}</span>
                 <span className="block truncate text-[14px] text-grey">{g.doctors.map((d) => drName(d).replace(/^Dr /, "")).join(", ")}</span>
-                <span className="mt-0.5 block text-[14px] font-medium text-[#2f5d3a]">{watching ? `Watching ${watching} for openings` : "Not watching for openings"}</span>
+                <span className="mt-0.5 block text-[14px] font-medium text-[#1b1b1b]">{watching ? `Watching ${watching} for openings` : "Not watching for openings"}</span>
               </span>
               <span className="text-grey">›</span>
             </button>

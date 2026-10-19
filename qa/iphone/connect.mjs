@@ -1,0 +1,26 @@
+// Openings: connect Google Calendar through the permission sheet, then see the opening prompt and book.
+import { chromium, devices } from "@playwright/test";
+const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
+const b = await chromium.launch();
+const page = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
+await page.goto(`${BASE}/`);
+await page.evaluate(() => { localStorage.setItem("wattle.splash.seen", "true"); localStorage.setItem("wattle.saved.v1", JSON.stringify(["general-practice:sian-hebron"])); localStorage.removeItem("wattle.openings.v1"); });
+await page.goto(`${BASE}/me/openings`);
+await page.waitForSelector("text=Connect your calendar");
+await page.screenshot({ path: "qa/iphone/connect-1.png" });
+await page.getByRole("button", { name: /Google Calendar/ }).click();
+await page.waitForSelector("text=wants to access your");
+await page.waitForTimeout(400);
+await page.screenshot({ path: "qa/iphone/connect-2-sheet.png" });
+await page.getByRole("button", { name: "Allow" }).click();
+await page.waitForSelector("text=/Connected/", { timeout: 10000 });
+await page.screenshot({ path: "qa/iphone/connect-3-connected.png" });
+await page.goto(`${BASE}/`);
+await page.waitForSelector("text=/just opened up/", { timeout: 15000 });
+await page.waitForTimeout(500);
+await page.screenshot({ path: "qa/iphone/prompt-1.png" });
+await page.getByRole("button", { name: "Book follow-up" }).click();
+await page.waitForSelector("text=/Booked with/", { timeout: 10000 });
+await page.screenshot({ path: "qa/iphone/prompt-2-booked.png" });
+console.log("ok");
+await b.close();
