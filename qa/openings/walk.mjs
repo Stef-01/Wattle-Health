@@ -18,7 +18,7 @@ await page.getByRole("button", { name: "Afternoons, 2 to 5" }).click();
 await page.waitForTimeout(600);
 const afterToggle = await page.locator("h2").first().innerText();
 await page.goto(`${BASE}/`);
-await page.waitForTimeout(1500);
+await page.waitForSelector("a[href='/me/openings']", { timeout: 15000 }).catch(() => null);
 const banner = await page.locator("a[href='/me/openings']").count();
 await page.screenshot({ path: `${OUT}/02-home-banner.png` });
 await page.goto(`${BASE}/me/discover`);
