@@ -156,7 +156,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         {tab === "About" ? (
           <div className="flex flex-col gap-7">
             <Facts d={d} />
-            {personal ? <Words d={d} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
+            {personal ? <Words d={d} skipMeet skipOutside={Boolean(outside)} shown={ownLine} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
             <Labelled label="Sees">
               <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
             </Labelled>

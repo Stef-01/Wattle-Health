@@ -59,7 +59,8 @@ function similar(a: string | null, b: string | null): boolean {
   return shared / Math.max(1, Math.min(wa.size, wb.size)) > 0.5;
 }
 
-export function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boolean }) {
+/** skipOutside / shown: leave out what the panel above already says (no repetition). */
+export function Words({ d, skipMeet = false, skipOutside = false, shown = null }: { d: DoctorRecord; skipMeet?: boolean; skipOutside?: boolean; shown?: string | null }) {
   const p = personalOf(d);
   if (!p) return null;
   const pr = pronouns(d);
@@ -83,8 +84,8 @@ export function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boo
           <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" more={more} />
         </Labelled>
       ) : null}
-      {approach && !similar(approach, philosophy) ? (
-        <Labelled label={`How ${pr.subject} ${pr.practises}`}>
+      {approach && !similar(approach, philosophy) && !similar(approach, shown) ? (
+        <Labelled label={`In ${pr.possessive.toLowerCase()} own words`}>
           <Clamp text={approach} more={purpose ? <p className="text-[16px] leading-[1.5] text-charcoal">{purpose}</p> : undefined} />
         </Labelled>
       ) : null}
@@ -93,7 +94,7 @@ export function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boo
           <Clamp text={why} />
         </Labelled>
       ) : null}
-      {outside ? (
+      {outside && !skipOutside ? (
         <Labelled label="Outside the clinic">
           <Clamp text={outside} lines={4} />
         </Labelled>

@@ -49,7 +49,7 @@ export function Chips({ children, className }: { children: ReactNode; className?
 export function Labelled({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
   return (
     <section className={cx("flex flex-col gap-2.5", className)}>
-      <h2 className="display text-[19px] text-ink">{label}</h2>
+      <h2 className="text-[18px] font-semibold tracking-[-0.01em] text-ink">{label}</h2>
       {children}
     </section>
   );
