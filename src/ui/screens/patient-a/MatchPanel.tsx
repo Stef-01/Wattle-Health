@@ -87,6 +87,8 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const personal = personalOf(d);
   const conditions = conditionLabels(d, labels);
   const source = wordsSource(d);
+  const ownWords = [personal?.philosophyOfCare, personal?.philosophy, personal?.communicationApproach, personal?.purpose, personal?.professionalPurpose].find((t) => t && t.trim().length > 30)?.trim();
+  const ownLine = ownWords ? (ownWords.match(/^.{30,220}?[.!?](\s|$)/)?.[0] ?? ownWords.slice(0, 200) + "…").trim() : null;
   const hobbies = personal ? [personal.hobbies ?? []].flat().filter(Boolean) : [];
   const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.join(", ") : null);
   let highlights = card.highlights ?? [];
@@ -100,7 +102,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <p className="font-display text-[22px] text-ink">{ORDINAL[index]}</p>
         <p className="text-[14px] text-grey">{index + 1} of {total}</p>
       </div>
-      <p className="-mt-2 mb-4 text-[15px] leading-[1.45] text-grey">{fitSentence(card, labels)}</p>
+      {ownLine ? <p className="-mt-2 mb-4 font-display text-[19px] leading-[1.4] text-ink">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="-mt-2 mb-4 text-[15px] leading-[1.45] text-grey">{fitSentence(card, labels)}</p>}
       <Portrait d={d} saved={saved} onSave={onSave} eager={index === 0} />
       <Link href={doctorHref(d.id)} className="press-dim mt-4 block">
         <p className="text-[15px] leading-snug text-charcoal">{line}</p>
