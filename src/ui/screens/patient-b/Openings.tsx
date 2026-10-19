@@ -156,7 +156,7 @@ export function Openings() {
                       <p className="flex flex-wrap items-center gap-x-2 text-[17px] text-ink">
                         <span className="whitespace-nowrap font-display">{timeOf(o.start)}</span>
                         <span className="truncate text-[13px] text-grey">{o.mode === "telehealth" ? "Telehealth" : placeOf(o.doctor)}</span>
-                        {newIds.includes(o.id) ? <span className="rounded-full bg-[#2f5d3a] px-2 py-0.5 text-[11px] text-white">New</span> : null}
+                        {newIds.includes(o.id) ? <span className="rounded-full bg-[#2f5d3a] px-2 py-0.5 text-[12px] text-white">New</span> : null}
                       </p>
                       <p className="truncate text-[15px] text-charcoal">{drName(o.doctor)}</p>
                       <div className="mt-1.5 flex gap-4 text-[14px]">

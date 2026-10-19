@@ -29,20 +29,57 @@ export function Recent() {
       router.push("/results");
     } else router.push("/");
   };
+  const groups = groupRecent(rows ?? []);
+  const [only, setOnly] = useState<string | null>(null);
+  const shown = only ? groups.filter((g) => g.condition === only) : groups;
   return (
     <Screen padBottom="pb-[110px]">
       <SectionTitle>Recent</SectionTitle>
-      <Space h={24} />
+      <Space h={16} />
       {rows && rows.length === 0 ? <Body>No searches yet.</Body> : null}
-      {rows?.map((r) => (
-        <div key={r.id}>
-          <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <FigmaIcon name="clock" size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} />
-          <Divider />
+      {groups.length > 1 ? (
+        <div role="tablist" aria-label="Filter by condition" className="-mx-1 flex gap-1 overflow-x-auto pb-2">
+          {[null, ...groups.map((g) => g.condition)].map((c) => {
+            const on = only === c;
+            const n = c === null ? rows?.length ?? 0 : groups.find((g) => g.condition === c)!.rows.length;
+            return (
+              <button key={c ?? "all"} type="button" role="tab" aria-selected={on} onClick={() => setOnly(c)} className={`press shrink-0 rounded-full px-3.5 py-2 text-[15px] ${on ? "bg-ink text-white" : "text-charcoal"}`}>
+                {c ?? "All"} <span className={on ? "text-white/70" : "text-grey"}>{n}</span>
+              </button>
+            );
+          })}
         </div>
-      ))}
+      ) : null}
+      <div className="mt-2 flex flex-col gap-6">
+        {shown.map((g) => (
+          <section key={g.condition}>
+            {groups.length > 1 && !only ? <h2 className="display text-[19px] text-ink">{g.condition}</h2> : null}
+            {g.rows.map((r) => (
+              <div key={r.id}>
+                <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <FigmaIcon name="clock" size={17} />} title={groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} />
+                <Divider />
+              </div>
+            ))}
+          </section>
+        ))}
+      </div>
       <TabBar active="/recent" />
     </Screen>
   );
+}
+
+/** Group by condition (from the search, else the label before its comma); biggest and most recent first. */
+export function groupRecent(rows: RecentSearch[]): { condition: string; rows: RecentSearch[] }[] {
+  const map = new Map<string, RecentSearch[]>();
+  for (const r of rows) {
+    const c = (r.condition ?? r.label.split(",")[0] ?? "Other").trim() || "Other";
+    const key = c.charAt(0).toUpperCase() + c.slice(1);
+    map.set(key, [...(map.get(key) ?? []), r]);
+  }
+  const latest = (g: RecentSearch[]) => Math.max(...g.map((r) => Date.parse(r.at) || 0));
+  return [...map.entries()]
+    .map(([condition, rs]) => ({ condition, rows: rs.sort((a, b) => (Date.parse(b.at) || 0) - (Date.parse(a.at) || 0)) }))
+    .sort((a, b) => b.rows.length - a.rows.length || latest(b.rows) - latest(a.rows));
 }
 
 export function Saved() {

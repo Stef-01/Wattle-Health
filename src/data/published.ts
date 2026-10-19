@@ -45,6 +45,7 @@ export type ResearchedDoctor = {
   personal_richness?: number;
   /** Later sweeps record the portrait URL inline; earlier ones live in portraits.json. */
   photo_url?: string | null;
+  healthspan?: { areas?: string[]; opens_to?: string[]; evidence?: string } | null;
 };
 
 type ResearchFile = { category: string; researched_at: string; doctors: ResearchedDoctor[] };
@@ -92,6 +93,24 @@ export function readResearch(root = process.cwd()): ResearchedDoctor[] {
   return out;
 }
 
+const AREAS = new Set(["heart", "fitness", "metabolic", "sleep", "brain", "hormones", "strength"]);
+const OPENS = new Set(["wearables", "cgm", "biomarkers", "genetics"]);
+const PREVENTIVE = /preventi|lifestyle medicine|longevity|healthspan|metabolic health/i;
+
+/** The research field when present; otherwise a doctor's own sentence about prevention or lifestyle medicine. */
+function healthspanOf(d: ResearchedDoctor, texts: (string | undefined)[]): PersonalProfile["healthspan"] | undefined {
+  const r = d.healthspan;
+  if (r?.evidence && str(r.evidence)) {
+    return { areas: (r.areas ?? []).filter((a) => AREAS.has(a)), opensTo: (r.opens_to ?? []).filter((o) => OPENS.has(o)), evidence: r.evidence.trim() };
+  }
+  const hit = texts.find((t) => t && PREVENTIVE.test(t));
+  if (!hit) return undefined;
+  const areas = ["metabolic", "heart"];
+  if (/weight|nutrition/i.test(hit)) areas.push("fitness");
+  if (/women|menopaus/i.test(hit)) areas.push("hormones");
+  return { areas, opensTo: [], evidence: hit };
+}
+
 function personalOf(d: ResearchedDoctor): PersonalProfile {
   const raw = d.personal ?? {};
   const p: PersonalProfile = { status: "published", sourceUrl: d.source.url, sourceName: d.practice.name || d.source.page_title || "practice website", observedAt: d.source.observed_at.slice(0, 10) };
@@ -113,6 +132,8 @@ function personalOf(d: ResearchedDoctor): PersonalProfile {
     .filter((q) => str(q.text))
     .map((q) => ({ text: q.text.trim(), about: (ABOUT.has(q.about) ? q.about : "other") as NonNullable<PersonalProfile["quotes"]>[number]["about"] }));
   if (quotes.length) p.quotes = quotes;
+  const hs = healthspanOf(d, [philosophy, approach, ...(quotes.map((q) => q.text))]);
+  if (hs) p.healthspan = hs;
   return p;
 }
 

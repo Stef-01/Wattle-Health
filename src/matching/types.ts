@@ -79,6 +79,8 @@ export interface PersonalProfile {
   livedExperience?: string | string[];
   hobbies?: string | string[];
   outsideMedicine?: string;
+  /** Healthspan work in the doctor's own words (2026-10-19): areas they cover, data they say they welcome, and the sentence that says so. */
+  healthspan?: { areas: string[]; opensTo: string[]; evidence: string };
   /** Closed `human_fit` labels derived from the free-text fields at build time (personal-labels.ts). */
   labels?: string[];
   /**

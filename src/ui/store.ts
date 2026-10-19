@@ -95,6 +95,8 @@ export interface RecentSearch {
   /** Portraits of the matches, for the row (practice-site URLs, hotlinked). */
   faces?: string[];
   label: string;
+  /** The condition read from the search ("Endometriosis"), for grouping; absent on older entries. */
+  condition?: string;
   matches: number;
   at: string;
 }

@@ -167,6 +167,13 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
     <>
       <Facts d={d} />
       <Space h={28} />
+      {personal?.healthspan ? (
+        <a href="/healthspan" className="press press-soft mb-7 block rounded-[22px] bg-[#2f5d3a] px-5 py-4 text-white">
+          <span className="block text-[13px] font-medium uppercase tracking-[0.12em] text-white/75">Healthspan</span>
+          <span className="mt-1 block font-display text-[19px] leading-snug">{drShort(d)} works on prevention{personal.healthspan.opensTo.includes("wearables") ? " and welcomes your wearable data" : personal.healthspan.opensTo.includes("biomarkers") ? " and reads bloodwork with you" : ""}.</span>
+          <span className="mt-1 block text-[14px] text-white/85">See what healthspan care looks like →</span>
+        </a>
+      ) : null}
       {fold && personal ? (
         <>
           {(personal.philosophyOfCare ?? personal.philosophy) ? (

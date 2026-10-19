@@ -30,7 +30,7 @@ export async function runMatch(input: { sentence: string; suburb?: string; remov
   if (input.exclude?.length) req.exclude = input.exclude;
   if (input.answers?.length) req.answers = input.answers;
   setRequest(req);
-  pushRecent({ id: req.id, label: recentLabel(req), matches: response.cards.length, at: req.at, faces: response.cards.map((c) => c.doctor.photo?.url).filter((u): u is string => Boolean(u)).slice(0, 3) });
+  pushRecent({ id: req.id, label: recentLabel(req), condition: response.chips.find((c) => c.kind === "condition")?.label, matches: response.cards.length, at: req.at, faces: response.cards.map((c) => c.doctor.photo?.url).filter((u): u is string => Boolean(u)).slice(0, 3) });
   return req;
 }
 
