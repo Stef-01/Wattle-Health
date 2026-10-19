@@ -80,9 +80,18 @@ body {
 /* Newsreader carries names and headings (CLAUDE.md: Newsreader display over Inter): the one
    typographic contrast on the page, as Headway and One Medical do. Poppins stays for the
    clinician flow's step titles via .poppins. */
-h1,
-h2,
-h3,
+/* Plain headings (no .display) are sans semibold, as on the Zocdoc provider page, and sit in the
+   base layer so a utility class (font-medium, text-grey) can still adjust them. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+}
 .display {
   font-family: var(--font-display);
   font-weight: 500;

@@ -89,14 +89,14 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
         <div className="rise mt-6">
           <p className="text-[16px] leading-[1.5] text-charcoal">Newer kinds of care you can book directly.</p>
           <div className="mt-6 flex flex-col gap-3">
-            <a href="/healthspan" className="rise press press-soft block rounded-[22px] bg-[#2f5d3a] px-5 py-5 text-left">
+            <a href="/healthspan" className="rise press press-soft block rounded-[8px] bg-[#2f5d3a] px-5 py-5 text-left">
               <span className="block font-display text-[22px] leading-tight text-white">Plan your healthspan</span>
               <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Doctors who work on prevention with your wearable and bloodwork.</span>
             </a>
             {CATEGORIES.map((c, i) => {
               const n = offerings.filter((o) => o.category === c.id).length;
               return (
-                <button key={c.id} type="button" onClick={() => { setCat(c.id); setStep(0); setAnswers({}); }} className="rise press press-soft rounded-[22px] px-5 py-5 text-left" style={{ background: c.tint, "--i": i } as React.CSSProperties}>
+                <button key={c.id} type="button" onClick={() => { setCat(c.id); setStep(0); setAnswers({}); }} className="rise press press-soft rounded-[8px] px-5 py-5 text-left" style={{ background: c.tint, "--i": i } as React.CSSProperties}>
                   <span className="block font-display text-[22px] leading-tight text-ink">{c.title}</span>
                   <span className="mt-1 block text-[15px] leading-[1.45] text-charcoal">{c.sub}</span>
                   <span className="mt-3 block text-[14px] font-medium text-[#2f5d3a]">{n} {n === 1 ? "service" : "services"} →</span>
@@ -116,7 +116,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
             {q.options.map((o, i) => {
               const on = picked === o.id;
               return (
-                <button key={o.id} type="button" role="radio" aria-checked={on} onClick={() => setPicked(o.id)} className={`rise press press-soft flex items-center gap-4 rounded-[18px] border px-5 py-4 text-left ${on ? "border-[#2f5d3a] bg-[#f5f8f6]" : "border-hairline"}`} style={{ "--i": i } as React.CSSProperties}>
+                <button key={o.id} type="button" role="radio" aria-checked={on} onClick={() => setPicked(o.id)} className={`rise press press-soft flex items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#2f5d3a] bg-[#f5f8f6]" : "border-hairline"}`} style={{ "--i": i } as React.CSSProperties}>
                   <span className="flex-1 text-[17px] text-ink">{o.label}</span>
                   <span aria-hidden="true" className={`inline-flex size-6 items-center justify-center rounded-full border ${on ? "border-[#2f5d3a] bg-[#2f5d3a] text-white" : "border-hairline text-transparent"}`}><Check size={13} /></span>
                 </button>
@@ -133,7 +133,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
           <p className="mt-1 text-[15px] text-grey">{results.length} {results.length === 1 ? "service fits" : "services fit"} what you chose.</p>
           <div className="mt-5 flex flex-col gap-4">
             {results.map((o, i) => (
-              <article key={o.id} className="rise rounded-[22px] border border-hairline px-5 py-5" style={{ "--i": i } as React.CSSProperties}>
+              <article key={o.id} className="rise rounded-[8px] border border-hairline px-5 py-5" style={{ "--i": i } as React.CSSProperties}>
                 <p className="text-[13px] text-grey">{o.provider}</p>
                 <h3 className="display mt-0.5 text-[20px] leading-tight text-ink">{o.name}</h3>
                 <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">{o.summary}</p>

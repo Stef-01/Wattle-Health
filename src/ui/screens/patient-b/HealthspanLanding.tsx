@@ -72,16 +72,16 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
         ))}
       </section>
 
-      <div ref={plan} className="mt-14 scroll-mt-6 rounded-[28px] bg-[#f5f8f6] px-5 py-6">
+      <div ref={plan} className="mt-14 scroll-mt-6 rounded-[8px] bg-[#f5f8f6] px-5 py-6">
         <h2 className="display text-[26px] leading-tight text-ink">What matters most to you?</h2>
         <p className="mt-1 text-[15px] text-grey">Pick any. We match doctors who work on these.</p>
         <div className="mt-5 grid grid-cols-1 gap-2.5">
           {AREAS.map((a) => {
             const on = areas.includes(a.id);
             return (
-              <button key={a.id} type="button" aria-pressed={on} onClick={() => toggle(a.id)} className={`press press-soft flex items-start gap-3 rounded-[18px] border bg-white px-4 py-3.5 text-left ${on ? "border-[#2f5d3a]" : "border-transparent"}`}>
+              <button key={a.id} type="button" aria-pressed={on} onClick={() => toggle(a.id)} className={`press press-soft flex items-start gap-3 rounded-[6px] border bg-white px-4 py-3.5 text-left ${on ? "border-[#2f5d3a]" : "border-transparent"}`}>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[16px] font-medium text-ink">{a.title}</span>
+                  <span className="block text-[16px] font-semibold text-ink">{a.title}</span>
                   {on ? <span className="mt-1 block text-[14px] leading-[1.45] text-charcoal">{a.why}</span> : null}
                 </span>
                 <span aria-hidden="true" className={`mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full border ${on ? "border-[#2f5d3a] bg-[#2f5d3a] text-white" : "border-hairline text-transparent"}`}><Check size={13} /></span>
@@ -90,14 +90,14 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
           })}
         </div>
 
-        <h3 className="mt-7 text-[15px] font-medium text-ink">What do you wear?</h3>
+        <h3 className="mt-7 text-[16px] text-ink">What do you wear?</h3>
         <div className="mt-2 grid grid-cols-2 gap-2">
           {DEVICES.map((d) => (
-            <button key={d.id} type="button" aria-pressed={device === d.id} onClick={() => setDevice(d.id)} className={`press rounded-[14px] border bg-white px-3 py-2.5 text-left text-[15px] ${device === d.id ? "border-[#2f5d3a] text-ink" : "border-transparent text-grey"}`}>{d.label}</button>
+            <button key={d.id} type="button" aria-pressed={device === d.id} onClick={() => setDevice(d.id)} className={`press rounded-[6px] border bg-white px-3 py-2.5 text-left text-[15px] ${device === d.id ? "border-[#2f5d3a] text-ink" : "border-transparent text-grey"}`}>{d.label}</button>
           ))}
         </div>
 
-        <div className="mt-6 flex flex-col divide-y divide-hairline rounded-[18px] bg-white">
+        <div className="mt-6 flex flex-col divide-y divide-hairline rounded-[6px] bg-white">
           <div className="flex items-center justify-between gap-3 px-4 py-3"><span className="text-[15px] text-ink">Read extended bloodwork with me</span><Toggle on={bloodwork} onChange={setBloodwork} label="Read extended bloodwork with me" /></div>
           <div className="flex items-center justify-between gap-3 px-4 py-3"><span className="text-[15px] text-ink">Telehealth is fine</span><Toggle on={telehealth} onChange={setTelehealth} label="Telehealth is fine" /></div>
         </div>
@@ -122,7 +122,7 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
                         {m.reasons.map((r) => <li key={r} className="flex gap-2 text-[15px] text-charcoal"><span className="mt-0.5 text-[#2f5d3a]"><Check size={14} /></span>{r}</li>)}
                       </ul>
                     ) : null}
-                    {outside ? <p className="mt-4 rounded-[16px] bg-[#f8f6f3] px-4 py-3 text-[15px] leading-[1.5] text-charcoal"><span className="block text-[13px] font-medium text-[#8a6a3b]">Outside the clinic</span>{outside}</p> : null}
+                    {outside ? <p className="mt-4 rounded-[6px] bg-[#f8f6f3] px-4 py-3 text-[15px] leading-[1.5] text-charcoal"><span className="block text-[13px] font-medium text-[#8a6a3b]">Outside the clinic</span>{outside}</p> : null}
                     <Link href={doctorHref(m.doctor.id)} className="press mt-4 inline-flex rounded-full border border-hairline px-4 py-2.5 text-[15px] text-ink">Read {drName(m.doctor).split(" ").slice(0, 2).join(" ")}’s profile</Link>
                   </article>
                 );
@@ -132,7 +132,7 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
               <div className="mt-12">
                 <h3 className="display text-[22px] text-ink">Services that pair with this</h3>
                 {services.map((o) => (
-                  <a key={o.id} href={o.url} target="_blank" rel="noreferrer" className="press-dim mt-3 block rounded-[18px] border border-hairline px-4 py-3">
+                  <a key={o.id} href={o.url} target="_blank" rel="noreferrer" className="press-dim mt-3 block rounded-[6px] border border-hairline px-4 py-3">
                     <span className="block text-[13px] text-grey">{o.provider}</span>
                     <span className="block text-[16px] text-ink">{o.name}</span>
                     <span className="block text-[14px] text-grey">{o.price ? o.price.split(/[;(]/)[0]!.trim() : "Price on their site"}</span>

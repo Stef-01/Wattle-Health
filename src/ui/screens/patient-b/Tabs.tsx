@@ -54,7 +54,7 @@ export function Recent() {
       <div className="mt-2 flex flex-col gap-6">
         {shown.map((g) => (
           <section key={g.condition}>
-            {groups.length > 1 && !only ? <h2 className="display text-[19px] text-ink">{g.condition}</h2> : null}
+            {groups.length > 1 && !only ? <h2 className="text-[18px] text-ink">{g.condition}</h2> : null}
             {g.rows.map((r) => (
               <div key={r.id}>
                 <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <FigmaIcon name="clock" size={17} />} title={groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "match" : "matches"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} />
@@ -137,7 +137,7 @@ export function Saved() {
               {g.doctors.map((d, i) => (
                 <div key={d.id}>
                   <SavedCard doctor={d} index={i} onRemove={() => remove(d.id)} />
-                  <div className="mt-3 flex items-center justify-between rounded-[16px] bg-[#f5f8f6] px-4 py-2.5">
+                  <div className="mt-3 flex items-center justify-between rounded-[6px] bg-[#f5f8f6] px-4 py-2.5">
                     <span className="text-[14px] text-charcoal">Tell me when {drName(d).split(" ").slice(0, 2).join(" ")} has openings</span>
                     <Toggle on={!muted.has(d.id)} onChange={(v) => toggleWatch([d.id], v)} label={`Watch ${drName(d)} for openings`} />
                   </div>
@@ -145,7 +145,7 @@ export function Saved() {
               ))}
             </div>
           ) : (
-            <button key={g.category} type="button" onClick={() => setOnly(g.category)} className="press press-soft flex items-center gap-4 rounded-[22px] border border-hairline px-4 py-4 text-left">
+            <button key={g.category} type="button" onClick={() => setOnly(g.category)} className="press press-soft flex items-center gap-4 rounded-[8px] border border-hairline px-4 py-4 text-left">
               <span className="flex shrink-0 -space-x-3">
                 {g.doctors.slice(0, 3).map((d) =>
                   d.photo ? (
@@ -157,9 +157,9 @@ export function Saved() {
                 )}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block font-display text-[19px] text-ink">{g.category}</span>
+                <span className="block text-[18px] font-semibold tracking-[-0.01em] text-ink">{g.category}</span>
                 <span className="block truncate text-[14px] text-grey">{g.doctors.map((d) => drName(d).replace(/^Dr /, "")).join(", ")}</span>
-                <span className="mt-0.5 block text-[13px] text-[#2f5d3a]">{watching ? `Watching ${watching} for openings` : "Not watching for openings"}</span>
+                <span className="mt-0.5 block text-[14px] font-medium text-[#2f5d3a]">{watching ? `Watching ${watching} for openings` : "Not watching for openings"}</span>
               </span>
               <span className="text-grey">›</span>
             </button>

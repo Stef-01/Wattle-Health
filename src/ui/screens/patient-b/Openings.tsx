@@ -91,7 +91,7 @@ export function Openings() {
       </div>
       <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Times that fit your calendar, from doctors you saved.</p>
 
-      <details className="mt-6 rounded-[22px] bg-[#f5f8f6] px-5 py-4" open={!cal}>
+      <details className="mt-6 rounded-[8px] bg-[#f5f8f6] px-5 py-4" open={!cal}>
         <summary className="flex cursor-pointer list-none items-center justify-between">
           <span>
             <span className="block text-[13px] font-medium text-[#2f5d3a]">Your calendar</span>
@@ -100,11 +100,11 @@ export function Openings() {
           <span className="text-[14px] text-accent">Change</span>
         </summary>
         <div className="mt-4 flex flex-col gap-3">
-          <button type="button" onClick={() => file.current?.click()} className="press rounded-[14px] border border-hairline bg-white px-4 py-3 text-left text-[15px] text-ink">Upload an .ics file <span className="block text-[13px] text-grey">Export from Google, Apple or Outlook Calendar</span></button>
+          <button type="button" onClick={() => file.current?.click()} className="press rounded-[6px] border border-hairline bg-white px-4 py-3 text-left text-[15px] text-ink">Upload an .ics file <span className="block text-[13px] text-grey">Export from Google, Apple or Outlook Calendar</span></button>
           <input ref={file} type="file" accept=".ics,text/calendar" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) connect("ics-file", f.name, await f.text()); }} />
           <div className="flex gap-2">
-            <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="Private iCal link" className="field min-w-0 flex-1 rounded-[14px] border border-hairline bg-white px-4 py-3 text-[15px] outline-none" />
-            <button type="button" disabled={!link || busy} onClick={() => void fromLink()} className="press rounded-[14px] bg-ink px-4 text-[15px] text-white disabled:opacity-40">{busy ? "Reading" : "Connect"}</button>
+            <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="Private iCal link" className="field min-w-0 flex-1 rounded-[6px] border border-hairline bg-white px-4 py-3 text-[15px] outline-none" />
+            <button type="button" disabled={!link || busy} onClick={() => void fromLink()} className="press rounded-[6px] bg-ink px-4 text-[15px] text-white disabled:opacity-40">{busy ? "Reading" : "Connect"}</button>
           </div>
           <p className="text-[12px] leading-[1.45] text-grey">In Google, go to Settings › your calendar › “Secret address in iCal format”. We keep only start and end times, on this device.</p>
           {cal ? <button type="button" onClick={() => connect("demo", "Demo week")} className="press-dim self-start text-[14px] text-accent">Disconnect and use a demo week</button> : null}
@@ -117,7 +117,7 @@ export function Openings() {
           {(Object.keys(WINDOWS) as Window[]).map((w) => {
             const on = s?.windows.includes(w) ?? true;
             return (
-              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press flex items-center justify-between rounded-[14px] border px-3 py-2.5 text-left text-[14px] ${on ? "border-[#2f5d3a] bg-[#f5f8f6] text-ink" : "border-hairline text-grey"}`}>
+              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press flex items-center justify-between rounded-[6px] border px-3 py-2.5 text-left text-[14px] ${on ? "border-[#2f5d3a] bg-[#f5f8f6] text-ink" : "border-hairline text-grey"}`}>
                 {WINDOWS[w].label}
                 {on ? <span className="text-[#2f5d3a]"><Check size={14} /></span> : null}
               </button>
@@ -126,13 +126,13 @@ export function Openings() {
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-between rounded-[18px] border border-hairline px-4 py-3">
+      <div className="mt-5 flex items-center justify-between rounded-[6px] border border-hairline px-4 py-3">
         <span className="text-[15px] text-ink">Notify me about new openings</span>
         <Toggle on={s?.notify ?? false} onChange={(v) => void setNotify(v)} label="Notify me about new openings" />
       </div>
       {err ? <p className="mt-2 text-[14px] text-danger">{err}</p> : null}
 
-      <h2 className="display mt-8 text-[22px] text-ink">{fit === null ? "Checking…" : fit.length ? `${fit.length} ${fit.length === 1 ? "time fits" : "times fit"} your next two weeks` : doctors.length ? "Nothing fits yet" : "Save a doctor to watch them"}</h2>
+      <h2 className="mt-8 text-[22px] text-ink">{fit === null ? "Checking…" : fit.length ? `${fit.length} ${fit.length === 1 ? "time fits" : "times fit"} your next two weeks` : doctors.length ? "Nothing fits yet" : "Save a doctor to watch them"}</h2>
       {fit && fit.length === 0 ? (
         <p className="mt-2 text-[15px] leading-[1.5] text-grey">{doctors.length ? "Turn on more times above to see more." : "Tap the heart on a match to see their openings here."}</p>
       ) : null}
@@ -141,20 +141,20 @@ export function Openings() {
       <div className="mt-5 flex flex-col gap-6">
         {[...days.entries()].map(([day, list]) => (
           <section key={day}>
-            <h3 className="text-[14px] font-medium text-grey">{day}</h3>
+            <h3 className="text-[15px] text-ink">{day}</h3>
             <div className="mt-2 flex flex-col gap-3">
               {list.map((o) => {
                 const room = primaryRoom(o.doctor);
                 const phone = room?.phone ?? o.doctor.booking?.phone ?? null;
                 return (
-                  <article key={o.id} className="rise flex gap-4 rounded-[20px] border border-hairline p-3">
+                  <article key={o.id} className="rise flex gap-4 rounded-[8px] border border-hairline p-3">
                     {o.doctor.photo ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={o.doctor.photo.url} alt="" referrerPolicy="no-referrer" className="size-14 shrink-0 rounded-full object-cover object-top" />
                     ) : <span className="size-14 shrink-0 rounded-full bg-[#f5f8f6]" />}
                     <div className="min-w-0 flex-1">
                       <p className="flex flex-wrap items-center gap-x-2 text-[17px] text-ink">
-                        <span className="whitespace-nowrap font-display">{timeOf(o.start)}</span>
+                        <span className="whitespace-nowrap font-semibold">{timeOf(o.start)}</span>
                         <span className="truncate text-[13px] text-grey">{o.mode === "telehealth" ? "Telehealth" : placeOf(o.doctor)}</span>
                         {newIds.includes(o.id) ? <span className="rounded-full bg-[#2f5d3a] px-2 py-0.5 text-[12px] text-white">New</span> : null}
                       </p>
