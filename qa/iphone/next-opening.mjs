@@ -1,0 +1,17 @@
+import { chromium, devices } from "@playwright/test";
+import { throughNarrow } from "../figma/narrow-helper.mjs";
+const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
+const b = await chromium.launch();
+const page = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
+await page.goto(`${BASE}/`);
+await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true"));
+await page.goto(`${BASE}/`);
+await page.locator("textarea, input[type=text]").first().fill("Endometriosis, someone who listens, telehealth only");
+await page.getByText("Find my doctor").click();
+await throughNarrow(page).catch(() => null);
+await page.waitForSelector("text=Your top match", { timeout: 30000 });
+const t = await page.locator("text=/Next opening/").first().innerText({ timeout: 8000 }).catch(() => "none");
+await page.locator("text=/Next opening/").first().scrollIntoViewIfNeeded().catch(() => null);
+await page.screenshot({ path: "qa/iphone/next-opening.png" });
+console.log(t);
+await b.close();
