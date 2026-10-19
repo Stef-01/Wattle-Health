@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Clock, Cta, Divider, FaceStack, FieldBox, Gap, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
+import { OpeningsBanner } from "@/src/ui/OpeningsBanner";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
 import { EXAMPLES } from "./lib";
 
@@ -126,6 +127,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
       <Cta fixed={false} onClick={() => void submit(text)} disabled={busy || !text.trim()}>
         Find my doctor
       </Cta>
+      <OpeningsBanner />
       <Gap h={40} />
       {faces.length > 0 ? (
         <Link href="/results?all=1" className="press press-soft mb-8 flex items-center gap-4" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>

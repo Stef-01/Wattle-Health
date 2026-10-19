@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { OpeningsWatcher } from "@/src/ui/OpeningsWatcher";
 
 export const metadata: Metadata = {
   title: "Wattle",
@@ -12,7 +13,10 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-AU">
-      <body>{children}</body>
+      <body>
+        {children}
+        <OpeningsWatcher />
+      </body>
     </html>
   );
 }

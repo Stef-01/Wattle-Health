@@ -6,6 +6,7 @@
 // website (data/discover/offerings.json); Wattle does not endorse or take payment from them.
 import { useMemo, useState } from "react";
 import { ArrowLeft, Check, Circle, Cta, Screen } from "@/src/ui/kit";
+import { Healthspan } from "./Healthspan";
 
 export type Offering = {
   id: string;
@@ -45,7 +46,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [picked, setPicked] = useState<string | null>(null);
-  const done = cat !== null && step >= QUESTIONS.length;
+  const done = cat !== null && cat !== "healthspan" && step >= QUESTIONS.length;
 
   const results = useMemo(() => {
     if (!done) return [];
@@ -59,7 +60,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
   }, [done, offerings, cat, answers]);
 
   const category = CATEGORIES.find((c) => c.id === cat);
-  const q = cat && !done ? QUESTIONS[step] : null;
+  const q = cat && cat !== "healthspan" && !done ? QUESTIONS[step] : null;
 
   function next() {
     if (!q || !picked) return;
@@ -70,7 +71,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
 
   function back() {
     if (cat === null) return;
-    if (step === 0) setCat(null);
+    if (step === 0 || cat === "healthspan") setCat(null);
     else {
       setStep((s) => s - 1);
       setPicked(null);
@@ -88,6 +89,10 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
         <div className="rise mt-6">
           <p className="text-[16px] leading-[1.5] text-charcoal">Newer kinds of care, from Australian services you can book directly. Pick one to see what fits you.</p>
           <div className="mt-6 flex flex-col gap-3">
+            <button type="button" onClick={() => setCat("healthspan")} className="rise press press-soft rounded-[22px] bg-[#2f5d3a] px-5 py-5 text-left">
+              <span className="block font-display text-[22px] leading-tight text-white">Plan your healthspan</span>
+              <span className="mt-1 block text-[15px] leading-[1.45] text-white/85">Tell us what you want more good years for. See what to measure, what your wearable can show, and who can help.</span>
+            </button>
             {CATEGORIES.map((c, i) => {
               const n = offerings.filter((o) => o.category === c.id).length;
               return (
@@ -101,6 +106,8 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
           </div>
           <p className="mt-6 text-[12px] leading-[1.5] text-grey">Listings are facts from each provider’s own website. Wattle doesn’t endorse or take payment from them. Talk to your GP about whether a test or program is right for you.</p>
         </div>
+      ) : cat === "healthspan" ? (
+        <Healthspan offerings={offerings} />
       ) : q ? (
         <div key={q.id} className="rise mt-8">
           <p className="text-[14px] text-grey">{category?.title} · {step + 1} of {QUESTIONS.length}</p>
