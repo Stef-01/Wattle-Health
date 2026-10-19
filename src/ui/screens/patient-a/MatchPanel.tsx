@@ -1,6 +1,6 @@
 "use client";
 // One match, on Zocdoc SearchAI's provider-panel structure (from the founder's 2026-10-18 capture,
-// qa/benchmark-zocdoc/pdf): portrait, Share and Save, rating and top review when there are
+// qa/benchmark-zocdoc/pdf): portrait, rating and top review when there are
 // reviews, then tabs (Highlights, About, Location, Reviews, FAQs) so the match opens short and
 // everything else is one tap away. Highlights are server-ranked for this patient.
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Check, Heart, Labelled, Share } from "@/src/ui/kit";
+import { Check, Labelled } from "@/src/ui/kit";
 import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
@@ -92,16 +92,6 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Highly recommended", detail: `${reviews.count} verified Wattle patients, average ${reviews.average?.toFixed(1)} of 5`, matched: false }, ...highlights];
   const tabs = TABS.filter((t) => t !== "Highlights" || highlights.length > 0);
 
-  async function share() {
-    const url = new URL(doctorHref(d.id), window.location.origin).toString();
-    try {
-      if (navigator.share) await navigator.share({ title: d.name.display, url });
-      else await navigator.clipboard.writeText(url);
-    } catch {
-      /* dismissed */
-    }
-  }
-
   return (
     <section className="rise" aria-label={ORDINAL[index]} data-match={index}>
       <div className="mb-4 flex items-baseline justify-between">
@@ -114,10 +104,6 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <p className="text-[15px] leading-snug text-charcoal">{line}</p>
         <p className="text-[14px] text-grey">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
       </Link>
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        <button type="button" onClick={() => void share()} className="press flex h-11 items-center justify-center gap-2 rounded-[12px] border border-hairline text-[15px] text-ink"><Share size={17} /> Share</button>
-        <button type="button" aria-pressed={saved} onClick={onSave} className="press flex h-11 items-center justify-center gap-2 rounded-[12px] border border-hairline text-[15px] text-ink"><Heart size={17} fill={saved ? "currentColor" : "none"} /> {saved ? "Saved" : "Save"}</button>
-      </div>
       {reviews && reviews.count > 0 ? (
         <button type="button" onClick={() => setTab("Reviews")} className="press-soft mt-5 block w-full text-left">
           <span className="flex items-center gap-2"><span className="font-display text-[28px] leading-none text-ink">{reviews.average?.toFixed(1)}</span><span className="text-[#c9a227]">{"★".repeat(Math.round(reviews.average ?? 0))}</span></span>
