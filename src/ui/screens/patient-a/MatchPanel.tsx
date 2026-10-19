@@ -14,7 +14,7 @@ import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Prof
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
 import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, specialtyTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
-import { fitSentence } from "./DoctorCard";
+import { fitSentence, Portrait } from "./DoctorCard";
 import { BookCard } from "./BookCard";
 import type { Highlight } from "@/src/data/search-types";
 
@@ -115,26 +115,15 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       ) : null}
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_500px] lg:items-start lg:gap-16">
       <div className="min-w-0">
-      <header className="flex items-start gap-5">
-        <Link href={doctorHref(d.id)} className="press shrink-0">
-          {d.photo ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={d.photo.url} alt={drShort(d)} referrerPolicy="no-referrer" loading={index === 0 ? "eager" : "lazy"} className="size-[88px] rounded-full object-cover object-top lg:size-[104px]" />
-          ) : (
-            <span className="inline-flex size-[88px] items-center justify-center rounded-full bg-[#f5f8f6] font-display text-[30px] text-[#2f5d3a] lg:size-[104px]">{d.name.display.replace(/^Dr\.? /, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
-          )}
+      <Link href={doctorHref(d.id)} className="press block">
+        <Portrait d={d} height={440} saved={saved} onSave={onSave} eager={index === 0} caption={false} />
+      </Link>
+      <header className="mt-5">
+        <Link href={doctorHref(d.id)} className="press-dim block">
+          <p role="heading" aria-level={2} className="text-[24px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink lg:text-[28px]">{d.name.display}</p>
         </Link>
-        <div className="min-w-0 flex-1 pt-1">
-          <Link href={doctorHref(d.id)} className="press-dim block">
-            <p role="heading" aria-level={2} className="text-[22px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink lg:text-[28px]">{d.name.display}</p>
-          </Link>
-          <p className="mt-1 text-[16px] font-medium leading-snug text-ink lg:text-[17px]">{line}</p>
-          <p className="mt-1 text-[15px] leading-snug text-[#6b6b6b] lg:text-[16px]">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
-        </div>
-        <button type="button" aria-pressed={saved} aria-label={saved ? "Remove from saved" : "Save"} onClick={onSave} className="press hidden h-10 shrink-0 items-center gap-2 rounded-[6px] border border-ink px-3.5 text-[15px] font-medium text-ink sm:inline-flex">
-          <svg width={17} height={17} viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth={1.8} aria-hidden="true"><path d="M12 20s-7-4.3-7-9.4A4 4 0 0 1 12 8a4 4 0 0 1 7 2.6C19 15.7 12 20 12 20Z" /></svg>
-          {saved ? "Saved" : "Save"}
-        </button>
+        <p className="mt-1 text-[16px] font-medium leading-snug text-ink lg:text-[17px]">{line}</p>
+        <p className="mt-1 text-[15px] leading-snug text-[#6b6b6b] lg:text-[16px]">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
       </header>
       {ownLine ? <p className="mt-5 font-display text-[19px] leading-[1.45] text-ink lg:text-[21px]">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="mt-5 text-[15px] leading-[1.5] text-[#6b6b6b]">{fitSentence(card, labels)}</p>}
       {reviews && reviews.count > 0 ? (
