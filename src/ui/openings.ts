@@ -14,6 +14,8 @@ export type OpeningsState = {
   windows: Window[];
   notify: boolean;
   seen: string[];
+  /** Saved doctors you've switched off in Saved; Openings skips them. */
+  muted?: string[];
 };
 const EMPTY: OpeningsState = { calendar: null, windows: ["morning", "midday", "afternoon", "evening"], notify: false, seen: [] };
 
@@ -54,7 +56,8 @@ export type FitOpening = Opening & { doctor: DoctorRecord };
 /** Every fitting opening across saved doctors, soonest first, and the ones not announced yet. */
 export async function checkOpenings(now = Date.now()): Promise<{ fit: FitOpening[]; fresh: FitOpening[]; doctors: DoctorRecord[] }> {
   const s = getOpeningsState();
-  const doctors = await loadDoctors(savedDoctorIds());
+  const muted = new Set(s.muted ?? []);
+  const doctors = await loadDoctors(savedDoctorIds().filter((id) => !muted.has(id)));
   const busy = s.calendar?.busy ?? demoBusy(now);
   const fit = doctors
     .flatMap((d) => fitting(demoOpenings(d.id, offersTelehealth(d), now), busy, s.windows).map((o) => ({ ...o, doctor: d })))

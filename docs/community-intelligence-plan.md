@@ -56,7 +56,7 @@ sources ──► collectors ──► mention finder ──► resolver ──�
 1. **Collectors** run as scheduled batch jobs, never in the request path. Reddit uses the API with a stored cursor. YouTube uses the API. Tier-A own-content collection is manual research, like the profile sweeps.
 2. **Mention finder.** Deterministic patterns pick out "Dr Firstname Lastname" and "Dr Lastname at Clinic", plus a Queensland place near the name. Optional offline enrichment can use Claude through the subscription CLI, with no API key, in batch only. The output is `(doctor name, practice/suburb hint, theme tags, polarity)`. **The text is then dropped.**
 3. **Resolver.** It matches against the roster on name key, suburb and specialty.
-   - Unmatched names become `doctor_candidates`. A person confirms registration on the public Ahpra register by hand. We never scrape Ahpra.
+   - Unmatched names become `doctor_candidates`. Registration is confirmed on the public Ahpra register by hand in one batch at the end (founder decision). We never scrape Ahpra.
    - We then find the doctor's own practice page and onboard them as a `published` record, even with a thin bio. Thin is fine: they rank lower until outreach fills the gaps.
 4. **Signals** hold one row per doctor, source and month:
    - mention count
@@ -105,8 +105,8 @@ Separately and continuously: keep amassing doctors from practice pages. The fift
 - **Economic.** Platforms now charge for data (Reddit 2023, X), so cheap scraping is both against terms and fragile. Owning the nomination channel builds a first-party asset that compounds. Doctors gain from being found, so a doctor's own opt-in content is a supply incentive, not a cost.
 - **Geopolitical.** Australian privacy reform, the 2024 amendments and the 2025 tort are tightening. Ahpra is actively enforcing advertising rules. Meta has shut researcher access before. Design for the strictest reading now. Keep collection minimal and doctor-centred so a policy change can't strand the system.
 
-## Open decisions for the founder
+## Decisions
 
-1. Is commercial Reddit access worth the cost and terms, or should v1 run on nominations plus own content only? The recommendation is to start with nominations and own content.
-2. Should a community signal ever be patient-facing, for example a "Recommended in the community" mark? This is blocked on the s133 legal opinion.
-3. Who in the team owns the human gate and the Ahpra checks?
+- **2026-10-19, founder:** no community signal is ever visible to patients. It is internal only: discovery, onboarding and outreach priority. This settles the s133 display question. The legal opinion in phase 0 now only needs to cover collection and internal use.
+- **2026-10-19, founder:** Ahpra registration checks happen last, as a batch before launch, not per candidate. Candidates are onboarded for the demo first and marked `ahpra_checked_at = null` until then.
+- **Open:** is commercial Reddit access worth the cost and terms, or should v1 run on nominations plus own content only? The recommendation is to start with nominations and own content.

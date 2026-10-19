@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { lookup } from "@/src/data/api";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { DoctorRecord } from "@/src/data/types";
-import { Body, Divider, FaceStack, FieldBox, FigmaIcon, Row, Screen, SectionTitle, TabBar } from "@/src/ui/kit";
+import { Body, Divider, FaceStack, FieldBox, FigmaIcon, initialsOf, Row, Screen, SectionTitle, TabBar, Toggle } from "@/src/ui/kit";
+import { getOpeningsState, setOpeningsState } from "@/src/ui/openings";
 import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
-import { getName, getRecent, getRequest, getSavedIds, setName, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
+import { getName, getRecent, getRequest, getSavedContext, getSavedIds, setName, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
 import { Space } from "./bits";
-import { placeOf, practicalChips, quoteOf, specialtyTitle } from "./facts";
+import { drName, placeOf, practicalChips, quoteOf, specialtyTitle } from "./facts";
 
 const day = (iso: string) => {
   const d = new Date(iso);
@@ -98,19 +99,87 @@ export function Saved() {
     setIds(next);
     setDoctors((ds) => ds.filter((d) => next.includes(d.id)));
   };
+  const ctx = typeof window === "undefined" ? {} : getSavedContext();
+  const groups = groupSaved(doctors, ctx);
+  const [only, setOnly] = useState<string | null>(null);
+  const [watch, setWatch] = useState<string[]>([]);
+  useEffect(() => setWatch(getOpeningsState().muted ?? []), []);
+  const muted = new Set(watch);
+  const toggleWatch = (ids: string[], on: boolean) => {
+    const next = on ? [...muted].filter((x) => !ids.includes(x)) : [...new Set([...muted, ...ids])];
+    setWatch(next);
+    setOpeningsState({ muted: next });
+  };
+  const shown = only ? groups.filter((g) => g.category === only) : groups;
   return (
     <Screen padBottom="pb-[110px]">
       <SectionTitle>Saved</SectionTitle>
-      <Space h={24} />
-      {ids && ids.length === 0 ? <Body>Nothing saved yet.</Body> : null}
-      <div className="flex flex-col gap-7">
-        {doctors.map((d, i) => (
-          <SavedCard key={d.id} doctor={d} index={i} onRemove={() => remove(d.id)} />
-        ))}
+      <Space h={16} />
+      {ids && ids.length === 0 ? <Body>Nothing saved yet. Tap the heart on a match to keep them here and watch for openings.</Body> : null}
+      {groups.length > 1 ? (
+        <div role="tablist" aria-label="Filter saved doctors" className="-mx-1 flex gap-1 overflow-x-auto pb-2">
+          {[null, ...groups.map((g) => g.category)].map((c) => {
+            const on = only === c;
+            const n = c === null ? doctors.length : groups.find((g) => g.category === c)!.doctors.length;
+            return (
+              <button key={c ?? "all"} type="button" role="tab" aria-selected={on} onClick={() => setOnly(c)} className={`press shrink-0 rounded-full px-3.5 py-2 text-[15px] ${on ? "bg-ink text-white" : "text-charcoal"}`}>
+                {c ?? "All"} <span className={on ? "text-white/70" : "text-grey"}>{n}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+      <div className="mt-3 flex flex-col gap-4">
+        {shown.map((g) => {
+          const watching = g.doctors.filter((d) => !muted.has(d.id)).length;
+          return only ? (
+            <div key={g.category} className="flex flex-col gap-7">
+              {g.doctors.map((d, i) => (
+                <div key={d.id}>
+                  <SavedCard doctor={d} index={i} onRemove={() => remove(d.id)} />
+                  <div className="mt-3 flex items-center justify-between rounded-[16px] bg-[#f5f8f6] px-4 py-2.5">
+                    <span className="text-[14px] text-charcoal">Tell me when {drName(d).split(" ").slice(0, 2).join(" ")} has openings</span>
+                    <Toggle on={!muted.has(d.id)} onChange={(v) => toggleWatch([d.id], v)} label={`Watch ${drName(d)} for openings`} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <button key={g.category} type="button" onClick={() => setOnly(g.category)} className="press press-soft flex items-center gap-4 rounded-[22px] border border-hairline px-4 py-4 text-left">
+              <span className="flex shrink-0 -space-x-3">
+                {g.doctors.slice(0, 3).map((d) =>
+                  d.photo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img key={d.id} src={d.photo.url} alt="" referrerPolicy="no-referrer" className="size-12 rounded-full border-2 border-white object-cover object-top" />
+                  ) : (
+                    <span key={d.id} className="inline-flex size-12 items-center justify-center rounded-full border-2 border-white bg-[#f5f8f6] text-[14px] text-[#2f5d3a]">{initialsOf(d.name.display)}</span>
+                  ),
+                )}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-display text-[19px] text-ink">{g.category}</span>
+                <span className="block truncate text-[14px] text-grey">{g.doctors.map((d) => drName(d).replace(/^Dr /, "")).join(", ")}</span>
+                <span className="mt-0.5 block text-[13px] text-[#2f5d3a]">{watching ? `Watching ${watching} for openings` : "Not watching for openings"}</span>
+              </span>
+              <span className="text-grey">›</span>
+            </button>
+          );
+        })}
       </div>
       <TabBar active="/saved" />
     </Screen>
   );
+}
+
+/** Saved doctors grouped by why they were saved (the search's condition), else their first listed condition, else specialty. */
+export function groupSaved(doctors: DoctorRecord[], ctx: Record<string, string>): { category: string; doctors: DoctorRecord[] }[] {
+  const map = new Map<string, DoctorRecord[]>();
+  for (const d of doctors) {
+    const first = d.conditions?.value?.[0];
+    const c = ctx[d.id] ?? (first ? first.replace(/-/g, " ").replace(/^./, (x) => x.toUpperCase()) : specialtyTitle(d.specialty));
+    map.set(c, [...(map.get(c) ?? []), d]);
+  }
+  return [...map.entries()].map(([category, ds]) => ({ category, doctors: ds })).sort((a, b) => b.doctors.length - a.doctors.length || a.category.localeCompare(b.category));
 }
 
 export function Me() {
@@ -136,7 +205,9 @@ export function Me() {
         </FieldBox>
       </label>
       <Space h={30} />
-      <Row icon={<FigmaIcon name="calendar" size={17} />} title="Openings" sub="Saved doctors' times that fit your calendar" href="/me/openings" />
+      <Row icon={<FigmaIcon name="check" size={17} />} title="Healthspan" sub="Doctors who help you prevent illness and reach your goals" href="/healthspan" />
+      <Divider />
+      <Row icon={<FigmaIcon name="clock" size={17} />} title="Openings" sub="Saved doctors' times that fit your calendar" href="/me/openings" />
       <Divider />
       <Row icon={<FigmaIcon name="sliders" size={17} />} title="Your health context" sub="Bring it from ChatGPT, or use Wattle inside it" href="/me/context" />
       <Divider />

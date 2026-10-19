@@ -103,7 +103,11 @@ export interface RecentSearch {
 
 export const getSavedIds = () => read<string[]>(() => localStorage, SAVED_KEY) ?? [];
 export const isSavedId = (id: string) => getSavedIds().includes(id);
-export function toggleSavedId(id: string): string[] {
+/** Why each doctor was saved: the condition of the search it came from ("Endometriosis"). Groups Saved like Recent. */
+const SAVED_CTX = "wattle.saved.ctx.v1";
+export const getSavedContext = () => read<Record<string, string>>(() => localStorage, SAVED_CTX) ?? {};
+export function toggleSavedId(id: string, context?: string): string[] {
+  if (context) write(() => localStorage, SAVED_CTX, { ...getSavedContext(), [id]: context });
   const current = getSavedIds();
   const next = current.includes(id) ? current.filter((x) => x !== id) : [...current, id];
   write(() => localStorage, SAVED_KEY, next);

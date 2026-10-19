@@ -21,13 +21,18 @@ import { REACH_KM, restoreCounts, runMatch } from "./lib";
 const ORDINAL = ["Your top match", "Your second match", "Your third match"];
 const MAX = 3;
 
-/** "Endometriosis, listens. Within 20 km of Brisbane." Specialties stay implicit. */
+/** "Endometriosis, with a doctor who listens. Telehealth, anywhere in Queensland." Specialties stay implicit; nothing is said twice. */
 function heardSentence(req: StoredRequest): string {
-  const chips = req.response.chips.filter((c) => c.kind !== "specialty");
-  const words = chips.map((c, i) => (i === 0 ? c.label : c.label.toLowerCase()));
+  const tele = /telehealth only/i.test(req.sentence);
+  const chips = req.response.chips.filter((c) => c.kind !== "specialty" && !(tele && /telehealth|video/i.test(c.label)));
+  const what = chips.filter((c) => c.kind === "condition").map((c) => c.label);
+  const how = chips.filter((c) => c.kind !== "condition").map((c) => c.label.toLowerCase());
+  const parts = how.map((l) => (/^(listens|explains|takes|believes|gets)/.test(l) ? `who ${l}` : `with ${l.replace(/^(a |an )/, "")}`));
+  const head = what.length ? what.join(" and ") : "";
+  const who = parts.length ? `${head ? ", " : ""}a doctor ${parts.join(" and ")}` : "";
   const place = req.response.place.suburb?.replace(/ City$/, "");
-  const where = req.anywhere ? "All of Queensland." : /telehealth only/i.test(req.sentence) ? "By telehealth, anywhere in Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
-  return [words.length ? `${words.join(", ")}.` : "", where].filter(Boolean).join(" ");
+  const where = req.anywhere ? "All of Queensland." : tele ? "Telehealth, anywhere in Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
+  return [head || who ? `${(head + who).charAt(0).toUpperCase()}${(head + who).slice(1)}.` : "", where].filter(Boolean).join(" ");
 }
 
 export function Matches() {
@@ -168,7 +173,7 @@ export function Matches() {
         {cards.slice(0, shown).map((card, i) => (
           <div key={card.doctor.id}>
             {i > 0 ? <div className="my-12 h-px w-full bg-divider" aria-hidden="true" /> : null}
-            <MatchPanel newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id))} />
+            <MatchPanel newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id, req?.response.chips.find((c) => c.kind === "condition")?.label))} />
           </div>
         ))}
         {shown < cards.length ? (
