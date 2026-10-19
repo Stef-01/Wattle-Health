@@ -58,6 +58,7 @@ export const BRISBANE: readonly SuburbPoint[] = [
   { suburb: "Manly", postcode: "4179", lat: -27.4560, lon: 153.1790 },
   { suburb: "Capalaba", postcode: "4157", lat: -27.5240, lon: 153.1960 },
   { suburb: "Cleveland", postcode: "4163", lat: -27.5260, lon: 153.2650 },
+  { suburb: "Ormiston", postcode: "4160", lat: -27.5160, lon: 153.2550 },
   { suburb: "Annerley", postcode: "4103", lat: -27.5106, lon: 153.0333 },
   { suburb: "Yeronga", postcode: "4104", lat: -27.5160, lon: 153.0160 },
   { suburb: "Moorooka", postcode: "4105", lat: -27.5330, lon: 153.0250 },

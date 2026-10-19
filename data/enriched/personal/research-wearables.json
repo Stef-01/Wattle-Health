@@ -1,0 +1,244 @@
+{
+  "category": "wearables",
+  "researched_at": "2026-10-19",
+  "doctors": [
+    {
+      "name": "Dr Melissa Teh",
+      "given": "Melissa",
+      "family": "Teh",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Noosa Longevity Health",
+        "address": "197 Weyba Rd",
+        "suburb": "Noosaville",
+        "postcode": "4566",
+        "phone": null,
+        "website": "https://noosalongevityhealth.com.au/melissa-teh/"
+      },
+      "telehealth": true,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "menopause",
+        "metabolic-health"
+      ],
+      "populations": [
+        "adult",
+        "women"
+      ],
+      "focus_tags": [
+        "preventive medicine",
+        "lifestyle medicine",
+        "health screening",
+        "menopause",
+        "VO2 max testing"
+      ],
+      "personal": {
+        "philosophy_of_care": "Prevent or slow chronic disease through evidence-based lifestyle interventions and medical therapy.",
+        "why_medicine": null,
+        "communication_approach": "Builds personalised, long-term health strategies with each patient.",
+        "communication": [
+          "evidence-based",
+          "collaborative"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "She is passionate about preventive and lifestyle medicine, health screening, and women",
+            "about": "focus"
+          },
+          {
+            "text": "She works closely with each individual to create personalized, long-term health strategies.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://noosalongevityhealth.com.au/melissa-teh/",
+        "page_title": "Melissa Teh | Noosa Longevity Health",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://noosalongevityhealth.com.au/",
+        "secondary_note": "Homepage: 6.5-hour assessment including '1-hour medical doctor assessment' and '1-hour VO2 max testing', with telehealth follow-up; address 197 Weyba Rd, Noosaville QLD 4566. Her profile page title wrongly reads 'Clinical Psychologist'; body text says General Practitioner (MBBS, FRACGP). No wearables or CGM mentioned."
+      },
+      "personal_richness": 1,
+      "healthspan": {
+        "areas": [
+          "fitness",
+          "metabolic",
+          "hormones"
+        ],
+        "opens_to": [],
+        "evidence": "1-hour VO2 max testing"
+      }
+    },
+    {
+      "name": "Dr Kenny Clark",
+      "given": "Kenny",
+      "family": "Clark",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "The Family & Diabetic GP Clinic",
+        "address": null,
+        "suburb": "Hyde Park",
+        "postcode": "4812",
+        "phone": null,
+        "website": "https://www.diabeticgp.com.au/our-team"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "type-1-diabetes",
+        "type-2-diabetes",
+        "metabolic-health"
+      ],
+      "populations": [
+        "adult",
+        "child"
+      ],
+      "focus_tags": [
+        "diabetes care",
+        "continuous glucose monitoring",
+        "insulin pump starts",
+        "metabolic syndrome"
+      ],
+      "personal": {
+        "philosophy_of_care": "Wants people with diabetes of all ages to live as full and healthy a life as possible.",
+        "why_medicine": null,
+        "communication_approach": "Gives community talks on healthy living and diabetes management.",
+        "communication": [
+          "lived-experience"
+        ],
+        "lived_experience": "Lives with type 1 diabetes himself.",
+        "hobbies": [
+          "sport"
+        ],
+        "outside_medicine": "Raised in Scotland with a sports science degree before medicine at the University of Glasgow; founded the clinic in Townsville in 2016.",
+        "quotes": [
+          {
+            "text": "Being a Type 1 Diabetic, Dr Kenny has a passion for the care and management of Diabetes and also general health.",
+            "about": "lived experience"
+          },
+          {
+            "text": "He wants diabetics of all ages to live as full and healthy a life as possible.",
+            "about": "approach"
+          },
+          {
+            "text": "A keen sportsman and community minded",
+            "about": "outside medicine"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.diabeticgp.com.au/our-team",
+        "page_title": "Our Team | The Family & Diabetic GP Clinic",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://www.diabeticgp.com.au/diabetes-clinic",
+        "secondary_note": "Diabetes clinic page lists 'Continuous glucose monitoring' and in-house insulin pump starts; About page: clinic 'founded by Dr Kenny Clark FRACGP' in Townsville, July 2016. Suburb/postcode from the clinic's HotDoc booking link (Hyde Park/Castletown QLD 4812). No phone on the pages read."
+      },
+      "personal_richness": 3,
+      "healthspan": {
+        "areas": [
+          "metabolic"
+        ],
+        "opens_to": [
+          "cgm"
+        ],
+        "evidence": "Continuous glucose monitoring"
+      }
+    },
+    {
+      "name": "Dr Rory Melville",
+      "given": "Rory",
+      "family": "Melville",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Medical Healthspan Alliance",
+        "address": "Suite 9 58/68 Delancey St",
+        "suburb": "Ormiston",
+        "postcode": "4160",
+        "phone": "07 3086 0047",
+        "website": "https://www.medicalhealthspanalliance.au/our-team"
+      },
+      "telehealth": false,
+      "referral_required": false,
+      "fee_initial_dollars": null,
+      "taking_new_patients": null,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "cardiovascular-risk",
+        "metabolic-health"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "healthspan medicine",
+        "preventive medicine",
+        "lifestyle medicine",
+        "VO2 max testing"
+      ],
+      "personal": {
+        "philosophy_of_care": "Proactive rather than reactive care, with personalised guidance to prevent or slow chronic disease.",
+        "why_medicine": null,
+        "communication_approach": "Warm and friendly; sees each patient as a unique person with distinct needs.",
+        "communication": [
+          "holistic"
+        ],
+        "lived_experience": null,
+        "hobbies": [],
+        "outside_medicine": "Glasgow graduate (1993), over a decade as a GP in the UK, moved to Australia in 2013; Certificate in Healthy Longevity Medicine; member of the Australasian Society of Lifestyle Medicine.",
+        "quotes": [
+          {
+            "text": "a passion for proactively enhancing healthspan through a holistic approach to patient care",
+            "about": "approach"
+          },
+          {
+            "text": "health is not just the absence of disease but a state of physical, mental, and social well-being",
+            "about": "philosophy"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.medicalhealthspanalliance.au/our-team",
+        "page_title": "Team 1 — Medical Healthspan Alliance- Longevity and Health clinic",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://www.medicalhealthspanalliance.au/book-now",
+        "secondary_note": "Booking page: one-hour doctor consult where 'Baseline blood tests, scans, and VO2 max testing will be organised'. VO2 max assessments are run by the partner exercise physiologists (Achieve), not by Dr Melville himself. Address from the booking page; phone from the homepage."
+      },
+      "personal_richness": 2,
+      "healthspan": {
+        "areas": [
+          "fitness",
+          "heart",
+          "metabolic"
+        ],
+        "opens_to": [
+          "biomarkers"
+        ],
+        "evidence": "Baseline blood tests, scans, and VO2 max testing will be organised."
+      }
+    }
+  ]
+}
