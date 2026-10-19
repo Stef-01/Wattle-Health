@@ -43,7 +43,7 @@ function Header({ d }: { d: DoctorRecord }) {
   );
 }
 
-function Facts({ d }: { d: DoctorRecord }) {
+export function Facts({ d }: { d: DoctorRecord }) {
   const facts = [yearsLine(d), ...practicalChips(d)].filter(Boolean) as string[];
   if (facts.length === 0) return null;
   return <p className="text-[14px] leading-[1.5] text-grey">{facts.join(" · ")}</p>;
@@ -59,7 +59,7 @@ function similar(a: string | null, b: string | null): boolean {
   return shared / Math.max(1, Math.min(wa.size, wb.size)) > 0.5;
 }
 
-function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boolean }) {
+export function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boolean }) {
   const p = personalOf(d);
   if (!p) return null;
   const pr = pronouns(d);
@@ -107,7 +107,7 @@ function Words({ d, skipMeet = false }: { d: DoctorRecord; skipMeet?: boolean })
   );
 }
 
-function Practical({ d }: { d: DoctorRecord }) {
+export function Practical({ d }: { d: DoctorRecord }) {
   const room = primaryRoom(d);
   const fee = feeOf(d);
   const rows: { k: string; v: string }[] = [];
@@ -132,7 +132,7 @@ function Practical({ d }: { d: DoctorRecord }) {
   );
 }
 
-function Sources({ d }: { d: DoctorRecord }) {
+export function Sources({ d }: { d: DoctorRecord }) {
   const rows = d.sources.filter((s) => s.sourceUrl);
   if (rows.length === 0) return null;
   return (
@@ -144,7 +144,7 @@ function Sources({ d }: { d: DoctorRecord }) {
   );
 }
 
-function Research({ d }: { d: DoctorRecord }) {
+export function Research({ d }: { d: DoctorRecord }) {
   const pubs = verifiedPublications(d);
   if (pubs.length === 0) return null;
   return (

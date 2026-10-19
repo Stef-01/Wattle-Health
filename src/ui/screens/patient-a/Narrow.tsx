@@ -12,6 +12,7 @@ import type { Chip } from "@/src/data/search-types";
 import { ArrowLeft, Check, Circle, Cta, Screen } from "@/src/ui/kit";
 import { getDraft, setDraft } from "@/src/ui/store";
 import { runMatch } from "./lib";
+import { contextPhrases } from "@/src/ui/context";
 import { MIN_SEARCH_MS, Searching } from "./Searching";
 
 type Option = { id: string; label: string; sub?: string; phrase?: string; exclude?: string[] };
@@ -153,7 +154,8 @@ export function Narrow() {
     const s = getDraft().trim();
     if (!s) return router.replace("/");
     setSentence(s);
-    runMatch({ sentence: s })
+    const withContext = [s, ...contextPhrases(s).phrases].join(", ");
+    runMatch({ sentence: withContext })
       .then((req) => setChips(req.response.chips))
       .catch(() => setChips([]));
   }, [router]);
@@ -166,10 +168,11 @@ export function Narrow() {
   useEffect(() => setPicked(step ? (answers[step.id]?.id ?? null) : null), [index]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function finish(final: Record<string, Option>) {
-    const phrases = Object.values(final).map((o) => o.phrase).filter(Boolean);
+    const ctxWords = contextPhrases(sentence ?? "");
+    const phrases = [...Object.values(final).map((o) => o.phrase).filter(Boolean), ...ctxWords.phrases];
     const exclude = Object.values(final).flatMap((o) => o.exclude ?? []);
     const full = phrases.length ? `${sentence}, ${phrases.join(", ")}` : sentence!;
-    const summary = steps.filter((s) => final[s.id]).map((s) => ({ ask: s.summary, answer: final[s.id]!.label }));
+    const summary = [...steps.filter((s) => final[s.id]).map((s) => ({ ask: s.summary, answer: final[s.id]!.label })), ...(ctxWords.labels.length ? [{ ask: "From your health context", answer: ctxWords.labels.join(", ") }] : [])];
     setSearching(full);
     setDraft(full);
     const started = Date.now();
@@ -248,6 +251,12 @@ export function Narrow() {
               <dt className="text-[13px] text-grey">In your words</dt>
               <dd className="text-[16px] text-ink">{sentence}</dd>
             </div>
+            {contextPhrases(sentence ?? "").labels.length ? (
+              <div className="border-b border-[#e3ebe5] py-3">
+                <dt className="text-[13px] text-grey">From your health context</dt>
+                <dd className="text-[16px] text-ink">{contextPhrases(sentence ?? "").labels.join(", ")}</dd>
+              </div>
+            ) : null}
             {steps.filter((s) => answers[s.id]).map((s) => (
               <div key={s.id} className="border-b border-[#e3ebe5] py-3 last:border-b-0">
                 <dt className="text-[13px] text-grey">{s.summary}</dt>

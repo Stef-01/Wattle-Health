@@ -13,7 +13,7 @@ import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
 import { placeOf, primaryRoom, specialtyTitle } from "@/src/ui/screens/patient-b/facts";
 import { Dock } from "./Dock";
-import { fitSentence, Portrait } from "./DoctorCard";
+import { MatchPanel } from "./MatchPanel";
 import { Highlights } from "./Highlights";
 import { applyRefine, readRefine, Refine, type RefineState } from "./Refine";
 import { REACH_KM, restoreCounts, runMatch } from "./lib";
@@ -28,41 +28,6 @@ function heardSentence(req: StoredRequest): string {
   const place = req.response.place.suburb?.replace(/ City$/, "");
   const where = req.anywhere ? "All of Queensland." : /telehealth only/i.test(req.sentence) ? "By telehealth, anywhere in Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
   return [words.length ? `${words.join(", ")}.` : "", where].filter(Boolean).join(" ");
-}
-
-function MatchSection({ card, index, total, labels, saved, onSave, newPatientMatters = false }: { card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
-  const d = card.doctor;
-  const room = primaryRoom(d);
-  const line = [specialtyTitle(d.specialty), room?.name ?? null].filter(Boolean).join(" · ");
-  const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km away` : null;
-  const referral = d.referralRequired?.value === true;
-  return (
-    <section className="rise" aria-label={ORDINAL[index]} data-match={index}>
-      <div className="mb-4 flex items-baseline justify-between">
-        <p className="font-display text-[22px] text-ink">{ORDINAL[index]}</p>
-        <p className="text-[14px] text-grey">{index + 1} of {total}</p>
-      </div>
-      <p className="-mt-2 mb-4 text-[15px] leading-[1.45] text-grey">{fitSentence(card, labels)}</p>
-      <Portrait d={d} saved={saved} onSave={onSave} eager={index === 0} />
-      <div className="mt-4 flex items-start justify-between gap-4">
-        <Link href={doctorHref(d.id)} className="press-dim min-w-0">
-          <p className="text-[15px] leading-snug text-charcoal">{line}</p>
-          <p className="text-[14px] text-grey">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
-        </Link>
-        <ShareCircle name={d.name.display} path={doctorHref(d.id)} />
-      </div>
-      <Gap h={16} />
-      {card.highlights?.length ? (
-        <>
-          <Highlights items={newPatientMatters ? card.highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched)) : card.highlights} name={d.name.display} />
-          <Gap h={24} />
-        </>
-      ) : null}
-      <ProfileBody doctor={d} labels={labels} fold />
-      <Gap h={24} />
-      <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
-    </section>
-  );
 }
 
 export function Matches() {
@@ -172,6 +137,21 @@ export function Matches() {
           Wattle lists doctors. For talking therapy, start with a GP: a Mental Health Treatment Plan gives you Medicare-subsidised sessions with a psychologist.
         </p>
       ) : null}
+      {req && cards.length > 0 ? (
+        <p className="mt-3 text-[14px] leading-[1.6] text-grey">
+          Follow up:{" "}
+          {[
+            { label: "By video instead", on: { telehealth: true } },
+            { label: "A woman doctor", on: { woman: true } },
+            { label: "Anywhere in Queensland", on: { anywhere: true } },
+          ].map((f, i) => (
+            <span key={f.label}>
+              {i > 0 ? " · " : ""}
+              <button type="button" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })} className="press-dim text-accent">{f.label}</button>
+            </span>
+          ))}
+        </p>
+      ) : null}
       {req ? <Refine key={`${req.sentence}|${req.anywhere}`} open={refining} onClose={() => setRefining(false)} initial={readRefine(req.sentence, req.anywhere === true)} onApply={(s) => void refine(s)} place={place} /> : null}
       {res?.emergency ? (
         <>
@@ -188,7 +168,7 @@ export function Matches() {
         {cards.slice(0, shown).map((card, i) => (
           <div key={card.doctor.id}>
             {i > 0 ? <div className="my-12 h-px w-full bg-divider" aria-hidden="true" /> : null}
-            <MatchSection newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id))} />
+            <MatchPanel newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id))} />
           </div>
         ))}
         {shown < cards.length ? (

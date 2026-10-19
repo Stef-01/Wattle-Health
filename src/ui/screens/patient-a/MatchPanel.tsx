@@ -1,0 +1,183 @@
+"use client";
+// One match, on Zocdoc SearchAI's provider-panel structure (from the founder's 2026-10-18 capture,
+// qa/benchmark-zocdoc/pdf): portrait, Share and Save, rating and top review when there are
+// reviews, then tabs (Highlights, About, Location, Reviews, FAQs) so the match opens short and
+// everything else is one tap away. Highlights are server-ranked for this patient.
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import type { Card } from "@/src/data/search-types";
+import type { DoctorRecord } from "@/src/data/types";
+import { doctorHref } from "@/src/data/doctor-slug";
+import { Check, Heart, Labelled, Share } from "@/src/ui/kit";
+import { Facts, Research, Sources, Words } from "@/src/ui/screens/patient-b/Profile";
+import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
+import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
+import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, specialtyTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
+import { fitSentence, Portrait } from "./DoctorCard";
+import type { Highlight } from "@/src/data/search-types";
+
+const ORDINAL = ["Your top match", "Your second match", "Your third match"];
+const TABS = ["Highlights", "About", "Location", "Reviews", "FAQs"] as const;
+type Tab = (typeof TABS)[number];
+
+type ReviewData = { count: number; average: number | null; highlyRecommended: boolean; reviews: { body: string }[] };
+const reviewCache = new Map<string, Promise<ReviewData>>();
+function useReviewSummary(id: string): ReviewData | null {
+  const [data, setData] = useState<ReviewData | null>(null);
+  useEffect(() => {
+    if (!reviewCache.has(id)) reviewCache.set(id, fetch(`/api/reviews?doctor=${encodeURIComponent(id)}`).then((r) => r.json()).catch(() => ({ count: 0, average: null, highlyRecommended: false, reviews: [] })));
+    reviewCache.get(id)!.then(setData);
+  }, [id]);
+  return data;
+}
+
+/** Zocdoc-style highlight row: illustrated icon in a soft wattle-gold disc, bold title, grey line. */
+const ICONS: Record<Highlight["kind"], string> = {
+  clinical: "M12 4v16M4 12h16",
+  approach: "M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Zm4 0a4 4 0 1 0 8 0 4 4 0 0 0-8 0",
+  lived: "M12 20s-7-4.3-7-9.4A4 4 0 0 1 12 8a4 4 0 0 1 7 2.6C19 15.7 12 20 12 20Z",
+  access: "M6 4h12v16H6zM9 9h6M9 13h6",
+  research: "M5 5h10a3 3 0 0 1 3 3v11H8a3 3 0 0 1-3-3V5Z",
+  personal: "M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z",
+  people: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 20a5 5 0 0 1 10 0M11 20a5 5 0 0 1 10 0",
+};
+function HighlightRows({ items }: { items: Highlight[] }) {
+  return (
+    <ul className="flex flex-col">
+      {items.map((h, i) => (
+        <li key={h.id} className="rise flex gap-4 py-3" style={{ "--i": i } as React.CSSProperties}>
+          <span aria-hidden="true" className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-full" style={{ background: "#fbf1cf", color: "#8a6a00" }}>
+            <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d={ICONS[h.kind]} /></svg>
+            {h.matched ? (
+              <span className="absolute -bottom-0.5 -right-0.5 inline-flex size-[18px] items-center justify-center rounded-full border-2 border-white bg-[#2f5d3a] text-white">
+                <Check size={10} />
+              </span>
+            ) : null}
+          </span>
+          <span className="min-w-0">
+            <span className="block text-[16px] font-medium leading-snug text-ink">{h.label}</span>
+            <span className="mt-0.5 block text-[14px] leading-[1.45] text-grey">{h.detail ?? (h.matched ? "Matches what you asked for" : "")}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function faqs(d: DoctorRecord): { q: string; a: string }[] {
+  const fee = feeOf(d);
+  const tele = d.declared.telehealth ? (d.telehealth.value === "none" ? "No, appointments are in person." : d.telehealth.value === "only" ? "Yes, appointments are by telehealth only." : "Yes, telehealth is available.") : "Not listed. Ask the rooms when you call.";
+  return [
+    { q: "Do I need a referral?", a: d.referralRequired ? (d.referralRequired.value ? "Yes. Ask your GP for a referral before you book; it also lets you claim the Medicare rebate." : "No referral needed.") : "Not listed. Ask the rooms when you call." },
+    { q: "Are they taking new patients?", a: d.declared.capacity ? (d.capacity.value === "open" ? "Yes, according to their practice." : d.capacity.value === "waitlist" ? `There is a waitlist${d.waitlistWeeks ? ` of about ${d.waitlistWeeks.value} weeks` : ""}.` : d.capacity.value === "closed" ? "Not at the moment." : "Not listed.") : "Not listed. Ask the rooms when you call." },
+    { q: "Can I see them by video?", a: tele },
+    { q: "What does the first visit cost?", a: fee ? `${fee}, as published by the practice. Medicare rebates may apply.` : "Not published. Ask the rooms when you call." },
+    { q: "What languages do they speak?", a: d.languages?.value.length ? d.languages.value.join(", ") : "Not listed." },
+  ];
+}
+
+export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false }: { card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
+  const d = card.doctor;
+  const [tab, setTab] = useState<Tab>("Highlights");
+  const reviews = useReviewSummary(d.id);
+  const room = primaryRoom(d);
+  const line = [specialtyTitle(d.specialty), room?.name ?? null].filter(Boolean).join(" · ");
+  const km = card.distanceKm !== undefined ? `${Math.max(1, Math.round(card.distanceKm))} km away` : null;
+  const referral = d.referralRequired?.value === true;
+  const personal = personalOf(d);
+  const conditions = conditionLabels(d, labels);
+  const source = wordsSource(d);
+  let highlights = card.highlights ?? [];
+  if (newPatientMatters) highlights = highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched));
+  if (reviews?.highlyRecommended) highlights = [{ id: "recommended", kind: "people", label: "Highly recommended", detail: `${reviews.count} verified Wattle patients, average ${reviews.average?.toFixed(1)} of 5`, matched: false }, ...highlights];
+  const tabs = TABS.filter((t) => t !== "Highlights" || highlights.length > 0);
+
+  async function share() {
+    const url = new URL(doctorHref(d.id), window.location.origin).toString();
+    try {
+      if (navigator.share) await navigator.share({ title: d.name.display, url });
+      else await navigator.clipboard.writeText(url);
+    } catch {
+      /* dismissed */
+    }
+  }
+
+  return (
+    <section className="rise" aria-label={ORDINAL[index]} data-match={index}>
+      <div className="mb-4 flex items-baseline justify-between">
+        <p className="font-display text-[22px] text-ink">{ORDINAL[index]}</p>
+        <p className="text-[14px] text-grey">{index + 1} of {total}</p>
+      </div>
+      <p className="-mt-2 mb-4 text-[15px] leading-[1.45] text-grey">{fitSentence(card, labels)}</p>
+      <Portrait d={d} saved={saved} onSave={onSave} eager={index === 0} />
+      <Link href={doctorHref(d.id)} className="press-dim mt-4 block">
+        <p className="text-[15px] leading-snug text-charcoal">{line}</p>
+        <p className="text-[14px] text-grey">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
+      </Link>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <button type="button" onClick={() => void share()} className="press flex h-11 items-center justify-center gap-2 rounded-[12px] border border-hairline text-[15px] text-ink"><Share size={17} /> Share</button>
+        <button type="button" aria-pressed={saved} onClick={onSave} className="press flex h-11 items-center justify-center gap-2 rounded-[12px] border border-hairline text-[15px] text-ink"><Heart size={17} fill={saved ? "currentColor" : "none"} /> {saved ? "Saved" : "Save"}</button>
+      </div>
+      {reviews && reviews.count > 0 ? (
+        <button type="button" onClick={() => setTab("Reviews")} className="press-soft mt-5 block w-full text-left">
+          <span className="flex items-center gap-2"><span className="font-display text-[28px] leading-none text-ink">{reviews.average?.toFixed(1)}</span><span className="text-[#c9a227]">{"★".repeat(Math.round(reviews.average ?? 0))}</span></span>
+          {reviews.reviews[0] ? <span className="mt-1 line-clamp-2 block text-[15px] text-charcoal">“{reviews.reviews[0].body}”</span> : null}
+          <span className="mt-1 block text-[14px] text-accent">See all {reviews.count} reviews</span>
+        </button>
+      ) : null}
+
+      <div role="tablist" aria-label="Doctor details" className="mt-6 flex gap-5 overflow-x-auto border-b border-divider [scrollbar-width:none]">
+        {tabs.map((t) => (
+          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`press-soft -mb-px shrink-0 border-b-2 pb-3 text-[15px] ${tab === t ? "border-ink font-medium text-ink" : "border-transparent text-grey"}`}>{t}</button>
+        ))}
+      </div>
+      <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-4">
+        {tab === "Highlights" ? <HighlightRows items={highlights} /> : null}
+        {tab === "About" ? (
+          <div className="flex flex-col gap-7">
+            <Facts d={d} />
+            {personal ? <Words d={d} /> : <p className="text-[16px] text-grey">They haven’t shared more about how they work yet.</p>}
+            <Labelled label="Sees">
+              <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
+            </Labelled>
+            <div className="flex flex-col"><Research d={d} /><Sources d={d} /></div>
+            {source ? <p className="caption text-[12px] text-grey">{source.text} {source.href ? <a href={source.href} target="_blank" rel="noreferrer" className="text-accent">Source</a> : null}</p> : null}
+          </div>
+        ) : null}
+        {tab === "Location" ? (
+          <div className="flex flex-col gap-4">
+            {d.rooms.filter((r) => r.state === "QLD").slice(0, 3).map((r) => {
+              const address = [r.name, r.address, `${r.suburb} ${r.state} ${r.postcode}`.trim()].filter(Boolean).join(", ");
+              return (
+                <div key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">
+                  <p className="text-[16px] font-medium text-ink">{r.name ?? r.suburb}</p>
+                  <p className="mt-0.5 text-[14px] leading-[1.45] text-grey">{address}</p>
+                  <div className="mt-2 flex gap-4 text-[14px]">
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`} target="_blank" rel="noreferrer" className="text-accent">Directions</a>
+                    {r.phone ? <a href={`tel:${r.phone.replace(/[^\d+]/g, "")}`} className="text-accent">Call {r.phone}</a> : null}
+                    {r.website ? <a href={r.website} target="_blank" rel="noreferrer" className="text-accent">Website</a> : null}
+                  </div>
+                </div>
+              );
+            })}
+            {d.declared.telehealth && d.telehealth.value !== "none" ? <p className="text-[15px] text-charcoal">Also sees patients by telehealth.</p> : null}
+          </div>
+        ) : null}
+        {tab === "Reviews" ? <Reviews doctorId={d.id} name={drShort(d)} /> : null}
+        {tab === "FAQs" ? (
+          <dl className="flex flex-col">
+            {faqs(d).map((f) => (
+              <div key={f.q} className="border-b border-divider py-3 last:border-b-0">
+                <dt className="text-[16px] font-medium text-ink">{f.q}</dt>
+                <dd className="mt-0.5 text-[15px] leading-[1.45] text-grey">{f.a}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
+      </div>
+      <div className="mt-6">
+        <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
+      </div>
+    </section>
+  );
+}

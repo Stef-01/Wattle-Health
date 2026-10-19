@@ -99,6 +99,10 @@ export function Me() {
         </FieldBox>
       </label>
       <Space h={30} />
+      <Row icon={<FigmaIcon name="sliders" size={17} />} title="Your health context" sub="Bring it from ChatGPT, or use Wattle inside it" href="/me/context" />
+      <Divider />
+      <Row icon={<FigmaIcon name="book" size={17} />} title="Discover" sub="Biomarker analysis, wearable-informed consults, menopause care" href="/me/discover" />
+      <Divider />
       <Row icon={<FigmaIcon name="file" size={17} />} title="Join as a doctor" sub="Claim or add your profile" href="/join" />
       <Divider />
       <Space h={30} />

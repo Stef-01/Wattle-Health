@@ -138,3 +138,14 @@ export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Disc
   if (result.unserved) response.unserved = result.unserved;
   return response;
 }
+
+/**
+ * Health context (2026-10-18): what a pasted summary (for example one ChatGPT wrote) says, read the
+ * same deterministic way as a search sentence. Specialties are left out; conditions, people,
+ * preferences and how-they-work items come back with the words that reached them.
+ */
+export function contextItems(text: string, discipline: Discipline): { id: string; label: string; kind: Chip["kind"]; phrase: string }[] {
+  return chipsFor(text.slice(0, 4000), discipline, undefined)
+    .filter((c) => c.kind !== "specialty")
+    .map((c) => ({ id: c.id, label: c.label, kind: c.kind, phrase: c.phrase ?? c.label }));
+}

@@ -1,0 +1,144 @@
+"use client";
+// Settings › Your health context (2026-10-18). Two ways to bring what an assistant knows about you:
+// 1. Ask ChatGPT for a short summary (prompt provided), paste it here; Wattle reads it on its server
+//    without any model, shows what it understood as switches, and keeps it on this device only.
+// 2. Use Wattle inside ChatGPT or Claude: add the MCP connector or the GPT Action, and your own
+//    assistant searches Wattle with everything it already knows. No API key on Wattle's side.
+import { useEffect, useState } from "react";
+import { ArrowLeft, Circle, Cta, Screen } from "@/src/ui/kit";
+import { CHATGPT_PROMPT, getContext, setContext, type ContextItem, type HealthContext } from "@/src/ui/context";
+
+const KIND: Record<string, string> = { condition: "Health", population: "Who it’s for", must: "Must have", preference: "Preference", human: "How they work" };
+
+function Copy({ text, label }: { text: string; label: string }) {
+  const [done, setDone] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        void navigator.clipboard.writeText(text).then(() => {
+          setDone(true);
+          setTimeout(() => setDone(false), 1500);
+        });
+      }}
+      className="press rounded-full border border-hairline px-4 py-2 text-[14px] text-ink"
+    >
+      {done ? "Copied" : label}
+    </button>
+  );
+}
+
+export function ContextSettings() {
+  const [saved, setSaved] = useState<HealthContext | null>(null);
+  const [text, setText] = useState("");
+  const [items, setItems] = useState<ContextItem[] | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [origin, setOrigin] = useState("https://wattlehealth.vercel.app");
+
+  useEffect(() => {
+    const c = getContext();
+    setSaved(c);
+    if (c) {
+      setText(c.text);
+      setItems(c.items);
+    }
+    setOrigin(window.location.origin);
+  }, []);
+
+  async function read() {
+    setBusy(true);
+    try {
+      const res = await fetch("/api/context/parse", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text }) });
+      const data = (await res.json()) as { items: Omit<ContextItem, "on">[] };
+      setItems(data.items.map((i) => ({ ...i, on: true })));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function save() {
+    if (!items) return;
+    const c: HealthContext = { text, items, source: "chatgpt", updatedAt: new Date().toISOString() };
+    setContext(c);
+    setSaved(c);
+  }
+
+  function clear() {
+    setContext(null);
+    setSaved(null);
+    setText("");
+    setItems(null);
+  }
+
+  const chatgptUrl = `https://chatgpt.com/?q=${encodeURIComponent(CHATGPT_PROMPT)}`;
+
+  return (
+    <Screen padBottom="pb-[140px]">
+      <div className="flex h-11 items-center gap-4">
+        <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
+        <h1 className="display text-[22px] text-ink">Your health context</h1>
+      </div>
+      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Let Wattle understand more about you, so matches fit your life. What you add stays on this phone and only travels with a search you run.</p>
+
+      <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f5f8f6" }}>
+        <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#2f5d3a]">Bring it from ChatGPT</p>
+        <ol className="mt-3 flex flex-col gap-4 text-[15px] leading-[1.5] text-charcoal">
+          <li>
+            <span className="font-medium text-ink">1. Ask ChatGPT for a short summary.</span>
+            <span className="mt-2 flex flex-wrap gap-2">
+              <a href={chatgptUrl} target="_blank" rel="noreferrer" className="press rounded-full bg-ink px-4 py-2 text-[14px] text-white">Open ChatGPT with the prompt</a>
+              <Copy text={CHATGPT_PROMPT} label="Copy the prompt" />
+            </span>
+          </li>
+          <li>
+            <span className="font-medium text-ink">2. Paste what it wrote.</span>
+            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} maxLength={4000} placeholder="For example: I’m in my 30s with endometriosis and pelvic pain. I prefer telehealth and a woman doctor who listens and explains things plainly." className="field mt-2 w-full rounded-[16px] border-2 border-line bg-white p-3 text-[15px] outline-none" />
+            <button type="button" disabled={!text.trim() || busy} onClick={() => void read()} className="press mt-2 rounded-full border border-hairline bg-white px-4 py-2 text-[14px] text-ink disabled:opacity-50">{busy ? "Reading" : "Read it"}</button>
+          </li>
+        </ol>
+        {items ? (
+          <div className="mt-5">
+            <p className="text-[15px] font-medium text-ink">3. Here’s what Wattle understood</p>
+            {items.length === 0 ? <p className="mt-2 text-[14px] text-grey">Nothing Wattle can search on yet. Try mentioning a condition, who it’s for or how you like doctors to work.</p> : null}
+            <ul className="mt-2 flex flex-col">
+              {items.map((it, i) => (
+                <li key={it.id} className="flex items-center gap-4 border-b border-[#e3ebe5] py-3 last:border-b-0">
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[16px] text-ink">{it.label}</span>
+                    <span className="block text-[13px] text-grey">{KIND[it.kind] ?? "Context"}</span>
+                  </span>
+                  <button type="button" role="switch" aria-checked={it.on} aria-label={`Use ${it.label}`} onClick={() => setItems(items.map((x, j) => (j === i ? { ...x, on: !x.on } : x)))} className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: it.on ? "#2f5d3a" : "#e3e3e3" }}>
+                    <span className="absolute top-[2px] size-[27px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] transition-transform duration-200" style={{ transform: `translateX(${it.on ? 22 : 2}px)` }} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4"><Cta fixed={false} onClick={save}>{saved ? "Update my context" : "Use this in my searches"}</Cta></div>
+            {saved ? <p className="mt-2 text-center text-[13px] text-grey">Saved on this device {new Date(saved.updatedAt).toLocaleDateString("en-AU")}.</p> : null}
+          </div>
+        ) : null}
+      </section>
+
+      <section className="mt-6 rounded-[22px] border border-hairline px-5 py-5">
+        <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-grey">Use Wattle inside ChatGPT or Claude</p>
+        <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">Your assistant already knows your context. Connect Wattle and ask it to find you a doctor; it searches Wattle with what it knows.</p>
+        <dl className="mt-4 flex flex-col gap-4 text-[14px]">
+          <div>
+            <dt className="font-medium text-ink">ChatGPT or Claude connector (MCP)</dt>
+            <dd className="mt-1 text-grey">Settings › Connectors › Add, then paste this URL.</dd>
+            <dd className="mt-2 flex flex-wrap items-center gap-2"><code className="rounded-[10px] bg-surface-soft px-3 py-2 text-[13px] text-ink">{origin}/api/mcp</code><Copy text={`${origin}/api/mcp`} label="Copy" /></dd>
+          </div>
+          <div>
+            <dt className="font-medium text-ink">Custom GPT Action</dt>
+            <dd className="mt-1 text-grey">In the GPT editor › Actions › Import from URL.</dd>
+            <dd className="mt-2 flex flex-wrap items-center gap-2"><code className="rounded-[10px] bg-surface-soft px-3 py-2 text-[13px] text-ink">{origin}/api/openapi.json</code><Copy text={`${origin}/api/openapi.json`} label="Copy" /></dd>
+          </div>
+        </dl>
+      </section>
+
+      {saved ? (
+        <button type="button" onClick={clear} className="press-dim mt-6 text-[15px] text-danger">Delete my health context</button>
+      ) : null}
+    </Screen>
+  );
+}

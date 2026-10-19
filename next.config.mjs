@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   typescript: { ignoreBuildErrors: false },
   outputFileTracingRoot: process.cwd(),
-  outputFileTracingIncludes: { "/**": ["./disciplines/**", "./data/providers/**", "./data/enriched/**", "./data/illustrative/**"] },
+  outputFileTracingIncludes: { "/**": ["./disciplines/**", "./data/providers/**", "./data/enriched/**", "./data/illustrative/**", "./data/discover/**"] },
 };
 
 export default nextConfig;
