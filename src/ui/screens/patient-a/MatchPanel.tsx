@@ -87,6 +87,8 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const personal = personalOf(d);
   const conditions = conditionLabels(d, labels);
   const source = wordsSource(d);
+  const hobbies = personal ? [personal.hobbies ?? []].flat().filter(Boolean) : [];
+  const outside = personal?.outsideMedicine?.trim() || (hobbies.length ? hobbies.join(", ") : null);
   let highlights = card.highlights ?? [];
   if (newPatientMatters) highlights = highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched));
   if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Highly recommended", detail: `${reviews.count} verified Wattle patients, average ${reviews.average?.toFixed(1)} of 5`, matched: false }, ...highlights];
@@ -104,6 +106,9 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <p className="text-[15px] leading-snug text-charcoal">{line}</p>
         <p className="text-[14px] text-grey">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
       </Link>
+      {outside ? (
+        <p className="mt-4 rounded-[16px] bg-[#f8f6f3] px-4 py-3 text-[15px] leading-[1.5] text-charcoal"><span className="block text-[13px] font-medium text-[#8a6a3b]">Outside the clinic</span>{outside.charAt(0).toUpperCase() + outside.slice(1)}</p>
+      ) : null}
       {reviews && reviews.count > 0 ? (
         <button type="button" onClick={() => setTab("Reviews")} className="press-soft mt-5 block w-full text-left">
           <span className="flex items-center gap-2"><span className="font-display text-[28px] leading-none text-ink">{reviews.average?.toFixed(1)}</span><span className="text-[#c9a227]">{"★".repeat(Math.round(reviews.average ?? 0))}</span></span>
