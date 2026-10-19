@@ -1,0 +1,118 @@
+350d25cb-97d9-4b19-8a9e-3d7654b024c0
+This email is not recognized. Please try again or close this modal and continue creating an account
+New to Zocdoc? 
+ZocDocApp
+3nkh359ndcn1lous18qjnaed88
+Video Visit Tooltip
+Video visits
+In-person visits
+Show more availability before 
+Cannot insert before a reference node from a different parent
+Video visit
+In-person
+Book an in-person or video visit
+Book a video visit for free
+Similar_Providers_On_Zocdoc
+This provider is currently unavailable at this location, but other locations have availability. 
+This location is currently unavailable, but other locations have availability. 
+This location is currently unavailable, but other locations have availability. Select a new location below.
+Find care for a new or previously diagnosed eye issue
+Exam to get a glasses or contacts prescription and/or assess your overall eye health
+Find treatment for a new issue or ongoing care for a diagnosed condition
+1812
+1887
+3186
+Yes, I had a skin screening and biopsy and have been diagnosed
+PreviousDiagnosis
+I need an updated prescription for glasses/contacts
+UpdatedPrescription
+I would like to get contacts for the first time
+Previous Diagnosed Eye Problem Shortlist
+Saw Previous Diagnosed Eye Problem Shortlist
+Clicked Previous Diagnosed Eye Problem Shortlist Option
+Previous Diagnosed Eye Problem Shortlist Radio
+If you're booking for someone else, please use their age
+I'm open to either
+1874
+I just want to talk to someone to get started
+Grief
+Prescription Screen
+Saw prescription screen
+Clicked prescription option
+Prescription Radio
+What type of medication management are you looking for?
+If you already have a prescription, primary care providers can often give you a refill.
+Some primary care providers can diagnose and prescribe medication for common issues.
+Do you want the appointment to be over video or in person?
+Psychiatrists, psychiatric nurses and primary care providers
+Psychiatrists and psychiatric nurse practitioners
+Psychologists and other talk therapists
+1888
+3651
+1866
+187
+189
+188
+186
+3318
+M28.927 29.718a7.607 7.607 0 100-15.214 7.607 7.607 0 000 15.214z
+Before12PMOrAfter5PM
+Before10AMOrAfter12PM
+Before10AMOrAfter5PM
+Before12PM
+Before10AM
+Zocdoc has verified your insurance
+Zocdoc has verified your insurance is active
+Psychiatrists
+Therapist-Counselors
+Physical Therapist & Physiatrist
+Diagnostic Radiologist
+Pediatric Sleep Medicine Specialist
+Respiratory Therapist
+Massage Therapist
+Sleep Medicine Specialist
+Physical Therapist
+Occupational Therapist
+Trauma Surgeon
+Physical Therapy Practice
+Genetic Counselor
+Dental Sleep Specialist
+Starts before 10 am
+Starts before 12 pm
+Morning • Starts before 12 pm
+In-person and video visits
+In-person and video
+In-person visits only
+Video visits only
+Video
+104230|128188
+158045|126184
+188634|126194
+188634|126199
+188634|126197
+284593|129665
+294187|126110
+294187|126111
+294188|126111
+294188|126110
+297861|128188
+299331|131851
+299343|131801
+M18 11C18 14.866 14.866 18 11 18C7.13401 18 4 14.866 4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11Z
+In-Person Visit
+Video Visit
+0 0 18px 18px
+Have you visited this clinic before?
+Have you seen this doctor before?
+Also offers video visits
+Also offers in-person visits
+No upcoming availability on Zocdoc at this location for the appointment type selected.
+1851
+OffersVideoVisits
+No appointment availability on Zocdoc
+565
+518
+418
+465
+Intara Client Spider 67918
+Googlebot Video

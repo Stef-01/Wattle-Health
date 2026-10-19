@@ -1,0 +1,8 @@
+//d36l6oq2276obd.cloudfront.net/searchai/scripts/searchai.e417e76704face388eea.min.js
+//d36l6oq2276obd.cloudfront.net/vendors0/scripts/vendors0.ffc6b8a9092eac9fdf8b.min.js
+//d36l6oq2276obd.cloudfront.net/vendors1/scripts/vendors1.370c69aa7057d539b540.min.js
+//d36l6oq2276obd.cloudfront.net/vendors2/scripts/vendors2.0db70ccaa18d685c39fa.min.js
+//d36l6oq2276obd.cloudfront.net/vendors3/scripts/vendors3.88731a12aeb6fb1237ba.min.js
+//d36l6oq2276obd.cloudfront.net/vendors4/scripts/vendors4.0f5ab738b0cdd5998b1e.min.js
+https://cdn.speedcurve.com/js/lux.js?id=88558293
+https://dd.zocdoc.com/tags.js

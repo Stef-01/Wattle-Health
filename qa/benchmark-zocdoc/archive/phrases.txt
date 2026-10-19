@@ -1,0 +1,89 @@
+Also offers in-person visits
+Also offers video visits
+Book a video visit for free
+Book an in-person or video visit
+Chat Skip Triage
+Clicked Gender Affirming Care link
+Dental Fit Questionnaire
+Dental Triage
+Dental Triage Off-Experiment Eligible Search
+Dental Triage Summary
+Dermatologist Fit Questionnaire
+Dermatology Triage
+Dermatology Triage Summary
+Diarrhea Fit Questionnaire
+Diarrhea Triage
+Diarrhea Triage Off-Experiment Eligible Search
+Diarrhea Triage Summary
+Evening • Starts after 5 pm
+Excellent wait time
+Eye Fit Questionnaire
+Eye Triage
+Eye Triage Summary
+Failed to check diarrhea triage provider count:
+Failed to fetch fit questionnaire type
+Failed to fetch triage state:
+Gender Affirming Care
+Gender Affirming Care Banner
+Highly recommended
+Hyperactive disorder (ADD / ADHD)
+Imaging Triage
+In-Person Visit
+In-person (limited supply)
+In-person and video
+In-person and video visits
+In-person visits
+In-person visits only
+Languages spoken
+Loaded fit questionnaire
+Mammogram Fit Questionnaire
+Mammogram Triage
+Mammogram Triage Off-Experiment Eligible Search
+Massage Therapist
+Mental Health Fit Questionnaire
+Mental Health Triage
+Miscellaneous Specialties Fit Questionnaire
+Miscellaneous Specialties Triage Off-Experiment Eligible Search
+Miscellaneous Triage
+Miscellaneous Triage - Clicked continue button
+New patient
+New patient appointments
+No Recommendations
+No Recommendations Notify Me Button
+ObGyn Fit Questionnaire
+Occupational Therapist
+Ortho Fit Questionnaire
+Ortho Triage Summary
+Perform Dental Triage Search
+Perform Diarrhea Triage Search
+Perform ObGyn Triage Search
+Perform PCP Triage Search
+Physical Therapist
+Physical Therapist & Physiatrist
+ProfileRecirculation No Recommendations
+Provider Recommendation Card Next Available Link
+Providers with this badge are highly rated, reliable, and recommended by other patients.
+Psychiatrists and psychiatric nurse practitioners
+Psychiatrists, psychiatric nurses and primary care providers
+Psychologists and other talk therapists
+Respiratory Therapist
+Saw Gender Affirming Care banner
+Saw mental health fit questionnaire success screen
+Some primary care providers can diagnose and prescribe medication for common issues.
+Speech-Language Pathologist
+Starts after 5 pm
+Starts before 10 am
+Summaries highlight parts of profiles and reviews that match your search.
+Triage Complete
+Triage Trigger Search
+Ultrasound Fit Questionnaire
+Ultrasound Triage Off-Experiment Eligible Search
+Video Visit
+Video Visit Tooltip
+Video visit
+Video visits
+Video visits only
+What type of medication management are you looking for?
+What’s your preferred timeframe?
+Xray Fit Questionnaire
+Xray Triage Off-Experiment Eligible Search

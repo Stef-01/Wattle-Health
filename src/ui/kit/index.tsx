@@ -6,6 +6,7 @@ import { asset } from "@/src/ui/base-path";
 import { Children, type CSSProperties, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, Check, ChevronRight, Clock, Heart, Home, User } from "./icons";
 import { tintFor } from "./tint";
+import { Portal } from "./bits";
 
 export * from "./icons";
 export * from "./bits";
@@ -356,12 +357,14 @@ export function Fade() {
 export function Sheet({ open, onClose, title, children }: { open: boolean; onClose: () => void; title: string; children: ReactNode }) {
   if (!open) return null;
   return (
-    <div className="frame-fixed inset-y-0 z-30" role="dialog" aria-modal="true" aria-label={title}>
+    <Portal>
+    <div className="frame-fixed inset-y-0 z-50" role="dialog" aria-modal="true" aria-label={title}>
       <button type="button" aria-label="Close" onClick={onClose} className="sheet-scrim absolute inset-0 bg-ink/40" />
-      <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex flex-col gap-4 rounded-t-[25.5px] bg-white pb-[34px] pt-6">
+      <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto rounded-t-[25.5px] bg-white pb-[34px] pt-6">
         <h2 className="display text-[20px] text-charcoal">{title}</h2>
         {children}
       </div>
     </div>
+    </Portal>
   );
 }

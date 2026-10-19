@@ -1,12 +1,13 @@
 // Results with highlights, the Refine sheet, a refine applied, and the "More about" fold opened.
 import { chromium } from "@playwright/test";
+import { throughNarrow } from "./narrow-helper.mjs";
 const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
 const OUT = process.env.OUT ?? "qa/figma/journey";
 const browser = await chromium.launch();
 const p = await (await browser.newContext({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 2 })).newPage();
 await p.goto(`${BASE}/`); await p.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await p.goto(`${BASE}/`);
 await p.getByRole("button", { name: "Endometriosis, someone who listens" }).click(); await p.waitForURL(/\/narrow/);
-for (let i = 0; i < 4; i++) { if (/results/.test(p.url())) break; const o = p.locator("[data-answer='0']"); try { await o.first().waitFor({ timeout: 6000 }); } catch { break; } await o.first().click(); await p.waitForTimeout(600); }
+await throughNarrow(p);
 await p.waitForURL(/\/results/, { timeout: 20000 }); await p.waitForTimeout(1800);
 await p.locator("section[aria-label^='Highlights']").first().scrollIntoViewIfNeeded(); await p.waitForTimeout(500);
 await p.screenshot({ path: `${OUT}/07-highlights.png` });

@@ -30,7 +30,7 @@ function heardSentence(req: StoredRequest): string {
   return [words.length ? `${words.join(", ")}.` : "", where].filter(Boolean).join(" ");
 }
 
-function MatchSection({ card, index, total, labels, saved, onSave }: { card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void }) {
+function MatchSection({ card, index, total, labels, saved, onSave, newPatientMatters = false }: { card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
   const d = card.doctor;
   const room = primaryRoom(d);
   const line = [specialtyTitle(d.specialty), room?.name ?? null].filter(Boolean).join(" · ");
@@ -54,7 +54,7 @@ function MatchSection({ card, index, total, labels, saved, onSave }: { card: Car
       <Gap h={16} />
       {card.highlights?.length ? (
         <>
-          <Highlights items={card.highlights} name={d.name.display} />
+          <Highlights items={newPatientMatters ? card.highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched)) : card.highlights} name={d.name.display} />
           <Gap h={24} />
         </>
       ) : null}
@@ -82,7 +82,7 @@ export function Matches() {
     if (!found) return setMissing(true);
     if ((found.v ?? 0) < REQUEST_VERSION) {
       setBusy(true);
-      runMatch({ sentence: found.sentence, suburb: found.suburb, removed: found.removed, anywhere: found.anywhere, id: found.id })
+      runMatch({ sentence: found.sentence, suburb: found.suburb, removed: found.removed, anywhere: found.anywhere, id: found.id, exclude: found.exclude, answers: found.answers })
         .then(setReq)
         .catch(() => setReq(found))
         .finally(() => setBusy(false));
@@ -128,7 +128,7 @@ export function Matches() {
     if (!req || busy) return;
     setBusy(true);
     try {
-      setReq(await runMatch({ sentence: input.sentence ?? req.sentence, suburb: req.suburb, removed: req.removed, anywhere: input.anywhere ?? req.anywhere, id: req.id }));
+      setReq(await runMatch({ sentence: input.sentence ?? req.sentence, suburb: req.suburb, removed: req.removed, anywhere: input.anywhere ?? req.anywhere, id: req.id, exclude: req.exclude, answers: req.answers }));
       setShown(1);
     } finally {
       setBusy(false);
@@ -167,6 +167,11 @@ export function Matches() {
           </button>
         </div>
       ) : null}
+      {req?.answers?.some((a) => /Talking it through|talk to someone/i.test(a.answer)) ? (
+        <p className="mt-3 rounded-[16px] px-4 py-3 text-[14px] leading-[1.5] text-charcoal" style={{ background: "#f8f6f3" }}>
+          Wattle lists doctors. For talking therapy, start with a GP: a Mental Health Treatment Plan gives you Medicare-subsidised sessions with a psychologist.
+        </p>
+      ) : null}
       {req ? <Refine key={`${req.sentence}|${req.anywhere}`} open={refining} onClose={() => setRefining(false)} initial={readRefine(req.sentence, req.anywhere === true)} onApply={(s) => void refine(s)} place={place} /> : null}
       {res?.emergency ? (
         <>
@@ -183,7 +188,7 @@ export function Matches() {
         {cards.slice(0, shown).map((card, i) => (
           <div key={card.doctor.id}>
             {i > 0 ? <div className="my-12 h-px w-full bg-divider" aria-hidden="true" /> : null}
-            <MatchSection card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id))} />
+            <MatchSection newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id))} />
           </div>
         ))}
         {shown < cards.length ? (

@@ -18,5 +18,6 @@ export async function POST(request: Request): Promise<Response> {
   if (typeof body.suburb === "string") req.suburb = body.suburb;
   if (body.weights && typeof body.weights === "object") req.weights = body.weights;
   if (Array.isArray(body.removed)) req.removed = body.removed.filter((r): r is string => typeof r === "string");
+  if (Array.isArray(body.exclude)) req.exclude = body.exclude.filter((r): r is string => typeof r === "string").slice(0, 6);
   return NextResponse.json(await runSearch(req));
 }

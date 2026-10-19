@@ -1,5 +1,6 @@
 // The guided flow end to end: home → narrowing questions → top match → scroll → second → third → "Search again".
 import { chromium } from "@playwright/test";
+import { throughNarrow } from "./narrow-helper.mjs";
 import path from "node:path";
 const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
 const OUT = path.resolve(process.env.OUT ?? "qa/figma/journey");
@@ -10,16 +11,8 @@ const shot = (n) => page.screenshot({ path: path.join(OUT, `${n}.png`) });
 await page.goto(`${BASE}/`); await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true")); await page.goto(`${BASE}/`);
 await page.fill("textarea", "Endometriosis, I feel like nobody listens");
 await page.click("text=Find my doctor"); await page.waitForURL(/\/narrow/);
-await page.locator("[data-answer='0']").first().waitFor({ timeout: 10000 }); await page.waitForTimeout(500); await shot("01-narrow-q1");
-let asked = 0;
-for (let i = 0; i < 4; i++) {
-  if (/\/results/.test(page.url())) break;
-  const o = page.locator("[data-answer='1']").last();
-  try { await o.waitFor({ timeout: 6000 }); } catch { break; }
-  await o.click(); asked++; await page.waitForTimeout(600);
-  if (i === 0) await shot("02-narrow-q2");
-}
-await page.waitForTimeout(400); await shot("03-searching");
+await throughNarrow(page, { pick: 1, shot });
+const asked = (await import("node:fs")).readdirSync(OUT).filter((f) => f.startsWith("narrow-")).length - 2;
 await page.waitForURL(/\/results/, { timeout: 20000 }); await page.waitForTimeout(1800); await shot("04-top-match");
 const counts = [];
 for (let i = 0; i < 40; i++) {

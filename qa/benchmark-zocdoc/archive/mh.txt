@@ -1,0 +1,151 @@
+
+=== record_mh_guided_search_migration
+Saw Referral Required With Symptoms Screen
+Clicked referral required with symptoms option
+Referral required with symptoms Radio
+If you have symptoms, a healthcare provider needs to write a referral order for your mammogram
+Book an appointment with an OB-GYN, primary care provider, or another specialist to get a referral order
+referral required with symptoms
+What kind of mammogram screen
+Saw what kind of mammogram screen
+Clicked what kind of mammogram option
+What kind of mammogram Radio
+What kind of mammogram do you need?
+what kind of mammogram
+Video visit
+I'm open to either
+I just want to talk to someone to get started
+Bipolar disorder
+Addiction or substance abuse
+Anger management
+Entry Screen
+Saw entry screen
+Cartoon of a happy patient looking out a window.
+Answer a few questions to find the right mental health care
+We’ll adjust your search based on your individual needs.
+Clicked continue button
+Continue button
+Clicked just show search results button
+Just show search results button
+Just show search results
+Experience Screen
+Saw experience screen
+Clicked experience option
+Experience Radio
+What’s your experience with seeking mental health care?
+Insurance Screen
+Saw insurance screen
+would have seen new MH OON guidance
+experiment segmentation helper
+What is your insurance?
+Insurance carrier and plan
+Prescription Screen
+
+=== What type of medication management are you looking for?
+Cartoon of a happy patient looking out a window.
+Answer a few questions to find the right mental health care
+We’ll adjust your search based on your individual needs.
+Clicked continue button
+Continue button
+Clicked just show search results button
+Just show search results button
+Just show search results
+Experience Screen
+Saw experience screen
+Clicked experience option
+Experience Radio
+What’s your experience with seeking mental health care?
+Insurance Screen
+Saw insurance screen
+would have seen new MH OON guidance
+experiment segmentation helper
+What is your insurance?
+Insurance carrier and plan
+Prescription Screen
+Saw prescription screen
+Clicked prescription option
+Prescription Radio
+What type of medication management are you looking for?
+Age Screen
+Saw age screen
+Clicked age option
+Age Radio
+How old is the patient?
+Patient Type Screen
+Saw patient type screen
+Clicked patient type option
+Patient Type Radio
+Who are you seeking care for?
+Primary Care Provider Screen
+Saw primary care provider screen
+Clicked primary care provider option
+Primary Care Provider Radio
+If you already have a prescription, primary care providers can often give you a refill.
+Some primary care providers can diagnose and prescribe medication for common issues.
+Are you open to seeing a primary care provider?
+Success Screen
+Saw mental health fit questionnaire success screen
+Final Submit
+Mental Health Triage
+See your results
+See search results
+Button Clicked
+Here's what you'll be searching for
+You can make changes to your search on the results page.
+
+=== Do you want the appointment to be over video or in person?
+Success Screen
+Saw mental health fit questionnaire success screen
+Final Submit
+Mental Health Triage
+See your results
+See search results
+Button Clicked
+Here's what you'll be searching for
+You can make changes to your search on the results page.
+Treatment Type Screen
+Saw treatment type screen
+Clicked treatment type option
+Treatment Type Radio
+What type of care are you looking for?
+Visit Reason Screen
+Common Visit Reason Screen
+Saw visit reason screen
+Saw common visit reason screen
+Failed to fetch procedures:
+Is there a specific issue you want to address?
+Search conditions and services
+Do you want the appointment to be over video or in person?
+Something else
+Primary care providers
+All mental health providers and primary care providers
+Psychiatrists, psychiatric nurses and primary care providers
+Psychiatrists and psychiatric nurse practitioners
+Psychologists and other talk therapists
+General Consultation
+
+=== preferred timeframe?
+Date Selected
+Date Picker Calendar
+Filters Modal
+Select on timeframe
+I'm flexible
+We’ll show you providers who best match your search criteria
+We’ll show you providers who can see you soonest
+Early morning
+Starts before 10 am
+Starts before 12 pm
+Starts after 12 pm
+Starts after 5 pm
+Time of day
+select availability type
+Click on Availability Selection
+Availability Filter
+Date Filter
+Apply Filter
+Apply Availability Picker
+Clear Button
+What’s your preferred timeframe?
+Select on time of day
+Search Bar
+Refine Search

@@ -1,103 +1,180 @@
 "use client";
-// The narrowing conversation (2026-10-17). The person's sentence sits on the right; Wattle asks
-// up to three short questions on the left, skipping any the sentence already answered. Each
-// answer appends a plain phrase the matcher already understands, so the final search is just a
-// fuller sentence. Then the searching screen, then one match at a time on /results.
+// Guided questions (2026-10-18), reconstructed from Zocdoc SearchAI's shipped mental-health fit
+// questionnaire (recovered with REA from the archived searchai bundle; see
+// qa/benchmark-zocdoc/archive): entry → specific issue → experience → type of care → medication →
+// open to a GP → who → age → video or in person → summary ("Here's what you'll be searching for").
+// No insurance. Wattle adds "what matters most", its personal-fit question. Every answer changes
+// the search (a phrase the matcher reads, an excluded specialty) or the guidance shown with the
+// results; none is asked for show. Questions the sentence already answered are skipped.
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Chip } from "@/src/data/search-types";
-import { ArrowLeft, Circle, Screen } from "@/src/ui/kit";
+import { ArrowLeft, Check, Circle, Cta, Screen } from "@/src/ui/kit";
 import { getDraft, setDraft } from "@/src/ui/store";
 import { runMatch } from "./lib";
 import { MIN_SEARCH_MS, Searching } from "./Searching";
 
-type Option = { label: string; phrase: string };
-type Question = { id: string; ask: string; options: Option[]; skip: (chips: Chip[], sentence: string) => boolean; offer?: (chips: Chip[]) => Option[] };
+type Option = { id: string; label: string; sub?: string; phrase?: string; exclude?: string[] };
+type Ctx = { chips: Chip[]; sentence: string; answers: Record<string, Option> };
+type Step = { id: string; ask: string; help?: string; options: (ctx: Ctx) => Option[]; when: (ctx: Ctx) => boolean; summary: string };
 
-const ADULT_ONLY = /endometriosis|pcos|polycystic|menopause|perimenopause|pelvic|perinatal|postnatal/i;
+const MENTAL = /anxiety|depress|adhd|bipolar|psychosis|personality|trauma|ptsd|eating|ocd|substance|addiction|autism|sleep|perinatal|postnatal|grief|stress/i;
+const ADULT_ONLY = /endometriosis|pcos|polycystic|menopause|perimenopause|pelvic|perinatal|postnatal|pregnan/i;
 
-const QUESTIONS: Question[] = [
+const hasCondition = (c: Ctx) => c.chips.some((x) => x.kind === "condition") || Boolean(c.answers.issue?.phrase);
+const isMental = (c: Ctx) => c.chips.some((x) => x.kind === "condition" && MENTAL.test(x.label)) || MENTAL.test(c.answers.issue?.phrase ?? "");
+const isAdultOnly = (c: Ctx) => c.chips.some((x) => x.kind === "condition" && ADULT_ONLY.test(x.label)) || ADULT_ONLY.test(c.answers.issue?.phrase ?? "");
+const hasPopulation = (c: Ctx) => c.chips.some((x) => x.kind === "population");
+
+const STEPS: Step[] = [
+  {
+    id: "issue",
+    ask: "Is there a specific issue you want to address?",
+    summary: "Issue",
+    when: (c) => !c.chips.some((x) => x.kind === "condition"),
+    options: () => [
+      { id: "anxiety", label: "Anxiety", phrase: "anxiety" },
+      { id: "depression", label: "Depression", phrase: "depression" },
+      { id: "adhd", label: "ADHD", phrase: "ADHD" },
+      { id: "endo", label: "Endometriosis or pelvic pain", phrase: "endometriosis and pelvic pain" },
+      { id: "menopause", label: "Menopause or perimenopause", phrase: "menopause" },
+      { id: "pcos", label: "PCOS", phrase: "PCOS" },
+      { id: "perinatal", label: "Pregnancy or after the birth", phrase: "postnatal" },
+      { id: "pain", label: "Persistent pain or fibromyalgia", phrase: "fibromyalgia and chronic pain" },
+      { id: "fatigue", label: "Chronic fatigue, POTS or long COVID", phrase: "chronic fatigue" },
+      { id: "else", label: "Something else", phrase: "" },
+    ],
+  },
+  {
+    id: "experience",
+    ask: "What’s your experience with seeking care for this?",
+    summary: "Experience",
+    when: hasCondition,
+    options: () => [
+      { id: "first", label: "This is my first time" },
+      { id: "before", label: "I’ve seen someone before" },
+      { id: "change", label: "I’m seeing someone now and want a change" },
+    ],
+  },
+  {
+    id: "care",
+    ask: "What type of care are you looking for?",
+    summary: "Type of care",
+    when: isMental,
+    options: () => [
+      { id: "medication", label: "Medication, or a review of it", sub: "Psychiatrists and GPs" },
+      { id: "assessment", label: "An assessment or diagnosis", sub: "For example ADHD or autism" },
+      { id: "talk", label: "Talking it through", sub: "Psychologists and counsellors work with a GP referral" },
+      { id: "start", label: "I just want to talk to someone to get started" },
+      { id: "either", label: "I’m open to either" },
+    ],
+  },
+  {
+    id: "meds",
+    ask: "What type of medication management are you looking for?",
+    summary: "Medication",
+    when: (c) => c.answers.care?.id === "medication",
+    options: () => [
+      { id: "new", label: "Starting something new" },
+      { id: "review", label: "Reviewing or refilling what I take now" },
+    ],
+  },
+  {
+    id: "gp",
+    ask: "Are you open to seeing a GP?",
+    help: "If you already have a prescription, GPs can often give you a refill. Some GPs can diagnose and prescribe for common issues.",
+    summary: "Open to a GP",
+    when: (c) => c.answers.care?.id === "medication" || c.answers.care?.id === "assessment",
+    options: () => [
+      { id: "yes", label: "Yes, a GP is fine" },
+      { id: "no", label: "No, a specialist only", exclude: ["general-practice"] },
+    ],
+  },
   {
     id: "who",
-    ask: "Who is this for?",
-    options: [
-      { label: "Me", phrase: "" },
-      { label: "My child", phrase: "for my child" },
-      { label: "My teenager", phrase: "for my teenager" },
-      { label: "Me, during or after a pregnancy", phrase: "postnatal" },
+    ask: "Who are you seeking care for?",
+    summary: "For",
+    when: (c) => !hasPopulation(c),
+    options: () => [
+      { id: "me", label: "Myself" },
+      { id: "else", label: "Someone else" },
     ],
-    skip: (chips) => chips.some((c) => c.kind === "population"),
-    // A women's health condition is not something to ask about a child.
-    offer: (chips) => {
-      const all = QUESTIONS[0]!.options;
-      return chips.some((c) => c.kind === "condition" && ADULT_ONLY.test(c.label)) ? all.filter((o) => !/child/i.test(o.label)) : all;
-    },
+  },
+  {
+    id: "age",
+    ask: "How old is the patient?",
+    help: "If you’re booking for someone else, please use their age.",
+    summary: "Age",
+    when: (c) => !hasPopulation(c),
+    options: (c) =>
+      [
+        { id: "child", label: "Under 12", phrase: "for my child" },
+        { id: "teen", label: "12 to 17", phrase: "for my teenager" },
+        { id: "adult", label: "18 to 64" },
+        { id: "older", label: "65 or older", phrase: "elderly" },
+      ].filter((o) => !(o.id === "child" && isAdultOnly(c))),
   },
   {
     id: "how",
-    ask: "How would you like to see them?",
-    options: [
-      { label: "In person, near Brisbane", phrase: "" },
-      { label: "Telehealth is fine", phrase: "telehealth is fine" },
-      { label: "Telehealth only", phrase: "telehealth only" },
+    ask: "Do you want the appointment to be over video or in person?",
+    summary: "Appointment",
+    when: (c) => !/telehealth|video|online/i.test(c.sentence),
+    options: () => [
+      { id: "person", label: "In person" },
+      { id: "video", label: "Video", phrase: "telehealth only" },
+      { id: "either", label: "I’m open to either", phrase: "telehealth is fine" },
     ],
-    skip: (_chips, s) => /telehealth|video|online/i.test(s),
   },
   {
     id: "matters",
     ask: "What matters most in how they work with you?",
-    options: [
-      { label: "They really listen", phrase: "someone who really listens" },
-      { label: "They have been through it too", phrase: "lived experience" },
-      { label: "Longer appointments", phrase: "longer appointments" },
-      { label: "They look at the whole picture", phrase: "whole person care" },
-      { label: "Up to date with research", phrase: "up to date with research" },
+    summary: "What matters",
+    when: (c) => !c.chips.some((x) => x.kind === "human"),
+    options: () => [
+      { id: "listen", label: "They really listen", phrase: "someone who really listens" },
+      { id: "lived", label: "They have been through it too", phrase: "lived experience" },
+      { id: "long", label: "Longer appointments", phrase: "longer appointments" },
+      { id: "whole", label: "They look at the whole picture", phrase: "whole person care" },
+      { id: "research", label: "Up to date with research", phrase: "up to date with research" },
     ],
-    skip: (chips) => chips.some((c) => c.kind === "human"),
   },
 ];
-
-type Turn = { q: Question; answer?: Option };
 
 export function Narrow() {
   const router = useRouter();
   const [sentence, setSentence] = useState<string | null>(null);
   const [chips, setChips] = useState<Chip[] | null>(null);
-  const [turns, setTurns] = useState<Turn[]>([]);
+  const [answers, setAnswers] = useState<Record<string, Option>>({});
+  const [index, setIndex] = useState(-1); // -1 entry, steps.length = summary
+  const [picked, setPicked] = useState<string | null>(null);
   const [searching, setSearching] = useState<string | null>(null);
-  const end = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const s = getDraft().trim();
     if (!s) return router.replace("/");
     setSentence(s);
-    // A first read of the sentence decides which questions are already answered.
     runMatch({ sentence: s })
       .then((req) => setChips(req.response.chips))
       .catch(() => setChips([]));
   }, [router]);
 
-  const queue = useMemo(() => (chips && sentence ? QUESTIONS.filter((q) => !q.skip(chips, sentence)) : []), [chips, sentence]);
+  const ctx: Ctx | null = chips && sentence ? { chips, sentence, answers } : null;
+  const steps = useMemo(() => (ctx ? STEPS.filter((s) => s.when(ctx)) : []), [chips, sentence, answers]); // eslint-disable-line react-hooks/exhaustive-deps
+  const step = index >= 0 && index < steps.length ? steps[index]! : null;
+  const options = step && ctx ? step.options(ctx) : [];
 
-  useEffect(() => {
-    if (!chips || !sentence) return;
-    if (queue.length === 0) void finish([]);
-    else setTurns([{ q: queue[0]! }]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queue]);
+  useEffect(() => setPicked(step ? (answers[step.id]?.id ?? null) : null), [index]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    end.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [turns]);
-
-  async function finish(answered: Turn[]) {
-    const extra = answered.map((t) => t.answer?.phrase).filter(Boolean).join(", ");
-    const full = extra ? `${sentence}, ${extra}` : sentence!;
+  async function finish(final: Record<string, Option>) {
+    const phrases = Object.values(final).map((o) => o.phrase).filter(Boolean);
+    const exclude = Object.values(final).flatMap((o) => o.exclude ?? []);
+    const full = phrases.length ? `${sentence}, ${phrases.join(", ")}` : sentence!;
+    const summary = steps.filter((s) => final[s.id]).map((s) => ({ ask: s.summary, answer: final[s.id]!.label }));
     setSearching(full);
     setDraft(full);
     const started = Date.now();
     try {
-      await runMatch({ sentence: full });
+      await runMatch({ sentence: full, exclude, answers: summary });
     } finally {
       const wait = MIN_SEARCH_MS - (Date.now() - started);
       if (wait > 0) await new Promise((r) => setTimeout(r, wait));
@@ -105,62 +182,100 @@ export function Narrow() {
     }
   }
 
-  function answer(option: Option) {
-    const next = turns.slice();
-    next[next.length - 1] = { ...next[next.length - 1]!, answer: option };
-    const remaining = queue[next.length];
-    if (remaining) setTurns([...next, { q: remaining }]);
-    else {
-      setTurns(next);
-      setTimeout(() => void finish(next), 450);
-    }
+  function next() {
+    if (!step || !picked) return;
+    const option = options.find((o) => o.id === picked)!;
+    setAnswers((a) => ({ ...a, [step.id]: option }));
+    setIndex((i) => i + 1);
   }
 
-  const current = turns[turns.length - 1];
-  const step = turns.length;
+  const total = steps.length;
+  const progress = index < 0 ? 0 : Math.min(1, (index + (step ? 0 : 1)) / Math.max(1, total));
 
   return (
-    <Screen padBottom="pb-[60px]">
+    <Screen padBottom="pb-[150px]">
       <div className="flex h-11 items-center justify-between">
-        <Circle href="/" label="Back"><ArrowLeft size={20} /></Circle>
-        {queue.length > 0 ? <span className="text-[14px] text-grey">{Math.min(step, queue.length)} of {queue.length}</span> : null}
+        {index < 0 ? <Circle href="/" label="Back"><ArrowLeft size={20} /></Circle> : <Circle onClick={() => setIndex((i) => i - 1)} label="Back"><ArrowLeft size={20} /></Circle>}
+        {index >= 0 && step ? <span className="text-[14px] text-grey">{index + 1} of {total}</span> : null}
       </div>
-      <div className="mt-8 flex flex-col gap-5">
-        {sentence ? (
-          <p className="rise ml-auto max-w-[85%] rounded-[22px] rounded-br-[6px] bg-ink px-5 py-3.5 text-[16px] leading-[1.45] text-white">{sentence}</p>
-        ) : null}
-        {chips === null && sentence ? <p className="rise font-display text-[22px] text-grey">Reading that…</p> : null}
-        {turns.map((t, i) => (
-          <div key={t.q.id} className="flex flex-col gap-5">
-            <p className="rise max-w-[90%] font-display text-[24px] leading-[1.25] text-ink" style={{ "--i": 1 } as React.CSSProperties}>
-              {i === 0 ? "Thanks. " : ""}
-              {t.q.ask}
-            </p>
-            {t.answer ? (
-              <p className="rise ml-auto max-w-[85%] rounded-[22px] rounded-br-[6px] bg-ink px-5 py-3.5 text-[16px] leading-[1.45] text-white">{t.answer.label}</p>
-            ) : null}
+      <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-surface" role="progressbar" aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100}>
+        <div className="bar-fill h-full w-full rounded-full" style={{ transform: `scaleX(${progress})`, background: "#2f5d3a" }} />
+      </div>
+
+      {index < 0 ? (
+        <div key="entry" className="rise mt-16 flex flex-col items-center text-center">
+          <span className="search-orb" style={{ width: 72, height: 72 }} aria-hidden="true" />
+          <h1 className="display mt-10 text-[30px] leading-[1.15] text-ink">Answer a few questions to find the right doctor</h1>
+          <p className="mt-3 text-[16px] leading-[1.5] text-grey">We’ll adjust your search to what you need.</p>
+          {sentence ? <p className="mt-8 rounded-[18px] bg-surface-soft px-5 py-3 text-[15px] leading-[1.45] text-charcoal">“{sentence}”</p> : null}
+        </div>
+      ) : step ? (
+        <div key={step.id} className="rise mt-10">
+          <h1 className="display text-[28px] leading-[1.2] text-ink">{step.ask}</h1>
+          {step.help ? <p className="mt-3 text-[15px] leading-[1.5] text-grey">{step.help}</p> : null}
+          <div role="radiogroup" aria-label={step.ask} className="mt-7 flex flex-col gap-2.5">
+            {options.map((o, i) => {
+              const on = picked === o.id;
+              return (
+                <button
+                  key={o.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={on}
+                  data-answer={i}
+                  onClick={() => setPicked(o.id)}
+                  className={`rise press press-soft flex w-full items-center gap-4 rounded-[18px] border px-5 py-4 text-left ${on ? "border-[#2f5d3a] bg-[#f5f8f6]" : "border-hairline bg-white"}`}
+                  style={{ "--i": i } as React.CSSProperties}
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[17px] text-ink">{o.label}</span>
+                    {o.sub ? <span className="block text-[14px] text-grey">{o.sub}</span> : null}
+                  </span>
+                  <span aria-hidden="true" className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border ${on ? "border-[#2f5d3a] bg-[#2f5d3a] text-white" : "border-hairline text-transparent"}`}>
+                    <Check size={13} />
+                  </span>
+                </button>
+              );
+            })}
           </div>
-        ))}
-        {current && !current.answer && !searching ? (
-          <div className="flex flex-col gap-2.5">
-            {(current.q.offer ? current.q.offer(chips ?? []) : current.q.options).map((o, i) => (
-              <button
-                key={o.label}
-                type="button"
-                data-answer={i}
-                onClick={() => answer(o)}
-                className="rise press press-soft w-full rounded-[18px] border border-hairline bg-white px-5 py-4 text-left text-[17px] text-charcoal"
-                style={{ "--i": i + 2 } as React.CSSProperties}
-              >
-                {o.label}
-              </button>
+        </div>
+      ) : ctx ? (
+        <div key="summary" className="rise mt-10">
+          <h1 className="display text-[28px] leading-[1.2] text-ink">Here’s what you’ll be searching for</h1>
+          <p className="mt-3 text-[15px] text-grey">You can change it on the results page.</p>
+          <dl className="mt-6 rounded-[22px] px-5 py-2" style={{ background: "#f5f8f6" }}>
+            <div className="border-b border-[#e3ebe5] py-3">
+              <dt className="text-[13px] text-grey">In your words</dt>
+              <dd className="text-[16px] text-ink">{sentence}</dd>
+            </div>
+            {steps.filter((s) => answers[s.id]).map((s) => (
+              <div key={s.id} className="border-b border-[#e3ebe5] py-3 last:border-b-0">
+                <dt className="text-[13px] text-grey">{s.summary}</dt>
+                <dd className="text-[16px] text-ink">{answers[s.id]!.label}</dd>
+              </div>
             ))}
-            <button type="button" onClick={() => void finish(turns.filter((t) => t.answer))} className="press-dim mt-2 self-start text-[15px] text-accent">
-              Skip, show my match
-            </button>
-          </div>
-        ) : null}
-        <div ref={end} />
+          </dl>
+        </div>
+      ) : (
+        <p className="rise mt-16 text-center font-display text-[22px] text-grey">Reading that…</p>
+      )}
+
+      <div className="frame-fixed pointer-events-none bottom-0 z-20 bg-white">
+        <div className="frame-pad pointer-events-auto flex flex-col items-center gap-3 pb-[26px] pt-3">
+          {index < 0 ? (
+            <>
+              <Cta fixed={false} disabled={!ctx} onClick={() => (steps.length ? setIndex(0) : void finish({}))}>Continue</Cta>
+              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Just show my matches</button>
+            </>
+          ) : step ? (
+            <>
+              <Cta fixed={false} disabled={!picked} onClick={next}>Continue</Cta>
+              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Just show my matches</button>
+            </>
+          ) : ctx ? (
+            <Cta fixed={false} onClick={() => void finish(answers)}>See your matches</Cta>
+          ) : null}
+        </div>
       </div>
       {searching ? <Searching sentence={searching} /> : null}
     </Screen>

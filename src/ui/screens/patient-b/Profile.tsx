@@ -10,6 +10,7 @@ import { HeroScreen, Space } from "./bits";
 import { approachSentence, clip, conditionLabels, hobbySentence, listSentence, niceSource, TIER_WORD, drName, drShort, feeOf, hobbyChips, personalOf, placeOf, practicalChips, primaryRoom, pronouns, specialtyTitle, verifiedPublications, wordsSource, yearsLine } from "./facts";
 import { BookmarkCircle, ContactCta, ShareCircle } from "./ProfileClient";
 import { WhyInline } from "./WhyInline";
+import { Reviews } from "./Reviews";
 
 function Header({ d }: { d: DoctorRecord }) {
   const name = drName(d);
@@ -200,7 +201,9 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
           </Labelled>
         </>
       )}
-      <Space h={16} />
+      <Space h={28} />
+      <Reviews doctorId={d.id} name={drShort(d)} />
+      <Space h={20} />
       <div className="rise flex flex-col" style={{ "--i": 5 } as React.CSSProperties}>
         <Research d={d} />
         <Practical d={d} />

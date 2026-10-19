@@ -82,6 +82,10 @@ export interface StoredRequest {
   removed: string[];
   /** Drop the distance origin (the "Brisbane, 20 km" pill was turned off). */
   anywhere?: boolean;
+  /** Specialties ruled out in the guided questions. */
+  exclude?: string[];
+  /** The guided-question answers, for the summary and the guidance line. */
+  answers?: { ask: string; answer: string }[];
   response: SearchResponse;
   at: string;
 }

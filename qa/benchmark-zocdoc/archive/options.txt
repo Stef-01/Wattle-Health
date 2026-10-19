@@ -1,0 +1,55 @@
+
+=== Who are you seeking care for? @ 1062215
+What type of medication management are you looking for? | How old is the patient? | Who are you seeking care for? | Are you open to seeing a primary care provider?
+
+=== How old is the patient? @ 1061493
+What type of medication management are you looking for? | How old is the patient? | Who are you seeking care for? | Are you open to seeing a primary care provider?
+
+=== What type of care are you looking for? @ 981244
+Tell us more about what you’re looking for | Providers may schedule an initial consultation or exam before moving forward with these services and procedures | What kind of issue do you need treatment for? | true_on_search_page_for_dental_migration | record_dental_guided_search_migration | What type of care are you looking for? | all-visit-reasons | Skin problem | Treatment for acne, rashes, moles, eczema, cysts and other conditions | Skin cancer screening | Examination to detect signs of skin cancer and other issues | Skin cancer treatment | Find treatment for skin cancer | Cosmetic procedures | Aesthetic services such as Botox, fillers, laser treatments, etc.  | Hair loss | Find treatment for hair loss | Multiple areas or full body | Single area of concern | Yes, I had a skin screening and biopsy and have been diagnosed | No, I still need a skin screening and biopsy | Acne | Rash | Hair Loss
+
+=== What type of care are you looking for? @ 1005830
+Dermatologists, primary care providers, urgent care, and other qualified specialists  | Dermatologists, dermatology nurse practitioners and physician assistants | Expand your search to see all qualified providers | A variety of specialists can treat your visit reason | What type of care are you looking for? | What kind of skin screening do you need?
+
+=== What type of provider would you like to see? @ 875041
+wait time rating | Show all options | Primary Care, Urgent Care, Gastroenterologists  | Primary or urgent care | Typically treat patients that have diarrhea for less than 4 weeks | Gastroenterologist | Typically treat patients that have diarrhea for more than 4 weeks | 4 or more weeks | Gastroenterologists typically treat longer-lasting cases | Less than 4 weeks | Primary and urgent care providers typically treat short-term cases | What type of provider would you like to see? | A variety of providers can treat diarrhea | How long have you had diarrhea? | We'll help you find providers that can treat your condition
+
+=== experience with seeking mental health care? @ 1052917
+true_on_search_page_for_mh_migration | record_mh_guided_search_migration | What’s your experience with seeking mental health care?
+
+=== Do you want the appointment to be over video or in person? @ 1073692
+What type of care are you looking for? | Is there a specific issue you want to address? | Do you want the appointment to be over video or in person? | entry | Something else | insurance
+
+=== preferred timeframe? @ 1272891
+
+
+=== What do you need help with today? @ 1095297
+How far along are you? | This is calculated based on the first day of your last period and will help us find the best care options for you. | true_on_search_page_for_obgyn_migration | record_obgyn_guided_search_migration | Which option below best describes your needs? | What do you need help with today? | Sexual Health Specific Visit Reason | Something Else Specific Visit Reasons
+
+=== What type of medication management are you looking for? @ 1060648
+What type of medication management are you looking for? | How old is the patient? | Who are you seeking care for? | Are you open to seeing a primary care provider?
+
+=== Have you seen this doctor before? @ 1492558
+
+
+=== highlight-like strings
+Available appointments
+Video visits
+In-person visits
+Video visit
+In-person
+New patient
+Most booked
+In-person (limited supply)
+In-person and video visits
+In-person and video
+In-person visits only
+Video visits only
+New patient appointments
+Highly recommended
+Excellent wait time
+Offers sliding scale
+Offers lower out-of-pocket fees on an individual basis, typically based on your ability to pay
+Offers superbill
+Top Practice Tooltip
+Top results

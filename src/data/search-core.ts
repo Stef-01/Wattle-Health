@@ -104,7 +104,9 @@ export function toCard(ranked: Ranked, byId: Map<string, DoctorRecord>, intent?:
   return card;
 }
 
-export function searchWith(doctors: readonly DoctorRecord[], discipline: Discipline, req: SearchRequest): SearchResponse {
+export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Discipline, req: SearchRequest): SearchResponse {
+  const exclude = new Set(req.exclude ?? []);
+  const doctors = exclude.size ? allDoctors.filter((d) => !exclude.has(d.specialty)) : allDoctors;
   const weights: Weights = { ...DEFAULT_WEIGHTS, ...(req.weights ?? {}) };
   const typed = (req.suburb ?? "").trim() || "Brisbane";
   const place = resolveSuburb(typed, doctors);

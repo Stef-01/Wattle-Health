@@ -13,9 +13,9 @@ export const REACH_KM = 20;
 /** The "Try" examples on P02. Each one surfaces Queensland doctors with published personal profiles. */
 export const EXAMPLES = ["Endometriosis, someone who listens", "ADHD, lived experience", "Menopause, longer appointments", "Fibromyalgia, whole-person care"];
 
-export async function runMatch(input: { sentence: string; suburb?: string; removed?: string[]; anywhere?: boolean; id?: string }): Promise<StoredRequest> {
+export async function runMatch(input: { sentence: string; suburb?: string; removed?: string[]; anywhere?: boolean; id?: string; exclude?: string[]; answers?: { ask: string; answer: string }[] }): Promise<StoredRequest> {
   const suburb = input.anywhere ? "" : (input.suburb ?? DEFAULT_SUBURB);
-  const body: SearchRequest = { sentence: input.sentence, suburb, removed: input.removed ?? [] };
+  const body: SearchRequest = { sentence: input.sentence, suburb, removed: input.removed ?? [], ...(input.exclude?.length ? { exclude: input.exclude } : {}) };
   const response: SearchResponse = await search(body);
   const req: StoredRequest = {
     id: input.id ?? newRequestId(),
@@ -27,6 +27,8 @@ export async function runMatch(input: { sentence: string; suburb?: string; remov
     at: new Date().toISOString(),
   };
   if (input.anywhere) req.anywhere = true;
+  if (input.exclude?.length) req.exclude = input.exclude;
+  if (input.answers?.length) req.answers = input.answers;
   setRequest(req);
   pushRecent({ id: req.id, label: recentLabel(req), matches: response.cards.length, at: req.at, faces: response.cards.map((c) => c.doctor.photo?.url).filter((u): u is string => Boolean(u)).slice(0, 3) });
   return req;

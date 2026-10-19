@@ -1,20 +1,10 @@
 // The four home-screen "Try" searches through the real UI: results + first profile each.
 import { chromium } from "@playwright/test";
+import { throughNarrow } from "./narrow-helper.mjs";
 import path from "node:path";
 const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
 const OUT = path.resolve(process.env.OUT ?? "qa/figma/demos");
 
-/** From home: answer each narrowing question with its first option until the results load. */
-async function throughNarrow(p) {
-  await p.waitForURL(/\/narrow/);
-  for (let i = 0; i < 6; i++) {
-    if (/\/results/.test(p.url())) break;
-    const opt = p.locator("[data-answer='0']");
-    try { await opt.first().waitFor({ timeout: 8000 }); } catch { break; }
-    await opt.first().click(); await p.waitForTimeout(500);
-  }
-  await p.waitForURL(/\/results/, { timeout: 20000 });
-}
 const browser = await chromium.launch();
 const page = await (await browser.newContext({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 2 })).newPage();
 await page.goto(`${BASE}/`); await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true"));

@@ -3,7 +3,8 @@
 // held), small chips, a labelled section, and a disclosure that opens in place (Apple: show the
 // common path first, one level deeper on request; Emil: transitions, never keyframes).
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronRight } from "./icons";
 import { initialsFor, tintFor } from "./tint";
 export { initialsFor, tintFor } from "./tint";
@@ -118,4 +119,11 @@ export function FaceStack({ urls, size = 32 }: { urls: string[]; size?: number }
       ))}
     </span>
   );
+}
+
+/** Renders children at the end of <body>, so fixed overlays escape transformed (animated) ancestors. */
+export function Portal({ children }: { children: ReactNode }) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  return ready ? createPortal(children, document.body) : null;
 }

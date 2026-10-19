@@ -59,5 +59,7 @@ export interface SearchRequest {
   suburb?: string;
   weights?: Partial<Weights>;
   removed?: string[];
+  /** Specialties the person ruled out in the guided questions (for example "general-practice"). */
+  exclude?: string[];
 }
 
