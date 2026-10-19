@@ -20,7 +20,7 @@ const ORDINAL = ["Your top match", "Your second match", "Your third match"];
 const TABS = ["Highlights", "About", "Location", "Reviews", "FAQs"] as const;
 type Tab = (typeof TABS)[number];
 
-type ReviewData = { count: number; average: number | null; highlyRecommended: boolean; reviews: { body: string }[] };
+type ReviewData = { count: number; average: number | null; highlyRecommended: boolean; reviews: { body: string }[]; demo?: boolean; commentary?: string | null };
 const reviewCache = new Map<string, Promise<ReviewData>>();
 function useReviewSummary(id: string): ReviewData | null {
   const [data, setData] = useState<ReviewData | null>(null);
@@ -89,7 +89,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   const source = wordsSource(d);
   let highlights = card.highlights ?? [];
   if (newPatientMatters) highlights = highlights.map((h) => (h.id === "open" ? { ...h, matched: true } : h)).sort((a, b) => Number(b.matched) - Number(a.matched));
-  if (reviews?.highlyRecommended) highlights = [{ id: "recommended", kind: "people", label: "Highly recommended", detail: `${reviews.count} verified Wattle patients, average ${reviews.average?.toFixed(1)} of 5`, matched: false }, ...highlights];
+  if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Highly recommended", detail: `${reviews.count} verified Wattle patients, average ${reviews.average?.toFixed(1)} of 5`, matched: false }, ...highlights];
   const tabs = TABS.filter((t) => t !== "Highlights" || highlights.length > 0);
 
   async function share() {
@@ -121,7 +121,8 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       {reviews && reviews.count > 0 ? (
         <button type="button" onClick={() => setTab("Reviews")} className="press-soft mt-5 block w-full text-left">
           <span className="flex items-center gap-2"><span className="font-display text-[28px] leading-none text-ink">{reviews.average?.toFixed(1)}</span><span className="text-[#c9a227]">{"★".repeat(Math.round(reviews.average ?? 0))}</span></span>
-          {reviews.reviews[0] ? <span className="mt-1 line-clamp-2 block text-[15px] text-charcoal">“{reviews.reviews[0].body}”</span> : null}
+          {reviews.commentary ? <span className="mt-1 line-clamp-3 block text-[15px] text-charcoal">{reviews.commentary}</span> : null}
+          {reviews.demo ? <span className="mt-1 block text-[12px] text-grey">Demo reviews, not real patients</span> : null}
           <span className="mt-1 block text-[14px] text-accent">See all {reviews.count} reviews</span>
         </button>
       ) : null}

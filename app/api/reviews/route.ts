@@ -2,6 +2,9 @@
 // new review as 'pending' (row-level security only accepts pending inserts and only returns approved
 // rows; see supabase/migrations/0005_patient_reviews.sql). Without Supabase env it runs in memory.
 import { NextResponse } from "next/server";
+import { demoReviewsEnabled, demoReviewsFor } from "@/src/data/demo-reviews";
+import { getDoctor } from "@/src/data/providers";
+import { reviewCommentary, reviewThemes } from "@/src/data/review-themes";
 
 type Review = { id: string; doctor_id: string; rating: number; body: string; visited: string; created_at: string };
 const VISITED = new Set(["this-month", "this-year", "earlier"]);
@@ -33,7 +36,14 @@ export async function GET(request: Request) {
   } else {
     rows = memory.filter((r) => r.doctor_id === doctor && r.status === "approved");
   }
-  return NextResponse.json({ reviews: rows, ...summarise(rows), mode: e ? "live" : "local" });
+  let demo = false;
+  const d = await getDoctor(doctor);
+  if (rows.length === 0 && demoReviewsEnabled() && d) {
+    rows = demoReviewsFor(d);
+    demo = rows.length > 0;
+  }
+  const name = d?.name.display ?? "this doctor";
+  return NextResponse.json({ reviews: rows, ...summarise(rows), demo, commentary: reviewCommentary(rows, name), themes: reviewThemes(rows), mode: e ? "live" : "local" });
 }
 
 export async function POST(request: Request) {

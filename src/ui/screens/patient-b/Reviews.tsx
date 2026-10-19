@@ -1,12 +1,13 @@
 "use client";
 // Patient reviews on a profile (2026-10-18): a summary (average, count, "Highly recommended by
 // Wattle patients" at 3+ reviews averaging 4.5+), the latest three with "Show all", and a "Write a
-// review" sheet. Every review is checked before it appears; nothing is imported or invented.
+// review" sheet. Real reviews are checked before they appear. Until a doctor has any, labelled demo
+// reviews stand in (founder decision 2026-10-18), with one amalgamated "What patients say" on top.
 import { useEffect, useState } from "react";
 import { Cta, Sheet } from "@/src/ui/kit";
 
 type Review = { id: string; rating: number; body: string; visited: string; created_at: string };
-type Data = { reviews: Review[]; count: number; average: number | null; highlyRecommended: boolean };
+type Data = { reviews: Review[]; count: number; average: number | null; highlyRecommended: boolean; demo?: boolean; commentary?: string | null; themes?: { id: string; label: string; count: number }[] };
 
 const VISITED: Record<string, string> = { "this-month": "Visited this month", "this-year": "Visited this year", earlier: "Visited earlier" };
 
@@ -60,13 +61,30 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="font-display text-[28px] leading-none text-ink">{data.average?.toFixed(1)}</span>
           <Stars value={data.average ?? 0} size={18} />
-          <span className="text-[14px] text-grey">{data.count} verified {data.count === 1 ? "review" : "reviews"}</span>
-          {data.highlyRecommended ? <span className="w-full text-[14px] font-medium text-[#2f5d3a]">Highly recommended by Wattle patients</span> : null}
+          <span className="text-[14px] text-grey">{data.count} {data.demo ? "demo" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
+          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#2f5d3a]">Highly recommended by Wattle patients</span> : null}
+          {data.demo ? <span className="w-full text-[12px] text-grey">Demo reviews, not real patients. Shown to preview how reviews will look.</span> : null}
         </div>
       ) : (
         <p className="text-[15px] leading-[1.5] text-grey">No reviews yet. Wattle only shows reviews from people who saw this doctor, and checks each one before it appears.</p>
       )}
-      {shown.map((r) => (
+      {data?.commentary ? (
+        <div className="rounded-[18px] bg-[#f5f8f6] px-4 py-4">
+          <p className="text-[13px] font-medium text-[#2f5d3a]">What patients say</p>
+          <p className="mt-1 text-[16px] leading-[1.5] text-ink">{data.commentary}</p>
+          {data.themes && data.themes.length ? (
+            <ul className="mt-3 flex flex-col gap-1">
+              {data.themes.slice(0, 4).map((t) => (
+                <li key={t.id} className="flex justify-between text-[14px] text-charcoal"><span>{t.label}</span><span className="text-grey">{t.count} of {data.count}</span></li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      ) : null}
+      {data && data.count > 0 && !all ? (
+        <button type="button" onClick={() => setAll(true)} className="press-dim self-start text-[15px] font-medium text-accent">Read the {data.count} reviews</button>
+      ) : null}
+      {(all ? shown : []).map((r) => (
         <article key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">
           <div className="flex items-center justify-between">
             <Stars value={r.rating} />
@@ -75,9 +93,7 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
           <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">{r.body}</p>
         </article>
       ))}
-      {data && data.count > 3 ? (
-        <button type="button" onClick={() => setAll((v) => !v)} className="press-dim self-start text-[15px] font-medium text-accent">{all ? "Show fewer" : `Show all ${data.count} reviews`}</button>
-      ) : null}
+      {all ? <button type="button" onClick={() => setAll(false)} className="press-dim self-start text-[15px] font-medium text-accent">Hide reviews</button> : null}
       <button type="button" onClick={() => setOpen(true)} className="press self-start rounded-full border border-hairline px-4 py-2.5 text-[15px] text-ink">Write a review</button>
 
       <Sheet open={open} onClose={() => setOpen(false)} title={state === "sent" ? "Thank you" : `Review ${name}`}>

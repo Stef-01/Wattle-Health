@@ -1,0 +1,238 @@
+{
+  "researched_at": "2026-10-18",
+  "basis": "facts paraphrased from each provider's own website; links out; no endorsement",
+  "offerings": [
+    {
+      "id": "everlab-advanced-bloods",
+      "name": "Advanced Blood Testing",
+      "provider": "Everlab",
+      "category": "biomarkers",
+      "summary": "A one-off extended blood panel taken at a partner collection centre, with results tracked in an app and analysed by Everlab doctors.",
+      "includes": [
+        "Blood panel of 90+ biomarkers (heart, hormones, metabolic, liver, kidney, iron, inflammation)",
+        "Results analysed by Everlab doctors, with personal reference ranges",
+        "Lifetime app access to track results over time"
+      ],
+      "delivery": "Blood collection at 1,850+ partner labs in every state; results and doctor insights delivered online",
+      "location": "Telehealth, Australia-wide",
+      "price": "$598 one-time payment; Medicare-covered tests are included in the price and it is the total out-of-pocket cost",
+      "referral_needed": false,
+      "eligibility": null,
+      "subscription": false,
+      "clinicians": "Doctors (Everlab longevity doctors)",
+      "url": "https://www.everlab.com.au/advanced-bloods",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "apex-metabolic-longevity",
+      "name": "Longevity & Healthspan Program",
+      "provider": "Apex Metabolic Health",
+      "category": "biomarkers",
+      "summary": "Online program where a doctor orders a longevity and metabolic blood panel, reviews it with you by video and sets a treatment protocol with 3-monthly reviews.",
+      "includes": [
+        "Longevity and metabolic blood panel of 15+ markers at any of 4,000+ collection centres",
+        "45 to 60 minute telehealth consult with an AHPRA-registered doctor",
+        "Ongoing care with 3-monthly reviews"
+      ],
+      "delivery": "Telehealth only; blood collection at accredited centres Australia-wide",
+      "location": "Telehealth, Australia-wide",
+      "price": null,
+      "referral_needed": false,
+      "eligibility": "Doctor confirms suitability after an online pre-screen",
+      "subscription": false,
+      "clinicians": "AHPRA-registered doctors in metabolic and preventive medicine",
+      "url": "https://www.apexmetabolichealth.com.au/programs/longevity",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "opse-health-baseline",
+      "name": "Opse Baseline",
+      "provider": "Opse Health",
+      "category": "biomarkers",
+      "summary": "Face-to-face preventive medicine assessment with one GP who reviews your history and past results, then agrees which tests are worth doing and why.",
+      "includes": [
+        "Review of medical and family history and previous results",
+        "Risk profile and screening discussion, with a staged testing plan",
+        "Written next-steps plan from the same doctor"
+      ],
+      "delivery": "In person, Fortitude Valley (95 Robertson Street); tests done offsite with external providers",
+      "location": "Fortitude Valley, QLD",
+      "price": "$950 for the Baseline consultation; blood tests and scans are extra and paid to the external provider",
+      "referral_needed": false,
+      "eligibility": "Entry is by application; fully private (no Medicare rebate stated)",
+      "subscription": false,
+      "clinicians": "GP (FRACGP)",
+      "url": "https://opse.com.au/longevity-doctor-australia/",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "aspley-family-medical-longevity",
+      "name": "Longevity Clinic",
+      "provider": "Aspley Family Medical Practice",
+      "category": "biomarkers",
+      "summary": "GP-led preventive pathway at a Brisbane northside general practice: an initial assessment, an advanced blood panel, then a results review and plan with your GP.",
+      "includes": [
+        "Initial consult with a GP covering history, family history and goals",
+        "Advanced blood panel (inflammation, heart, metabolic, hormones, nutrients)",
+        "Results review with your GP, written plan and follow-up visits"
+      ],
+      "delivery": "In person, Aspley Arcade 2 Shopping Centre, 1368 Gympie Rd",
+      "location": "Aspley, QLD",
+      "price": null,
+      "referral_needed": false,
+      "eligibility": "Adults; some parts may attract a Medicare rebate, comprehensive assessments often carry a private fee (ask reception)",
+      "subscription": false,
+      "clinicians": "AHPRA-registered GPs",
+      "url": "https://www.afmdp.com.au/longevity-clinic-brisbane",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "doctors-kitchen-diabetes-first",
+      "name": "Diabetes First Program",
+      "provider": "The Doctor's Kitchen Australia",
+      "category": "wearables",
+      "summary": "12-week program for people with or at risk of type 2 diabetes. A doctor reviews your glucose and body composition changes; you wear a CGM for the first month.",
+      "includes": [
+        "Continuous glucose monitor for the first month",
+        "Doctor consults at the start and at week 12, plus weekly nurse, dietitian or diabetes educator check-ins",
+        "Body composition scales on loan and 9 months of follow-up support"
+      ],
+      "delivery": "Online and by phone, Australia-wide",
+      "location": "Telehealth, Australia-wide",
+      "price": null,
+      "referral_needed": null,
+      "eligibility": "Type 2 diabetes, pre-diabetes or related conditions; may be fully funded by participating private health funds for eligible members",
+      "subscription": false,
+      "clinicians": "Doctors, with nurses, dietitians and diabetes educators doing most weekly contacts",
+      "url": "https://thedoctorskitchen.com.au/pages/diabetesfirstprogram",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "coastal-resp-sleep-home-study",
+      "name": "Home Sleep Study",
+      "provider": "Coastal Respiratory & Sleep Specialists",
+      "category": "wearables",
+      "summary": "You wear a medical-grade sleep monitor at home overnight; a sleep scientist analyses it and a sleep physician reports a diagnosis and next steps.",
+      "includes": [
+        "Overnight home monitor recording breathing, oxygen, heart rate and sleep position",
+        "Data analysed by a sleep scientist and reported by a sleep physician",
+        "Treatment pathway if needed (for example CPAP), with specialist consults in person or by telehealth"
+      ],
+      "delivery": "Set-up appointment at a clinic, study done at home; specialist consults at Tugun, Benowa or Pimpama or by telehealth",
+      "location": "Gold Coast, QLD",
+      "price": "Bulk billed (no out-of-pocket cost) for eligible patients with a valid referral",
+      "referral_needed": true,
+      "eligibility": "GP referral and Medicare card needed for bulk billing",
+      "subscription": false,
+      "clinicians": "Sleep physicians and sleep scientists",
+      "url": "https://www.coastalrespsleep.com.au/services/home-sleep-study/",
+      "observed_at": "2026-10-18",
+      "note": "Uses a clinical home sleep monitor, not a consumer wearable such as Oura or Apple Watch."
+    },
+    {
+      "id": "diabetes-australia-telehealth-clinic",
+      "name": "Diabetes Australia Telehealth Clinic",
+      "provider": "Diabetes Australia",
+      "category": "wearables",
+      "summary": "Video or phone appointments for diabetes and pre-diabetes, including help with continuous glucose monitoring, medicines and eating plans.",
+      "includes": [
+        "45-minute initial consult and 20-minute reviews",
+        "Support with CGM and blood glucose monitoring",
+        "Diet, medicine and lifestyle guidance"
+      ],
+      "delivery": "Telehealth (video or phone)",
+      "location": "Telehealth, Australia-wide",
+      "price": "Self-referred: $148 initial (45 min), $118 review (20 min). With GP chronic condition plan referral: $90 initial, $60 review, partly Medicare funded",
+      "referral_needed": false,
+      "eligibility": "People with diabetes or pre-diabetes; Medicare subsidy needs a GP Chronic Condition Management Plan referral",
+      "subscription": false,
+      "clinicians": "Credentialled diabetes educators and accredited dietitians (not doctors)",
+      "url": "https://www.diabetesaustralia.com.au/diabetes-australia-clinic/",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "opse-health-menopause-optimisation",
+      "name": "Menopause Optimisation",
+      "provider": "Opse Health",
+      "category": "menopause",
+      "summary": "Three-visit doctor-led program for perimenopause and menopause that looks at symptoms alongside bone, heart and metabolic health.",
+      "includes": [
+        "Baseline menopause consult plus two structured follow-ups",
+        "Shared decisions on treatment options, with monitoring where needed",
+        "Bone and body composition, sleep, mood and genitourinary symptoms included in the plan"
+      ],
+      "delivery": "In person, Fortitude Valley (95 Robertson Street)",
+      "location": "Fortitude Valley, QLD",
+      "price": null,
+      "referral_needed": false,
+      "eligibility": "Apply through the Baseline intake form; acceptance depends on fit and capacity; fully private; tests paid separately",
+      "subscription": false,
+      "clinicians": "GP (FRACGP)",
+      "url": "https://opse.com.au/menopause/",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "eve-health-menopause-clinic",
+      "name": "Menopause Clinic",
+      "provider": "Eve Health",
+      "category": "menopause",
+      "summary": "Brisbane menopause clinic run by GPs with a women's health focus, offering extended appointments for perimenopause and menopause.",
+      "includes": [
+        "Extended appointments with a menopause-focused GP",
+        "Assessment of symptoms such as hot flushes, sleep, mood and vaginal dryness",
+        "Discussion of hormone and other treatment options"
+      ],
+      "delivery": "In person, Eve Health Brisbane",
+      "location": "Brisbane, QLD",
+      "price": null,
+      "referral_needed": false,
+      "eligibility": null,
+      "subscription": false,
+      "clinicians": "GPs (FRACGP) with an interest in menopause",
+      "url": "https://www.evehealth.com.au/menopause-clinic-2/",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "family-doctors-plus-menopause-clinic",
+      "name": "Perimenopause & Menopause Clinic",
+      "provider": "Family Doctors Plus",
+      "category": "menopause",
+      "summary": "Two 30-minute GP visits a few weeks apart: the first for history, symptoms and screening, the second to review results and set a treatment plan.",
+      "includes": [
+        "Two initial 30-minute GP appointments, 2 to 4 weeks apart",
+        "Preventive checks such as bone health, heart risk and cancer screening",
+        "Access to a physiotherapist for bone density and strength"
+      ],
+      "delivery": "In person, Family Doctors Plus Windsor",
+      "location": "Windsor, QLD",
+      "price": "$250 per 30-minute initial appointment; about $148.10 to $165.10 out of pocket after the Medicare rebate",
+      "referral_needed": false,
+      "eligibility": "Medicare rebate applies for eligible patients",
+      "subscription": false,
+      "clinicians": "GPs, with a physiotherapist",
+      "url": "https://www.familydoctorsplus.com.au/perimenopause-menopause-clinic/",
+      "observed_at": "2026-10-18"
+    },
+    {
+      "id": "menopause-gp-telehealth",
+      "name": "Menopause Telehealth Consultation",
+      "provider": "Menopause GP",
+      "category": "menopause",
+      "summary": "Telehealth menopause service run by women's health GPs. A long first consult, with prescriptions, test requests and a summary for your own GP.",
+      "includes": [
+        "Online pre-consult assessment, then a 45 to 60 minute phone or video consult",
+        "Prescriptions, blood test and scan requests, and referral letters as needed",
+        "Written summary and plan you can share with your regular GP"
+      ],
+      "delivery": "Telehealth (phone or video) only",
+      "location": "Telehealth, Australia-wide",
+      "price": "$360 initial consult (Medicare rebate $128.35); $185 follow-up (rebate $87.10); concession card holders pay a reduced gap",
+      "referral_needed": false,
+      "eligibility": "Anyone with a perimenopause or menopause concern; Medicare rebate for eligible patients",
+      "subscription": false,
+      "clinicians": "GPs (women's health)",
+      "url": "https://www.menopausegp.com.au/",
+      "observed_at": "2026-10-18"
+    }
+  ]
+}
