@@ -10,7 +10,7 @@ await page.locator("textarea, input[type=text]").first().fill("Endometriosis, so
 await page.getByText("Find my doctor").click();
 await throughNarrow(page).catch(() => null);
 await page.waitForSelector("text=Your top match", { timeout: 30000 });
-const t = await page.locator("text=/Next opening/").first().innerText({ timeout: 8000 }).catch(() => "none");
+const t = await page.locator("p:has-text(\"Next opening\")").first().innerText({ timeout: 8000 }).catch(() => "none");
 await page.locator("text=/Next opening/").first().scrollIntoViewIfNeeded().catch(() => null);
 await page.screenshot({ path: "qa/iphone/next-opening.png" });
 console.log(t);
