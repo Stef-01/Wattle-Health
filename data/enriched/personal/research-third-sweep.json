@@ -74,6 +74,36 @@
           {
             "text": "She practices slow medicine, taking the time to thoroughly understand each patient's unique circumstances and health needs, ensuring personalised and comprehensive care.",
             "about": "approach"
+          },
+          {
+            "text": "In addition to her clinical work, Dr Malini has always been passionate about medical education, having previously taught at James Cook University and currently being an academic tutor at the University of Queensland.",
+            "about": "other",
+            "source_url": "https://onehealthclinics.com.au/hc-professional/dr-malini-bose/"
+          },
+          {
+            "text": "Anxiety and burnout set in with the demanding role of being a junior doctor.",
+            "about": "lived",
+            "source_url": "https://www.drmalinibose.com/my-story"
+          },
+          {
+            "text": "The journey has certainly not been linear. I experienced burnout 5 years ago yet again and am still recovering.",
+            "about": "lived",
+            "source_url": "https://www.drmalinibose.com/my-story"
+          },
+          {
+            "text": "I've had to relearn what it means to be optimally healthy.",
+            "about": "why",
+            "source_url": "https://www.drmalinibose.com/my-story"
+          },
+          {
+            "text": "I am passionate about addressing underlying contributing factors towards chronic symptoms and disease processes rather than using temporary band-aid solutions.",
+            "about": "approach",
+            "source_url": "https://www.drmalinibose.com/my-story"
+          },
+          {
+            "text": "I believe consistency is key, and that everyone needs someone in their corner, quietly guiding and cheering them on no matter the successes and failures.",
+            "about": "approach",
+            "source_url": "https://www.drmalinibose.com/my-story"
           }
         ]
       },
@@ -81,7 +111,8 @@
         "url": "https://onehealthclinics.com.au/hc-professional/dr-malini-bose/",
         "page_title": "Dr Malini Bose | One Health Clinics",
         "observed_at": "2026-10-16",
-        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://www.drmalinibose.com/my-story"
       },
       "personal_richness": 4
     },
@@ -432,7 +463,7 @@
         "outside_medicine": null,
         "quotes": [
           {
-            "text": "Dr Eleasa was born in Toronto, Canada and made the big move “Down Under” in 2009 to study medicine in Brisbane.",
+            "text": "Dr Eleasa was born in Toronto, Canada and made the big move “Down Under” in 2009 to study medicine in Brisbane",
             "about": "lived"
           },
           {

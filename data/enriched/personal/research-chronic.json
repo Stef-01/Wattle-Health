@@ -20,18 +20,45 @@
       "referral_required": false,
       "fee_initial_dollars": 580,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["pots", "chronic-fatigue", "fibromyalgia", "hypermobility", "ibs"],
-      "populations": ["adult"],
-      "focus_tags": ["the unwell and undiagnosed", "complex care reviews", "second opinions", "MCAS", "POTS", "ME/CFS", "hEDS", "longer appointments"],
+      "conditions": [
+        "pots",
+        "chronic-fatigue",
+        "fibromyalgia",
+        "hypermobility",
+        "ibs"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "the unwell and undiagnosed",
+        "complex care reviews",
+        "second opinions",
+        "MCAS",
+        "POTS",
+        "ME/CFS",
+        "hEDS",
+        "longer appointments"
+      ],
       "personal": {
         "philosophy_of_care": "Complex problems need time, so new appointments are long; the aim is to understand what is driving things, explain it clearly and build a step-by-step plan, without unnecessary tests or guesswork.",
         "why_medicine": "His focus on chronic disease came from accompanying a close relative who was unwell but kept being told there was nothing wrong, which led him to learn the underpinnings of multiple health conditions.",
         "communication_approach": "A fresh set of eyes and a careful rethink for people told everything looks normal; testing ideas, treating what is found and adjusting as more is learned.",
-        "communication": ["listens", "holistic", "long-appointments", "lived-experience", "collaborative"],
+        "communication": [
+          "listens",
+          "holistic",
+          "long-appointments",
+          "lived-experience",
+          "collaborative"
+        ],
         "lived_experience": "Family lived experience: a close relative struggled with their health while being told there was nothing wrong.",
-        "hobbies": ["Time with his wife and three dogs"],
+        "hobbies": [
+          "Time with his wife and three dogs"
+        ],
         "outside_medicine": "Grew up on the Gold Coast; outside work he is with his family of wife and three dogs.",
         "quotes": [
           {
@@ -45,6 +72,26 @@
           {
             "text": "If you’ve been told “everything looks normal” but you still don’t feel right, you’re not alone.",
             "about": "approach"
+          },
+          {
+            "text": "A second opinion with Dr Marek is for people who want a fresh set of eyes and a careful rethink.",
+            "about": "approach",
+            "source_url": "https://vigourmedical.com.au/"
+          },
+          {
+            "text": "We'll go through your story properly, review past results, look for patterns that may have been missed, and map out what's worth investigating next—without unnecessary tests or guesswork.",
+            "about": "approach",
+            "source_url": "https://vigourmedical.com.au/"
+          },
+          {
+            "text": "Complex problems need time. That's why these appointments are longer.",
+            "about": "approach",
+            "source_url": "https://vigourmedical.com.au/"
+          },
+          {
+            "text": "The goal is to understand what's driving things, explain it clearly, and build a step-by-step plan you can actually use—testing ideas, treating what we find, and adjusting as we learn more.",
+            "about": "approach",
+            "source_url": "https://vigourmedical.com.au/"
           }
         ]
       },
@@ -75,27 +122,44 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": null,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 25,
-      "conditions": ["fibromyalgia", "chronic-pain"],
-      "populations": ["adult"],
-      "focus_tags": ["general rheumatology", "inflammatory arthritis", "connective tissue disorders", "fibromyalgia as a pain disorder", "former rural GP"],
+      "conditions": [
+        "fibromyalgia",
+        "chronic-pain"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "general rheumatology",
+        "inflammatory arthritis",
+        "connective tissue disorders",
+        "fibromyalgia as a pain disorder",
+        "former rural GP"
+      ],
       "personal": {
         "philosophy_of_care": "A holistic approach to medicine that he traces to his 12 years as a GP before rheumatology; with fibromyalgia, the biggest role is to reassure people they do not have an autoimmune disease while confirming the pain is real.",
         "why_medicine": null,
         "communication_approach": "Plain-spoken explainer: in his own fibromyalgia article he describes the condition as a pain disorder tied to stress, sleep and trauma, warns against useless cortisone or immune drugs, and encourages gentle exercise, counselling and a good pain psychologist and GP.",
-        "communication": ["holistic", "direct", "evidence-based", "listens"],
+        "communication": [
+          "holistic",
+          "direct",
+          "evidence-based",
+          "listens"
+        ],
         "lived_experience": null,
-        "hobbies": ["Downhill mountain biking", "Fishing on Moreton Bay in his tinnie with family and the dog"],
+        "hobbies": [
+          "Downhill mountain biking",
+          "Fishing on Moreton Bay in his tinnie with family and the dog"
+        ],
         "outside_medicine": "Weekends are spent on downhill mountain-bike tracks or out on Moreton Bay fishing with his family and the dog.",
         "quotes": [
           {
             "text": "On weekends you’ll find him trying (not always successfully) to stay upright on his mountain bike as he rides downhill tracks. Or out on Moreton Bay in his well-used tinnie, fishing with his family and the dog.",
             "about": "hobbies"
-          },
-          {
-            "text": "Probably the biggest role we have as a rheumatologist is to reassure people that they don’t have an auto-immune disease. We also confirm that the patient is really in pain.",
-            "about": "approach"
           },
           {
             "text": "He came to rheumatology relatively late in his career, qualifying in 2001, following on from a successful 12 year career as a General Practitioner in rural settings across Queensland and New South Wales.",
@@ -130,16 +194,34 @@
       "referral_required": null,
       "fee_initial_dollars": null,
       "taking_new_patients": null,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 19,
-      "conditions": ["chronic-pain"],
-      "populations": ["adult"],
-      "focus_tags": ["persistent body pain", "non-surgical solutions", "musculoskeletal medicine", "whole-of-body view", "pain education", "former rural GP"],
+      "conditions": [
+        "chronic-pain"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "persistent body pain",
+        "non-surgical solutions",
+        "musculoskeletal medicine",
+        "whole-of-body view",
+        "pain education",
+        "former rural GP"
+      ],
       "personal": {
         "philosophy_of_care": "Takes a truly comprehensive, whole-of-body view of a patient's health and aims for long-lasting non-surgical solutions to persistent pain, combining gentle physical treatments and injection therapies with investigation, pain education, judicious prescribing and referral.",
         "why_medicine": "After 15 years as a rural doctor doing everything from obstetrics to surgery, he saw many patients with painful conditions who were not adequately treated by the traditional system; his own chronic musculoskeletal pain pushed him to study the field.",
         "communication_approach": "Explains and educates about pain rather than defaulting to surgery; judicious with drugs.",
-        "communication": ["lived-experience", "holistic", "evidence-based", "listens"],
+        "communication": [
+          "lived-experience",
+          "holistic",
+          "evidence-based",
+          "listens"
+        ],
         "lived_experience": "A personal experience with chronic musculoskeletal pain motivated him to start studying musculoskeletal medicine.",
         "hobbies": [],
         "outside_medicine": "Spent 15 years as a rural doctor providing all medical services to a small community; former President of the Rural Doctors Association of Queensland.",
@@ -185,18 +267,42 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": null,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 30,
-      "conditions": ["chronic-pain"],
-      "populations": ["adult", "older-adult"],
-      "focus_tags": ["personalised medicine", "patient advocacy", "telehealth", "inflammatory arthritis", "osteoporosis", "autoimmune conditions"],
+      "conditions": [
+        "chronic-pain"
+      ],
+      "populations": [
+        "adult",
+        "older-adult"
+      ],
+      "focus_tags": [
+        "personalised medicine",
+        "patient advocacy",
+        "telehealth",
+        "inflammatory arthritis",
+        "osteoporosis",
+        "autoimmune conditions"
+      ],
       "personal": {
         "philosophy_of_care": "Interested in personalised medicine, patient care (including telehealth) and advocacy, having served as Medical Director of Arthritis Australia for over 10 years.",
         "why_medicine": null,
         "communication_approach": null,
-        "communication": ["research-active", "evidence-based"],
+        "communication": [
+          "research-active",
+          "evidence-based"
+        ],
         "lived_experience": null,
-        "hobbies": ["Bushwalking", "Water sport and adventure activities with his wife", "Golf", "Cycling", "Learning Italian", "Cooking"],
+        "hobbies": [
+          "Bushwalking",
+          "Water sport and adventure activities with his wife",
+          "Golf",
+          "Cycling",
+          "Learning Italian",
+          "Cooking"
+        ],
         "outside_medicine": "Relocated his practice from Tasmania to Noosa for the lifestyle and warmth; loves time with family and keeps working on his Italian language and culinary skills.",
         "quotes": [
           {
@@ -236,18 +342,38 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 37,
-      "conditions": ["chronic-pain", "chronic-fatigue"],
-      "populations": ["adult"],
-      "focus_tags": ["integrative medicine", "musculoskeletal therapy and acupuncture for chronic pain", "nutritional and functional medicine", "lifestyle management", "Bio Balance mental health therapy"],
+      "conditions": [
+        "chronic-pain",
+        "chronic-fatigue"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "integrative medicine",
+        "musculoskeletal therapy and acupuncture for chronic pain",
+        "nutritional and functional medicine",
+        "lifestyle management",
+        "Bio Balance mental health therapy"
+      ],
       "personal": {
         "philosophy_of_care": "Integrative GP who combines nutritional and environmental medicine with musculoskeletal medicine and acupuncture for chronic pain, plus lifestyle management.",
         "why_medicine": null,
         "communication_approach": null,
-        "communication": ["holistic"],
+        "communication": [
+          "holistic"
+        ],
         "lived_experience": null,
-        "hobbies": ["Gardening", "Dog training", "Snow skiing", "Time with family"],
+        "hobbies": [
+          "Gardening",
+          "Dog training",
+          "Snow skiing",
+          "Time with family"
+        ],
         "outside_medicine": "Born and raised in Queensland, mostly on the Gold Coast, where he has practised since 1989; married with three children.",
         "quotes": [
           {
@@ -287,18 +413,41 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 22,
-      "conditions": ["chronic-fatigue", "ibs", "depression"],
-      "populations": ["adult"],
-      "focus_tags": ["fatigue", "adrenal fatigue", "MCAS treatments", "gut health", "food intolerance", "inflammation", "thyroid and hormonal imbalance", "mindfulness"],
+      "conditions": [
+        "chronic-fatigue",
+        "ibs",
+        "depression"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "fatigue",
+        "adrenal fatigue",
+        "MCAS treatments",
+        "gut health",
+        "food intolerance",
+        "inflammation",
+        "thyroid and hormonal imbalance",
+        "mindfulness"
+      ],
       "personal": {
         "philosophy_of_care": "Aims to alleviate symptoms and address disease at its source; when the body is out of balance the most important question is what has happened and why the body is not healing.",
         "why_medicine": "Two years after her GP fellowship she felt ill-equipped to meet most of her patients' needs, seeing people with real symptoms before drug therapy was appropriate, so she trained in nutritional and environmental medicine.",
         "communication_approach": "Looks for the cause rather than treating symptoms alone; believes physical balance frees people to access their 'Higher Mind'.",
-        "communication": ["holistic", "listens"],
+        "communication": [
+          "holistic",
+          "listens"
+        ],
         "lived_experience": null,
-        "hobbies": ["Mindfulness", "Reading Eckhart Tolle; has attended three of his retreats internationally"],
+        "hobbies": [
+          "Mindfulness",
+          "Reading Eckhart Tolle; has attended three of his retreats internationally"
+        ],
         "outside_medicine": "Interested in mindfulness and the writing of Eckhart Tolle; has presented integrative-health seminars at Camp Eden in the Currumbin Valley.",
         "quotes": [
           {
@@ -342,18 +491,40 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 37,
-      "conditions": ["chronic-fatigue", "depression", "menopause", "perinatal-mh"],
-      "populations": ["adult", "perinatal"],
-      "focus_tags": ["whole-person integrative medicine", "adrenal fatigue", "natural hormonal therapy", "antenatal and postnatal care", "hypnosis", "acupuncture", "gut and food intolerance"],
+      "conditions": [
+        "chronic-fatigue",
+        "depression",
+        "menopause",
+        "perinatal-mh"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "whole-person integrative medicine",
+        "adrenal fatigue",
+        "natural hormonal therapy",
+        "antenatal and postnatal care",
+        "hypnosis",
+        "acupuncture",
+        "gut and food intolerance"
+      ],
       "personal": {
         "philosophy_of_care": "Aims medical care at the whole person, addressing the cause and optimising the function of mind and body to maintain good health and prevent illness.",
         "why_medicine": null,
         "communication_approach": null,
-        "communication": ["holistic"],
+        "communication": [
+          "holistic"
+        ],
         "lived_experience": null,
-        "hobbies": ["Farm lifestyle with horses and lots of animals"],
+        "hobbies": [
+          "Farm lifestyle with horses and lots of animals"
+        ],
         "outside_medicine": "Born in Brisbane and raised on the Gold Coast from age two; mother of four; joined her father's Burleigh Heads practice in 1988 and enjoys the balance of work, family and farm life.",
         "quotes": [
           {
@@ -393,18 +564,38 @@
       "referral_required": null,
       "fee_initial_dollars": null,
       "taking_new_patients": null,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 2,
-      "conditions": ["chronic-pain", "fibromyalgia"],
-      "populations": ["adult"],
-      "focus_tags": ["complex pain with a fresh perspective", "plain-language explanations", "widespread pain and fibromyalgia", "former GP", "medical education"],
+      "conditions": [
+        "chronic-pain",
+        "fibromyalgia"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "complex pain with a fresh perspective",
+        "plain-language explanations",
+        "widespread pain and fibromyalgia",
+        "former GP",
+        "medical education"
+      ],
       "personal": {
         "philosophy_of_care": "Values exploring complex pain conditions with a fresh perspective and explaining medical conditions in language that people can understand.",
         "why_medicine": null,
         "communication_approach": "Explains conditions in plain language; a long-time GP educator and examiner who writes for Australian Doctor and co-authored a medical textbook.",
-        "communication": ["direct", "listens", "research-active"],
+        "communication": [
+          "direct",
+          "listens",
+          "research-active"
+        ],
         "lived_experience": null,
-        "hobbies": ["Writing (freelance for Australian Doctor, textbook co-author)", "Convening the Sunshine Coast MSK and pain conference"],
+        "hobbies": [
+          "Writing (freelance for Australian Doctor, textbook co-author)",
+          "Convening the Sunshine Coast MSK and pain conference"
+        ],
         "outside_medicine": "Grew up in Cairns; was a well-known Buderim GP for almost ten years before retraining as a pain specialist.",
         "quotes": [
           {
@@ -428,13 +619,37 @@
     }
   ],
   "reviewed_and_excluded": [
-    {"name": "Dr Jason Lam (The Dance Dr)", "reason": "Rich lived-experience bio (hypermobility, POTS, ME/CFS) but practises in Victoria; complex-illness bookings closed."},
-    {"name": "Dr Megan Thomas (EDS & Co)", "reason": "Lived experience of EDS but based in NSW (Wollongong)."},
-    {"name": "Dr Hanish Bagga (Brisbane Rheumatology)", "reason": "Page states he is no longer accepting new patients."},
-    {"name": "Dr Paul Payton (IMH Gold Coast)", "reason": "Page states he is on extended leave and not taking new patients."},
-    {"name": "Dr Sandeep Gupta (Lotus Holistic Medicine, Maroochydore)", "reason": "Site states bookings closed to new patients."},
-    {"name": "iHealth Long COVID Clinic, Indooroopilly", "reason": "Clinic has paused intake; individual GP bios (Dart, Campbell, Kerr) carry no personal content."},
-    {"name": "Dr Brendan Hanrahan (Auchenflower, POTS)", "reason": "General Physician, not in the allowed specialty list."},
-    {"name": "Dr Jin (Robin) Kang, Dr Clare Costello, Dr Drew Yates, Dr Madhu Lakshmaiah", "reason": "Queensland and in scope but personal_richness 2 (one line of hobbies); Axxon, Brisbane Pain Medicine, Managing Pain, Interventus, Brisbane Pain Specialists, Specialists in Pain, SVPH/Mater pain bios reviewed and found generic."}
+    {
+      "name": "Dr Jason Lam (The Dance Dr)",
+      "reason": "Rich lived-experience bio (hypermobility, POTS, ME/CFS) but practises in Victoria; complex-illness bookings closed."
+    },
+    {
+      "name": "Dr Megan Thomas (EDS & Co)",
+      "reason": "Lived experience of EDS but based in NSW (Wollongong)."
+    },
+    {
+      "name": "Dr Hanish Bagga (Brisbane Rheumatology)",
+      "reason": "Page states he is no longer accepting new patients."
+    },
+    {
+      "name": "Dr Paul Payton (IMH Gold Coast)",
+      "reason": "Page states he is on extended leave and not taking new patients."
+    },
+    {
+      "name": "Dr Sandeep Gupta (Lotus Holistic Medicine, Maroochydore)",
+      "reason": "Site states bookings closed to new patients."
+    },
+    {
+      "name": "iHealth Long COVID Clinic, Indooroopilly",
+      "reason": "Clinic has paused intake; individual GP bios (Dart, Campbell, Kerr) carry no personal content."
+    },
+    {
+      "name": "Dr Brendan Hanrahan (Auchenflower, POTS)",
+      "reason": "General Physician, not in the allowed specialty list."
+    },
+    {
+      "name": "Dr Jin (Robin) Kang, Dr Clare Costello, Dr Drew Yates, Dr Madhu Lakshmaiah",
+      "reason": "Queensland and in scope but personal_richness 2 (one line of hobbies); Axxon, Brisbane Pain Medicine, Managing Pain, Interventus, Brisbane Pain Specialists, Specialists in Pain, SVPH/Mater pain bios reviewed and found generic."
+    }
   ]
 }

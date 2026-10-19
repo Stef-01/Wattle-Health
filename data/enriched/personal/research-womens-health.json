@@ -20,22 +20,85 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["endometriosis", "pelvic-pain"],
-      "populations": ["adult"],
-      "focus_tags": ["endometriosis", "pelvic pain", "fibroids", "infertility and IVF", "menstrual disorders", "early pregnancy complications", "laparoscopic and robotic surgery"],
+      "conditions": [
+        "endometriosis",
+        "pelvic-pain"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "endometriosis",
+        "pelvic pain",
+        "fibroids",
+        "infertility and IVF",
+        "menstrual disorders",
+        "early pregnancy complications",
+        "laparoscopic and robotic surgery"
+      ],
       "personal": {
         "philosophy_of_care": "Kind and approachable with an easy-going, relaxed manner meant to put patients at ease; professional, confidential and courteous.",
         "why_medicine": null,
         "communication_approach": "Easy-going and relaxed; an academic who teaches other doctors anatomy, surgery and evidence-based medicine and researches endometriosis and pelvic pain.",
-        "communication": ["gentle", "evidence-based", "research-active"],
+        "communication": [
+          "gentle",
+          "evidence-based",
+          "research-active"
+        ],
         "lived_experience": null,
-        "hobbies": ["Road cycling", "City-to-city charity rides"],
+        "hobbies": [
+          "Road cycling",
+          "City-to-city charity rides"
+        ],
         "outside_medicine": "Father of three teenage boys; the family has a golden labrador and three cats.",
         "quotes": [
-          { "text": "He is the father of three teenage boys and enjoys cycling in his (limited) spare time!", "about": "hobbies" },
-          { "text": "Dr Tal Jacobson is kind and approachable with an easy going and relaxed manner that will put you at ease.", "about": "approach" }
+          {
+            "text": "He is the father of three teenage boys and enjoys cycling in his (limited) spare time!",
+            "about": "hobbies"
+          },
+          {
+            "text": "Dr Tal Jacobson is kind and approachable with an easy going and relaxed manner that will put you at ease.",
+            "about": "approach"
+          },
+          {
+            "text": "Dr Jacobson is a skilled specialist practitioner and an accomplished academic, with a career that has taken him around the world.",
+            "about": "lived",
+            "source_url": "https://evehealth.com.au/team/dr-tal-jacobson/"
+          },
+          {
+            "text": "After completing his training in the UK, he spent a number of years practising in New Zealand before moving to Brisbane in 2010.",
+            "about": "lived",
+            "source_url": "https://evehealth.com.au/team/dr-tal-jacobson/"
+          },
+          {
+            "text": "He teaches other doctors on a range of courses including anatomy, surgery and evidence based medicine.",
+            "about": "other",
+            "source_url": "https://evehealth.com.au/team/dr-tal-jacobson/"
+          },
+          {
+            "text": "He is professional, confidential and courteous.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-tal-jacobson/"
+          },
+          {
+            "text": "As the Director of Eve Health, Dr Jacobson is able to offer his patients a highly personalised service, with the back-up of on-call obstetricians, as well as onsite midwives, physiotherapists, psychologists, dieticians and nurses.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-tal-jacobson/"
+          },
+          {
+            "text": "Outside of obstetrics, Dr Jacobson and his wife have three teenage boys, a golden labrador and three cats who keep them busy.",
+            "about": "hobbies",
+            "source_url": "https://evehealth.com.au/team/dr-tal-jacobson/"
+          },
+          {
+            "text": "He is also a keen road cyclist who often uses this interest to raise money for charities, by taking part in city-to-city charity rides.",
+            "about": "hobbies",
+            "source_url": "https://evehealth.com.au/team/dr-tal-jacobson/"
+          }
         ]
       },
       "source": {
@@ -66,23 +129,80 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 19,
-      "conditions": ["menopause"],
-      "populations": ["adult", "older-adult"],
-      "focus_tags": ["perimenopause and menopause", "midlife women's health", "general gynaecology", "contraception", "sexual health"],
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adult",
+        "older-adult"
+      ],
+      "focus_tags": [
+        "perimenopause and menopause",
+        "midlife women's health",
+        "general gynaecology",
+        "contraception",
+        "sexual health"
+      ],
       "personal": {
         "philosophy_of_care": "Caring for people across their whole lifetime is an honour; midlife care needs attention to every aspect of a woman's health and life, which takes time that must be deliberately prioritised.",
         "why_medicine": "Chose general practice to provide comprehensive care to patients at every stage of life.",
         "communication_approach": "Takes time; whole-of-life, comprehensive view of midlife health.",
-        "communication": ["holistic", "long-appointments", "listens"],
+        "communication": [
+          "holistic",
+          "long-appointments",
+          "listens"
+        ],
         "lived_experience": null,
-        "hobbies": ["Learning French", "Middle- to long-distance trail and road races", "Strength training", "Cooking", "Singing musicals in the kitchen"],
+        "hobbies": [
+          "Learning French",
+          "Middle- to long-distance trail and road races",
+          "Strength training",
+          "Cooking",
+          "Singing musicals in the kitchen"
+        ],
         "outside_medicine": "Family, friends and her golden retriever are her idea of bliss.",
         "quotes": [
-          { "text": "In her free time, Dr McCormack is learning French and enjoys participating in middle to long-distance trail and road races, as well as strength training.", "about": "hobbies" },
-          { "text": "She finds solace in her kitchen through cooking and singing musicals as if no one is listening. Being with her family, friends, and her golden retriever is her idea of bliss.", "about": "hobbies" },
-          { "text": "Dr McCormack feels it is an honour to care for individuals throughout their lifetime, offering support and engagement during health challenges.", "about": "why" }
+          {
+            "text": "In her free time, Dr McCormack is learning French and enjoys participating in middle to long-distance trail and road races, as well as strength training.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She finds solace in her kitchen through cooking and singing musicals as if no one is listening. Being with her family, friends, and her golden retriever is her idea of bliss.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Dr McCormack feels it is an honour to care for individuals throughout their lifetime, offering support and engagement during health challenges.",
+            "about": "why"
+          },
+          {
+            "text": "Her decision to specialise in general practice was driven by a desire to provide comprehensive care to her patients at every stage of life.",
+            "about": "why",
+            "source_url": "https://evehealth.com.au/team/dr-belinda-mccormack/"
+          },
+          {
+            "text": "One of the main challenges in providing this care is ensuring attention to all aspects of a woman's health and life, as each plays a vital role in overall well-being.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-belinda-mccormack/"
+          },
+          {
+            "text": "This comprehensive approach requires time, which may not always be readily available in healthcare settings unless it is prioritised as essential for midlife care.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-belinda-mccormack/"
+          },
+          {
+            "text": "Her training in General Practice took place in Cairns, and she started practicing as a GP in Brisbane in 2007.",
+            "about": "lived",
+            "source_url": "https://evehealth.com.au/team/dr-belinda-mccormack/"
+          },
+          {
+            "text": "Throughout her career, she has remained dedicated to general practice, caring for patients of all ages, while also nurturing her passion for women's health and sexual health in a specialised setting.",
+            "about": "other",
+            "source_url": "https://evehealth.com.au/team/dr-belinda-mccormack/"
+          }
         ]
       },
       "source": {
@@ -111,22 +231,50 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["endometriosis", "pcos"],
-      "populations": ["adult"],
-      "focus_tags": ["female and male infertility", "endometriosis", "PCOS", "pregnancy loss support", "donor fertility cycles"],
+      "conditions": [
+        "endometriosis",
+        "pcos"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "female and male infertility",
+        "endometriosis",
+        "PCOS",
+        "pregnancy loss support",
+        "donor fertility cycles"
+      ],
       "personal": {
         "philosophy_of_care": "Combines high medical standards with a deep understanding of the emotional journey of fertility treatment; every step taken with the shared goal of helping patients toward the family they dream of.",
         "why_medicine": null,
         "communication_approach": "Compassionate and committed; attentive to the emotional side of fertility care.",
-        "communication": ["gentle", "collaborative", "research-active"],
+        "communication": [
+          "gentle",
+          "collaborative",
+          "research-active"
+        ],
         "lived_experience": "Founder of the Glimmer Project, a not-for-profit researching and supporting families after pregnancy loss; helped write RANZCOG guidelines on miscarriage and ectopic pregnancy.",
-        "hobbies": ["Gardening", "Baking with her daughters", "Tennis", "Meditation"],
+        "hobbies": [
+          "Gardening",
+          "Baking with her daughters",
+          "Tennis",
+          "Meditation"
+        ],
         "outside_medicine": "Has daughters; values deep and joyful connections.",
         "quotes": [
-          { "text": "When she's not at work, Dr Smith loves gardening, baking with her daughters, playing tennis, meditating and having deep and joyful connections.", "about": "hobbies" },
-          { "text": "Patients can expect a compassionate and committed clinician when they visit Dr Smith.", "about": "approach" }
+          {
+            "text": "When she's not at work, Dr Smith loves gardening, baking with her daughters, playing tennis, meditating and having deep and joyful connections.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Patients can expect a compassionate and committed clinician when they visit Dr Smith.",
+            "about": "approach"
+          }
         ]
       },
       "source": {
@@ -155,22 +303,78 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["endometriosis", "pelvic-pain", "pcos"],
-      "populations": ["adolescent", "adult"],
-      "focus_tags": ["persistent pelvic pain", "endometriosis", "young adults' gynaecology", "PCOS", "colposcopy", "vulval disorders", "menstrual concerns"],
+      "conditions": [
+        "endometriosis",
+        "pelvic-pain",
+        "pcos"
+      ],
+      "populations": [
+        "adolescent",
+        "adult"
+      ],
+      "focus_tags": [
+        "persistent pelvic pain",
+        "endometriosis",
+        "young adults' gynaecology",
+        "PCOS",
+        "colposcopy",
+        "vulval disorders",
+        "menstrual concerns"
+      ],
       "personal": {
         "philosophy_of_care": "There is no one-size-fits-all approach to gynaecology; she aims to understand and meet each patient's specific needs and goals.",
         "why_medicine": null,
         "communication_approach": "Enjoys talking with patients; takes joy in simple procedures that improve quality of life and in patients feeling listened to.",
-        "communication": ["listens", "collaborative", "research-active"],
+        "communication": [
+          "listens",
+          "collaborative",
+          "research-active"
+        ],
         "lived_experience": null,
-        "hobbies": ["Running", "Pilates", "Research and conferences"],
+        "hobbies": [
+          "Running",
+          "Pilates",
+          "Research and conferences"
+        ],
         "outside_medicine": "Spends her free time with her three children.",
         "quotes": [
-          { "text": "In Erin's free time she enjoys spending time with her 3 children, running, doing Pilates, researching, and attending conferences.", "about": "hobbies" },
-          { "text": "Dr Wilson finds great joy in performing simple procedures to improve a woman's quality of life and then seeing their relief when they feel like someone has listened to them and helped.", "about": "approach" }
+          {
+            "text": "In Erin's free time she enjoys spending time with her 3 children, running, doing Pilates, researching, and attending conferences.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Dr Wilson finds great joy in performing simple procedures to improve a woman's quality of life and then seeing their relief when they feel like someone has listened to them and helped.",
+            "about": "approach"
+          },
+          {
+            "text": "Dr Erin Wilson truly enjoys talking to her patients and helping to make a real difference in their lives.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-erin-wilson/"
+          },
+          {
+            "text": "She knows there is not a one-size-fits-all approach to gynaecology and strives to understand and satisfy every patient's specific needs and goals.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-erin-wilson/"
+          },
+          {
+            "text": "Erin trained in Queensland and is a current staff specialist at Mater Mothers' Hospital.",
+            "about": "lived",
+            "source_url": "https://evehealth.com.au/team/dr-erin-wilson/"
+          },
+          {
+            "text": "Erin enjoys all aspects of gynaecology and has spent time working in the advanced laparoscopy service, persistent pelvic pain clinic, young adults' gynaecology services and colposcopy.",
+            "about": "other",
+            "source_url": "https://evehealth.com.au/team/dr-erin-wilson/"
+          },
+          {
+            "text": "She is a senior Lecturer at the University of Queensland (UQ), an Australasian Gynaecological Endoscopy & Surgery Society (AGES) member and was awarded a PhD in 2019 from the University of Queensland (UQ) for her research into surgical training.",
+            "about": "other",
+            "source_url": "https://evehealth.com.au/team/dr-erin-wilson/"
+          }
         ]
       },
       "source": {
@@ -199,22 +403,69 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 25,
-      "conditions": ["menopause"],
-      "populations": ["adult", "older-adult"],
-      "focus_tags": ["perimenopause and menopause", "women's health across the lifespan"],
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adult",
+        "older-adult"
+      ],
+      "focus_tags": [
+        "perimenopause and menopause",
+        "women's health across the lifespan"
+      ],
       "personal": {
         "philosophy_of_care": "Each woman has her own health profile and beliefs, so treatment must be individualised; longer appointments give time to unravel current concerns and future health implications.",
         "why_medicine": null,
         "communication_approach": "A supportive listening expert with evidence-based advice.",
-        "communication": ["listens", "evidence-based", "long-appointments", "lgbtq-affirming"],
+        "communication": [
+          "listens",
+          "evidence-based",
+          "long-appointments",
+          "lgbtq-affirming"
+        ],
         "lived_experience": null,
-        "hobbies": ["Travel", "Movies", "Ocean and mountains", "Running", "Cycling"],
+        "hobbies": [
+          "Travel",
+          "Movies",
+          "Ocean and mountains",
+          "Running",
+          "Cycling"
+        ],
         "outside_medicine": "Spends quality time with family, friends and her dog.",
         "quotes": [
-          { "text": "In her spare time, Dr Kerr enjoys travelling, watching movies, getting outdoors to the ocean or mountains, running or cycling and spending quality time with her family and friends and dog.", "about": "hobbies" },
-          { "text": "When coming to see Dr Kerr a patient can expect a supportive listening expert, with evidence-based advice.", "about": "approach" }
+          {
+            "text": "In her spare time, Dr Kerr enjoys travelling, watching movies, getting outdoors to the ocean or mountains, running or cycling and spending quality time with her family and friends and dog.",
+            "about": "hobbies"
+          },
+          {
+            "text": "When coming to see Dr Kerr a patient can expect a supportive listening expert, with evidence-based advice.",
+            "about": "approach"
+          },
+          {
+            "text": "Dr Kerr graduated from the University of Queensland in 1995 and has been a practicing General Practitioner since 2001.",
+            "about": "lived",
+            "source_url": "https://evehealth.com.au/team/dr-samantha-kerr/"
+          },
+          {
+            "text": "Dr Kerr is excited to start up this clinic as she feels there is a gap for targeted, comprehensive and accessible care and support for women.",
+            "about": "why",
+            "source_url": "https://evehealth.com.au/team/dr-samantha-kerr/"
+          },
+          {
+            "text": "With longer appointments Dr Kerr will have ample time to work with you to unravel current concerns, and discuss future health implications.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-samantha-kerr/"
+          },
+          {
+            "text": "As each woman has her own health profile and beliefs, treatment needs to be individualised.",
+            "about": "approach",
+            "source_url": "https://evehealth.com.au/team/dr-samantha-kerr/"
+          }
         ]
       },
       "source": {
@@ -243,21 +494,45 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 14,
-      "conditions": ["menopause"],
-      "populations": ["adolescent", "adult", "older-adult", "perinatal"],
-      "focus_tags": ["women's health", "perimenopause and menopause", "long-term GP relationships"],
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adolescent",
+        "adult",
+        "older-adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "women's health",
+        "perimenopause and menopause",
+        "long-term GP relationships"
+      ],
       "personal": {
         "philosophy_of_care": "Values long-term relationships with patients across life stages, from childhood through pregnancy, perimenopause and older age, in a supportive environment that fosters understanding, validation and empowerment through knowledge.",
         "why_medicine": "Moved into general practice after starting her own family so she could keep practising medicine alongside family responsibilities.",
         "communication_approach": "Supportive, validating, knowledge-sharing.",
-        "communication": ["holistic", "listens", "collaborative"],
+        "communication": [
+          "holistic",
+          "listens",
+          "collaborative"
+        ],
         "lived_experience": "Reshaped her career around starting her own family.",
-        "hobbies": ["Travelling with family", "Skiing", "Hiking"],
+        "hobbies": [
+          "Travelling with family",
+          "Skiing",
+          "Hiking"
+        ],
         "outside_medicine": "Travels and does active pursuits with her family.",
         "quotes": [
-          { "text": "a supportive environment that fosters understanding, validation, and empowerment through knowledge", "about": "approach" }
+          {
+            "text": "a supportive environment that fosters understanding, validation, and empowerment through knowledge",
+            "about": "approach"
+          }
         ]
       },
       "source": {
@@ -286,22 +561,48 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["endometriosis", "pelvic-pain"],
-      "populations": ["adult"],
-      "focus_tags": ["endometriosis", "complex pelvic pain incl. pelvic floor botox", "abnormal uterine bleeding", "fibroids", "ovarian cysts", "infertility", "laparoscopic surgery"],
+      "conditions": [
+        "endometriosis",
+        "pelvic-pain"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "endometriosis",
+        "complex pelvic pain incl. pelvic floor botox",
+        "abnormal uterine bleeding",
+        "fibroids",
+        "ovarian cysts",
+        "infertility",
+        "laparoscopic surgery"
+      ],
       "personal": {
         "philosophy_of_care": "Manages complex pelvic pain with both medical and surgical techniques, working within a multidisciplinary team.",
         "why_medicine": null,
         "communication_approach": "Passionate teacher of junior doctors; multidisciplinary approach to pelvic pain.",
-        "communication": ["collaborative", "research-active"],
+        "communication": [
+          "collaborative",
+          "research-active"
+        ],
         "lived_experience": null,
-        "hobbies": ["Cycling"],
+        "hobbies": [
+          "Cycling"
+        ],
         "outside_medicine": "Grew up in Toronto, Canada, before moving to Brisbane for medical school; has three young children.",
         "quotes": [
-          { "text": "Dr. Albert is an avid cyclist and loves spending time with his 3 young energetic children.", "about": "hobbies" },
-          { "text": "Dr. Albert grew up in Toronto, Canada before moving to Brisbane for his medical studies.", "about": "why" }
+          {
+            "text": "Dr. Albert is an avid cyclist and loves spending time with his 3 young energetic children.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Dr. Albert grew up in Toronto, Canada before moving to Brisbane for his medical studies.",
+            "about": "why"
+          }
         ]
       },
       "source": {
@@ -330,22 +631,47 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 20,
-      "conditions": ["menopause"],
-      "populations": ["adolescent", "adult", "older-adult"],
-      "focus_tags": ["menopause care", "women's health across all ages", "sexual health and family planning background"],
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adolescent",
+        "adult",
+        "older-adult"
+      ],
+      "focus_tags": [
+        "menopause care",
+        "women's health across all ages",
+        "sexual health and family planning background"
+      ],
       "personal": {
         "philosophy_of_care": "Aims to empower women across all age groups and to tailor healthcare to each individual.",
         "why_medicine": "Has always had a passion for women's health; spent early career years in hospital obstetrics and gynaecology, sexual health and family planning clinics in the UK and Australia.",
         "communication_approach": null,
-        "communication": ["holistic", "collaborative"],
+        "communication": [
+          "holistic",
+          "collaborative"
+        ],
         "lived_experience": null,
-        "hobbies": ["Baking chocolate cake", "Walking around Mt Coot-tha", "Walking on Bribie Island"],
+        "hobbies": [
+          "Baking chocolate cake",
+          "Walking around Mt Coot-tha",
+          "Walking on Bribie Island"
+        ],
         "outside_medicine": "Has worked in Brisbane and its surrounds for over 20 years.",
         "quotes": [
-          { "text": "When not at work she can be found baking chocolate cake, or walking in and around Mt Cootha or on Bribie Island.", "about": "hobbies" },
-          { "text": "She aims to empower women across all age groups to provide healthcare for each individual.", "about": "approach" }
+          {
+            "text": "When not at work she can be found baking chocolate cake, or walking in and around Mt Cootha or on Bribie Island.",
+            "about": "hobbies"
+          },
+          {
+            "text": "She aims to empower women across all age groups to provide healthcare for each individual.",
+            "about": "approach"
+          }
         ]
       },
       "source": {
@@ -374,22 +700,49 @@
       "referral_required": false,
       "fee_initial_dollars": 250,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["menopause"],
-      "populations": ["adult", "perinatal"],
-      "focus_tags": ["fertility and pregnancy care", "contraception and abortion care", "sexual health", "menopause", "IUD and Implanon insertion", "perinatal research and UQ teaching"],
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "fertility and pregnancy care",
+        "contraception and abortion care",
+        "sexual health",
+        "menopause",
+        "IUD and Implanon insertion",
+        "perinatal research and UQ teaching"
+      ],
       "personal": {
         "philosophy_of_care": "Whole-person care, from couples trying to conceive through pregnancy and early childhood.",
         "why_medicine": "Spent much of her hospital career in obstetrics and gynaecology (Diploma of O&G) before moving into general practice.",
         "communication_approach": null,
-        "communication": ["holistic", "research-active"],
+        "communication": [
+          "holistic",
+          "research-active"
+        ],
         "lived_experience": null,
-        "hobbies": ["Beach and attempting to surf", "Running", "Reading"],
+        "hobbies": [
+          "Beach and attempting to surf",
+          "Running",
+          "Reading"
+        ],
         "outside_medicine": "Spends time with her toddler.",
         "quotes": [
-          { "text": "Outside of work, Jess loves spending time at the beach (attempting to surf), running, reading", "about": "hobbies" },
-          { "text": "Jessica is passionate about providing whole-person care", "about": "approach" }
+          {
+            "text": "Outside of work, Jess loves spending time at the beach (attempting to surf), running, reading",
+            "about": "hobbies"
+          },
+          {
+            "text": "Jessica is passionate about providing whole-person care",
+            "about": "approach"
+          }
         ]
       },
       "source": {
@@ -419,23 +772,60 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": 10,
-      "conditions": ["endometriosis", "pcos", "menopause"],
-      "populations": ["adolescent", "adult", "older-adult", "perinatal"],
-      "focus_tags": ["keyhole surgery", "endometriosis and adenomyosis", "menstrual and hormonal issues", "menopause", "abnormal cervical screening", "pregnancy and birth choices"],
+      "conditions": [
+        "endometriosis",
+        "pcos",
+        "menopause"
+      ],
+      "populations": [
+        "adolescent",
+        "adult",
+        "older-adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "keyhole surgery",
+        "endometriosis and adenomyosis",
+        "menstrual and hormonal issues",
+        "menopause",
+        "abnormal cervical screening",
+        "pregnancy and birth choices"
+      ],
       "personal": {
         "philosophy_of_care": "To treat women the way she herself expects to be treated; empowering women and their families in their healthcare choices from pre-puberty to post-menopause.",
         "why_medicine": "Always wanted a career in obstetrics and gynaecology; born and raised in London, graduated with honours from Imperial College, came to Australia as a young doctor and stayed.",
         "communication_approach": "Holistic, individualised; draws on her own experience as a mother.",
-        "communication": ["holistic", "collaborative", "lived-experience"],
+        "communication": [
+          "holistic",
+          "collaborative",
+          "lived-experience"
+        ],
         "lived_experience": "Mother of two girls; uses her own experience to enrich her gynaecological and obstetric practice.",
-        "hobbies": ["Ocean swimming", "Cooking a variety of cuisines", "Fine dining", "Reading", "All things French"],
+        "hobbies": [
+          "Ocean swimming",
+          "Cooking a variety of cuisines",
+          "Fine dining",
+          "Reading",
+          "All things French"
+        ],
         "outside_medicine": "Born and raised in London; mother of two girls.",
         "quotes": [
-          { "text": "Dr Sokhal's philosophy is to treat women the way she herself expects to be treated.", "about": "approach" },
-          { "text": "In her spare time, she enjoys ocean swimming, cooking a variety of cuisines, fine dining, reading and all things French.", "about": "hobbies" },
-          { "text": "as a mother of two girls, has utilised her own personal experience to enrich both her gynaecological and obstetric practice", "about": "lived" }
+          {
+            "text": "Dr Sokhal's philosophy is to treat women the way she herself expects to be treated.",
+            "about": "approach"
+          },
+          {
+            "text": "In her spare time, she enjoys ocean swimming, cooking a variety of cuisines, fine dining, reading and all things French.",
+            "about": "hobbies"
+          },
+          {
+            "text": "as a mother of two girls, has utilised her own personal experience to enrich both her gynaecological and obstetric practice",
+            "about": "lived"
+          }
         ]
       },
       "source": {
@@ -464,22 +854,49 @@
       "referral_required": true,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["endometriosis", "pcos"],
-      "populations": ["adult", "perinatal"],
-      "focus_tags": ["low- and high-risk pregnancy", "endometriosis and adenomyosis", "fibroids", "PCOS", "vulvar concerns", "preterm birth resources"],
+      "conditions": [
+        "endometriosis",
+        "pcos"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "low- and high-risk pregnancy",
+        "endometriosis and adenomyosis",
+        "fibroids",
+        "PCOS",
+        "vulvar concerns",
+        "preterm birth resources"
+      ],
       "personal": {
         "philosophy_of_care": "Wants patients to feel supported and educated so they can make choices through pregnancy based on their own preferences.",
         "why_medicine": "Came to medicine after a biomedical science degree and a graduate diploma in education.",
         "communication_approach": "Educational, supportive.",
-        "communication": ["collaborative", "research-active"],
+        "communication": [
+          "collaborative",
+          "research-active"
+        ],
         "lived_experience": null,
-        "hobbies": ["Beach", "Representative touch football"],
+        "hobbies": [
+          "Beach",
+          "Representative touch football"
+        ],
         "outside_medicine": "A Gold Coast girl at heart who spends time with family and friends.",
         "quotes": [
-          { "text": "she is a Gold Coast girl at heart, loving the beach, playing representative touch football", "about": "hobbies" },
-          { "text": "ensuring her patients feel supported and educated to make choices throughout their pregnancy", "about": "approach" }
+          {
+            "text": "she is a Gold Coast girl at heart, loving the beach, playing representative touch football",
+            "about": "hobbies"
+          },
+          {
+            "text": "ensuring her patients feel supported and educated to make choices throughout their pregnancy",
+            "about": "approach"
+          }
         ]
       },
       "source": {
@@ -508,23 +925,56 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["menopause"],
-      "populations": ["adolescent", "adult", "perinatal"],
-      "focus_tags": ["menopause", "sexual and hormonal health", "infertility management", "pregnancy shared care", "adolescent medicine", "lifestyle medicine", "travel medicine"],
+      "conditions": [
+        "menopause"
+      ],
+      "populations": [
+        "adolescent",
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "menopause",
+        "sexual and hormonal health",
+        "infertility management",
+        "pregnancy shared care",
+        "adolescent medicine",
+        "lifestyle medicine",
+        "travel medicine"
+      ],
       "personal": {
         "philosophy_of_care": "Offers high-quality care by keeping up to date with the latest guidelines and training to improve health outcomes.",
         "why_medicine": "Trained in Bristol, worked in Brisbane emergency medicine, did UK GP training with extra O&G, then returned to the Gold Coast in 2018.",
         "communication_approach": null,
-        "communication": ["evidence-based"],
+        "communication": [
+          "evidence-based"
+        ],
         "lived_experience": null,
-        "hobbies": ["Watersports", "Hiking", "Photography", "Dog agility with her standard poodle Pippa", "Camping in the rainforest"],
+        "hobbies": [
+          "Watersports",
+          "Hiking",
+          "Photography",
+          "Dog agility with her standard poodle Pippa",
+          "Camping in the rainforest"
+        ],
         "outside_medicine": "Often found at the dog park, in the ocean or camping in the rainforest.",
         "quotes": [
-          { "text": "Outside of work Dr Nikki enjoys watersports, hiking and photography", "about": "hobbies" },
-          { "text": "training her beloved standard poodle \"Pippa\" in dog agility sports.", "about": "hobbies" },
-          { "text": "she is passionate about offering high quality healthcare by keeping up to date with the latest guidelines", "about": "approach" }
+          {
+            "text": "Outside of work Dr Nikki enjoys watersports, hiking and photography",
+            "about": "hobbies"
+          },
+          {
+            "text": "training her beloved standard poodle \"Pippa\" in dog agility sports.",
+            "about": "hobbies"
+          },
+          {
+            "text": "she is passionate about offering high quality healthcare by keeping up to date with the latest guidelines",
+            "about": "approach"
+          }
         ]
       },
       "source": {
@@ -553,23 +1003,53 @@
       "referral_required": false,
       "fee_initial_dollars": null,
       "taking_new_patients": true,
-      "languages": ["English"],
+      "languages": [
+        "English"
+      ],
       "years_in_specialty": null,
-      "conditions": ["perinatal-mh", "trauma", "anxiety", "adhd"],
-      "populations": ["adult", "perinatal"],
-      "focus_tags": ["perinatal mental health", "birth trauma and fear of childbirth", "PTSD and complex PTSD", "EMDR", "adult ADHD"],
+      "conditions": [
+        "perinatal-mh",
+        "trauma",
+        "anxiety",
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "perinatal mental health",
+        "birth trauma and fear of childbirth",
+        "PTSD and complex PTSD",
+        "EMDR",
+        "adult ADHD"
+      ],
       "personal": {
         "philosophy_of_care": "A whole-person, transformative approach to mental health, grounded in how deeply mind and body are connected.",
         "why_medicine": null,
         "communication_approach": "Warm, collaborative and grounded in real-life experience.",
-        "communication": ["collaborative", "holistic", "trauma-informed", "gentle"],
+        "communication": [
+          "collaborative",
+          "holistic",
+          "trauma-informed",
+          "gentle"
+        ],
         "lived_experience": null,
         "hobbies": [],
         "outside_medicine": null,
         "quotes": [
-          { "text": "I take a whole-person, transformative approach to mental health.", "about": "approach" },
-          { "text": "My approach is warm, collaborative, and grounded in real-life experience.", "about": "approach" },
-          { "text": "I understand how deeply mind and body are connected.", "about": "approach" }
+          {
+            "text": "I take a whole-person, transformative approach to mental health.",
+            "about": "approach"
+          },
+          {
+            "text": "My approach is warm, collaborative, and grounded in real-life experience.",
+            "about": "approach"
+          },
+          {
+            "text": "I understand how deeply mind and body are connected.",
+            "about": "approach"
+          }
         ]
       },
       "source": {

@@ -68,10 +68,6 @@
           {
             "text": "In her spare time, Dr Mel hosts popular medical education podcast 'The Uterine Sound', an obstetrics and gynaecology podcast aimed at providing the latest medical information for doctors, midwives and specialists working in women's health.",
             "about": "hobbies"
-          },
-          {
-            "text": "Dr Mel will listen to your concerns and customise a treatment plan based on your values and needs.",
-            "about": "approach"
           }
         ]
       },
@@ -558,7 +554,7 @@
           "Exploring remote, cold places",
           "Time with her two daughters"
         ],
-        "outside_medicine": null,
+        "outside_medicine": "You'll find me off the beaten track, usually with hiking boots or a paddle in hand.",
         "quotes": [
           {
             "text": "I kept seeing the same pattern: smart, capable women being told \"it's just your age\" or \"it's all in your head.\" So I created a space where women could finally feel heard.",
@@ -571,6 +567,41 @@
           {
             "text": "My approach is grounded in evidence-based medicine, personalised care, and practical strategies, with just the right amount of humour, because let's be honest, sometimes we need to laugh through the chaos.",
             "about": "approach"
+          },
+          {
+            "text": "I trained at the Royal Free Hospital in London and made the move to Australia in 1992.",
+            "about": "lived",
+            "source_url": "https://www.themenopauseconnection.com.au/about/"
+          },
+          {
+            "text": "Since then, I've built a career around what I care most about: listening, empowering, and supporting women, especially through life transitions from adolescence to perimenopause, menopause, and beyond.",
+            "about": "why",
+            "source_url": "https://www.themenopauseconnection.com.au/about/"
+          },
+          {
+            "text": "One that offers science-backed advice, real conversations, longer appointments, and ongoing support, not a quick fix or a dismissive shrug.",
+            "about": "approach",
+            "source_url": "https://www.themenopauseconnection.com.au/about/"
+          },
+          {
+            "text": "I'm a firm believer that life only gets better with age and I'm here to help you feel strong, well, and confident in yours.",
+            "about": "other",
+            "source_url": "https://www.themenopauseconnection.com.au/about/"
+          },
+          {
+            "text": "I began my medical training in the United Kingdom, where I developed a deep respect for evidence-based care.",
+            "about": "lived",
+            "source_url": "https://www.themenopauseconnection.com.au/uncategorized/my-journey-to-becoming-a-menopause-gp/"
+          },
+          {
+            "text": "As I worked as a GP in Australia, I quickly noticed that many women navigating menopause were not receiving the tailored attention their unique needs required.",
+            "about": "why",
+            "source_url": "https://www.themenopauseconnection.com.au/uncategorized/my-journey-to-becoming-a-menopause-gp/"
+          },
+          {
+            "text": "Recognizing that quality women's health care takes time, I established a dedicated clinic exclusively focused on menopause care.",
+            "about": "why",
+            "source_url": "https://www.themenopauseconnection.com.au/uncategorized/my-journey-to-becoming-a-menopause-gp/"
           }
         ]
       },
@@ -578,7 +609,8 @@
         "url": "https://www.themenopauseconnection.com.au/about/",
         "page_title": "About - The Menopause Connection",
         "observed_at": "2026-10-16",
-        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied"
+        "legal_basis": "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
+        "secondary_url": "https://www.themenopauseconnection.com.au/uncategorized/my-journey-to-becoming-a-menopause-gp/"
       },
       "photo_url": "https://www.themenopauseconnection.com.au/wp-content/uploads/2026/04/About-Dr-Sian.jpg",
       "personal_richness": 5

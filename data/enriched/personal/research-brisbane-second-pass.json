@@ -80,6 +80,36 @@
           {
             "text": "If you are over it, undone, or just holding it together with caffeine and dark humour, you are welcome here.",
             "about": "approach"
+          },
+          {
+            "text": "There's no pressure to be fine. No gold stars for soldiering on. Just room to breathe, grieve, and slowly come back to life.",
+            "about": "approach",
+            "source_url": "https://www.crackedcupclinic.com/"
+          },
+          {
+            "text": "I work from the Japanese philosophy of wabi-sabi, which finds beauty in the worn, the imperfect, and the incomplete.",
+            "about": "approach",
+            "source_url": "https://www.crackedcupclinic.com/"
+          },
+          {
+            "text": "Healing doesn't mean hiding what hurt you. It means making peace with the shape it left behind.",
+            "about": "approach",
+            "source_url": "https://www.crackedcupclinic.com/"
+          },
+          {
+            "text": "You might feel like a cracked pot. I think that makes you magic.",
+            "about": "other",
+            "source_url": "https://www.crackedcupclinic.com/"
+          },
+          {
+            "text": "She has worked in diverse settings, from acute hospital wards and prisons, to schools and long-stay treatment centres, and has sat with people in some of their most challenging and transformative moments.",
+            "about": "lived",
+            "source_url": "https://www.crackedcupclinic.com/"
+          },
+          {
+            "text": "She dabbles as an amateur foodie, a gardener, and a self-confessed culture vulture who finds joy in everything from live theatre to street art.",
+            "about": "hobbies",
+            "source_url": "https://www.crackedcupclinic.com/"
           }
         ]
       },
@@ -458,6 +488,21 @@
           {
             "text": "David enjoys all aspects of general rheumatology and is passionate about working in partnership with patients to optimise their chronic autoimmune conditions.",
             "about": "approach"
+          },
+          {
+            "text": "He has completed his basic physician and rheumatology training across multiple sites including the Royal Brisbane & Women's Hospital, Princess Alexandra Hospital and Redcliffe Hospital.",
+            "about": "lived",
+            "source_url": "https://www.rivercityrheumatology.com.au/our-doctors"
+          },
+          {
+            "text": "During his years at the RBWH he also held the position of the chief medical registrar.",
+            "about": "lived",
+            "source_url": "https://www.rivercityrheumatology.com.au/our-doctors"
+          },
+          {
+            "text": "He has extensive experience with medical student and junior doctor education, is a committee member with the Australian Rheumatology Association and has performed clinical research in rheumatoid arthritis and gout.",
+            "about": "other",
+            "source_url": "https://www.rivercityrheumatology.com.au/our-doctors"
           }
         ]
       },
@@ -529,6 +574,26 @@
           {
             "text": "He is passionate about medical education and is the Director of Clinical Training for Rheumatology in Queensland and a Senior Lecturer at the University of Queensland.",
             "about": "other"
+          },
+          {
+            "text": "Dr Aravi is a consultant adult rheumatologist with extensive clinical, academic and research experience.",
+            "about": "other",
+            "source_url": "https://www.rivercityrheumatology.com.au/our-doctors"
+          },
+          {
+            "text": "He graduated from James Cook University in 2013 and completed his training at Logan and Princess Alexandra Hospitals.",
+            "about": "lived",
+            "source_url": "https://www.rivercityrheumatology.com.au/our-doctors"
+          },
+          {
+            "text": "In 2021, Dr Aravi earned his Fellowship in Rheumatology (FRACP) and received the Ken Muirden Overseas Training Fellowship to pursue research and work and at the Royal National Hospital for Rheumatic Diseases (RNHRD) in the UK.",
+            "about": "lived",
+            "source_url": "https://www.rivercityrheumatology.com.au/our-doctors"
+          },
+          {
+            "text": "Dr Aravi is involved in international research and has published on psoriatic arthritis, gout and myositis.",
+            "about": "other",
+            "source_url": "https://www.rivercityrheumatology.com.au/our-doctors"
           }
         ]
       },
@@ -667,7 +732,7 @@
           "Exploring Australia's outdoors",
           "Family time"
         ],
-        "outside_medicine": null,
+        "outside_medicine": "Outside of work, she loves spending time with her family and exploring Australia's great outdoors.",
         "quotes": [
           {
             "text": "Outside of work, she loves spending time with her family and exploring Australia's great outdoors.",
@@ -680,6 +745,26 @@
           {
             "text": "Dr Kulatunga completed her Bachelor of Medicine and Bachelor of Surgery (MBBS) in Sri Lanka and moved to Australia in 2009.",
             "about": "lived"
+          },
+          {
+            "text": "She has a special interest in child development, behaviour, learning, and socialisation, helping families support their children at every stage.",
+            "about": "approach",
+            "source_url": "https://paedsinapod.com.au/professional/dr-imali-yapa-kulatunga-paediatrician-woolloongabba-brisbane-developmental-general-adhd-autism-anxiety-sleep/"
+          },
+          {
+            "text": "She is trained in Griffiths Developmental Assessments, ADHD and Autism Assessments, and is fluent in English and Sinhala, allowing her to connect easily with families from diverse backgrounds.",
+            "about": "other",
+            "source_url": "https://paedsinapod.com.au/professional/dr-imali-yapa-kulatunga-paediatrician-woolloongabba-brisbane-developmental-general-adhd-autism-anxiety-sleep/"
+          },
+          {
+            "text": "She completed her paediatrics training at Perth Children's Hospital and Princess Margaret Hospital, followed by a Diploma in Child Health (DCH) in Australia and Membership of the Royal College of Paediatrics and Child Health (MRCPCH) in the UK.",
+            "about": "lived",
+            "source_url": "https://paedsinapod.com.au/professional/dr-imali-yapa-kulatunga-paediatrician-woolloongabba-brisbane-developmental-general-adhd-autism-anxiety-sleep/"
+          },
+          {
+            "text": "In 2022, she achieved her General Paediatrics Fellowship with the Royal Australasian College of Physicians (FRACP).",
+            "about": "lived",
+            "source_url": "https://paedsinapod.com.au/professional/dr-imali-yapa-kulatunga-paediatrician-woolloongabba-brisbane-developmental-general-adhd-autism-anxiety-sleep/"
           }
         ]
       },
