@@ -155,7 +155,7 @@ export function Narrow() {
     const s = getDraft().trim();
     if (!s) return router.replace("/");
     setSentence(s);
-    const withContext = [s, ...contextPhrases(s).phrases].join(", ");
+    const withContext = [s.replace(/[\s.,;!]+$/, ""), ...contextPhrases(s).phrases].join(", ");
     runMatch({ sentence: withContext })
       .then((req) => setChips(req.response.chips))
       .catch(() => setChips([]));
@@ -172,7 +172,8 @@ export function Narrow() {
     const ctxWords = contextPhrases(sentence ?? "");
     const phrases = [...Object.values(final).map((o) => o.phrase).filter(Boolean), ...ctxWords.phrases];
     const exclude = Object.values(final).flatMap((o) => o.exclude ?? []);
-    const full = phrases.length ? `${sentence}, ${phrases.join(", ")}` : sentence!;
+    // join without doubled punctuation: "…in women. Sydney" + ", whole person care", never "Sydney., whole person"
+    const full = phrases.length ? `${sentence!.replace(/[\s.,;!]+$/, "")}, ${phrases.join(", ")}` : sentence!;
     const summary = [...steps.filter((s) => final[s.id]).map((s) => ({ ask: s.summary, answer: final[s.id]!.label })), ...(ctxWords.labels.length ? [{ ask: "From your health context", answer: ctxWords.labels.join(", ") }] : [])];
     setSearching(full);
     setDraft(full);

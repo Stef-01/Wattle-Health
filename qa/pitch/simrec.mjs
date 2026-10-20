@@ -109,6 +109,8 @@ mark("B.home");
 await prompt();  // now let the opening through: this is what the lock-screen notification opens into
 await page.goto(`${BASE}/`);
 await page.locator("text=/just opened up|has an opening/").first().waitFor({ timeout: 15000 }).catch(() => {}); await wait(1600);
+const promptText = await page.locator("text=/just opened up|has an opening/").first().evaluate((e) => (e.closest("div[class]")?.parentElement ?? e).innerText).catch(() => "");
+events.push({ name: "B.promptText", t: now(), text: promptText });   // the film's lock screen quotes this exactly
 mark("B.book");
 await page.getByRole("button", { name: /Book follow-up/ }).first().tap();
 await page.waitForSelector("text=/Booked with/", { timeout: 10000 }).catch(() => {}); await wait(2000);
