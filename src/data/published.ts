@@ -158,7 +158,12 @@ function found<T>(value: T, src: SourceRef): Observed<T> {
 function roomOf(d: ResearchedDoctor, id: string): Room {
   const pr = d.practice;
   const state = pr.state ?? "QLD";
-  if (state !== "QLD") return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb, state, postcode: pr.postcode ?? "", lat: null, lng: null, phone: pr.phone ?? null, website: pr.website ?? null };
+  // An interstate practice is geocoded only when the record carries the practice's own coordinates (founder 2026-10-19:
+  // ADHDme network GPs in Sydney); without them it stays telehealth-only for Queenslanders, as before.
+  if (state !== "QLD") {
+    const has = typeof pr.lat === "number" && typeof pr.lng === "number";
+    return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb, state, postcode: pr.postcode ?? "", lat: has ? pr.lat! : null, lng: has ? pr.lng! : null, phone: pr.phone ?? null, website: pr.website ?? null };
+  }
   const point = typeof pr.lat === "number" && typeof pr.lng === "number" ? { lat: pr.lat, lng: pr.lng } : (() => {
     const p = resolvePlace(pr.postcode ? `${pr.suburb} ${pr.postcode}` : pr.suburb) ?? resolvePlace(pr.suburb);
     return p ? { lat: p.lat, lng: p.lon } : { lat: null, lng: null };
@@ -168,7 +173,7 @@ function roomOf(d: ResearchedDoctor, id: string): Room {
 
 function locationOf(room: Room, src: SourceRef, telehealthOnly: boolean): Location | null {
   if (room.lat === null || room.lng === null) return null;
-  const loc: Location = { id: room.id, name: room.name ?? "Consulting rooms", suburb: room.suburb, state: "QLD", postcode: room.postcode, lat: room.lat, lng: room.lng };
+  const loc: Location = { id: room.id, name: room.name ?? "Consulting rooms", suburb: room.suburb, state: room.state as Location["state"], postcode: room.postcode, lat: room.lat, lng: room.lng };
   if (room.phone) loc.phone = found(room.phone, src);
   if (room.website) loc.website = found(room.website, src);
   if (telehealthOnly) loc.telehealthOnly = true;

@@ -76,8 +76,13 @@ describe("published profiles", () => {
     expect(published.length).toBe(new Set(researched.map((r) => `${r.specialty}|${nameKey(r.name)}`)).size);
     for (const d of published) {
       // A provider whose practice is outside Queensland (ADHDme allied, 2026-10-19) is listed as
-      // telehealth-only with no geocoded room; everyone else must geocode.
-      if (d.rooms.every((r) => r.state !== "QLD")) expect(d.telehealth.value, `${d.name.display} is out of state and not telehealth-only`).toBe("only");
+      // telehealth-only with no geocoded room, unless the record carries the practice's own
+      // coordinates (ADHDme network GPs in Sydney, 2026-10-19): then the room geocodes in its own
+      // state. Everyone else must geocode.
+      const interstate = d.rooms.every((r) => r.state !== "QLD");
+      const placed = d.locations.filter((l) => l.state !== "QLD");
+      if (interstate && !placed.length) expect(d.telehealth.value, `${d.name.display} is out of state, unplaced and not telehealth-only`).toBe("only");
+      else if (interstate) expect(placed.every((l) => d.rooms.some((r) => r.state === l.state)), `${d.name.display} geocoded outside its own state`).toBe(true);
       else expect(d.locations.length, `${d.name.display} has no geocoded room`).toBeGreaterThan(0);
       expect(d.personal?.sourceUrl).toMatch(/^https?:\/\//);
       expect(d.sources.some((s) => s.source === "practice-website")).toBe(true);

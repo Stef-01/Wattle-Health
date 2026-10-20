@@ -101,6 +101,20 @@ export function resolvePlace(input: string): SuburbPoint | null {
 }
 
 /**
+ * A place named inside a sentence ("ADHD assessment, Sydney"): the longest gazetteer name that appears as whole
+ * words, or null. Used only when no suburb was given, so a typed suburb always wins.
+ */
+export function placeInSentence(sentence: string): SuburbPoint | null {
+  const text = ` ${normalise(sentence).replace(/[^a-z0-9 ]/g, " ")} `;
+  let best: SuburbPoint | null = null;
+  for (const s of SUBURBS) {
+    const name = s.suburb.toLowerCase();
+    if (name.length >= 5 && text.includes(` ${name} `) && (!best || name.length > best.suburb.length)) best = s;
+  }
+  return best;
+}
+
+/**
  * O251: the places a half-typed input could mean, for the profile's suggestion list.
  *
  * Name prefixes first (what somebody is most likely still typing), then names containing the

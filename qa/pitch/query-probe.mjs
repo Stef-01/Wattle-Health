@@ -1,9 +1,9 @@
 // Which typed query does the results summary echo back cleanly?
 import { chromium, devices } from "@playwright/test";
-const BASE = "https://wattlehealth.vercel.app";
-const PREFER = [/^18 to/i, /been through it too/i, /^me$/i, /first time/i, /assessment or diagnosis/i, /yes, a gp/i, /open to either/i];
+const BASE = process.env.BASE ?? "https://wattlehealth.vercel.app";
+const PREFER = [/^18 to/i, /a woman|female/i, /^18 to/i, /been through it too/i, /^me$/i, /first time/i, /assessment or diagnosis/i, /yes, a gp/i, /open to either/i];
 const b = await chromium.launch();
-for (const q of ["ADHD assessment, a GP with lived experience", "Adult ADHD, a doctor who has been through it", "ADHD, the right GP for me"]) {
+for (const q of (process.env.QS ?? "").split("|")) {
   const p = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
   await p.goto(BASE); await p.evaluate(() => { localStorage.setItem("wattle.splash.seen", "true"); localStorage.setItem("wattle.brand.v1", "adhdme"); });
   await p.goto(BASE); await p.locator("textarea").first().fill(q); await p.getByText("Find my provider").click();

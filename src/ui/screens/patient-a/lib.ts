@@ -5,6 +5,7 @@ import { search } from "@/src/data/api";
 import type { Card, Chip, SearchRequest, SearchResponse } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { regionOf } from "@/src/ui/screens/patient-b/facts";
+import { placeInSentence } from "@/src/geo/suburbs";
 import { getRequest, newRequestId, pushRecent, REQUEST_VERSION, setRequest, type StoredRequest } from "@/src/ui/store";
 
 export const DEFAULT_SUBURB = "Brisbane";
@@ -14,14 +15,15 @@ export const REACH_KM = 20;
 export const EXAMPLES = ["Endometriosis, someone who listens", "ADHD, lived experience", "Menopause, longer appointments", "Fibromyalgia, whole-person care"];
 
 export async function runMatch(input: { sentence: string; suburb?: string; removed?: string[]; anywhere?: boolean; id?: string; exclude?: string[]; answers?: { ask: string; answer: string }[] }): Promise<StoredRequest> {
-  const suburb = input.anywhere ? "" : (input.suburb ?? DEFAULT_SUBURB);
+  const named = input.suburb ?? placeInSentence(input.sentence)?.suburb;   // "..., Sydney" in the sentence sets the place
+  const suburb = input.anywhere ? "" : (named ?? DEFAULT_SUBURB);
   const body: SearchRequest = { sentence: input.sentence, suburb, removed: input.removed ?? [], ...(input.exclude?.length ? { exclude: input.exclude } : {}) };
   const response: SearchResponse = await search(body);
   const req: StoredRequest = {
     id: input.id ?? newRequestId(),
     v: REQUEST_VERSION,
     sentence: input.sentence,
-    suburb: input.suburb ?? DEFAULT_SUBURB,
+    suburb: named ?? DEFAULT_SUBURB,
     removed: input.removed ?? [],
     response,
     at: new Date().toISOString(),
