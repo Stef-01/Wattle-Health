@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 import { demoBusy, parseIcs } from "@/src/data/calendar";
 import { Sheet } from "@/src/ui/kit";
 import { Orb } from "@/src/ui/kit/Orb";
+import { celebrate } from "@/src/ui/celebrate";
 import { setOpeningsState, type OpeningsState } from "@/src/ui/openings";
 
 export const PROVIDERS = {
@@ -76,6 +77,7 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
       save(asking, PROVIDERS[asking].name, demoBusy(Date.now()));
       setConnecting(false);
       setAsking(null);
+      celebrate();
     }, 1400);
   }
 
@@ -104,7 +106,7 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
           <p className="text-[17px] font-semibold text-ink">Connect a calendar</p>
           <div className="mt-1 flex flex-col">
             {(Object.keys(PROVIDERS) as Provider[]).map((p) => (
-              <button key={p} type="button" onClick={() => setAsking(p)} className="press-soft flex items-center gap-3 py-2.5 text-left">
+              <button key={p} type="button" onClick={() => setAsking(p)} style={{ "--i": Object.keys(PROVIDERS).indexOf(p) } as React.CSSProperties} className="rise press-soft flex items-center gap-3 py-2.5 text-left">
                 <ProviderIcon id={p} size={32} />
                 <span className="flex-1 text-[16px] text-ink">{PROVIDERS[p].name.replace(" Calendar", "")}</span>
                 <svg width="8" height="14" viewBox="0 0 8 14" aria-hidden="true"><path d="M1 1l6 6-6 6" fill="none" stroke="#c4c4c4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>

@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { checkOpenings, getOpeningsState, setOpeningsState, savedDoctorIds, type FitOpening } from "./openings";
 import { nextFreeLabel } from "./screens/patient-a/BookCard";
 import { Orb } from "./kit/Orb";
+import { celebrate } from "./celebrate";
 
 export function OpeningPrompt() {
   const path = usePathname();
@@ -60,6 +61,7 @@ export function OpeningPrompt() {
       const s = getOpeningsState();
       setOpeningsState({ booked: [...(s.booked ?? []), { id: o!.id, doctorId: o!.doctorId, start: o!.start, mode: o!.mode }] });
       setState("booked");
+      celebrate(20);
     }, 1200);
   }
 
@@ -72,7 +74,7 @@ export function OpeningPrompt() {
           <span className="ml-auto">now</span>
         </div>
         {state === "booked" ? (
-          <div className="mt-2">
+          <div className="bounce-in mt-2">
             <p className="flex items-center gap-2 text-[16px] font-semibold text-ink"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="#1b1b1b" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Booked with {name}</p>
             <p className="mt-0.5 text-[15px] leading-[1.45] text-[#4a4a4a]">{when}{o.mode === "telehealth" ? ", by video" : ""}. It’s in your calendar and in Openings.</p>
             <button type="button" onClick={close} className="press mt-3 h-10 w-full rounded-[8px] bg-[#f4f4f4] text-[15px] font-semibold text-ink">Done</button>

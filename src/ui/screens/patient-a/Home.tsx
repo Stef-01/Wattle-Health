@@ -81,7 +81,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
   return (
     <Screen padBottom="pb-[110px]">
       <div className="flex items-center justify-between">
-        <Title>{name ? `Hi, ${display}.` : "Who do you need?"}</Title>
+        <Title><span className="rise inline-block">{name ? `Hi, ${display}.` : "Who do you need?"}</span></Title>
         {initials ? (
           <span aria-hidden="true" className="inline-flex size-[50px] shrink-0 items-center justify-center rounded-full bg-charcoal font-inter text-[18px] font-semibold text-white">
             {initials}
@@ -118,7 +118,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
             <button type="button" onClick={toggleMic} disabled={!canListen} aria-pressed={listening} aria-label={listening ? "Stop listening" : "Speak instead"} className={listening ? "text-accent" : canListen ? "text-grey" : "text-line"}>
               <Mic size={24} />
             </button>
-            <button type="submit" aria-label="Send" disabled={busy} className="inline-flex size-11 items-center justify-center rounded-full bg-charcoal text-white disabled:opacity-50">
+            <button type="submit" aria-label="Send" disabled={busy} className={`press ${text.trim() ? "nudge" : ""} inline-flex size-11 items-center justify-center rounded-full bg-charcoal text-white disabled:opacity-50`}>
               <ArrowRight size={20} />
             </button>
           </div>
@@ -144,8 +144,8 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
       ) : null}
       <p className="text-[14px] text-grey">Or try one of these</p>
       <Gap h={8} />
-      {EXAMPLES.map((ex) => (
-        <button key={ex} type="button" onClick={() => void submit(ex)} className="press press-soft block w-full border-b border-divider py-3.5 text-left text-[17px] leading-snug text-charcoal">
+      {EXAMPLES.map((ex, i) => (
+        <button key={ex} type="button" onClick={() => void submit(ex)} style={{ "--i": i + 2 } as React.CSSProperties} className="rise press press-soft block w-full border-b border-divider py-3.5 text-left text-[17px] leading-snug text-charcoal">
           {ex}
         </button>
       ))}
