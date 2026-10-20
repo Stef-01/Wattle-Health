@@ -29,7 +29,9 @@ function heardSentence(req: StoredRequest): string {
   const what = chips.filter((c) => c.kind === "condition").map((c) => c.label);
   const how = chips.filter((c) => c.kind !== "condition" && c.kind !== "population").map((c) => c.label.toLowerCase());
   const forWho = chips.filter((c) => c.kind === "population").map((c) => c.label.toLowerCase()).map((l) => `for ${/^[aeiou]/.test(l) ? "an" : "a"} ${l}`);
-  const parts = how.map((l) => (/^(listens|explains|takes|believes|gets)/.test(l) ? `who ${l}` : `with ${l.replace(/^(a |an )/, "")}`));
+  // adjective labels read as a clause ("a doctor who looks at the whole picture", never "a doctor with holistic")
+  const CLAUSE: Record<string, string> = { holistic: "who looks at the whole picture" };
+  const parts = how.map((l) => CLAUSE[l] ?? (/^(listens|explains|takes|believes|gets)/.test(l) ? `who ${l}` : `with ${l.replace(/^(a |an )/, "")}`));
   const head = what.length ? what.join(" and ") : "";
   const who = parts.length ? `${head ? ", " : ""}a doctor ${parts.join(" and ")}` : "";
   const place = req.response.place.suburb?.replace(/ City$/, "");
