@@ -1,5 +1,4 @@
 "use client";
-import { Brand } from "@/src/ui/brand";
 // Calendar connection, styled like a real app connector (founder 2026-10-19: "make calendar
 // functionality look real"). Pick Google, Apple or Outlook; a permission sheet shows exactly what
 // Wattle gets (free/busy only, never titles, people or notes); Allow connects. Provider OAuth is not
@@ -89,68 +88,47 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
     setLink("");
   }
 
-  const synced = cal ? Math.max(1, Math.round((Date.now() - cal.at) / 60000)) : 0;
-
   return (
-    <section className="mt-6 rounded-[8px] border border-hairline">
+    <section className="mt-6">
       {cal ? (
-        <div className="flex items-center gap-3 px-4 py-4">
-          <ProviderIcon id={cal.source} />
-          <div className="min-w-0 flex-1">
-            <p className="text-[16px] font-semibold text-ink">{cal.label}</p>
-            <p className="text-[14px] text-[#6b6b6b]"><span className="mr-1 inline-block size-2 rounded-full bg-[#34c759] align-middle" />Connected · free/busy only · synced {synced < 2 ? "just now" : `${synced} min ago`}</p>
-          </div>
-          <button type="button" onClick={() => { setOpeningsState({ calendar: null }); onChange(); }} className="press-dim text-[14px] text-accent">Disconnect</button>
+        <div className="flex items-center gap-3 py-2">
+          <ProviderIcon id={cal.source} size={32} />
+          <p className="flex-1 text-[16px] font-medium text-ink">{cal.label}</p>
+          <span className="mr-2 inline-flex items-center gap-1.5 text-[14px] text-[#6b6b6b]"><span className="size-1.5 rounded-full bg-ink" />Connected</span>
+          <button type="button" aria-label="Disconnect" onClick={() => { setOpeningsState({ calendar: null }); onChange(); }} className="press-dim p-1"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1 1 11" stroke="#9a9a9a" strokeWidth="1.6" strokeLinecap="round" /></svg></button>
         </div>
       ) : (
-        <div className="px-4 py-4">
-          <p className="text-[16px] font-semibold text-ink">Connect your calendar</p>
-          <p className="mt-0.5 text-[14px] leading-[1.45] text-[#6b6b6b]">So we only suggest times you’re free.</p>
-          <div className="mt-3 flex flex-col divide-y divide-hairline">
+        <>
+          <p className="text-[17px] font-semibold text-ink">Connect a calendar</p>
+          <div className="mt-1 flex flex-col">
             {(Object.keys(PROVIDERS) as Provider[]).map((p) => (
-              <button key={p} type="button" onClick={() => setAsking(p)} className="press-soft flex items-center gap-3 py-3 text-left">
+              <button key={p} type="button" onClick={() => setAsking(p)} className="press-soft flex items-center gap-3 py-2.5 text-left">
                 <ProviderIcon id={p} size={32} />
-                <span className="flex-1 text-[16px] text-ink">{PROVIDERS[p].name}</span>
-                <span className="rounded-[6px] border border-ink px-3 py-1.5 text-[14px] font-medium text-ink">Connect</span>
+                <span className="flex-1 text-[16px] text-ink">{PROVIDERS[p].name.replace(" Calendar", "")}</span>
+                <svg width="8" height="14" viewBox="0 0 8 14" aria-hidden="true"><path d="M1 1l6 6-6 6" fill="none" stroke="#c4c4c4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             ))}
+            <button type="button" onClick={() => setOther((v) => !v)} className="press-dim self-start py-2 text-[14px] text-[#9a9a9a]">{other ? "Hide" : "Use a link or .ics"}</button>
           </div>
-        </div>
+          {other ? (
+            <div className="mt-1 flex gap-2">
+              <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="iCal link" className="field min-w-0 flex-1 rounded-full bg-[#f4f4f4] px-4 py-2.5 text-[15px] outline-none" />
+              <button type="button" disabled={!link || busy} onClick={() => void fromLink()} className="press rounded-full bg-ink px-4 text-[15px] text-white disabled:opacity-30">{busy ? "…" : "Add"}</button>
+              <button type="button" aria-label="Upload .ics" onClick={() => file.current?.click()} className="press rounded-full bg-[#f4f4f4] px-4 text-[15px] text-ink">.ics</button>
+              <input ref={file} type="file" accept=".ics,text/calendar" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) { const now = Date.now(); save("ics-file", f.name, parseIcs(await f.text()).filter((b) => b.end > now && b.start < now + 21 * 86400000)); } }} />
+            </div>
+          ) : null}
+          {err ? <p className="mt-2 text-[14px] text-danger">{err}</p> : null}
+        </>
       )}
-      <div className="border-t border-hairline px-4 py-3">
-        <button type="button" onClick={() => setOther((v) => !v)} className="press-dim text-[14px] text-[#4a4a4a]">{other ? "Hide other ways" : "Other ways to connect"}</button>
-        {other ? (
-          <div className="mt-3 flex flex-col gap-3">
-            <button type="button" onClick={() => file.current?.click()} className="press rounded-[6px] border border-hairline px-4 py-3 text-left text-[15px] text-ink">Upload an .ics file <span className="block text-[13px] text-grey">Exported from any calendar app</span></button>
-            <input ref={file} type="file" accept=".ics,text/calendar" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) { const now = Date.now(); save("ics-file", f.name, parseIcs(await f.text()).filter((b) => b.end > now && b.start < now + 21 * 86400000)); } }} />
-            <div className="flex gap-2">
-              <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="Private iCal link" className="field min-w-0 flex-1 rounded-[6px] border border-hairline px-4 py-3 text-[15px] outline-none" />
-              <button type="button" disabled={!link || busy} onClick={() => void fromLink()} className="press rounded-[6px] bg-ink px-4 text-[15px] text-white disabled:opacity-40">{busy ? "Reading" : "Add"}</button>
-            </div>
-            {err ? <p className="text-[14px] text-danger">{err}</p> : null}
-          </div>
-        ) : null}
-      </div>
 
-      <Sheet open={asking !== null} onClose={() => (connecting ? null : setAsking(null))} title={asking ? `Connect ${PROVIDERS[asking].name}` : ""}>
+      <Sheet open={asking !== null} onClose={() => (connecting ? null : setAsking(null))} title="">
         {asking ? (
-          <div className="flex flex-col gap-5">
-            <div className="flex items-center justify-center gap-4 py-2">
-              <span className="inline-flex size-14 items-center justify-center rounded-[14px] bg-[#f4f4f4]"><Orb size={36} /></span>
-              <svg width="40" height="12" viewBox="0 0 40 12" aria-hidden="true"><path d="M2 6h36M32 1l6 5-6 5M8 1 2 6l6 5" fill="none" stroke="#9a9a9a" strokeWidth="1.5" /></svg>
-              <ProviderIcon id={asking} size={56} />
-            </div>
-            <p className="text-center text-[17px] leading-[1.45] text-ink"><span className="font-semibold"><Brand /></span> wants to access your {PROVIDERS[asking].account}</p>
-            <ul className="flex flex-col gap-3 rounded-[8px] bg-[#f7f7f7] px-4 py-4 text-[15px] leading-[1.45]">
-              <li className="flex gap-3"><span aria-hidden="true" className="text-[#1b1b1b]">✓</span><span className="text-ink">See when you’re busy or free in the next three weeks</span></li>
-              <li className="flex gap-3"><span aria-hidden="true" className="text-[#9a9a9a]">✕</span><span className="text-[#6b6b6b]">Can’t see event titles, people, locations or notes</span></li>
-              <li className="flex gap-3"><span aria-hidden="true" className="text-[#9a9a9a]">✕</span><span className="text-[#6b6b6b]">Can’t create, change or delete events</span></li>
-            </ul>
-            <p className="text-[13px] leading-[1.45] text-[#6b6b6b]">Busy times stay on this device. Disconnect any time in Openings.</p>
-            <div className="grid grid-cols-2 gap-3">
-              <button type="button" disabled={connecting} onClick={() => setAsking(null)} className="press h-12 rounded-[6px] border border-ink text-[16px] font-medium text-ink disabled:opacity-40">Cancel</button>
-              <button type="button" disabled={connecting} onClick={allow} className="press inline-flex h-12 items-center justify-center gap-2 rounded-[6px] bg-ink text-[16px] font-semibold text-white">{connecting ? <><Orb size={20} className="invert" /> Connecting</> : "Allow"}</button>
-            </div>
+          <div className="flex flex-col items-center gap-4 pb-2 text-center">
+            <ProviderIcon id={asking} size={64} />
+            <p className="text-[20px] font-semibold text-ink">{PROVIDERS[asking].name}</p>
+            <p className="text-[15px] text-[#6b6b6b]">Free and busy times only.</p>
+            <button type="button" disabled={connecting} onClick={allow} className="press mt-2 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-[16px] font-semibold text-white">{connecting ? <><Orb size={18} className="invert" /> Connecting</> : "Connect"}</button>
           </div>
         ) : null}
       </Sheet>

@@ -95,12 +95,12 @@ const prompt = () => page.evaluate(() => { const k = "wattle.openings.v1"; const
 await page.evaluate((id) => { localStorage.setItem("wattle.saved.v1", JSON.stringify([decodeURIComponent(id).replace("~", ":")])); localStorage.removeItem("wattle.openings.v1"); }, href);
 await quiet();   // no in-app prompt while connecting the calendar: the film's lock screen is the one notification
 mark("B.openings");
-await page.goto(`${BASE}/me/openings`); await page.waitForSelector("text=Connect your calendar"); await wait(1200);
+await page.goto(`${BASE}/me/openings`); await page.waitForSelector("text=Connect a calendar"); await wait(1200);
 mark("B.connect");
-await page.getByRole("button", { name: /Google Calendar/ }).tap();
-await page.waitForSelector("text=wants to access your"); await wait(1500);
+await page.getByRole("button", { name: /^Google/ }).tap();
+await page.waitForSelector("text=Free and busy times only."); await wait(1500);
 mark("B.allow");
-await page.getByRole("button", { name: "Allow" }).tap();
+await page.getByRole("button", { name: "Connect", exact: true }).tap();
 await page.waitForSelector("text=/Connected/", { timeout: 10000 }); await wait(1400);
 mark("B.home");
 await prompt();  // now let the opening through: this is what the lock-screen notification opens into

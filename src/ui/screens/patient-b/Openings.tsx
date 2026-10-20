@@ -95,22 +95,21 @@ export function Openings() {
       <CalendarConnect state={s} onChange={() => void refresh()} />
 
       <div className="mt-5">
-        <p className="text-[13px] font-medium text-grey">Times that suit you</p>
-        <div className="mt-2 grid grid-cols-2 gap-2">
+        <p className="text-[17px] font-semibold text-ink">When suits you</p>
+        <div className="mt-3 flex flex-wrap gap-2">
           {(Object.keys(WINDOWS) as Window[]).map((w) => {
             const on = s?.windows.includes(w) ?? true;
             return (
-              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press flex items-center justify-between rounded-[6px] border px-3 py-2.5 text-left text-[14px] ${on ? "border-[#1b1b1b] bg-[#f4f4f4] text-ink" : "border-hairline text-grey"}`}>
-                {WINDOWS[w].label}
-                {on ? <span className="text-[#1b1b1b]"><Check size={14} /></span> : null}
+              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press rounded-full px-4 py-2 text-[15px] ${on ? "bg-ink text-white" : "bg-[#f4f4f4] text-[#6b6b6b]"}`}>
+                {WINDOWS[w].label.split(",")[0]}
               </button>
             );
           })}
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-between rounded-[6px] border border-hairline px-4 py-3">
-        <span className="text-[15px] text-ink">Notify me about new openings</span>
+      <div className="mt-6 flex items-center justify-between">
+        <span className="text-[17px] font-semibold text-ink">Notify me</span>
         <Toggle on={s?.notify ?? false} onChange={(v) => void setNotify(v)} label="Notify me about new openings" />
       </div>
       {err ? <p className="mt-2 text-[14px] text-danger">{err}</p> : null}
