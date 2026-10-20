@@ -93,10 +93,10 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
   return (
     <section className="mt-6">
       {cal ? (
-        <div className="flex items-center gap-3 py-2">
+        <div className="rise flex items-center gap-3 py-2">
           <ProviderIcon id={cal.source} size={32} />
           <p className="flex-1 text-[16px] font-medium text-ink">{cal.label}</p>
-          <span className="mr-2 inline-flex items-center gap-1.5 text-[14px] text-[#6b6b6b]"><span className="size-1.5 rounded-full bg-ink" />Connected</span>
+          <span className="mr-2 inline-flex items-center gap-1.5 text-[14px] text-[#6b6b6b]"><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="#1b1b1b" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Connected</span>
           <button type="button" aria-label="Disconnect" onClick={() => { setOpeningsState({ calendar: null }); onChange(); }} className="press-dim p-1"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1 1 11" stroke="#9a9a9a" strokeWidth="1.6" strokeLinecap="round" /></svg></button>
         </div>
       ) : (

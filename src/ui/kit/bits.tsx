@@ -127,3 +127,28 @@ export function Portal({ children }: { children: ReactNode }) {
   useEffect(() => setReady(true), []);
   return ready ? createPortal(children, document.body) : null;
 }
+
+/** Bottom sheet over the frame (contact handoff). */
+export function Sheet({ open, onClose, title, children }: { open: boolean; onClose: () => void; title: string; children: ReactNode }) {
+  // Stay mounted for the exit so the sheet leaves the way it came (down), instead of vanishing.
+  const [shown, setShown] = useState(open);
+  const [last, setLast] = useState<ReactNode>(children);
+  useEffect(() => {
+    if (open) { setShown(true); return; }
+    const t = window.setTimeout(() => setShown(false), 240);
+    return () => window.clearTimeout(t);
+  }, [open]);
+  useEffect(() => { if (open) setLast(children); }, [open, children]);
+  if (!open && !shown) return null;
+  return (
+    <Portal>
+    <div className={cx("frame-fixed inset-y-0 z-50", !open && "sheet-closing pointer-events-none")} role="dialog" aria-modal="true" aria-label={title}>
+      <button type="button" aria-label="Close" onClick={onClose} className="sheet-scrim absolute inset-0 bg-ink/40" />
+      <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto rounded-t-[25.5px] bg-white pb-[34px] pt-6">
+        {title ? <h2 className="text-[20px] text-charcoal">{title}</h2> : null}
+        {open ? children : last}
+      </div>
+    </div>
+    </Portal>
+  );
+}

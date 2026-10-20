@@ -45,12 +45,12 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
           const signal = device === "none" ? null : a.wearable[device] ?? `${dev.label} doesn’t measure much here. A test with your doctor will tell you more.`;
           return (
             <section key={a.id} className="rounded-[22px] border border-hairline">
-              <button type="button" aria-expanded={on} onClick={() => setOpen(on ? null : a.id)} className="flex w-full items-center justify-between px-5 py-4 text-left">
+              <button type="button" aria-expanded={on} onClick={() => setOpen(on ? null : a.id)} className="press-soft flex w-full items-center justify-between px-5 py-4 text-left">
                 <span className="font-display text-[20px] text-ink">{a.title}</span>
-                <span className="text-[20px] text-grey">{on ? "−" : "+"}</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className="shrink-0 text-grey"><path d="M2 8h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /><path className="plus-bar" d="M8 2v12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
               </button>
               {on ? (
-                <div className="px-5 pb-5">
+                <div className="rise px-5 pb-5">
                   <p className="text-[15px] leading-[1.5] text-charcoal">{a.why}</p>
                   <p className="mt-4 text-[13px] font-medium text-[#1b1b1b]">Ask your doctor about</p>
                   <ul className="mt-1.5 flex flex-col gap-1">

@@ -479,3 +479,23 @@ a, button, [role="button"], input, select, textarea, label { touch-action: manip
 @media (max-width: 639px) { input, select, textarea { font-size: max(16px, 1em); } }
 ::selection { background: #1b1b1b; color: #fff; }
 :focus-visible { outline: 2px solid #1b1b1b; outline-offset: 2px; }
+
+/* ---------------------------------------------------------------- motion pass (Emil Kowalski skills, 2026-10-20) */
+/* Sheets leave the way they arrived: panel down, scrim out. Exit is quicker than entry. */
+.sheet-closing .sheet-scrim { opacity: 0; transition: opacity 200ms ease; }
+.sheet-closing .sheet-panel { transform: translateY(100%); transition: transform 220ms var(--ease-out); }
+/* Notification leaves upward, the edge it came from. */
+.toast-out { transform: translateY(calc(-100% - 16px)); opacity: 0; transition: transform 240ms var(--ease-out), opacity 200ms ease; }
+/* Success tick draws itself once (rare moment: booking, calendar connected). */
+@keyframes draw { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
+.tick path { stroke-dasharray: 24; animation: draw 420ms var(--ease-out) 120ms both; }
+@keyframes tick-in { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.tick { animation: tick-in 260ms var(--ease-out) both; }
+/* Plus turns into minus by rotating its vertical bar away. */
+.plus-bar { transform-origin: center; transition: transform 250ms var(--ease-out); }
+[aria-expanded="true"] .plus-bar { transform: rotate(90deg) scaleX(0); }
+@media (prefers-reduced-motion: reduce) {
+  .sheet-closing .sheet-panel { transform: none; opacity: 0; transition: opacity 150ms ease; }
+  .toast-out { transform: none; }
+  .tick, .tick path { animation: none; stroke-dasharray: none; }
+}

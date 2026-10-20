@@ -353,18 +353,3 @@ export function Fade() {
   return <div aria-hidden="true" className="frame-fixed pointer-events-none bottom-[118px] z-10 h-[70px] bg-gradient-to-b from-white/0 to-white" />;
 }
 
-/** Bottom sheet over the frame (contact handoff). */
-export function Sheet({ open, onClose, title, children }: { open: boolean; onClose: () => void; title: string; children: ReactNode }) {
-  if (!open) return null;
-  return (
-    <Portal>
-    <div className="frame-fixed inset-y-0 z-50" role="dialog" aria-modal="true" aria-label={title}>
-      <button type="button" aria-label="Close" onClick={onClose} className="sheet-scrim absolute inset-0 bg-ink/40" />
-      <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto rounded-t-[25.5px] bg-white pb-[34px] pt-6">
-        <h2 className="text-[20px] text-charcoal">{title}</h2>
-        {children}
-      </div>
-    </div>
-    </Portal>
-  );
-}
