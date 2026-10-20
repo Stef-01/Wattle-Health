@@ -1,7 +1,7 @@
 // Which typed query does the results summary echo back cleanly?
 import { chromium, devices } from "@playwright/test";
 const BASE = process.env.BASE ?? "https://wattlehealth.vercel.app";
-const PREFER = [/^18 to/i, /a woman|female/i, /^18 to/i, /been through it too/i, /^me$/i, /first time/i, /assessment or diagnosis/i, /yes, a gp/i, /open to either/i];
+const PREFER = [/^adhd$/i, /^18 to/i, /^me$/i, /first time/i, /assessment or diagnosis/i, /yes, a gp/i, /^in person$/i, /whole picture/i];
 const b = await chromium.launch();
 for (const q of (process.env.QS ?? "").split("|")) {
   const p = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
@@ -12,7 +12,7 @@ for (const q of (process.env.QS ?? "").split("|")) {
     await p.waitForTimeout(600);
     const see = p.getByRole("button", { name: "See your picks" }); if (await see.count()) { await see.click(); break; }
     const o = p.locator("[data-answer]"); const n = await o.count();
-    if (n) { const t = await o.allInnerTexts(); let k = 0; for (const re of PREFER) { const j = t.findIndex((x) => re.test(x.trim())); if (j >= 0) { k = j; break; } } await o.nth(k).click(); }
+    if (n) { const t = await o.allInnerTexts(); let k = 0; for (const re of PREFER) { const j = t.findIndex((x) => re.test(x.trim())); if (j >= 0) { k = j; break; } } const first = (x) => x.split(String.fromCharCode(10))[0]; console.log("Q", (await p.locator("h1, h2").first().innerText().catch(() => "?")).slice(0, 60), "->", first(t[k]), "|", t.map(first).join(" / ")); await o.nth(k).click(); }
     await p.getByRole("button", { name: "Continue" }).click().catch(() => {});
   }
   await p.waitForSelector("text=Your top pick", { timeout: 30000 });

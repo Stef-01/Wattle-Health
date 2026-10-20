@@ -9,8 +9,8 @@ import path from "node:path";
 
 const BASE = (process.env.BASE ?? "https://wattlehealth.vercel.app").replace(/\/$/, "");
 const OUT = path.resolve(process.env.OUT ?? "qa/pitch/sim");
-const QUERY = "ADHD. A doctor who’s lived it. Telehealth is fine.";
-const PREFER = [/^18 to/i, /been through it too/i, /^me$/i, /first time/i, /assessment or diagnosis/i, /yes, a gp/i, /open to either/i];
+const QUERY = process.env.QUERY ?? "ADHD. A doctor who’s lived it. Telehealth is fine.";
+const PREFER = [/^adhd$/i, /^18 to/i, /^me$/i, /first time/i, /assessment or diagnosis/i, /yes, a gp/i, /^in person$/i, /whole picture/i];
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, "f"), { recursive: true });
 
@@ -71,12 +71,15 @@ for (let i = 0; i < 14 && !/\/results/.test(page.url()); i++) {
     for (const re of PREFER) { const j = t.findIndex((x) => re.test(x.trim())); if (j >= 0) { k = j; break; } }
     mark(`A.q${i}`); await o.nth(k).tap(); await wait(450);
   } else mark(`A.intro${i}`);
-  await page.getByRole("button", { name: "Continue" }).tap().catch(() => {});
+  // the guided flow moves on when an answer is tapped (2026-10-19); older builds still show Continue
+  const cont = page.getByRole("button", { name: "Continue" });
+  if (await cont.count() && await cont.isEnabled().catch(() => false)) await cont.tap().catch(() => {});
 }
 await page.waitForSelector("text=Your top pick", { timeout: 30000 });
 mark("A.results"); await wait(1400);
 await glide(330, 2000); await wait(600);
 mark("A.pick");
+console.log("top pick:", await page.locator("a[href*='/doctor']").first().getAttribute("href"));
 await page.locator("a[href*='/doctor']").first().tap();
 await page.waitForURL(/\/doctor\//); await page.evaluate(() => window.scrollTo(0, 0)); await wait(1500);
 mark("A.profile");
@@ -105,7 +108,7 @@ await page.waitForSelector("text=/Connected/", { timeout: 10000 }); await wait(1
 mark("B.home");
 await prompt();  // now let the opening through: this is what the lock-screen notification opens into
 await page.goto(`${BASE}/`);
-await page.locator("text=/just opened up/").first().waitFor({ timeout: 15000 }).catch(() => {}); await wait(1600);
+await page.locator("text=/just opened up|has an opening/").first().waitFor({ timeout: 15000 }).catch(() => {}); await wait(1600);
 mark("B.book");
 await page.getByRole("button", { name: /Book follow-up/ }).first().tap();
 await page.waitForSelector("text=/Booked with/", { timeout: 10000 }).catch(() => {}); await wait(2000);

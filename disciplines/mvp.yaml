@@ -68,7 +68,7 @@ conditions:
     label: ADHD
     specialties: [psychiatry, paediatrics, general-practice, psychology, occupational-therapy, allied-health]
     prescriber: true
-    cues: [adhd, "attention deficit", "adhd assessment", "adhd diagnosis", "adhd medication", "can't focus", "cannot focus", "trouble focusing", inattentive, hyperactive, "executive function", "adult adhd", stimulant, "stimulant medication"]
+    cues: [adhd, "attention deficit", "adhd assessment", "adhd diagnosis", "adhd medication", "can't focus", "cannot focus", "trouble focusing", inattentive, hyperactive, "executive function", "adult adhd", stimulant, "stimulant medication", audhd, "au dhd", "autism and adhd", "adhd and autism"]
   - id: depression
     label: Depression
     specialties: [psychiatry, general-practice, psychology]
@@ -108,7 +108,7 @@ conditions:
   - id: autism
     label: Autism assessment
     specialties: [psychiatry, paediatrics, psychology, occupational-therapy]
-    cues: [autism, autistic, asd, asperger, aspergers, "autism assessment", "autism diagnosis", "on the spectrum", "sensory overload", "sensory issues"]
+    cues: [autism, autistic, asd, asperger, aspergers, "autism assessment", "autism diagnosis", "on the spectrum", "sensory overload", "sensory issues", audhd, "au dhd", "autism and adhd", "adhd and autism"]
   - id: sleep
     label: Sleep
     specialties: [psychiatry, respiratory-sleep-medicine, general-practice, psychology]
