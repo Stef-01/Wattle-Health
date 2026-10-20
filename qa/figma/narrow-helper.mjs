@@ -13,9 +13,10 @@ export async function throughNarrow(p, { pick = 0, shot } = {}) {
     if (await radios.count()) {
       const n = await radios.count();
       await radios.nth(Math.min(pick, n - 1)).click();
-      await cont.click();
-    } else if (await cont.count()) {
-      await cont.click();
+      await p.waitForTimeout(300);
+      if (await cont.count()) await cont.click().catch(() => {});
+    } else if ((await cont.count()) && (await cont.isEnabled())) {
+      await cont.click().catch(() => {});
     }
     await p.waitForTimeout(450);
   }

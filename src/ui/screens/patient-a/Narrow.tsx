@@ -193,13 +193,29 @@ export function Narrow() {
     setIndex((i) => i + 1);
   }
 
+  /** Shorter flow (2026-10-19): tapping an answer records it and moves on; no Continue tap. */
+  function choose(id: string) {
+    if (!step) return;
+    setPicked(id);
+    const option = options.find((o) => o.id === id)!;
+    window.setTimeout(() => {
+      setAnswers((a) => ({ ...a, [step.id]: option }));
+      setIndex((i) => i + 1);
+    }, 220);
+  }
+
+  // Straight into the first question once the sentence is read; the separate intro screen is gone.
+  useEffect(() => {
+    if (index === -1 && ctx && steps.length) setIndex(0);
+  }, [ctx, steps.length, index]);
+
   const total = steps.length;
   const progress = index < 0 ? 0 : Math.min(1, (index + (step ? 0 : 1)) / Math.max(1, total));
 
   return (
     <Screen padBottom="pb-[150px]">
       <div className="flex h-11 items-center justify-between">
-        {index < 0 ? <Circle href="/" label="Back"><ArrowLeft size={20} /></Circle> : <Circle onClick={() => setIndex((i) => i - 1)} label="Back"><ArrowLeft size={20} /></Circle>}
+        {index <= 0 ? <Circle href="/" label="Back"><ArrowLeft size={20} /></Circle> : <Circle onClick={() => setIndex((i) => i - 1)} label="Back"><ArrowLeft size={20} /></Circle>}
         {index >= 0 && step ? <span className="text-[14px] text-grey">{index + 1} of {total}</span> : null}
       </div>
       <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-surface" role="progressbar" aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100}>
@@ -227,7 +243,7 @@ export function Narrow() {
                   role="radio"
                   aria-checked={on}
                   data-answer={i}
-                  onClick={() => setPicked(o.id)}
+                  onClick={() => choose(o.id)}
                   className={`rise press press-soft flex w-full items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#1b1b1b] bg-[#f4f4f4]" : "border-hairline bg-white"}`}
                   style={{ "--i": i } as React.CSSProperties}
                 >
@@ -279,7 +295,6 @@ export function Narrow() {
             </>
           ) : step ? (
             <>
-              <Cta fixed={false} disabled={!picked} onClick={next}>Continue</Cta>
               <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Skip to my picks</button>
             </>
           ) : ctx ? (

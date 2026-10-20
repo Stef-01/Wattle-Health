@@ -56,7 +56,7 @@ await page.goto(`${BASE}/`); await page.evaluate(() => localStorage.setItem("wat
 await page.locator("textarea").first().waitFor(); await wait(900);
 mark("A.type");
 await page.locator("textarea").first().tap(); await wait(300);
-await page.keyboard.type(QUERY, { delay: 75 });
+await page.keyboard.type(QUERY, { delay: 85 });
 await wait(700);
 mark("A.find");
 await page.getByText("Find my provider").tap();
@@ -90,7 +90,10 @@ mark("A.end");
 await glideTo('a:has-text("Next free"), button:has-text("Next free")', 520, 1600); await wait(1500);
 mark("B.nextfree"); await wait(2200);
 const href = new URL(page.url()).pathname.split("/doctor/")[1];
+const quiet = () => page.evaluate(() => { const k = "wattle.openings.v1"; const s = JSON.parse(localStorage.getItem(k) || "{}"); s.lastPromptAt = Date.now(); localStorage.setItem(k, JSON.stringify(s)); });
+const prompt = () => page.evaluate(() => { const k = "wattle.openings.v1"; const s = JSON.parse(localStorage.getItem(k) || "{}"); delete s.lastPromptAt; localStorage.setItem(k, JSON.stringify(s)); });
 await page.evaluate((id) => { localStorage.setItem("wattle.saved.v1", JSON.stringify([decodeURIComponent(id).replace("~", ":")])); localStorage.removeItem("wattle.openings.v1"); }, href);
+await quiet();   // no in-app prompt while connecting the calendar: the film's lock screen is the one notification
 mark("B.openings");
 await page.goto(`${BASE}/me/openings`); await page.waitForSelector("text=Connect your calendar"); await wait(1200);
 mark("B.connect");
@@ -100,11 +103,13 @@ mark("B.allow");
 await page.getByRole("button", { name: "Allow" }).tap();
 await page.waitForSelector("text=/Connected/", { timeout: 10000 }); await wait(1400);
 mark("B.home");
+await prompt();  // now let the opening through: this is what the lock-screen notification opens into
 await page.goto(`${BASE}/`);
 await page.locator("text=/just opened up/").first().waitFor({ timeout: 15000 }).catch(() => {}); await wait(1600);
 mark("B.book");
 await page.getByRole("button", { name: /Book follow-up/ }).first().tap();
 await page.waitForSelector("text=/Booked with/", { timeout: 10000 }).catch(() => {}); await wait(2000);
+await quiet();   // no second prompt after booking
 mark("B.list");
 await page.goto(`${BASE}/me/openings`); await wait(1200);
 await glide(260, 2400); await wait(800);
