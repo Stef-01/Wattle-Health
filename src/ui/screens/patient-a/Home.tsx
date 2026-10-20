@@ -2,10 +2,11 @@
 // P02 Home (225:17): greeting + avatar, the sentence field with mic and send, "Try" examples,
 // "Recent" rows, "Find my provider" CTA over the tab bar. Submit runs POST /api/match and goes
 // straight to /results (one field, one gate, then cards) with the response parked under a request id.
+import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Clock, Cta, Divider, FaceStack, FieldBox, Gap, Row, Screen, SectionTitle, TabBar, Title, Mic, initialsOf } from "@/src/ui/kit";
+import { ArrowRight, Clock, Cta, Divider, FaceStack, FieldBox, Gap, Row, Screen, SectionTitle, Title, Mic, initialsOf } from "@/src/ui/kit";
 import { OpeningsBanner } from "@/src/ui/OpeningsBanner";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
 import { EXAMPLES } from "./lib";
@@ -47,6 +48,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
   async function submit(sentence: string) {
     const s = sentence.trim();
     if (!s || busy) return;
+    track("search_started");
     setBusy(true);
     setDraft(s);
     router.push("/narrow");
@@ -160,7 +162,6 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
           ))}
         </>
       ) : null}
-      <TabBar active="/" />
     </Screen>
   );
 }

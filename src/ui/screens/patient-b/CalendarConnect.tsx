@@ -4,6 +4,7 @@
 // Wattle gets (free/busy only, never titles, people or notes); Allow connects. Provider OAuth is not
 // wired yet, so a provider connection reads a representative week; the .ics file and private iCal
 // link under "Other ways" read the person's real calendar today.
+import { track } from "@vercel/analytics";
 import { useRef, useState } from "react";
 import { demoBusy, parseIcs } from "@/src/data/calendar";
 import { Sheet } from "@/src/ui/kit";
@@ -70,6 +71,7 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
   function allow() {
     if (!asking) return;
     setConnecting(true);
+    track("calendar_connected", { provider: asking });
     window.setTimeout(() => {
       save(asking, PROVIDERS[asking].name, demoBusy(Date.now()));
       setConnecting(false);

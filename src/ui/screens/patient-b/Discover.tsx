@@ -124,7 +124,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
               );
             })}
           </div>
-          <div className="frame-fixed pointer-events-none bottom-0 z-20 bg-white">
+          <div className="dock frame-fixed pointer-events-none bottom-0 z-20 bg-white">
             <div className="frame-pad pointer-events-auto pb-[26px] pt-3"><Cta fixed={false} disabled={!picked} onClick={next}>Continue</Cta></div>
           </div>
         </div>

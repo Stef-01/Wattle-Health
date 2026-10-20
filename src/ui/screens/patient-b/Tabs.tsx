@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { lookup } from "@/src/data/api";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { DoctorRecord } from "@/src/data/types";
-import { Body, Divider, FaceStack, FieldBox, FigmaIcon, initialsOf, Row, Screen, SectionTitle, TabBar, Toggle } from "@/src/ui/kit";
+import { Body, Divider, FaceStack, FieldBox, FigmaIcon, initialsOf, Row, Screen, SectionTitle, Toggle } from "@/src/ui/kit";
 import { getOpeningsState, setOpeningsState } from "@/src/ui/openings";
 import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
@@ -65,7 +65,6 @@ export function Recent() {
           </section>
         ))}
       </div>
-      <TabBar active="/recent" />
     </Screen>
   );
 }
@@ -167,7 +166,6 @@ export function Saved() {
           );
         })}
       </div>
-      <TabBar active="/saved" />
     </Screen>
   );
 }
@@ -240,7 +238,6 @@ export function Me() {
       <h2 className="display text-[20px] text-charcoal">About <Brand /></h2>
       <Space h={8} />
       <p className="text-[14px] leading-[1.5] text-grey">We pick on how providers say they work. Every fact names its source. No one pays to be listed.</p>
-      <TabBar active="/me" />
     </Screen>
   );
 }

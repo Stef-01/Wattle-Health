@@ -272,7 +272,7 @@ export function Cta({ children, href, onClick, type = "button", arrow = true, ic
   );
   if (!fixed) return button;
   return (
-    <div className="frame-fixed pointer-events-none bottom-0 z-20 bg-white">
+    <div className="dock frame-fixed pointer-events-none bottom-0 z-20 bg-white">
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 -top-12 h-12 bg-gradient-to-b from-white/0 to-white" />
       {note ? <p className="frame-pad caption pointer-events-auto pb-2 text-center text-[12px] text-grey">{note}</p> : null}
       <div className="frame-pad pointer-events-auto flex items-center gap-3 pb-[26px] pt-2">
@@ -295,12 +295,12 @@ const TABS = [
 /** Bottom tab bar: four 23 px icons, red 8 px dot under the active one. */
 export function TabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
   return (
-    <nav aria-label="Primary" className="frame-fixed pointer-events-none bottom-0 z-10">
-      <div className="material pointer-events-auto flex h-[88px] items-start justify-around px-9 pt-[14px]">
+    <nav aria-label="Primary" className="frame-fixed pointer-events-none bottom-0 z-30">
+      <div className="material pointer-events-auto flex items-start justify-around px-4 pt-2" style={{ height: "var(--nav-h, 88px)" }}>
         {TABS.map(({ href, label, Icon }) => (
-          <Link key={href} href={href} aria-label={label} aria-current={active === href ? "page" : undefined} className={cx("press flex size-11 flex-col items-center gap-[9px]", active === href ? "text-ink" : "text-grey")}>
+          <Link key={href} href={href} aria-current={active === href ? "page" : undefined} className={cx("press flex min-w-16 flex-col items-center gap-1 py-1", active === href ? "text-ink" : "text-[#8a8a8a]")}>
             <Icon size={23} />
-            <span className={cx("size-2 rounded-full transition-colors duration-150", active === href ? "bg-accent" : "bg-transparent")} />
+            <span className={cx("text-[11px] leading-none", active === href ? "font-semibold" : "font-medium")}>{label}</span>
           </Link>
         ))}
       </div>

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Card, SearchResponse } from "@/src/data/search-types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Avatar, Body, Cta, Divider, Gap, Row, Screen, Sliders, TabBar } from "@/src/ui/kit";
+import { Avatar, Body, Cta, Divider, Gap, Row, Screen, Sliders } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
@@ -213,7 +213,6 @@ export function Matches() {
           <p className="caption text-[13px] leading-normal text-grey">{res.orderNote.replace(/ and ([A-Z])(?=[a-z ])/g, (_m, c: string) => ` and ${c.toLowerCase()}`)}</p>
         </>
       ) : null}
-      <TabBar active="/" />
     </Screen>
   );
 }
@@ -234,7 +233,7 @@ function Empty({ res, place, busy, onWiden, onTelehealth, onChange, onClosest }:
       <Divider />
       <Row title="Change what you need" onClick={onChange} />
       <Divider />
-      <Dock bottom={94}>
+      <Dock bottom={16}>
         <Cta fixed={false} onClick={onClosest} disabled={busy}>
           Show closest fits
         </Cta>

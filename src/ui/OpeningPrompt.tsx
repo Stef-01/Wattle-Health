@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@vercel/analytics";
 import { Brand } from "@/src/ui/brand";
 // The proactive prompt (founder 2026-10-19): "an appointment for X has just opened up, you are free,
 // would you like to book a follow-up?" Shown as a notification-style card when a saved doctor you're
@@ -52,6 +53,7 @@ export function OpeningPrompt() {
   }
   function book() {
     setState("booking");
+    track("followup_booked");
     window.setTimeout(() => {
       const s = getOpeningsState();
       setOpeningsState({ booked: [...(s.booked ?? []), { id: o!.id, doctorId: o!.doctorId, start: o!.start, mode: o!.mode }] });

@@ -1,5 +1,6 @@
 // Browser-side state. The sentence and the last results live in sessionStorage (gone when the
 // tab closes, never in a URL). Saved doctors and the compare pair live in localStorage.
+import { track } from "@vercel/analytics";
 import type { SearchResponse, Weights } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 
@@ -110,6 +111,8 @@ export function toggleSavedId(id: string, context?: string): string[] {
   if (context) write(() => localStorage, SAVED_CTX, { ...getSavedContext(), [id]: context });
   const current = getSavedIds();
   const next = current.includes(id) ? current.filter((x) => x !== id) : [...current, id];
+  // Analytics never carries the search sentence or who was saved: only that a save happened.
+  track(next.length > current.length ? "provider_saved" : "provider_unsaved");
   write(() => localStorage, SAVED_KEY, next);
   return next;
 }
