@@ -19,6 +19,8 @@ export type OpeningsState = {
   /** Openings the person said "Not now" to, and ones they booked from the prompt. */
   dismissed?: string[];
   booked?: { id: string; doctorId: string; start: number; mode: string }[];
+  /** When the last opening prompt showed; prompts are at most daily. */
+  lastPromptAt?: number;
 };
 const EMPTY: OpeningsState = { calendar: null, windows: ["morning", "midday", "afternoon", "evening"], notify: false, seen: [] };
 
@@ -77,12 +79,12 @@ export async function notifyFresh(): Promise<number> {
   const s = getOpeningsState();
   const { fresh, fit } = await checkOpenings();
   if (!fresh.length) return 0;
+  if (!s.calendar) return 0;
   if (!(s.notify && typeof Notification !== "undefined" && Notification.permission === "granted")) return 0;
   {
     const first = fresh[0]!;
-    const more = fresh.length > 1 ? ` and ${fresh.length - 1} more` : "";
-    new Notification(`An appointment with ${first.doctor.name.display} just opened up`, {
-      body: `${whenLabel(first.start)}. You're free then. Book a follow-up?${more}`,
+    new Notification(`${first.doctor.name.display} has an opening`, {
+      body: `${whenLabel(first.start)}. You're free. Book a follow-up?`,
       tag: "wattle-openings",
     });
   }

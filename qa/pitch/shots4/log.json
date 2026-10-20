@@ -1,0 +1,14 @@
+{
+ "q1": "No, this is my first time  <- No, this is my first time / Yes, I’ve seen someone before / I see someone now and want a change",
+ "q2": "An assessment or diagnosis  <- Medication, or a review of it / An assessment or diagnosis / Talking it through / I’d like to talk to someone first / I’m open to either",
+ "q3": "Yes, a GP is fine  <- Yes, a GP is fine / No, a specialist only",
+ "q4": "Me  <- Me / Someone else",
+ "q5": "18 to 64  <- Under 12 / 12 to 17 / 18 to 64 / 65 or older",
+ "q6": "I’m open to either  <- In person / Video / I’m open to either",
+ "q7": "They’ve been through it too  <- They really listen / They’ve been through it too / Longer appointments / They look at the whole picture / Up to date with research",
+ "doctorHref": "/doctor/psychiatry~parisa-loxham",
+ "doctorName": "",
+ "cta": "Next free Mon, 19 Oct at 9:30 am\nTelehealth · call 0485 931 066 to book",
+ "prompt": "An appointment with Dr Parisa Loxham just opened up\n\nWed, 21 Oct at 5:30 pm, by video. You’re free then. Would you like to book a follow-up?\n\nNot now\nBook follow-up",
+ "booked": "Booked with Dr Parisa Loxham\n\nWed, 21 Oct at 5:30 pm, by video. It’s in your calendar and in Openings.\n\nDone"
+}

@@ -21,10 +21,14 @@ export function OpeningPrompt() {
     const run = async () => {
       if (!savedDoctorIds().length) return;
       const s = getOpeningsState();
+      // Only once a calendar is connected, and at most one prompt a day (founder 2026-10-19).
+      if (!s.calendar) return;
+      if (s.lastPromptAt && Date.now() - s.lastPromptAt < 20 * 3600 * 1000) return;
       const { fit } = await checkOpenings().catch(() => ({ fit: [] as FitOpening[] }));
       const skip = new Set([...(s.dismissed ?? []), ...(s.booked ?? []).map((b) => b.id)]);
       const first = fit.find((x) => !skip.has(x.id));
       if (alive && first) {
+        setOpeningsState({ lastPromptAt: Date.now() });
         setO(first);
         setState("ask");
       }
@@ -76,8 +80,8 @@ export function OpeningPrompt() {
               <img src={o.doctor.photo.url} alt="" referrerPolicy="no-referrer" className="size-11 shrink-0 rounded-full bg-[#f4f4f4] object-cover object-top" />
             ) : null}
             <div className="min-w-0 flex-1">
-              <p className="text-[16px] font-semibold leading-snug text-ink">An appointment with {name} just opened up</p>
-              <p className="mt-0.5 text-[15px] leading-[1.45] text-[#4a4a4a]">{when}{o.mode === "telehealth" ? ", by video" : ""}. You’re free then. Would you like to book a follow-up?</p>
+              <p className="text-[16px] font-semibold leading-snug text-ink">{name} has an opening</p>
+              <p className="mt-0.5 text-[15px] leading-[1.45] text-[#4a4a4a]">{when}. You’re free. Book a follow-up?</p>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <button type="button" onClick={notNow} disabled={state === "booking"} className="press h-10 rounded-[8px] bg-[#f4f4f4] text-[15px] font-medium text-ink">Not now</button>
                 <button type="button" onClick={book} disabled={state === "booking"} className="press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-ink text-[15px] font-semibold text-white">{state === "booking" ? "Booking…" : "Book follow-up"}</button>

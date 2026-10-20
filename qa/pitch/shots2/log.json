@@ -1,0 +1,14 @@
+{
+ "q1": "No, this is my first time",
+ "q2": "An assessment or diagnosis",
+ "q3": "Yes, a GP is fine",
+ "q4": "Me",
+ "q5": "Under 12",
+ "q6": "I’m open to either",
+ "q7": "They really listen",
+ "doctorHref": "/doctor/psychiatry~parisa-loxham",
+ "doctorName": "",
+ "cta": "none",
+ "prompt": "An appointment with Dr Parisa Loxham just opened up\n\nWed, 21 Oct at 5:30 pm, by video. You’re free then. Would you like to book a follow-up?\n\nNot now\nBook follow-up",
+ "booked": "Booked with Dr Parisa Loxham\n\nWed, 21 Oct at 5:30 pm, by video. It’s in your calendar and in Openings.\n\nDone"
+}

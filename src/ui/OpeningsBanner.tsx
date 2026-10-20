@@ -2,12 +2,12 @@
 // Home: "2 times fit your week" with the first saved doctor's face, linking to Me › Openings.
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { checkOpenings, savedDoctorIds, whenLabel, type FitOpening } from "./openings";
+import { checkOpenings, getOpeningsState, savedDoctorIds, whenLabel, type FitOpening } from "./openings";
 
 export function OpeningsBanner() {
   const [fit, setFit] = useState<FitOpening[]>([]);
   useEffect(() => {
-    if (savedDoctorIds().length) void checkOpenings().then((r) => setFit(r.fit)).catch(() => undefined);
+    if (savedDoctorIds().length && getOpeningsState().calendar) void checkOpenings().then((r) => setFit(r.fit)).catch(() => undefined);
   }, []);
   if (!fit.length) return null;
   const first = fit[0]!;
