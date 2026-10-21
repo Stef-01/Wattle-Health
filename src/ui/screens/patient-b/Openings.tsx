@@ -94,6 +94,7 @@ export function Openings() {
 
       <CalendarConnect state={s} onChange={() => void refresh()} />
 
+      {cal ? (<>
       <div className="mt-5">
         <p className="text-[17px] font-semibold text-ink">When suits you</p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -153,6 +154,7 @@ export function Openings() {
           </section>
         ))}
       </div>
+      </>) : null}
     </Screen>
   );
 }

@@ -94,7 +94,6 @@ await glideTo('a:has-text("Next free"), button:has-text("Next free")', 520, 1600
 mark("B.nextfree"); await wait(2200);
 const href = new URL(page.url()).pathname.split("/doctor/")[1];
 const quiet = () => page.evaluate(() => { const k = "wattle.openings.v1"; const s = JSON.parse(localStorage.getItem(k) || "{}"); s.lastPromptAt = Date.now(); localStorage.setItem(k, JSON.stringify(s)); });
-const prompt = () => page.evaluate(() => { const k = "wattle.openings.v1"; const s = JSON.parse(localStorage.getItem(k) || "{}"); delete s.lastPromptAt; localStorage.setItem(k, JSON.stringify(s)); });
 await page.evaluate((id) => { localStorage.setItem("wattle.saved.v1", JSON.stringify([decodeURIComponent(id).replace("~", ":")])); localStorage.removeItem("wattle.openings.v1"); }, href);
 await quiet();   // no in-app prompt while connecting the calendar: the film's lock screen is the one notification
 mark("B.openings");
@@ -106,8 +105,9 @@ mark("B.allow");
 await page.getByRole("button", { name: "Connect", exact: true }).tap();
 await page.waitForSelector("text=/Connected/", { timeout: 10000 }); await wait(1400);
 mark("B.home");
-await prompt();  // now let the opening through: this is what the lock-screen notification opens into
-await page.goto(`${BASE}/`);
+// The opening arrives as a home-screen push (composited in the film); tapping it opens the app at
+// /?opening=, which is the only time the booking card shows in the app (founder 2026-10-20).
+await page.goto(`${BASE}/?opening=1`);
 await page.locator("text=/just opened up|has an opening/").first().waitFor({ timeout: 15000 }).catch(() => {}); await wait(1600);
 const promptText = await page.locator("text=/just opened up|has an opening/").first().evaluate((e) => (e.closest("div[class]")?.parentElement ?? e).innerText).catch(() => "");
 events.push({ name: "B.promptText", t: now(), text: promptText });   // the film's lock screen quotes this exactly

@@ -7,7 +7,7 @@ import { Brand } from "@/src/ui/brand";
 // booked; Not now → it won't ask about that time again.
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { checkOpenings, getOpeningsState, setOpeningsState, savedDoctorIds, type FitOpening } from "./openings";
+import { checkOpenings, getOpeningsState, notifyFresh, promptDue, pushOn, setOpeningsState, savedDoctorIds, type FitOpening } from "./openings";
 import { nextFreeLabel } from "./screens/patient-a/BookCard";
 import { Orb } from "./kit/Orb";
 import { celebrate } from "./celebrate";
@@ -19,17 +19,28 @@ export function OpeningPrompt() {
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
+    if ("serviceWorker" in navigator) void navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+  }, []);
+
+  useEffect(() => {
     if (path?.startsWith("/team") || path?.startsWith("/narrow")) return;
     let alive = true;
     const run = async () => {
       if (!savedDoctorIds().length) return;
       const s = getOpeningsState();
-      // Only once a calendar is connected, and at most one prompt a day (founder 2026-10-19).
+      // Never before a calendar is connected (founder 2026-10-20).
       if (!s.calendar) return;
-      if (s.lastPromptAt && Date.now() - s.lastPromptAt < 20 * 3600 * 1000) return;
+      // Arriving from a tapped push notification: show that opening to book.
+      const tapped = new URLSearchParams(window.location.search).get("opening");
+      if (!tapped) {
+        // Push on: the alert goes to the home screen, never an in-app pop-up.
+        if (pushOn(s)) return void notifyFresh();
+        // Push off: in-app, at most once every three days.
+        if (!promptDue(s)) return;
+      }
       const { fit } = await checkOpenings().catch(() => ({ fit: [] as FitOpening[] }));
       const skip = new Set([...(s.dismissed ?? []), ...(s.booked ?? []).map((b) => b.id)]);
-      const first = fit.find((x) => !skip.has(x.id));
+      const first = tapped ? fit.find((x) => x.id === tapped) ?? fit.find((x) => !skip.has(x.id)) : fit.find((x) => !skip.has(x.id));
       if (alive && first) {
         setOpeningsState({ lastPromptAt: Date.now() });
         setO(first);
