@@ -18,7 +18,7 @@ export default async function OutreachPage() {
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
               <span className="min-w-0">
                 <span className="block truncate text-[16px] text-ink">{r.name}</span>
-                <span className="block text-[13px] text-grey">{r.specialty} · {r.suburb ?? "QLD"} · {Math.round(r.score * 100)}% · {r.status}</span>
+                <span className="block text-[13px] text-grey">{r.specialty} · {r.suburb ?? "—"} · {Math.round(r.score * 100)}% · {r.status}</span>
               </span>
               <span className="shrink-0 text-[13px] text-grey">{r.missing.length} gaps</span>
             </summary>

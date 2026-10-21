@@ -10,6 +10,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import type { Discipline } from "@/src/disciplines/load";
+import "@/src/geo/national";
 import { resolvePlace } from "@/src/geo/suburbs";
 import { withPersonalLabels } from "@/src/matching/personal-labels";
 import type { Gender, Location, Observed, Population, Specialty, Telehealth } from "@/src/matching/types";
@@ -158,17 +159,12 @@ function found<T>(value: T, src: SourceRef): Observed<T> {
 function roomOf(d: ResearchedDoctor, id: string): Room {
   const pr = d.practice;
   const state = pr.state ?? "QLD";
-  // An interstate practice is geocoded only when the record carries the practice's own coordinates (founder 2026-10-19:
-  // ADHDme network GPs in Sydney); without them it stays telehealth-only for Queenslanders, as before.
-  if (state !== "QLD") {
-    const has = typeof pr.lat === "number" && typeof pr.lng === "number";
-    return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb, state, postcode: pr.postcode ?? "", lat: has ? pr.lat! : null, lng: has ? pr.lng! : null, phone: pr.phone ?? null, website: pr.website ?? null };
-  }
+  // Every state (founder 2026-10-20): the practice's own coordinates, else its suburb/postcode centroid.
   const point = typeof pr.lat === "number" && typeof pr.lng === "number" ? { lat: pr.lat, lng: pr.lng } : (() => {
-    const p = resolvePlace(pr.postcode ? `${pr.suburb} ${pr.postcode}` : pr.suburb) ?? resolvePlace(pr.suburb);
+    const p = resolvePlace(pr.postcode ? `${pr.suburb} ${pr.postcode}` : `${pr.suburb} ${state}`) ?? resolvePlace(`${pr.suburb} ${state}`);
     return p ? { lat: p.lat, lng: p.lon } : { lat: null, lng: null };
   })();
-  return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb, state: "QLD", postcode: pr.postcode ?? "", lat: point.lat, lng: point.lng, phone: pr.phone ?? null, website: pr.website ?? null };
+  return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb, state, postcode: pr.postcode ?? "", lat: point.lat, lng: point.lng, phone: pr.phone ?? null, website: pr.website ?? null };
 }
 
 function locationOf(room: Room, src: SourceRef, telehealthOnly: boolean): Location | null {
@@ -273,7 +269,7 @@ export function withPublished(doctors: DoctorRecord[], discipline: Discipline, r
     if (record) {
       const idx = out.indexOf(record);
       record = { ...record, declared: { ...record.declared }, sources: [...record.sources, src] };
-      const geocoded = record.rooms.some((room) => room.state === "QLD" && room.lat !== null && room.lng !== null);
+      const geocoded = record.rooms.some((room) => room.lat !== null && room.lng !== null);
       if (!geocoded || !record.rooms.some((room) => room.website)) {
         const room = roomOf(r, `${record.id}:w`);
         record.rooms = [room, ...record.rooms];

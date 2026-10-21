@@ -30,7 +30,7 @@ export function DoctorCard({
   onCompare: () => void;
 }) {
   const d = card.doctor;
-  const room = d.rooms.find((r) => r.state === "QLD") ?? d.rooms[0];
+  const room = d.rooms[0];
   return (
     <article className="rise flex flex-col gap-3 rounded-card border border-line bg-white p-4" aria-labelledby={`${d.id}-name`}>
       <div className="flex flex-col gap-1">

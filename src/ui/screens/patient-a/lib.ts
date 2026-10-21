@@ -11,7 +11,7 @@ import { getRequest, newRequestId, pushRecent, REQUEST_VERSION, setRequest, type
 export const DEFAULT_SUBURB = "Brisbane";
 export const REACH_KM = 20;
 
-/** The "Try" examples on P02. Each one surfaces Queensland doctors with published personal profiles. */
+/** The "Try" examples on P02. Each one surfaces doctors with published personal profiles. */
 export const EXAMPLES = ["Endometriosis, someone who listens", "ADHD, lived experience", "Menopause, longer appointments", "Fibromyalgia, whole-person care"];
 
 export async function runMatch(input: { sentence: string; suburb?: string; removed?: string[]; anywhere?: boolean; id?: string; exclude?: string[]; answers?: { ask: string; answer: string }[] }): Promise<StoredRequest> {
@@ -87,13 +87,13 @@ export function suburbOf(card: Card): string | null {
   return d.locations[0]?.suburb ?? d.rooms[0]?.suburb ?? null;
 }
 
-/** "{suburb}, Brisbane" inside the reach; the state otherwise, since the roster is Queensland-wide. */
+/** "{suburb}, Brisbane" inside the reach; the state otherwise, since the roster is national. */
 export function placeLine(card: Card): string | null {
   const suburb = suburbOf(card);
   if (!suburb) return null;
   const inBrisbane = card.distanceKm !== undefined && card.distanceKm <= REACH_KM;
   const room = card.doctor.rooms[0];
-  return `${suburb}, ${inBrisbane ? "Brisbane" : room ? regionOf(room) : "QLD"}`;
+  return `${suburb}, ${inBrisbane ? "Brisbane" : room ? regionOf(room) : "Australia"}`;
 }
 
 /** Declared or found fee, never invented. */

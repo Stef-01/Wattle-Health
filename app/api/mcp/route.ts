@@ -10,12 +10,12 @@ const TOOLS = [
   {
     name: "search_doctors",
     description:
-      "Find up to three Queensland doctors for a person's needs, described in plain words (conditions, who it is for, how they like to be cared for, telehealth). Returns each doctor's own words, highlights ranked for this request, practical facts and a link.",
+      "Find up to three Australian doctors for a person's needs, described in plain words (conditions, who it is for, how they like to be cared for, telehealth). Returns each doctor's own words, highlights ranked for this request, practical facts and a link.",
     inputSchema: {
       type: "object",
       properties: {
         sentence: { type: "string", description: "What the person needs, in their words, including relevant health context they have shared." },
-        suburb: { type: "string", description: "Queensland suburb or postcode; defaults to Brisbane." },
+        suburb: { type: "string", description: "Australian suburb or postcode; defaults to Brisbane." },
       },
       required: ["sentence"],
     },

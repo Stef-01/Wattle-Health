@@ -167,7 +167,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         ) : null}
         {tab === "Location" ? (
           <div className="flex flex-col gap-4">
-            {d.rooms.filter((r) => r.state === "QLD").slice(0, 3).map((r) => {
+            {d.rooms.slice(0, 3).map((r) => {
               const address = [r.name, r.address, `${r.suburb} ${r.state} ${r.postcode}`.trim()].filter(Boolean).join(", ");
               return (
                 <div key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">

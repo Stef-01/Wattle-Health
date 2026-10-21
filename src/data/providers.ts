@@ -7,6 +7,8 @@
 
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import path from "node:path";
+import "@/src/geo/national";
+import { resolvePlace } from "@/src/geo/suburbs";
 import { loadDiscipline, type Discipline } from "@/src/disciplines/load";
 import type { Capacity, Observed, Population, Telehealth, Location } from "@/src/matching/types";
 
@@ -130,6 +132,12 @@ function capacityOf(raw: Raw): { capacity: Capacity; weeks?: number; declared: b
   return { capacity: "unknown", declared: false };
 }
 
+function geocode(l: Raw["locations"][number]): { lat: number | null; lng: number | null } {
+  if (typeof l.lat === "number" && typeof l.lng === "number") return { lat: l.lat, lng: l.lng };
+  const p = resolvePlace(`${l.suburb ?? ""} ${l.postcode ?? ""} ${l.state ?? ""}`.trim()) ?? resolvePlace(`${l.suburb ?? ""} ${l.state ?? ""}`.trim());
+  return p ? { lat: p.lat, lng: p.lon } : { lat: null, lng: null };
+}
+
 function toRecord(raw: Raw, discipline: Discipline, pubs: Map<string, { publications: Publication[]; topics: string[] }>, personal: Map<string, PersonalProfile>, deep: Map<string, DeepProfile> = loadDeepProfiles()): DoctorRecord | null {
   const rooms: Room[] = raw.locations
     .filter((l) => l.suburb && l.state && !/not practi/i.test(l.suburb))
@@ -140,12 +148,12 @@ function toRecord(raw: Raw, discipline: Discipline, pubs: Map<string, { publicat
       suburb: l.suburb!,
       state: l.state!,
       postcode: l.postcode ?? "",
-      lat: l.lat,
-      lng: l.lng,
+      // Every state (founder 2026-10-20): a room without coordinates takes its suburb/postcode centroid.
+      ...geocode(l),
       phone: l.phone && l.phone !== "0" && l.phone !== "00000000" ? l.phone : null,
       website: l.website,
     }));
-  if (!rooms.some((r) => r.state === "QLD")) return null;
+  if (!rooms.length) return null;
   const sources: SourceRef[] = raw.sources.map((s) => {
     const ref: SourceRef = { source: s.source, sourceUrl: s.source_url, observedAt: s.observed_at };
     if (s.legal_basis) ref.legalBasis = s.legal_basis;
@@ -382,7 +390,7 @@ async function fromSupabase(env: { url: string; key: string }): Promise<DoctorRe
       const locRow = rows.find((o) => o.attribute === "locations");
       const rawRooms = Array.isArray(locRow?.value) ? (locRow!.value as Raw["locations"]) : [];
       const stateRow = rows.find((o) => o.attribute === "state");
-      if (!rawRooms.some((r) => r.state === "QLD") && stateRow?.value !== "QLD") continue;
+      if (!rawRooms.length && !stateRow) continue;
       const svc = sBy.get(p.id)?.[0];
       const src: SourceRef = { source: svc?.source_id ?? "supabase", sourceUrl: svc?.source_url ?? null, observedAt: svc?.declared_at ?? p.register_checked_at ?? "2026-10-15" };
       const tags = (fBy.get(p.id) ?? []).map((f) => f.label);

@@ -26,7 +26,7 @@ export default async function AboutPage() {
           </div>
         ))}
       </div>
-      <p className="mt-10 text-[14px] text-grey">{counts.total} Queensland doctors listed, {own} in their own words.</p>
+      <p className="mt-10 text-[14px] text-grey">{counts.total} doctors listed across Australia, {own} in their own words.</p>
     </Screen>
   );
 }

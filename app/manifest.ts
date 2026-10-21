@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Wattle",
     short_name: "Wattle",
-    description: "Find a Queensland provider who fits you.",
+    description: "Find a provider who fits you.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

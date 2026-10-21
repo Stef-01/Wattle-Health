@@ -22,7 +22,7 @@ import { REACH_KM, restoreCounts, runMatch } from "./lib";
 const ORDINAL = ["Your top pick", "Your second pick", "Your third pick"];
 const MAX = 3;
 
-/** "Endometriosis, with a doctor who listens. Telehealth, anywhere in Queensland." Specialties stay implicit; nothing is said twice. */
+/** "Endometriosis, with a doctor who listens. Telehealth, anywhere in Australia." Specialties stay implicit; nothing is said twice. */
 function heardSentence(req: StoredRequest): string {
   const tele = /telehealth only/i.test(req.sentence);
   const chips = req.response.chips.filter((c) => c.kind !== "specialty" && !(tele && /telehealth|video/i.test(c.label)));
@@ -35,7 +35,7 @@ function heardSentence(req: StoredRequest): string {
   const head = what.length ? what.join(" and ") : "";
   const who = parts.length ? `${head ? ", " : ""}a doctor ${parts.join(" and ")}` : "";
   const place = req.response.place.suburb?.replace(/ City$/, "");
-  const where = req.anywhere ? "All of Queensland." : tele ? "Telehealth, anywhere in Queensland." : place ? `Within ${REACH_KM} km of ${place}.` : "";
+  const where = req.anywhere ? "Anywhere in Australia." : tele ? "Telehealth, anywhere in Australia." : place ? `Within ${REACH_KM} km of ${place}.` : "";
   const line = [head, forWho.join(" and ")].filter(Boolean).join(" ") + who;
   return [line ? `${line.charAt(0).toUpperCase()}${line.slice(1)}.` : "", where].filter(Boolean).join(" ");
 }
@@ -151,7 +151,7 @@ export function Matches() {
               {[
                 { label: "By video", on: { telehealth: true } },
                 { label: "A woman", on: { woman: true } },
-                { label: "All of Queensland", on: { anywhere: true } },
+                { label: "Anywhere in Australia", on: { anywhere: true } },
               ].map((f) => (
                 <button key={f.label} type="button" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })} className="press inline-flex h-8 items-center rounded-[6px] border border-hairline bg-white px-2.5 text-[13px] font-medium text-ink">{f.label}</button>
               ))}
@@ -227,7 +227,7 @@ function Empty({ res, place, busy, onWiden, onTelehealth, onChange, onClosest }:
         Within {REACH_KM} km of {place}
       </p>
       <Gap h={24} />
-      <Row title={`Widen to all of Queensland${count(n.widen, " doctors")}`} onClick={onWiden} />
+      <Row title={`Widen to all of Australia${count(n.widen, " doctors")}`} onClick={onWiden} />
       <Divider />
       <Row title={`Add telehealth-only doctors${count(n.telehealth, "")}`} onClick={onTelehealth} />
       <Divider />

@@ -16,7 +16,7 @@ export async function agentSearch(sentence: string, suburb?: string) {
     note: res.emergency?.note ?? res.careGuidance ?? null,
     matches: res.cards.slice(0, 3).map((c) => {
       const d = c.doctor;
-      const room = d.rooms.find((r) => r.state === "QLD") ?? d.rooms[0];
+      const room = d.rooms[0];
       return {
         id: d.id,
         name: d.name.display,

@@ -41,7 +41,7 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false, captio
   const name = drName(d);
   const [bg, fg] = tintFor(name);
   const [loaded, setLoaded] = useState(false);
-  const suburb = d.rooms.find((r) => r.state === "QLD")?.suburb ?? d.rooms[0]?.suburb ?? null;
+  const suburb = d.rooms[0]?.suburb ?? d.rooms[0]?.suburb ?? null;
   return (
     <div className="relative w-full overflow-hidden rounded-[30px] shadow-photo" style={{ height, background: d.photo ? "#e9e9e9" : bg }}>
       {d.photo ? (

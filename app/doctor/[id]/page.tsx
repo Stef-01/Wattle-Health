@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const d = await getDoctor(doctorIdFromParam(id));
   if (!d) return { title: "Doctor · Wattle" };
   const words = d.personal?.philosophyOfCare ?? d.personal?.philosophy ?? d.personal?.communicationApproach ?? null;
-  const description = words ? `“${words.slice(0, 150)}${words.length > 150 ? "…" : ""}”` : `${d.name.display}, ${d.specialty.replace(/-/g, " ")} in Queensland, on Wattle.`;
+  const description = words ? `“${words.slice(0, 150)}${words.length > 150 ? "…" : ""}”` : `${d.name.display}, ${d.specialty.replace(/-/g, " ")} in ${d.rooms[0]?.suburb ?? "Australia"}, on Wattle.`;
   return {
     title: `${d.name.display} · Wattle`,
     description,

@@ -17,7 +17,7 @@ function rows(d: DoctorRecord): Array<[string, Cell]> {
     ["Taking new patients", d.declared.capacity ? (d.capacity.value === "closed" ? "No" : d.waitTimeText ?? "Yes") : ND],
     ["Telehealth", d.declared.telehealth ? (d.telehealth.value === "none" ? "No" : "Yes") : ND],
     ["Languages", d.languages?.value.join(", ") ?? ND],
-    ["Rooms", d.rooms.filter((r) => r.state === "QLD").map((r) => r.suburb).join(", ") || ND],
+    ["Rooms", d.rooms.map((r) => r.suburb).join(", ") || ND],
     ["Research", d.publications.length ? `${d.publications.length} verified` : topicsOf(d).length ? "Topics inferred" : ND],
     ["Personal profile", d.personal ? (d.personal.status === "illustrative" ? "Illustrative example" : d.personal.status === "published" ? "Their website" : "From the doctor") : ND],
     ["Source", d.sources[0] ? `${sourceLabel(d.sources[0].source)} · ${d.sources[0].observedAt.slice(0, 10)}` : ND],

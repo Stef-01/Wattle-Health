@@ -24,9 +24,9 @@ export function pronouns(d: Pick<DoctorRecord, "gender">): { subject: string; po
   return { subject: "they", possessive: "Their", practises: "practise", hasnt: "Haven’t" };
 }
 
-/** First Queensland room, else the first room. */
+/** The first room. */
 export function primaryRoom(d: Pick<DoctorRecord, "rooms">) {
-  return d.rooms.find((r) => r.state === "QLD") ?? d.rooms[0] ?? null;
+  return d.rooms[0] ?? null;
 }
 
 /** Region of a Queensland room by latitude: Sunshine Coast north of Caboolture, Gold Coast south of Logan, else Brisbane. */
@@ -39,7 +39,7 @@ export function regionOf(r: Pick<Room, "state" | "lat">): string {
 
 export function placeOf(d: Pick<DoctorRecord, "rooms">): string {
   const r = primaryRoom(d);
-  if (!r) return "Queensland";
+  if (!r) return "Australia";
   const city = regionOf(r);
   return r.suburb.toLowerCase() === city.toLowerCase() ? r.suburb : `${r.suburb}, ${city}`;
 }

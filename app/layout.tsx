@@ -9,7 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Wattle",
-  description: "Doctors who listen. Say what you need in one sentence and meet Queensland doctors in their own words.",
+  description: "Doctors who listen. Say what you need in one sentence and meet doctors across Australia in their own words.",
   applicationName: "Wattle",
   appleWebApp: { capable: true, title: "Wattle", statusBarStyle: "default" },
   formatDetection: { telephone: false },

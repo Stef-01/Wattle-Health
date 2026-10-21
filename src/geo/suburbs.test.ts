@@ -1,7 +1,7 @@
 // Ported from adhd.me/src/geo/suburbs.test.ts on 2026-10-15.
 import { describe, expect, it } from "vitest";
 import { FIXTURE_ROSTER } from "@/src/matching/support/fixture-roster";
-import { SUBURBS, coveredSuburbs, describeDistance, distanceKm, resolvePlace, type SuburbPoint, suggestPlaces } from "./suburbs";
+import { SUBURBS, coveredSuburbs, describeDistance, distanceKm, resolvePlace, type SuburbPoint, suggestPlaces, stateOfPostcode } from "./suburbs";
 
 const at = (name: string) => resolvePlace(name)!;
 
@@ -44,8 +44,14 @@ describe("the gazetteer covers what the roster claims", () => {
     const inSunshineCoast = (s: SuburbPoint) => s.lat > -26.9 && s.lat < -26.3 && s.lon > 152.9 && s.lon < 153.2;
     // Regional Queensland (src/geo/regional.ts), 2026-10-17: Cairns to Toowoomba.
     const inRegionalQld = (s: SuburbPoint) => s.lat > -28 && s.lat < -16 && s.lon > 145 && s.lon < 153.3;
+    // National capitals and large towns (2026-10-20, every state): inside the box of the state their postcode names.
+    const STATE_BOX: Record<string, [number, number, number, number]> = { NSW: [-37.6, -28.1, 140.9, 153.7], VIC: [-39.2, -33.9, 140.9, 150], SA: [-38.1, -25.9, 129, 141], WA: [-35.2, -13.6, 112.9, 129], TAS: [-43.7, -39.5, 143.8, 148.5], NT: [-26.1, -10.9, 129, 138], ACT: [-35.95, -35.1, 148.7, 149.4] };
+    const inStateBox = (s: SuburbPoint) => {
+      const b = STATE_BOX[stateOfPostcode(s.postcode) ?? ""];
+      return Boolean(b && s.lat > b[0] && s.lat < b[1] && s.lon > b[2] && s.lon < b[3]) && ["0800", "0870", "3000", "3220", "3350", "3550", "5000", "6000", "6160", "7000", "7250", "2601", "2300", "2500", "2150", "2250"].includes(s.postcode);
+    };
     for (const s of SUBURBS) {
-      expect(inSydney(s) || inEasternSuburbs(s) || inGoldCoast(s) || inBrisbane(s) || inSunshineCoast(s) || inRegionalQld(s), `${s.suburb} is outside every focus area`).toBe(true);
+      expect(inSydney(s) || inEasternSuburbs(s) || inGoldCoast(s) || inBrisbane(s) || inSunshineCoast(s) || inRegionalQld(s) || inStateBox(s), `${s.suburb} is outside every focus area`).toBe(true);
       expect(s.postcode).toMatch(/^\d{4}$/);
     }
   });

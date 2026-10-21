@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Orb } from "@/src/ui/kit/Orb";
 
 const TOOLS = [
-  { name: "search_doctors", what: "Find Queensland doctors from one sentence, with why each one fits" },
+  { name: "search_doctors", what: "Find Australian doctors from one sentence, with why each one fits" },
   { name: "get_doctor", what: "Read a doctor’s profile: their own words, hobbies, location and next opening" },
 ];
 

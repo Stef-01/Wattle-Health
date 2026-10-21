@@ -11,7 +11,7 @@ export async function outreachQueue(): Promise<OutreachRow[]> {
   for (const d of await getDoctors()) {
     const c = completeness(d);
     if (c.missing.length === 0) continue;
-    const room = d.rooms.find((r) => r.state === "QLD") ?? d.rooms[0];
+    const room = d.rooms[0];
     rows.push({
       id: d.id,
       name: d.name.display,
