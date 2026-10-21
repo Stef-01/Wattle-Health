@@ -1,698 +1,928 @@
 {
- "category": "adhdme",
- "researched_at": "2026-10-19",
- "doctors": [
-  {
-   "name": "Dr Beth Hansen",
-   "given": "Beth",
-   "family": "Hansen",
-   "specialty": "general-practice",
-   "gender": "woman",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": false,
-   "fee_initial_dollars": 1950,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd"
-   ],
-   "populations": [
-    "adult",
-    "adolescent"
-   ],
-   "focus_tags": [
-    "ADHD in women",
-    "late-identified ADHD",
-    "ADHD in parents",
-    "women's health"
-   ],
-   "personal": {
-    "philosophy_of_care": "Aims to create a space where patients feel heard, understood and taken seriously; a gentle, practical and thorough approach to ADHD assessment and care.",
-    "communication_approach": "Takes time to explore symptoms in the context of a person's life: work, study, relationships, parenting, sleep, emotional regulation and mental health.",
-    "communication": [
-     "gentle",
-     "listens"
-    ],
-    "why_medicine": null,
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": "Has worked across urban, rural and remote settings, which shaped her interest in accessible and compassionate mental health care.",
-    "quotes": [
-     {
-      "text": "A UQ graduate and a Fellow of the Royal Australian College of General Practitioners, she brings a gentle, practical and thorough approach to ADHD assessment and care.",
-      "about": "approach"
-     },
-     {
-      "text": "In her consultations, Beth aims to create a space where patients feel heard, understood and taken seriously.",
-      "about": "approach"
-     },
-     {
-      "text": "She has a strong interest in how ADHD can present in women, especially when symptoms have been missed, minimised or attributed to other causes.",
-      "about": "other"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-beth-hansen.html",
-    "page_title": "Dr Beth Hansen",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/beth-hansen-640.webp"
-  },
-  {
-   "name": "Dr Bill Liley",
-   "given": "Bill",
-   "family": "Liley",
-   "specialty": "general-practice",
-   "gender": "man",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "only",
-   "referral_required": false,
-   "fee_initial_dollars": 1950,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd"
-   ],
-   "populations": [
-    "adult",
-    "adolescent"
-   ],
-   "focus_tags": [
-    "rural and regional",
-    "whole-person care",
-    "40+ years in practice",
-    "telehealth"
-   ],
-   "personal": {
-    "philosophy_of_care": "A practical, whole-person approach to ADHD care that considers each patient's circumstances and how ADHD affects day-to-day life.",
-    "communication_approach": "Values the access telehealth gives people who would otherwise struggle to reach ADHD care.",
-    "communication": [
-     "holistic"
-    ],
-    "why_medicine": null,
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": "Rural generalist based in regional Queensland; has worked in Aboriginal Community Controlled Health Organisations and across Queensland, New South Wales and Victoria.",
-    "quotes": [
-     {
-      "text": "Bill brings a practical, whole-person approach to ADHD care, taking into consideration each patient’s individual circumstances and how ADHD impacts their day-to-day life.",
-      "about": "approach"
-     },
-     {
-      "text": "Based in regional Queensland, he also appreciates the accessibility that telehealth provides, particularly for people who may otherwise have difficulty accessing ADHD care.",
-      "about": "other"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-bill-liley.html",
-    "page_title": "Dr Bill Liley",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/bill-liley-640.webp"
-  },
-  {
-   "name": "Dr Hannah Gray",
-   "given": "Hannah",
-   "family": "Gray",
-   "specialty": "general-practice",
-   "gender": "woman",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": false,
-   "fee_initial_dollars": 1950,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd"
-   ],
-   "populations": [
-    "adult",
-    "adolescent"
-   ],
-   "focus_tags": [
-    "students and early career",
-    "organisation and follow-through",
-    "new to assessment"
-   ],
-   "personal": {
-    "philosophy_of_care": "Practical strategies and realistic next steps that fit a person's day-to-day life; welcomes people new to mental health or ADHD assessment.",
-    "communication_approach": "Calm, structured and collaborative; explains her thinking and plans clearly so patients understand each step.",
-    "communication": [
-     "collaborative"
-    ],
-    "why_medicine": null,
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": null,
-    "quotes": [
-     {
-      "text": "In consultations, Hannah is calm, structured and collaborative.",
-      "about": "approach"
-     },
-     {
-      "text": "She takes pride in explaining her thinking and plans clearly so patients understand each step of the process.",
-      "about": "approach"
-     },
-     {
-      "text": "Dr Hannah Gray is a warm and approachable GP with a strong interest in mental health and adult ADHD.",
-      "about": "other"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-hannah-gray.html",
-    "page_title": "Dr Hannah Gray",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/hannah-gray-640.webp"
-  },
-  {
-   "name": "Dr Jae Cho",
-   "given": "Jae",
-   "family": "Cho",
-   "specialty": "psychiatry",
-   "gender": "man",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": true,
-   "fee_initial_dollars": 900,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd",
-    "anxiety",
-    "depression",
-    "sleep",
-    "trauma",
-    "personality",
-    "bipolar",
-    "ocd",
-    "substance-use"
-   ],
-   "populations": [
-    "adult"
-   ],
-   "focus_tags": [
-    "general psychiatry",
-    "ADHD",
-    "trauma-informed"
-   ],
-   "personal": {
-    "philosophy_of_care": "Evidence-based, trauma-informed care grounded in the biopsychosocial model, with a tailored plan built with the patient.",
-    "communication_approach": "A calm manner and thoughtful explanations that make difficult topics feel manageable; works closely with GPs, psychologists and families.",
-    "communication": [
-     "evidence-based",
-     "collaborative",
-     "holistic"
-    ],
-    "why_medicine": null,
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": null,
-    "quotes": [
-     {
-      "text": "Jae’s approach is evidence-based, trauma-informed, and grounded in the biopsychosocial model.",
-      "about": "approach"
-     },
-     {
-      "text": "He takes the time to understand each patient’s background, strengths, and goals, and works collaboratively to create a tailored treatment plan.",
-      "about": "approach"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-jae-cho.html",
-    "page_title": "Dr Jae Cho",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/jae-cho-640.webp"
-  },
-  {
-   "name": "Dr John Ruberry",
-   "given": "John",
-   "family": "Ruberry",
-   "specialty": "general-practice",
-   "gender": "man",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": false,
-   "fee_initial_dollars": 1950,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd"
-   ],
-   "populations": [
-    "adult",
-    "adolescent"
-   ],
-   "focus_tags": [
-    "access to ADHD care",
-    "mental health",
-    "13 years in practice"
-   ],
-   "personal": {
-    "philosophy_of_care": "Passionate about improving access to ADHD care and supporting patients through assessment and treatment.",
-    "communication_approach": null,
-    "communication": [],
-    "why_medicine": "Has seen firsthand the positive difference effective ADHD treatment can make to a person's quality of life.",
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": "Owned and ran his own busy clinic for five years.",
-    "quotes": [
-     {
-      "text": "Throughout his career, he has developed a strong interest in mental health and has seen firsthand the positive difference effective ADHD treatment can make to a person’s quality of life.",
-      "about": "why"
-     },
-     {
-      "text": "He is passionate about improving access to ADHD care and supporting patients through their assessment and treatment journey.",
-      "about": "approach"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-john-ruberry.html",
-    "page_title": "Dr John Ruberry",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/john-ruberry-640.webp"
-  },
-  {
-   "name": "Dr Kay Walls",
-   "given": "Kay",
-   "family": "Walls",
-   "specialty": "general-practice",
-   "gender": "woman",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": false,
-   "fee_initial_dollars": 1950,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd",
-    "anxiety",
-    "depression",
-    "perinatal-mh"
-   ],
-   "populations": [
-    "adult",
-    "adolescent",
-    "perinatal"
-   ],
-   "focus_tags": [
-    "ADHD in adult women",
-    "mothers and postnatal",
-    "Focused Psychological Strategies"
-   ],
-   "personal": {
-    "philosophy_of_care": "An ADHD assessment is never just a checklist: interested in the whole person, their history, relationships, patterns and strengths.",
-    "communication_approach": "Creates space for patients to tell their story fully; culturally sensitive, person-centred care.",
-    "communication": [
-     "holistic",
-     "listens",
-     "culturally-safe"
-    ],
-    "why_medicine": "Focuses on ADHD in adult women, a group she feels has historically been under-recognised and underserved.",
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": null,
-    "quotes": [
-     {
-      "text": "For Kay, an ADHD assessment is never just a checklist.",
-      "about": "approach"
-     },
-     {
-      "text": "She creates space for patients to tell their story fully, and many describe her consultations as the first time they have felt genuinely listened to.",
-      "about": "approach"
-     },
-     {
-      "text": "With a background spanning mental health and women’s health, she has developed a particular focus on ADHD in adult women, a group she feels has historically been under-recognised and underserved.",
-      "about": "why"
-     },
-     {
-      "text": "Dr Kay Walls is a specialist general practitioner who brings warmth, curiosity, and a deeply holistic lens to everything she does.",
-      "about": "approach"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-kay-walls.html",
-    "page_title": "Dr Kay Walls",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/kay-walls-640.webp"
-  },
-  {
-   "name": "Dr Natalie Cook",
-   "given": "Natalie",
-   "family": "Cook",
-   "specialty": "general-practice",
-   "gender": "woman",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": false,
-   "fee_initial_dollars": 1950,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd"
-   ],
-   "populations": [
-    "adult",
-    "adolescent"
-   ],
-   "focus_tags": [
-    "complex adult ADHD",
-    "evidence-based",
-    "Central Queensland"
-   ],
-   "personal": {
-    "philosophy_of_care": "Clear, evidence-based advice, tailored to each patient's circumstances, preferences and goals, including work, sleep and family.",
-    "communication_approach": "Direct, honest and safety-focused.",
-    "communication": [
-     "direct",
-     "evidence-based"
-    ],
-    "why_medicine": null,
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": "Russian-born and trained; has practised in Central Queensland for over 11 years.",
-    "quotes": [
-     {
-      "text": "Her approach is direct, honest and safety-focused, providing clear, evidence-based advice while tailoring treatment to each patient’s individual circumstances, preferences and goals, including their work, sleep, family and day-to-day demands.",
-      "about": "approach"
-     },
-     {
-      "text": "Dr Natalie Cook is a Russian-born and trained GP who has practised in Central Queensland for over 11 years.",
-      "about": "other"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-natalie-cook.html",
-    "page_title": "Dr Natalie Cook",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/natalie-cook-640.webp"
-  },
-  {
-   "name": "Dr Rajitha De Silva",
-   "given": "Rajitha",
-   "family": "De Silva",
-   "specialty": "psychiatry",
-   "gender": "woman",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": true,
-   "fee_initial_dollars": 900,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd",
-    "anxiety",
-    "depression"
-   ],
-   "populations": [
-    "adult"
-   ],
-   "focus_tags": [
-    "adults",
-    "anxiety and mood",
-    "culturally sensitive"
-   ],
-   "personal": {
-    "philosophy_of_care": "The best care begins with feeling heard; a safe, supportive, non-judgemental space for the most difficult issues.",
-    "communication_approach": "A thoughtful, culturally sensitive approach shaped by practice in Sri Lanka and Australia.",
-    "communication": [
-     "listens",
-     "culturally-safe"
-    ],
-    "why_medicine": null,
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": "Has practised psychiatry in both Sri Lanka and Australia.",
-    "quotes": [
-     {
-      "text": "She believes that the best care begins with feeling heard.",
-      "about": "approach"
-     },
-     {
-      "text": "Rajitha takes the time to understand each person’s unique experiences, concerns, and goals, creating a safe, supportive, and non-judgemental environment where patients feel comfortable discussing even the most difficult issues.",
-      "about": "approach"
-     },
-     {
-      "text": "Having practised in both Sri Lanka and Australia, she brings a thoughtful, culturally sensitive approach to helping people navigate life’s challenges.",
-      "about": "other"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-rajitha-de-silva.html",
-    "page_title": "Dr Rajitha De Silva",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/rajitha-de-silva-640.webp"
-  },
-  {
-   "name": "Dr Shwetha Murthy",
-   "given": "Shwetha",
-   "family": "Murthy",
-   "specialty": "general-practice",
-   "gender": "woman",
-   "practice": {
-    "name": "Nurtured Thoughts Psychology",
-    "address": "4 Rakeevan Road, Graceville QLD 4075",
-    "suburb": "Graceville",
-    "postcode": "4075",
-    "phone": "(07) 3056 0921",
-    "website": "https://www.nurturedthoughtspsychology.com.au/"
-   },
-   "telehealth": "some",
-   "referral_required": false,
-   "fee_initial_dollars": 1950,
-   "taking_new_patients": true,
-   "languages": [
-    "English"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd"
-   ],
-   "populations": [
-    "adult",
-    "adolescent"
-   ],
-   "focus_tags": [
-    "parents and carers",
-    "ADHD in families",
-    "adult ADHD in men at work"
-   ],
-   "personal": {
-    "philosophy_of_care": "Maps how symptoms have shown up over time and how they interact with mood, sleep and physical health.",
-    "communication_approach": "A calm, organised style with a strong focus on context (childhood, school reports, family roles, culture), explained in clear, practical language.",
-    "communication": [],
-    "why_medicine": null,
-    "lived_experience": null,
-    "hobbies": null,
-    "outside_medicine": "Trained in India, worked in the United Kingdom, in Australia since 2007.",
-    "quotes": [
-     {
-      "text": "In consultations, Shwetha brings a calm, organised style and a strong focus on context: childhood experiences, school reports, family roles, cultural background and current life demands.",
-      "about": "approach"
-     },
-     {
-      "text": "She maps how symptoms have shown up over time and how they interact with mood, sleep and physical health, explained in clear, practical language.",
-      "about": "approach"
-     },
-     {
-      "text": "She is especially interested in supporting women who are starting to wonder how their own history, their children’s experiences and ADHD might be connected, and in adult ADHD in men across blue-collar and white-collar work.",
-      "about": "other"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-shwetha-murthy.html",
-    "page_title": "Dr Shwetha Murthy",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/shwetha-murthy-640.webp"
-  },
-  {
-   "name": "Dr Anu Saxena",
-   "given": "Anu",
-   "family": "Saxena",
-   "specialty": "general-practice",
-   "gender": "woman",
-   "practice": {
-    "name": "Bay Health Clinic",
-    "address": "2 Cooper Street, Double Bay NSW 2028",
-    "suburb": "Double Bay",
-    "state": "NSW",
-    "postcode": "2028",
-    "website": "https://www.adhdme.au/dr-anu-saxena.html",
-    "lat": -33.87749,
-    "lng": 151.24101
-   },
-   "telehealth": "some",
-   "referral_required": false,
-   "fee_initial_dollars": 299,
-   "taking_new_patients": true,
-   "languages": [
-    "English",
-    "Hindi",
-    "Urdu"
-   ],
-   "years_in_specialty": null,
-   "conditions": [
-    "adhd"
-   ],
-   "populations": [
-    "adult",
-    "adolescent",
-    "child"
-   ],
-   "focus_tags": [
-    "ADHD assessment and diagnosis",
-    "endorsed ADHD prescriber course",
-    "mental health",
-    "women's health",
-    "psychology before medicine: BPsych (Hons)",
-    "Hindi and Urdu",
-    "in person in Double Bay and Hornsby, and telehealth",
-    "assessment $299 initial, $199 follow-up, no Medicare rebate"
-   ],
-   "personal": {
-    "philosophy_of_care": "Culturally sensitive, holistic and patient-centred care.",
-    "why_medicine": "Came to medicine through psychology: a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University.",
-    "communication_approach": null,
-    "communication": [],
-    "lived_experience": null,
-    "hobbies": [
-     "Travelling",
-     "Learning about different cultures",
-     "Charity and community work",
-     "Cricket and tennis"
-    ],
-    "outside_medicine": "Travelling, learning about different cultures, charity and community work, and staying active through sport.",
-    "quotes": [
-     {
-      "text": "A GP with an honours degree in psychology and clinical interests in ADHD, mental health and women’s health.",
-      "about": "other"
-     },
-     {
-      "text": "Of Indian origin and speaking Hindi and Urdu, she values culturally sensitive, holistic and patient-centred care.",
-      "about": "approach"
-     },
-     {
-      "text": "She came to medicine through psychology, a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University.",
-      "about": "why"
-     },
-     {
-      "text": "Outside medicine she enjoys travelling, learning about different cultures, charity and community work, and staying active through sport, cricket and tennis included.",
-      "about": "hobbies"
-     }
-    ]
-   },
-   "source": {
-    "url": "https://www.adhdme.au/dr-anu-saxena.html",
-    "page_title": "Dr Anu Saxena, ADHD GP, Double Bay & Hornsby",
-    "observed_at": "2026-10-19",
-    "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site; she has a declared interest in ADHDme); short quotations attributed; practice coordinates from her Healthengine profile p160121; portrait served from ADHDme"
-   },
-   "photo_url": "https://www.adhdme.au/assets/clinicians/anu-saxena-640.webp"
-  }
- ]
+  "category": "adhdme",
+  "researched_at": "2026-10-19",
+  "doctors": [
+    {
+      "name": "Dr Beth Hansen",
+      "given": "Beth",
+      "family": "Hansen",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 1950,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "ADHD in women",
+        "late-identified ADHD",
+        "ADHD in parents",
+        "women's health"
+      ],
+      "personal": {
+        "philosophy_of_care": "Aims to create a space where patients feel heard, understood and taken seriously; a gentle, practical and thorough approach to ADHD assessment and care.",
+        "communication_approach": "Takes time to explore symptoms in the context of a person's life: work, study, relationships, parenting, sleep, emotional regulation and mental health.",
+        "communication": [
+          "gentle",
+          "listens"
+        ],
+        "why_medicine": null,
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": "Has worked across urban, rural and remote settings, which shaped her interest in accessible and compassionate mental health care.",
+        "quotes": [
+          {
+            "text": "A UQ graduate and a Fellow of the Royal Australian College of General Practitioners, she brings a gentle, practical and thorough approach to ADHD assessment and care.",
+            "about": "approach"
+          },
+          {
+            "text": "In her consultations, Beth aims to create a space where patients feel heard, understood and taken seriously.",
+            "about": "approach"
+          },
+          {
+            "text": "She has a strong interest in how ADHD can present in women, especially when symptoms have been missed, minimised or attributed to other causes.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-beth-hansen.html",
+        "page_title": "Dr Beth Hansen",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/beth-hansen-640.webp"
+    },
+    {
+      "name": "Dr Bill Liley",
+      "given": "Bill",
+      "family": "Liley",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "only",
+      "referral_required": false,
+      "fee_initial_dollars": 1950,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "rural and regional",
+        "whole-person care",
+        "40+ years in practice",
+        "telehealth"
+      ],
+      "personal": {
+        "philosophy_of_care": "A practical, whole-person approach to ADHD care that considers each patient's circumstances and how ADHD affects day-to-day life.",
+        "communication_approach": "Values the access telehealth gives people who would otherwise struggle to reach ADHD care.",
+        "communication": [
+          "holistic"
+        ],
+        "why_medicine": null,
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": "Rural generalist based in regional Queensland; has worked in Aboriginal Community Controlled Health Organisations and across Queensland, New South Wales and Victoria.",
+        "quotes": [
+          {
+            "text": "Bill brings a practical, whole-person approach to ADHD care, taking into consideration each patient’s individual circumstances and how ADHD impacts their day-to-day life.",
+            "about": "approach"
+          },
+          {
+            "text": "Based in regional Queensland, he also appreciates the accessibility that telehealth provides, particularly for people who may otherwise have difficulty accessing ADHD care.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-bill-liley.html",
+        "page_title": "Dr Bill Liley",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/bill-liley-640.webp"
+    },
+    {
+      "name": "Dr Hannah Gray",
+      "given": "Hannah",
+      "family": "Gray",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 1950,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "students and early career",
+        "organisation and follow-through",
+        "new to assessment"
+      ],
+      "personal": {
+        "philosophy_of_care": "Practical strategies and realistic next steps that fit a person's day-to-day life; welcomes people new to mental health or ADHD assessment.",
+        "communication_approach": "Calm, structured and collaborative; explains her thinking and plans clearly so patients understand each step.",
+        "communication": [
+          "collaborative"
+        ],
+        "why_medicine": null,
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "In consultations, Hannah is calm, structured and collaborative.",
+            "about": "approach"
+          },
+          {
+            "text": "She takes pride in explaining her thinking and plans clearly so patients understand each step of the process.",
+            "about": "approach"
+          },
+          {
+            "text": "Dr Hannah Gray is a warm and approachable GP with a strong interest in mental health and adult ADHD.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-hannah-gray.html",
+        "page_title": "Dr Hannah Gray",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/hannah-gray-640.webp"
+    },
+    {
+      "name": "Dr Jae Cho",
+      "given": "Jae",
+      "family": "Cho",
+      "specialty": "psychiatry",
+      "gender": "man",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": true,
+      "fee_initial_dollars": 900,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd",
+        "anxiety",
+        "depression",
+        "sleep",
+        "trauma",
+        "personality",
+        "bipolar",
+        "ocd",
+        "substance-use"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "general psychiatry",
+        "ADHD",
+        "trauma-informed"
+      ],
+      "personal": {
+        "philosophy_of_care": "Evidence-based, trauma-informed care grounded in the biopsychosocial model, with a tailored plan built with the patient.",
+        "communication_approach": "A calm manner and thoughtful explanations that make difficult topics feel manageable; works closely with GPs, psychologists and families.",
+        "communication": [
+          "evidence-based",
+          "collaborative",
+          "holistic"
+        ],
+        "why_medicine": null,
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "Jae’s approach is evidence-based, trauma-informed, and grounded in the biopsychosocial model.",
+            "about": "approach"
+          },
+          {
+            "text": "He takes the time to understand each patient’s background, strengths, and goals, and works collaboratively to create a tailored treatment plan.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-jae-cho.html",
+        "page_title": "Dr Jae Cho",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/jae-cho-640.webp"
+    },
+    {
+      "name": "Dr John Ruberry",
+      "given": "John",
+      "family": "Ruberry",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 1950,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "access to ADHD care",
+        "mental health",
+        "13 years in practice"
+      ],
+      "personal": {
+        "philosophy_of_care": "Passionate about improving access to ADHD care and supporting patients through assessment and treatment.",
+        "communication_approach": null,
+        "communication": [],
+        "why_medicine": "Has seen firsthand the positive difference effective ADHD treatment can make to a person's quality of life.",
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": "Owned and ran his own busy clinic for five years.",
+        "quotes": [
+          {
+            "text": "Throughout his career, he has developed a strong interest in mental health and has seen firsthand the positive difference effective ADHD treatment can make to a person’s quality of life.",
+            "about": "why"
+          },
+          {
+            "text": "He is passionate about improving access to ADHD care and supporting patients through their assessment and treatment journey.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-john-ruberry.html",
+        "page_title": "Dr John Ruberry",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/john-ruberry-640.webp"
+    },
+    {
+      "name": "Dr Kay Walls",
+      "given": "Kay",
+      "family": "Walls",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 1950,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd",
+        "anxiety",
+        "depression",
+        "perinatal-mh"
+      ],
+      "populations": [
+        "adult",
+        "adolescent",
+        "perinatal"
+      ],
+      "focus_tags": [
+        "ADHD in adult women",
+        "mothers and postnatal",
+        "Focused Psychological Strategies"
+      ],
+      "personal": {
+        "philosophy_of_care": "An ADHD assessment is never just a checklist: interested in the whole person, their history, relationships, patterns and strengths.",
+        "communication_approach": "Creates space for patients to tell their story fully; culturally sensitive, person-centred care.",
+        "communication": [
+          "holistic",
+          "listens",
+          "culturally-safe"
+        ],
+        "why_medicine": "Focuses on ADHD in adult women, a group she feels has historically been under-recognised and underserved.",
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "For Kay, an ADHD assessment is never just a checklist.",
+            "about": "approach"
+          },
+          {
+            "text": "She creates space for patients to tell their story fully, and many describe her consultations as the first time they have felt genuinely listened to.",
+            "about": "approach"
+          },
+          {
+            "text": "With a background spanning mental health and women’s health, she has developed a particular focus on ADHD in adult women, a group she feels has historically been under-recognised and underserved.",
+            "about": "why"
+          },
+          {
+            "text": "Dr Kay Walls is a specialist general practitioner who brings warmth, curiosity, and a deeply holistic lens to everything she does.",
+            "about": "approach"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-kay-walls.html",
+        "page_title": "Dr Kay Walls",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/kay-walls-640.webp"
+    },
+    {
+      "name": "Dr Natalie Cook",
+      "given": "Natalie",
+      "family": "Cook",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 1950,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "complex adult ADHD",
+        "evidence-based",
+        "Central Queensland"
+      ],
+      "personal": {
+        "philosophy_of_care": "Clear, evidence-based advice, tailored to each patient's circumstances, preferences and goals, including work, sleep and family.",
+        "communication_approach": "Direct, honest and safety-focused.",
+        "communication": [
+          "direct",
+          "evidence-based"
+        ],
+        "why_medicine": null,
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": "Russian-born and trained; has practised in Central Queensland for over 11 years.",
+        "quotes": [
+          {
+            "text": "Her approach is direct, honest and safety-focused, providing clear, evidence-based advice while tailoring treatment to each patient’s individual circumstances, preferences and goals, including their work, sleep, family and day-to-day demands.",
+            "about": "approach"
+          },
+          {
+            "text": "Dr Natalie Cook is a Russian-born and trained GP who has practised in Central Queensland for over 11 years.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-natalie-cook.html",
+        "page_title": "Dr Natalie Cook",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/natalie-cook-640.webp"
+    },
+    {
+      "name": "Dr Rajitha De Silva",
+      "given": "Rajitha",
+      "family": "De Silva",
+      "specialty": "psychiatry",
+      "gender": "woman",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": true,
+      "fee_initial_dollars": 900,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd",
+        "anxiety",
+        "depression"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "adults",
+        "anxiety and mood",
+        "culturally sensitive"
+      ],
+      "personal": {
+        "philosophy_of_care": "The best care begins with feeling heard; a safe, supportive, non-judgemental space for the most difficult issues.",
+        "communication_approach": "A thoughtful, culturally sensitive approach shaped by practice in Sri Lanka and Australia.",
+        "communication": [
+          "listens",
+          "culturally-safe"
+        ],
+        "why_medicine": null,
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": "Has practised psychiatry in both Sri Lanka and Australia.",
+        "quotes": [
+          {
+            "text": "She believes that the best care begins with feeling heard.",
+            "about": "approach"
+          },
+          {
+            "text": "Rajitha takes the time to understand each person’s unique experiences, concerns, and goals, creating a safe, supportive, and non-judgemental environment where patients feel comfortable discussing even the most difficult issues.",
+            "about": "approach"
+          },
+          {
+            "text": "Having practised in both Sri Lanka and Australia, she brings a thoughtful, culturally sensitive approach to helping people navigate life’s challenges.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-rajitha-de-silva.html",
+        "page_title": "Dr Rajitha De Silva",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/rajitha-de-silva-640.webp"
+    },
+    {
+      "name": "Dr Shwetha Murthy",
+      "given": "Shwetha",
+      "family": "Murthy",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Nurtured Thoughts Psychology",
+        "address": "4 Rakeevan Road, Graceville QLD 4075",
+        "suburb": "Graceville",
+        "postcode": "4075",
+        "phone": "(07) 3056 0921",
+        "website": "https://www.nurturedthoughtspsychology.com.au/"
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 1950,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "adolescent"
+      ],
+      "focus_tags": [
+        "parents and carers",
+        "ADHD in families",
+        "adult ADHD in men at work"
+      ],
+      "personal": {
+        "philosophy_of_care": "Maps how symptoms have shown up over time and how they interact with mood, sleep and physical health.",
+        "communication_approach": "A calm, organised style with a strong focus on context (childhood, school reports, family roles, culture), explained in clear, practical language.",
+        "communication": [],
+        "why_medicine": null,
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": "Trained in India, worked in the United Kingdom, in Australia since 2007.",
+        "quotes": [
+          {
+            "text": "In consultations, Shwetha brings a calm, organised style and a strong focus on context: childhood experiences, school reports, family roles, cultural background and current life demands.",
+            "about": "approach"
+          },
+          {
+            "text": "She maps how symptoms have shown up over time and how they interact with mood, sleep and physical health, explained in clear, practical language.",
+            "about": "approach"
+          },
+          {
+            "text": "She is especially interested in supporting women who are starting to wonder how their own history, their children’s experiences and ADHD might be connected, and in adult ADHD in men across blue-collar and white-collar work.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-shwetha-murthy.html",
+        "page_title": "Dr Shwetha Murthy",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/shwetha-murthy-640.webp"
+    },
+    {
+      "name": "Dr Anu Saxena",
+      "given": "Anu",
+      "family": "Saxena",
+      "specialty": "general-practice",
+      "gender": "woman",
+      "practice": {
+        "name": "Bay Health Clinic",
+        "address": "2 Cooper Street, Double Bay NSW 2028",
+        "suburb": "Double Bay",
+        "state": "NSW",
+        "postcode": "2028",
+        "website": "https://www.adhdme.au/dr-anu-saxena.html",
+        "lat": -33.87749,
+        "lng": 151.24101
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 299,
+      "taking_new_patients": true,
+      "languages": [
+        "English",
+        "Hindi",
+        "Urdu"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult",
+        "adolescent",
+        "child"
+      ],
+      "focus_tags": [
+        "ADHD assessment and diagnosis",
+        "endorsed ADHD prescriber course",
+        "mental health",
+        "women's health",
+        "psychology before medicine: BPsych (Hons)",
+        "Hindi and Urdu",
+        "in person in Double Bay and Hornsby, and telehealth",
+        "assessment $299 initial, $199 follow-up, no Medicare rebate"
+      ],
+      "personal": {
+        "philosophy_of_care": "Culturally sensitive, holistic and patient-centred care.",
+        "why_medicine": "Came to medicine through psychology: a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University.",
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [
+          "Travelling",
+          "Learning about different cultures",
+          "Charity and community work",
+          "Cricket and tennis"
+        ],
+        "outside_medicine": "Travelling, learning about different cultures, charity and community work, and staying active through sport.",
+        "quotes": [
+          {
+            "text": "A GP with an honours degree in psychology and clinical interests in ADHD, mental health and women’s health.",
+            "about": "other"
+          },
+          {
+            "text": "Of Indian origin and speaking Hindi and Urdu, she values culturally sensitive, holistic and patient-centred care.",
+            "about": "approach"
+          },
+          {
+            "text": "She came to medicine through psychology, a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University.",
+            "about": "why"
+          },
+          {
+            "text": "Outside medicine she enjoys travelling, learning about different cultures, charity and community work, and staying active through sport, cricket and tennis included.",
+            "about": "hobbies"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-anu-saxena.html",
+        "page_title": "Dr Anu Saxena, ADHD GP, Double Bay & Hornsby",
+        "observed_at": "2026-10-19",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site; she has a declared interest in ADHDme); short quotations attributed; practice coordinates from her Healthengine profile p160121; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/anu-saxena-640.webp"
+    },
+    {
+      "name": "Dr Allen Macbell",
+      "given": "Allen",
+      "family": "Macbell",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "The Local Doctor",
+        "suburb": "Ivanhoe",
+        "state": "VIC",
+        "postcode": "3079",
+        "website": "https://www.adhdme.au/dr-allen-macbell.html",
+        "lat": -37.7689,
+        "lng": 145.045
+      },
+      "telehealth": "none",
+      "referral_required": false,
+      "fee_initial_dollars": 128,
+      "taking_new_patients": true,
+      "languages": [
+        "English"
+      ],
+      "years_in_specialty": 15,
+      "conditions": [
+        "adhd",
+        "autism"
+      ],
+      "populations": [
+        "child",
+        "adolescent",
+        "adult"
+      ],
+      "focus_tags": [
+        "ADHD assessment, diagnosis and ongoing care",
+        "children 10 and over, teens and adults",
+        "autism and ADHD together",
+        "same doctor throughout",
+        "RACGP Victorian GP ADHD Training and Support Program",
+        "skin cancer medicine",
+        "three appointments, $624 in total"
+      ],
+      "personal": {
+        "philosophy_of_care": "Practical and individual, looking at how ADHD affects study, work, relationships and everyday life.",
+        "why_medicine": null,
+        "communication_approach": "Does every assessment himself, so you stay with one doctor from the first consultation through diagnosis, treatment and follow-up.",
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [
+          "Teaching and mentoring medical students",
+          "Skin cancer medicine"
+        ],
+        "outside_medicine": "Teaches and mentors medical students and graduates at the University of Melbourne and Monash University.",
+        "quotes": [
+          {
+            "text": "He sees children aged 10 and over, teens and adults, and does every assessment himself, so you stay with one doctor from the first consultation through diagnosis, treatment and follow-up.",
+            "about": "approach"
+          },
+          {
+            "text": "His approach is practical and individual, looking at how ADHD affects study, work, relationships and everyday life.",
+            "about": "approach"
+          },
+          {
+            "text": "He was selected for the RACGP Victorian GP ADHD Training and Support Program, and teaches and mentors medical students and graduates.",
+            "about": "other"
+          },
+          {
+            "text": "His other interest is skin cancer medicine.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-allen-macbell.html",
+        "page_title": "Dr Allen Macbell, ADHD GP, Ivanhoe, Melbourne",
+        "observed_at": "2026-10-20",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; practice placed at the suburb centroid; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/allen-macbell-640.webp"
+    },
+    {
+      "name": "Dr Yogesh Kalra",
+      "given": "Yogesh",
+      "family": "Kalra",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Dr Yogesh Kalra’s Surgery",
+        "suburb": "Bateau Bay",
+        "state": "NSW",
+        "postcode": "2261",
+        "website": "https://www.adhdme.au/dr-yogesh-kalra.html",
+        "lat": -33.3797,
+        "lng": 151.4786
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 0,
+      "taking_new_patients": true,
+      "languages": [
+        "English",
+        "Hindi"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "continues ADHD medication for people already diagnosed",
+        "bulk billed",
+        "in person at Bateau Bay and telehealth",
+        "family medicine",
+        "women's health",
+        "skin cancer checks and surgery",
+        "Hindi"
+      ],
+      "personal": {
+        "philosophy_of_care": "Keeps your ADHD medication going once you have been diagnosed and have a treatment plan, so you can manage it close to home.",
+        "why_medicine": null,
+        "communication_approach": null,
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": null,
+        "outside_medicine": null,
+        "quotes": [
+          {
+            "text": "For ADHD, he is a continuation prescriber: he keeps your ADHD medication going once you have been diagnosed and have a treatment plan, so you can manage it close to home.",
+            "about": "approach"
+          },
+          {
+            "text": "His other interests are family medicine, women’s health, and skin cancer checks and surgery, with diplomas in skin cancer surgery and dermoscopy.",
+            "about": "other"
+          },
+          {
+            "text": "He speaks English and Hindi, and the practice bulk bills all eligible Medicare services.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-yogesh-kalra.html",
+        "page_title": "Dr Yogesh Kalra, ADHD continuation prescriber",
+        "observed_at": "2026-10-20",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; practice placed at the suburb centroid; portrait served from ADHDme"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/yogesh-kalra-640.webp"
+    },
+    {
+      "name": "Dr Anubhav Saxena",
+      "given": "Anubhav",
+      "family": "Saxena",
+      "specialty": "general-practice",
+      "gender": "man",
+      "practice": {
+        "name": "Beecroft Family & Skin Cancer Clinic",
+        "suburb": "Beecroft",
+        "state": "NSW",
+        "postcode": "2119",
+        "website": "https://www.adhdme.au/dr-anubhav-saxena.html",
+        "lat": -33.7497,
+        "lng": 151.0647
+      },
+      "telehealth": "some",
+      "referral_required": false,
+      "fee_initial_dollars": 299,
+      "taking_new_patients": true,
+      "languages": [
+        "English",
+        "Hindi",
+        "Urdu"
+      ],
+      "years_in_specialty": null,
+      "conditions": [
+        "adhd"
+      ],
+      "populations": [
+        "adult"
+      ],
+      "focus_tags": [
+        "structured adult ADHD assessment",
+        "baseline cardiovascular and metabolic screening",
+        "sleep, heart and metabolic health",
+        "integrative and preventive care",
+        "aged-care and home visits",
+        "Beecroft and Double Bay, phone consultations",
+        "$299 initial, $199 follow-up"
+      ],
+      "personal": {
+        "philosophy_of_care": "Works from measurement rather than impression: ADHD looked at alongside sleep, cardiovascular and metabolic health, with a documented baseline before anything starts.",
+        "why_medicine": null,
+        "communication_approach": "Review at set intervals rather than only when a problem gets loud enough to prompt a call.",
+        "communication": [],
+        "lived_experience": null,
+        "hobbies": [
+          "Parramatta Eels"
+        ],
+        "outside_medicine": "Gives a good deal of his spare time to the Parramatta Eels.",
+        "quotes": [
+          {
+            "text": "He works from measurement rather than impression, and takes an integrative view: ADHD is looked at alongside sleep, cardiovascular and metabolic health rather than on its own, with a documented baseline before anything starts and review at set intervals rather than only when a problem gets loud enough to prompt a call.",
+            "about": "approach"
+          },
+          {
+            "text": "He also does aged-care and home visits, and gives a good deal of his spare time to the long-suffering cause of the Parramatta Eels.",
+            "about": "hobbies"
+          },
+          {
+            "text": "Anubhav trained at the University of Sydney and works in Double Bay and Beecroft.",
+            "about": "other"
+          }
+        ]
+      },
+      "source": {
+        "url": "https://www.adhdme.au/dr-anubhav-saxena.html",
+        "page_title": "Dr Anubhav Saxena, ADHD GP, Beecroft & Double Bay",
+        "observed_at": "2026-10-20",
+        "legal_basis": "facts and the clinician's own published description on the ADHDme network page (founder's site); short quotations attributed; practice placed at the suburb centroid; portrait served from ADHDme; Dr Saxena owns ADHDme's first clinic partner (declared commercial relationship)"
+      },
+      "photo_url": "https://www.adhdme.au/assets/clinicians/anubhav-saxena-640.webp",
+      "healthspan": {
+        "areas": [
+          "heart",
+          "metabolic",
+          "sleep"
+        ],
+        "evidence": "documented physical baseline alongside sleep, heart and metabolic health"
+      }
+    }
+  ]
 }

@@ -37,7 +37,10 @@ export const isThin = (d: DoctorRecord) => {
   return c.score < 0.4 || c.missing.some((g) => g.field === "personal.philosophyOfCare");
 };
 
-/** Within each run of equal clinical band, move thin profiles after full ones, keeping order otherwise. */
+/** ADHDme network clinicians (adhdme.au pages) onboard and rank first (founder 2026-10-20). */
+export const isNetwork = (d: DoctorRecord) => d.sources.some((s) => /(^|\/\/)(www\.)?adhdme\.au\//.test(s.sourceUrl ?? ""));
+
+/** Within each run of equal clinical band: network clinicians first, then full profiles, then thin ones; order otherwise kept. */
 export function deprioritiseThin<T extends { doctor: DoctorRecord; clinicalFit?: { band: string } }>(cards: T[]): T[] {
   const out: T[] = [];
   let i = 0;
@@ -48,7 +51,9 @@ export function deprioritiseThin<T extends { doctor: DoctorRecord; clinicalFit?:
     let j = i;
     while (j < cards.length && key(cards[j]!) === band) j++;
     const run = cards.slice(i, j);
-    out.push(...run.filter((c) => !isThin(c.doctor)), ...run.filter((c) => isThin(c.doctor)));
+    const net = run.filter((c) => isNetwork(c.doctor));
+    const rest = run.filter((c) => !isNetwork(c.doctor));
+    out.push(...net, ...rest.filter((c) => !isThin(c.doctor)), ...rest.filter((c) => isThin(c.doctor)));
     i = j;
   }
   return out;
