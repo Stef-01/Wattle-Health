@@ -8,6 +8,13 @@ import { deprioritiseThin } from "./completeness";
 /** Profession words in the sentence (founder 2026-10-19: "add in all providers"). Deterministic. */
 const PROFESSIONS: { re: RegExp; test: (specialty: string, profession: string) => boolean }[] = [
   { re: /\bpsycholog/i, test: (s) => s === "psychology" },
+  // Medical specialties by name (founder 2026-10-20: every specialty, every state).
+  { re: /\b(obstetric|gynaecolog|gynecolog|o&g|ob\/?gyn)/i, test: (s) => s === "obstetrics-gynaecology" },
+  { re: /\bpsychiatr/i, test: (s) => s === "psychiatry" },
+  { re: /\b(paediatric|pediatric)/i, test: (s) => s === "paediatrics" },
+  { re: /\b(gp|general practi)/i, test: (s) => s === "general-practice" },
+  { re: /\brheumatolog/i, test: (s) => s === "rheumatology" },
+  { re: /\bpain (specialist|medicine|doctor)/i, test: (s) => s === "pain-medicine" },
   { re: /\b(occupational therap|OT)\b/, test: (s) => s === "occupational-therapy" },
   { re: /\bcoach(ing)?\b/i, test: (_s, p) => /coach/i.test(p) },
   { re: /\bphysio/i, test: (_s, p) => /physio/i.test(p) },
@@ -16,6 +23,8 @@ const PROFESSIONS: { re: RegExp; test: (specialty: string, profession: string) =
   { re: /\bsocial worker/i, test: (_s, p) => /social worker/i.test(p) },
   { re: /\bcounsell/i, test: (_s, p) => /counsell/i.test(p) },
 ];
+
+const NEAR_KM = 50;
 
 /** When the sentence names a profession, providers of it lead (stable); nobody is removed. */
 export function byAskedProfession<T extends { doctor: { specialty: string; profession?: string } }>(sentence: string, cards: T[]): T[] {
@@ -30,6 +39,7 @@ import type { Intent, Ranked, SpecialtyField } from "@/src/matching/types";
 import type { Discipline } from "@/src/disciplines/load";
 import { highlightsFor } from "./highlights";
 import { resolveSuburb } from "./places";
+import { placeInSentence } from "@/src/geo/suburbs";
 import type { DoctorRecord } from "./types";
 import { DEFAULT_WEIGHTS, type Card, type Chip, type FitBand, type SearchRequest, type SearchResponse, type Weights } from "./search-types";
 
@@ -133,7 +143,7 @@ export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Disc
   const narrowed = asked.length ? pool.filter((d) => asked.some((p) => p.test(d.specialty, (d as { profession?: string }).profession ?? ""))) : [];
   const doctors = narrowed.length ? narrowed : pool;
   const weights: Weights = { ...DEFAULT_WEIGHTS, ...(req.weights ?? {}) };
-  const typed = (req.suburb ?? "").trim() || "Brisbane";
+  const typed = (req.suburb ?? "").trim() || placeInSentence(req.sentence ?? "")?.suburb || "Brisbane";
   const place = resolveSuburb(typed, doctors);
 
   const original = req.sentence.slice(0, 1200);
@@ -146,7 +156,10 @@ export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Disc
 
   const byId = new Map(doctors.map((d) => [d.id, d]));
   const conditionLabels = Object.fromEntries(discipline.conditions.map((c) => [c.id, c.label]));
-  const cards = byAskedProfession(original, deprioritiseThin(result.results.map((r) => toCard(r, byId, result.intent, conditionLabels)).filter((c): c is Card => c !== null)));
+  const fitted = deprioritiseThin(result.results.map((r) => toCard(r, byId, result.intent, conditionLabels)).filter((c): c is Card => c !== null));
+  // Nationally (founder 2026-10-20), a named place means near first: within 50 km, then the rest, each in fit order.
+  const near = (c: Card) => c.distanceKm === undefined || c.distanceKm <= NEAR_KM;
+  const cards = byAskedProfession(original, (req.suburb ?? "").trim() ? [...fitted.filter(near), ...fitted.filter((c) => !near(c))] : fitted);
 
   const response: SearchResponse = {
     order: result.order,

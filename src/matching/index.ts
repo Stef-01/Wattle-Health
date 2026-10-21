@@ -38,6 +38,8 @@ export { extractIntent, clinicalFitFor, layer1Filter, specialtiesFor, isMandator
 
 /** How many results the screen shows. */
 export const RESULTS_SHOWN = 3;
+/** Near enough to lead the results nationally; farther fits follow. */
+export const NEAR_KM = 50;
 
 /**
  * What the screen shows instead of a list when the sentence carries an emergency cue. One
@@ -271,7 +273,21 @@ export function match(
     return card;
   });
 
-  const survivors = rerank(layer1, intent, weights, discipline);
+  const reranked = rerank(layer1, intent, weights, discipline);
+  // National roster (Wattle, 2026-10-20): with a place, doctors with rooms within NEAR_KM
+  // lead, each group in fit order, so a fit 500 km away never takes a slot from a fit nearby.
+  const near = (c: Ranked) => c.distanceKm !== undefined && c.distanceKm <= NEAR_KM;
+  // Telehealth-only doctors keep their fit slot (PRD §4.12); the rest are reordered near-first,
+  // fitting doctors before ones that fit nothing.
+  const pinned = (c: Ranked) => c.doctor.telehealth.value === "only";
+  const fits = (c: Ranked) => c.score > 0 || c.clinicalFit?.band === "documented" || c.clinicalFit?.band === "plausible";
+  const nearFirst = (g: Ranked[]) => [...g.filter(near), ...g.filter((c) => !near(c))];
+  let survivors = reranked;
+  if (origin) {
+    const movable = reranked.filter((c) => !pinned(c));
+    const queue = [...nearFirst(movable.filter(fits)), ...nearFirst(movable.filter((c) => !fits(c)))];
+    survivors = reranked.map((c) => (pinned(c) ? c : queue.shift()!));
+  }
   const results = shown(survivors);
 
   const result: MatchResult = {
