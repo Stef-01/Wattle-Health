@@ -44,7 +44,8 @@ export function Orb({ size = 96, className }: { size?: number; className?: strin
       BLOBS.forEach((b, j) => {
         const path = refs.current[j];
         if (!path) return;
-        const t = elapsed + b.offset * 1000;
+        // A rAF timestamp can precede `start` by a frame; a negative t would index SHAPES[-1].
+        const t = Math.max(0, elapsed) + b.offset * 1000;
         const i0 = Math.floor(t / b.duration) % SHAPES.length;
         const k = ease((t % b.duration) / b.duration);
         const a = SHAPES[i0]!;
