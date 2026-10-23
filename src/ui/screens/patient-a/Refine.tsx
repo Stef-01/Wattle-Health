@@ -3,7 +3,7 @@
 // Each switch maps to a phrase the matcher already reads (or the "anywhere" flag), so applying it
 // is just a fresh search with a fuller sentence. No insurance.
 import { useState } from "react";
-import { Cta, Sheet } from "@/src/ui/kit";
+import { Cell, Cta, Group, Sheet, Toggle } from "@/src/ui/kit";
 
 export type RefineState = { telehealth: boolean; anywhere: boolean; woman: boolean; child: boolean };
 
@@ -24,18 +24,9 @@ export function applyRefine(sentence: string, s: RefineState): string {
   return [out.trim().replace(/,\s*$/, ""), ...add].filter(Boolean).join(", ");
 }
 
+/** One filter as an iOS settings row: label and secondary line, switch trailing. */
 function Switch({ on, onChange, label, sub }: { on: boolean; onChange: (v: boolean) => void; label: string; sub: string }) {
-  return (
-    <button type="button" role="switch" aria-checked={on} onClick={() => onChange(!on)} className="press-soft press flex w-full items-center gap-4 border-b border-divider py-4 text-left last:border-b-0">
-      <span className="min-w-0 flex-1">
-        <span className="block text-[17px] text-ink">{label}</span>
-        <span className="block text-[14px] text-grey">{sub}</span>
-      </span>
-      <span className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: on ? "#1b1b1b" : "#e3e3e3" }}>
-        <span className="absolute top-[2px] size-[27px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] transition-transform duration-200" style={{ transform: `translateX(${on ? 22 : 2}px)`, transitionTimingFunction: "var(--ease-out)" }} />
-      </span>
-    </button>
-  );
+  return <Cell title={label} sub={sub} accessory={<Toggle on={on} onChange={onChange} label={label} />} />;
 }
 
 export function Refine({ open, onClose, initial, onApply, place }: { open: boolean; onClose: () => void; initial: RefineState; onApply: (s: RefineState) => void; place: string }) {
@@ -43,12 +34,12 @@ export function Refine({ open, onClose, initial, onApply, place }: { open: boole
   const set = (k: keyof RefineState) => (v: boolean) => setS((x) => ({ ...x, [k]: v }));
   return (
     <Sheet open={open} onClose={onClose} title="Refine">
-      <div>
+      <Group tone="soft">
         <Switch on={s.telehealth} onChange={set("telehealth")} label="Telehealth only" sub="See them by video from home" />
         <Switch on={s.anywhere} onChange={set("anywhere")} label="Anywhere in Australia" sub={`Beyond 20 km of ${place}`} />
         <Switch on={s.woman} onChange={set("woman")} label="A woman doctor" sub="Only doctors who are women" />
         <Switch on={s.child} onChange={set("child")} label="Sees children" sub="For a child under 12" />
-      </div>
+      </Group>
       <Cta fixed={false} onClick={() => onApply(s)}>Show my picks</Cta>
     </Sheet>
   );

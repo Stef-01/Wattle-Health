@@ -30,9 +30,9 @@ export function NoMatch({ radiusKm, widenCount, telehealthCount, onWiden, onTele
     <Screen padBottom="pb-[140px]">
       <TopBar title="Your picks" back={backHref} right="Edit" rightHref={editHref} />
       <Space h={40} />
-      <h1 className="font-sans text-[30px] font-medium leading-normal text-charcoal">No strong pick yet</h1>
+      <h1 className="font-sans text-title1 text-charcoal">No strong pick yet</h1>
       <Space h={8} />
-      <p className="font-inter text-[20px] font-medium leading-normal text-grey">
+      <p className="font-inter text-title3 text-grey">
         Within {radiusKm} km of {place}
       </p>
       <Space h={36} />

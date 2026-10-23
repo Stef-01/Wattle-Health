@@ -3,12 +3,11 @@ import { Orb } from "@/src/ui/kit/Orb";
 // Results as a journey (2026-10-17): the top match first, as a whole profile. Reaching the end of
 // it reveals the second, then the third. Three is the limit; more means searching again with a
 // different sentence. Empty: "No strong pick yet" with the counts the engine reported.
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Card, SearchResponse } from "@/src/data/search-types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Avatar, Body, Cta, Divider, Gap, Row, Screen, Sliders } from "@/src/ui/kit";
+import { Body, Button, Cell, Cta, Face, Gap, Group, Screen, Sliders } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
@@ -125,40 +124,36 @@ export function Matches() {
   return (
     <Screen padBottom="pb-[120px]" className="frame-wide">
       {cards.length > 1 ? (
-        <div className="material sticky top-0 z-10 -mx-7 mb-3 flex items-center justify-center gap-2 px-7 py-3" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
+        <div className="material bleed sticky top-0 z-10 -mt-2 mb-2 flex h-11 items-center justify-center gap-1.5" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
           {cards.map((c, i) => (
-            <span key={c.doctor.id} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === reading ? 28 : 8, background: i === reading ? "#1b1b1b" : i < shown ? "#bdbdbd" : "#e3e3e3", transitionTimingFunction: "var(--ease-out)" }} />
+            <span key={c.doctor.id} className="h-[7px] rounded-full transition-[width,background-color] duration-300" style={{ width: i === reading ? 22 : 7, background: i === reading ? "var(--color-ink)" : i < shown ? "#aeaeb2" : "#d1d1d6", transitionTimingFunction: "var(--ease-out)" }} />
           ))}
         </div>
       ) : null}
       {req ? (
-        <section aria-label="Your search" className="rounded-[8px] bg-[#f7f7f7] px-4 py-4 lg:max-w-[calc(100%-564px)]">
-          <div className="flex items-start gap-3">
-            <div className="min-w-0 flex-1">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#6b6b6b]">You searched</p>
-              <p className="mt-1 text-[17px] font-semibold leading-[1.35] text-ink">{heardSentence(req)}</p>
-            </div>
-            <div className="flex shrink-0 gap-2">
-              <Link href="/" onClick={() => setDraft(req.sentence)} className="press inline-flex h-9 items-center rounded-[6px] border border-ink bg-white px-3 text-[14px] font-medium text-ink">Edit</Link>
-              <button type="button" onClick={() => setRefining(true)} className="press inline-flex h-9 items-center gap-1.5 rounded-[6px] border border-ink bg-white px-3 text-[14px] font-medium text-ink">
-                <Sliders size={15} /> Refine
-              </button>
-            </div>
+        <section aria-label="Your search" className="rounded-card bg-surface-soft p-4 lg:max-w-[calc(100%-564px)]">
+          <p className="text-footnote text-grey">You searched</p>
+          <p className="mt-0.5 text-headline text-ink">{heardSentence(req)}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <Button href="/" kind="gray" size="small" className="bg-white" onClick={() => setDraft(req.sentence)}>Edit</Button>
+            <Button kind="gray" size="small" className="bg-white" onClick={() => setRefining(true)} icon={<Sliders size={15} />}>Refine</Button>
           </div>
           {cards.length > 0 ? (
-            <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-[#e6e6e6] pt-3">
-              <span className="text-[13px] text-[#6b6b6b]">Also try</span>
-              {[
-                { label: "By video", on: { telehealth: true } },
-                { label: "A woman", on: { woman: true } },
-                { label: "Anywhere in Australia", on: { anywhere: true } },
-              ].map((f) => (
-                <button key={f.label} type="button" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })} className="press inline-flex h-8 items-center rounded-[6px] border border-hairline bg-white px-2.5 text-[13px] font-medium text-ink">{f.label}</button>
-              ))}
+            <div className="mt-3 border-t-[length:var(--hairline)] border-hairline pt-3">
+              <p className="text-footnote text-grey">Also try</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {[
+                  { label: "By video", on: { telehealth: true } },
+                  { label: "A woman", on: { woman: true } },
+                  { label: "Anywhere in Australia", on: { anywhere: true } },
+                ].map((f) => (
+                  <Button key={f.label} kind="gray" size="small" className="bg-white font-normal" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })}>{f.label}</Button>
+                ))}
+              </div>
             </div>
           ) : null}
           {req.answers?.some((a) => /Talking it through|talk to someone/i.test(a.answer)) ? (
-            <p className="mt-3 border-t border-[#e6e6e6] pt-3 text-[14px] leading-[1.5] text-[#4a4a4a]">For talking therapy, a psychologist is often the place to start. A GP’s Mental Health Treatment Plan gives you Medicare-subsidised sessions.</p>
+            <p className="mt-3 border-t-[length:var(--hairline)] border-hairline pt-3 text-subhead text-grey">For talking therapy, a psychologist is often the place to start. A GP’s Mental Health Treatment Plan gives you Medicare-subsidised sessions.</p>
           ) : null}
         </section>
       ) : null}
@@ -166,7 +161,7 @@ export function Matches() {
       {res?.emergency ? (
         <>
           <Gap h={16} />
-          <Body className="text-[16px]">{res.emergency.note}</Body>
+          <Body>{res.emergency.note}</Body>
         </>
       ) : null}
       <Gap h={24} />
@@ -177,32 +172,27 @@ export function Matches() {
       <div className="flex flex-col" style={busy ? { opacity: 0.5, transition: "opacity 150ms ease" } : { transition: "opacity 150ms ease" }}>
         {cards.slice(0, shown).map((card, i) => (
           <div key={card.doctor.id}>
-            {i > 0 ? <div className="my-12 h-px w-full bg-divider" aria-hidden="true" /> : null}
+            {i > 0 ? <div className="hairline my-10 w-full" aria-hidden="true" /> : null}
             <MatchPanel telehealthOnly={/telehealth only/i.test(req?.sentence ?? "")} newPatientMatters={Boolean(req?.answers?.some((a) => a.ask === "Experience"))} card={card} index={i} total={cards.length} labels={labels} saved={saved.includes(card.doctor.id)} onSave={() => setSaved(toggleSavedId(card.doctor.id, req?.response.chips.find((c) => c.kind === "condition")?.label))} />
           </div>
         ))}
         {shown < cards.length ? (
           <div ref={sentinel} className="mt-12 flex flex-col items-center gap-3 py-6 text-center">
             <Orb size={28} />
-            <p className="text-[14px] text-grey">Keep scrolling for your {shown === 1 ? "second" : "third"} match</p>
+            <p className="text-footnote text-grey">Keep scrolling for your {shown === 1 ? "second" : "third"} match</p>
           </div>
         ) : null}
         {cards.length > 0 && shown >= cards.length ? (
-          <div className="rise mt-12 rounded-[24px] px-6 py-8 text-center" style={{ background: "#f4f4f4" }}>
-            <div className="mb-5 flex justify-center -space-x-3">
-              {cards.map((c) =>
-                c.doctor.photo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img key={c.doctor.id} src={c.doctor.photo.url} alt={c.doctor.name.display} referrerPolicy="no-referrer" className="size-14 rounded-full border-[3px] border-white object-cover object-top shadow-[0_4px_10px_rgba(0,0,0,0.12)]" style={{ background: "#e9e9e9" }} />
-                ) : (
-                  <span key={c.doctor.id} className="rounded-full border-[3px] border-white"><Avatar name={c.doctor.name.display} size={50} /></span>
-                ),
-              )}
+          <div className="rise mt-10 rounded-card bg-surface-soft px-5 py-7 text-center">
+            <div className="mb-4 flex justify-center -space-x-3">
+              {cards.map((c) => (
+                <Face key={c.doctor.id} url={c.doctor.photo?.url} name={c.doctor.name.display} size={52} ring />
+              ))}
             </div>
-            <p className="font-display text-[24px] leading-tight text-ink">That’s your {cards.length === 1 ? "pick" : cards.length === 2 ? "two" : "three"}.</p>
-            <p className="mt-2 text-[15px] leading-[1.5] text-grey">We show three at a time, so you can read each one properly. Search again to meet others.</p>
-            <div className="mt-6">
-              <Cta fixed={false} onClick={searchAgain}>Search again</Cta>
+            <p className="text-title2 text-ink">That’s your {cards.length === 1 ? "pick" : cards.length === 2 ? "two" : "three"}.</p>
+            <p className="mt-1.5 text-subhead text-grey">We show three at a time, so you can read each one properly. Search again to meet others.</p>
+            <div className="mt-5">
+              <Button full onClick={searchAgain}>Search again</Button>
             </div>
           </div>
         ) : null}
@@ -210,7 +200,7 @@ export function Matches() {
       {res && cards.length > 0 ? (
         <>
           <Gap h={16} />
-          <p className="caption text-[13px] leading-normal text-grey">{res.orderNote.replace(/ and ([A-Z])(?=[a-z ])/g, (_m, c: string) => ` and ${c.toLowerCase()}`)}</p>
+          <p className="text-footnote text-grey">{res.orderNote.replace(/ and ([A-Z])(?=[a-z ])/g, (_m, c: string) => ` and ${c.toLowerCase()}`)}</p>
         </>
       ) : null}
     </Screen>
@@ -222,17 +212,16 @@ function Empty({ res, place, busy, onWiden, onTelehealth, onChange, onClosest }:
   const count = (v: number | null, unit: string) => (v !== null ? ` (${v}${unit})` : "");
   return (
     <div style={busy ? { opacity: 0.5 } : undefined}>
-      <h2 className="display text-[20px] text-charcoal">No strong pick yet</h2>
-      <p className="pt-2 text-[14px] text-grey">
+      <h2 className="text-title2 text-ink">No strong pick yet</h2>
+      <p className="pt-1 text-subhead text-grey">
         Within {REACH_KM} km of {place}
       </p>
       <Gap h={24} />
-      <Row title={`Widen to all of Australia${count(n.widen, " doctors")}`} onClick={onWiden} />
-      <Divider />
-      <Row title={`Add telehealth-only doctors${count(n.telehealth, "")}`} onClick={onTelehealth} />
-      <Divider />
-      <Row title="Change what you need" onClick={onChange} />
-      <Divider />
+      <Group tone="soft">
+        <Cell tint title={`Widen to all of Australia${count(n.widen, " doctors")}`} onClick={onWiden} />
+        <Cell tint title={`Add telehealth-only doctors${count(n.telehealth, "")}`} onClick={onTelehealth} />
+        <Cell tint title="Change what you need" onClick={onChange} />
+      </Group>
       <Dock bottom={16}>
         <Cta fixed={false} onClick={onClosest} disabled={busy}>
           Show closest fits

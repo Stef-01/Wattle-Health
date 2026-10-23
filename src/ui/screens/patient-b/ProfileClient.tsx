@@ -26,25 +26,25 @@ export function ContactCta({ doctor, label, note, inline = false }: { doctor: Do
     <>
       {inline ? (
         <div className="flex flex-col gap-2">
-          {note ? <p className="caption text-center text-[12px] text-grey">{note}</p> : null}
+          {note ? <p className="caption text-center text-caption1 text-grey">{note}</p> : null}
           <Cta fixed={false} onClick={() => setOpen(true)}>{label}</Cta>
         </div>
       ) : (
         <Cta onClick={() => setOpen(true)} note={note}>{label}</Cta>
       )}
       <Sheet open={open} onClose={() => setOpen(false)} title={`Contact ${drShort(doctor)}`}>
-        {c.room ? <p className="text-[14px] text-grey">{c.room}</p> : null}
+        {c.room ? <p className="text-subhead text-grey">{c.room}</p> : null}
         {tel ? (
-          <a href={tel} className="press flex h-[54px] items-center justify-center rounded-pill bg-ink text-[16px] font-medium text-white">
+          <a href={tel} className="press flex h-[54px] items-center justify-center rounded-pill bg-ink text-body font-semibold text-white">
             Call {c.phone}
           </a>
         ) : null}
         {c.website ? (
-          <a href={c.website} target="_blank" rel="noreferrer" className="press flex h-[54px] items-center justify-center rounded-pill bg-surface-soft text-[16px] font-medium text-charcoal">
+          <a href={c.website} target="_blank" rel="noreferrer" className="press flex h-[54px] items-center justify-center rounded-pill bg-surface-soft text-body font-semibold text-charcoal">
             Practice website
           </a>
         ) : null}
-        {!tel && !c.website ? <p className="text-[16px] font-medium text-grey">No phone or website listed yet.</p> : null}
+        {!tel && !c.website ? <p className="text-body text-grey">No phone or website listed yet.</p> : null}
       </Sheet>
     </>
   );

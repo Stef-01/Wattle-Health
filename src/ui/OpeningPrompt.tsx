@@ -11,6 +11,7 @@ import { checkOpenings, getOpeningsState, notifyFresh, promptDue, pushOn, setOpe
 import { nextFreeLabel } from "./screens/patient-a/BookCard";
 import { Orb } from "./kit/Orb";
 import { celebrate } from "./celebrate";
+import { Face } from "./kit";
 
 export function OpeningPrompt() {
   const path = usePathname();
@@ -78,30 +79,27 @@ export function OpeningPrompt() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-3 z-[60] flex justify-center px-3">
-      <div role="dialog" aria-label="Appointment opening" className={`${leaving ? "toast-out" : "rise"} pointer-events-auto w-full max-w-[400px] rounded-[18px] bg-white/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur-[20px]`}>
-        <div className="flex items-center gap-2 text-[12px] text-[#6b6b6b]">
-          <span className="inline-flex size-5 items-center justify-center rounded-[5px] bg-[#f4f4f4]"><Orb size={14} /></span>
-          <span className="font-medium uppercase tracking-[0.06em]"><Brand /></span>
+      <div role="dialog" aria-label="Appointment opening" className={`${leaving ? "toast-out" : "rise"} glass pointer-events-auto w-full max-w-[400px] rounded-card p-4`}>
+        <div className="flex items-center gap-2 text-caption1 text-grey">
+          <span className="inline-flex size-5 items-center justify-center rounded-[6px] bg-surface-soft"><Orb size={14} /></span>
+          <span><Brand /></span>
           <span className="ml-auto">now</span>
         </div>
         {state === "booked" ? (
           <div className="bounce-in mt-2">
-            <p className="flex items-center gap-2 text-[16px] font-semibold text-ink"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="#1b1b1b" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Booked with {name}</p>
-            <p className="mt-0.5 text-[15px] leading-[1.45] text-[#4a4a4a]">{when}{o.mode === "telehealth" ? ", by video" : ""}. It’s in your calendar and in Openings.</p>
-            <button type="button" onClick={close} className="press mt-3 h-10 w-full rounded-[8px] bg-[#f4f4f4] text-[15px] font-semibold text-ink">Done</button>
+            <p className="flex items-center gap-2 text-body font-semibold text-ink"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="var(--color-ink)" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Booked with {name}</p>
+            <p className="mt-0.5 text-subhead leading-read text-grey">{when}{o.mode === "telehealth" ? ", by video" : ""}. It’s in your calendar and in Openings.</p>
+            <button type="button" onClick={close} className="press mt-3 h-11 w-full rounded-full bg-surface text-subhead font-semibold text-ink">Done</button>
           </div>
         ) : (
           <div className="mt-2 flex gap-3">
-            {o.doctor.photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={o.doctor.photo.url} alt="" referrerPolicy="no-referrer" className="size-11 shrink-0 rounded-full bg-[#f4f4f4] object-cover object-top" />
-            ) : null}
+            <Face url={o.doctor.photo?.url} name={o.doctor.name.display} size={44} />
             <div className="min-w-0 flex-1">
-              <p className="text-[16px] font-semibold leading-snug text-ink">{name} has an opening</p>
-              <p className="mt-0.5 text-[15px] leading-[1.45] text-[#4a4a4a]">{when}. You’re free. Book a follow-up?</p>
+              <p className="text-body font-semibold text-ink">{name} has an opening</p>
+              <p className="mt-0.5 text-subhead leading-read text-grey">{when}. You’re free. Book a follow-up?</p>
               <div className="mt-3 grid grid-cols-2 gap-2">
-                <button type="button" onClick={notNow} disabled={state === "booking"} className="press h-10 rounded-[8px] bg-[#f4f4f4] text-[15px] font-medium text-ink">Not now</button>
-                <button type="button" onClick={book} disabled={state === "booking"} className="press inline-flex h-10 items-center justify-center gap-2 rounded-[8px] bg-ink text-[15px] font-semibold text-white">{state === "booking" ? "Booking…" : "Book follow-up"}</button>
+                <button type="button" onClick={notNow} disabled={state === "booking"} className="press h-11 rounded-full bg-surface text-subhead font-semibold text-ink">Not now</button>
+                <button type="button" onClick={book} disabled={state === "booking"} className="press inline-flex h-11 items-center justify-center gap-2 rounded-full bg-ink text-subhead font-semibold text-white">{state === "booking" ? "Booking…" : "Book follow-up"}</button>
               </div>
             </div>
           </div>

@@ -1,0 +1,313 @@
+{
+ "totals": {
+  "sizes": [
+   "7px",
+   "11px",
+   "12px",
+   "13px",
+   "14px",
+   "15px",
+   "16px",
+   "17px",
+   "18px",
+   "19px",
+   "20px",
+   "21px",
+   "22px",
+   "24px",
+   "26px",
+   "28px",
+   "30px",
+   "32px",
+   "36px",
+   "40px"
+  ],
+  "weights": [
+   "400",
+   "500",
+   "600",
+   "700"
+  ],
+  "colors": 14,
+  "colorList": [
+   "rgb(47, 47, 47)",
+   "rgb(118, 118, 118)",
+   "rgb(27, 27, 27)",
+   "rgb(138, 138, 138)",
+   "rgb(255, 255, 255)",
+   "oklab(0.999994 0.0000455677 0.0000200868 / 0.7)",
+   "rgb(154, 154, 154)",
+   "oklab(0.999994 0.0000455678 0.0000200868 / 0.85)",
+   "rgb(74, 74, 74)",
+   "rgb(107, 107, 107)",
+   "rgb(138, 106, 59)",
+   "rgb(201, 180, 138)",
+   "rgb(232, 183, 47)",
+   "oklab(0.999994 0.0000455678 0.0000200868 / 0.75)"
+  ],
+  "radii": [
+   "4px",
+   "6px",
+   "8px",
+   "10px",
+   "12px",
+   "14px",
+   "16px",
+   "20px",
+   "22px",
+   "30px",
+   "3.35544e+07px"
+  ]
+ },
+ "routes": {
+  "/": {
+   "sizes": 7,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 4,
+   "radii": 3,
+   "uppercase": 0,
+   "tracking": {
+    "-0.56px": 1,
+    "-0.2px": 1
+   },
+   "lowContrast": [
+    "Recent (3.45)",
+    "Saved (3.45)",
+    "Profile (3.45)"
+   ],
+   "smallTargets": [
+    " 278x24",
+    "Speak instead 24x24"
+   ]
+  },
+  "/recent": {
+   "sizes": 6,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 6,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.2px": 1,
+    "-0.18px": 2
+   },
+   "lowContrast": [
+    "Home (3.45)",
+    "Saved (3.45)",
+    "Profile (3.45)"
+   ],
+   "smallTargets": []
+  },
+  "/saved": {
+   "sizes": 5,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 4,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.2px": 1,
+    "-0.18px": 1
+   },
+   "lowContrast": [
+    "Home (3.45)",
+    "Recent (3.45)",
+    "Profile (3.45)"
+   ],
+   "smallTargets": []
+  },
+  "/me": {
+   "sizes": 4,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 5,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.2px": 2
+   },
+   "lowContrast": [
+    "Home (3.45)",
+    "Recent (3.45)",
+    "Saved (3.45)"
+   ],
+   "smallTargets": []
+  },
+  "/me/openings": {
+   "sizes": 8,
+   "weights": [
+    "400",
+    "500",
+    "600",
+    "700"
+   ],
+   "colors": 4,
+   "radii": 1,
+   "uppercase": 0,
+   "tracking": {
+    "-0.22px": 1
+   },
+   "lowContrast": [
+    "Use a link or .ics (2.81)",
+    "Home (3.45)",
+    "Recent (3.45)",
+    "Saved (3.45)"
+   ],
+   "smallTargets": []
+  },
+  "/me/discover": {
+   "sizes": 6,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 6,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.22px": 1
+   },
+   "lowContrast": [
+    "Home (3.45)",
+    "Recent (3.45)",
+    "Saved (3.45)"
+   ],
+   "smallTargets": []
+  },
+  "/me/context": {
+   "sizes": 8,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 6,
+   "radii": 7,
+   "uppercase": 4,
+   "tracking": {
+    "-0.22px": 1,
+    "0.52px": 1,
+    "0.66px": 1,
+    "0.78px": 2
+   },
+   "lowContrast": [
+    "Home (3.45)",
+    "Recent (3.45)",
+    "Saved (3.45)"
+   ],
+   "smallTargets": []
+  },
+  "/healthspan": {
+   "sizes": 11,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 7,
+   "radii": 5,
+   "uppercase": 1,
+   "tracking": {
+    "1.82px": 1,
+    "-0.4px": 1,
+    "-0.22px": 3,
+    "-0.26px": 1,
+    "-0.16px": 1
+   },
+   "lowContrast": [
+    "01 (2.02)",
+    "02 (2.02)",
+    "03 (2.02)",
+    "Pick any. We pick doctors who wo (4.13)",
+    "Off (3.88)",
+    "Recent (3.45)",
+    "Saved (3.45)",
+    "Profile (3.45)"
+   ],
+   "smallTargets": [
+    "Read extended bloodwork  36x32",
+    "Telehealth is fine 38x32"
+   ]
+  },
+  "/about": {
+   "sizes": 5,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 4,
+   "radii": 1,
+   "uppercase": 0,
+   "tracking": {
+    "-0.36px": 1,
+    "-0.21px": 4
+   },
+   "lowContrast": [
+    "Recent (3.45)",
+    "Saved (3.45)",
+    "Profile (3.45)"
+   ],
+   "smallTargets": []
+  },
+  "/doctor/general-practice~sian-hebron": {
+   "sizes": 9,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 7,
+   "radii": 4,
+   "uppercase": 0,
+   "tracking": {
+    "-0.36px": 1,
+    "-0.64px": 1,
+    "1px": 1,
+    "-0.17px": 8
+   },
+   "lowContrast": [
+    "★★★★★ (1.70)",
+    "Recent (3.45)",
+    "Saved (3.45)",
+    "Profile (3.45)"
+   ],
+   "smallTargets": [
+    "‹ Back to search 123x27",
+    "About 43x40",
+    "FAQs 37x40"
+   ]
+  },
+  "/join": {
+   "sizes": 5,
+   "weights": [
+    "400",
+    "500"
+   ],
+   "colors": 3,
+   "radii": 3,
+   "uppercase": 0,
+   "tracking": {
+    "-0.6px": 1
+   },
+   "lowContrast": [],
+   "smallTargets": [
+    "Log in 44x24"
+   ]
+  }
+ }
+}

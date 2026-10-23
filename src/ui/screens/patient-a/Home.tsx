@@ -1,12 +1,12 @@
 "use client";
-// P02 Home (225:17): greeting + avatar, the sentence field with mic and send, "Try" examples,
-// "Recent" rows, "Find my provider" CTA over the tab bar. Submit runs POST /api/match and goes
+// P02 Home (225:17), Apple pass 2026-10-23: large title, the sentence in a filled field with the
+// mic trailing, one action ("Find my provider"), examples and recent searches as inset-grouped lists. Submit runs POST /api/match and goes
 // straight to /results (one field, one gate, then cards) with the response parked under a request id.
 import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Clock, Cta, Divider, FaceStack, FieldBox, Gap, Row, Screen, SectionTitle, Title, Mic, initialsOf } from "@/src/ui/kit";
+import { Button, Cell, Clock, Face, FaceStack, FieldBox, Gap, Group, GroupHeader, LargeTitle, Mic, NavBar, Screen, initialsOf } from "@/src/ui/kit";
 import { OpeningsBanner } from "@/src/ui/OpeningsBanner";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
 import { EXAMPLES } from "./lib";
@@ -80,29 +80,25 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
 
   return (
     <Screen padBottom="pb-[110px]">
-      <div className="flex items-center justify-between">
-        <Title><span className="rise inline-block">{name ? `Hi, ${display}.` : "Who do you need?"}</span></Title>
-        {initials ? (
-          <span aria-hidden="true" className="inline-flex size-[50px] shrink-0 items-center justify-center rounded-full bg-charcoal font-inter text-[18px] font-semibold text-white">
-            {initials}
-          </span>
-        ) : null}
-      </div>
-      <Gap h={38} />
+      <NavBar />
+      <LargeTitle trailing={initials ? <span aria-hidden="true" className="mb-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</span> : undefined}>
+        {name ? `Hi, ${display}.` : "Who do you need?"}
+      </LargeTitle>
+      <Gap h={16} />
       <form
         onSubmit={(e) => {
           e.preventDefault();
           void submit(text);
         }}
       >
-        <FieldBox className="flex flex-col gap-6 pb-[18px] pl-[31px] pr-6 pt-[22px]">
+        <FieldBox className="relative">
           <label className="sr-only" htmlFor="sentence">
             Describe who you need, in your own words
           </label>
           <textarea
             id="sentence"
             name="sentence"
-            rows={1}
+            rows={3}
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
@@ -112,54 +108,45 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
               }
             }}
             placeholder="Endometriosis, someone who listens"
-            className="w-full resize-none bg-transparent text-[16px] font-medium leading-[1.5] text-charcoal outline-none placeholder:text-grey"
+            className="block w-full resize-none bg-transparent px-4 pb-11 pt-3.5 text-body text-ink outline-none placeholder:text-grey"
           />
-          <div className="flex items-center justify-between">
-            <button type="button" onClick={toggleMic} disabled={!canListen} aria-pressed={listening} aria-label={listening ? "Stop listening" : "Speak instead"} className={listening ? "text-accent" : canListen ? "text-grey" : "text-line"}>
-              <Mic size={24} />
+          {canListen ? (
+            <button type="button" onClick={toggleMic} aria-pressed={listening} aria-label={listening ? "Stop listening" : "Speak instead"} className={`press-dim absolute bottom-0.5 right-0.5 inline-flex size-11 items-center justify-center ${listening ? "text-accent" : "text-grey"}`}>
+              <Mic size={22} />
             </button>
-            <button type="submit" aria-label="Send" disabled={busy} className={`press ${text.trim() ? "nudge" : ""} inline-flex size-11 items-center justify-center rounded-full bg-charcoal text-white disabled:opacity-50`}>
-              <ArrowRight size={20} />
-            </button>
-          </div>
+          ) : null}
         </FieldBox>
+        <Gap h={12} />
+        <Button type="submit" full disabled={busy || !text.trim()}>
+          Find my provider
+        </Button>
       </form>
-      {error ? <p className="pt-2 text-[14px] text-grey">{error}</p> : null}
-      <Gap h={16} />
-      <Cta fixed={false} onClick={() => void submit(text)} disabled={busy || !text.trim()}>
-        Find my provider
-      </Cta>
+      {error ? <p className="pt-2 text-subhead text-grey">{error}</p> : null}
       <OpeningsBanner />
-      <Gap h={40} />
       {faces.length > 0 ? (
-        <Link href="/results?all=1" className="press press-soft mb-8 flex items-center gap-4" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
-          <span className="flex shrink-0 -space-x-3">
-            {faces.map((f, i) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img key={f.id} src={f.url} alt="" referrerPolicy="no-referrer" className="rise size-11 rounded-full border-2 border-white object-cover object-top shadow-[0_2px_6px_rgba(0,0,0,0.12)]" style={{ "--i": i, background: "#e9e9e9" } as React.CSSProperties} />
+        <Link href="/results?all=1" className="press-soft mt-6 flex items-center gap-3" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
+          <span className="flex shrink-0 -space-x-2.5">
+            {faces.map((f) => (
+              <Face key={f.id} url={f.url} name={f.name} size={36} ring />
             ))}
           </span>
-          <span className="text-[15px] leading-snug text-charcoal">Meet {count} doctors in their own words.</span>
+          <span className="text-subhead text-ink">Meet {count} doctors in their own words.</span>
         </Link>
       ) : null}
-      <p className="text-[14px] text-grey">Or try one of these</p>
-      <Gap h={8} />
-      {EXAMPLES.map((ex, i) => (
-        <button key={ex} type="button" onClick={() => void submit(ex)} style={{ "--i": i + 2 } as React.CSSProperties} className="rise press press-soft block w-full border-b border-divider py-3.5 text-left text-[17px] leading-snug text-charcoal">
-          {ex}
-        </button>
-      ))}
+      <GroupHeader>Or try one of these</GroupHeader>
+      <Group tone="soft">
+        {EXAMPLES.map((ex) => (
+          <Cell key={ex} title={ex} onClick={() => void submit(ex)} />
+        ))}
+      </Group>
       {recent.length > 0 ? (
         <>
-          <Gap h={40} />
-          <SectionTitle>Recent</SectionTitle>
-          <Gap h={8} />
-          {recent.map((r) => (
-            <div key={r.id}>
-              <Row icon={r.faces?.length ? <FaceStack urls={r.faces} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}`} href={`/results`} onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
-              <Divider />
-            </div>
-          ))}
+          <GroupHeader>Recent</GroupHeader>
+          <Group tone="soft" sep={58}>
+            {recent.map((r) => (
+              <Cell key={r.id} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}`} href="/results" onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
+            ))}
+          </Group>
         </>
       ) : null}
     </Screen>

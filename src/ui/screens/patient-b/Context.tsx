@@ -7,7 +7,7 @@ import { ConnectorCard } from "./ConnectorCard";
 // 2. Use Wattle inside ChatGPT or Claude: add the MCP connector or the GPT Action, and your own
 //    assistant searches Wattle with everything it already knows. No API key on Wattle's side.
 import { useEffect, useState } from "react";
-import { ArrowLeft, Circle, Cta, Screen } from "@/src/ui/kit";
+import { Cta, LargeTitle, NavBar, Screen } from "@/src/ui/kit";
 import { CHATGPT_PROMPT, getContext, setContext, type ContextItem, type HealthContext } from "@/src/ui/context";
 
 const KIND: Record<string, string> = { condition: "Health", population: "Who it’s for", must: "Must have", preference: "Preference", human: "How they work" };
@@ -23,7 +23,7 @@ function Copy({ text, label }: { text: string; label: string }) {
           setTimeout(() => setDone(false), 1500);
         });
       }}
-      className="press rounded-full border border-hairline px-4 py-2 text-[14px] text-ink"
+      className="press inline-flex h-11 items-center rounded-full bg-white px-4 text-subhead font-semibold text-ink"
     >
       {done ? "Copied" : label}
     </button>
@@ -76,38 +76,35 @@ export function ContextSettings() {
 
   return (
     <Screen padBottom="pb-[140px]">
-      <div className="flex h-11 items-center gap-4">
-        <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
-        <h1 className="display text-[22px] text-ink">Your health context</h1>
-      </div>
-      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Tell us about your health so your picks fit. It stays on this phone.</p>
+      <NavBar back="/me" />
+      <LargeTitle sub="Tell us about your health so your picks fit. It stays on this phone.">Your health context</LargeTitle>
 
-      <section className="mt-8 rounded-[22px] px-5 py-5" style={{ background: "#f4f4f4" }}>
-        <p className="text-[13px] font-medium uppercase tracking-[0.04em] text-[#1b1b1b]">Bring it from ChatGPT</p>
-        <ol className="mt-3 flex flex-col gap-4 text-[15px] leading-[1.5] text-charcoal">
+      <section className="mt-8 rounded-card px-5 py-5" style={{ background: "var(--color-surface-soft)" }}>
+        <p className="text-footnote text-ink">Bring it from ChatGPT</p>
+        <ol className="mt-3 flex flex-col gap-4 text-subhead leading-read text-charcoal">
           <li>
-            <span className="font-medium text-ink">1. Ask ChatGPT for a short summary.</span>
+            <span className="text-ink">1. Ask ChatGPT for a short summary.</span>
             <span className="mt-2 flex flex-wrap gap-2">
-              <a href={chatgptUrl} target="_blank" rel="noreferrer" className="press rounded-full bg-ink px-4 py-2 text-[14px] text-white">Open ChatGPT with the prompt</a>
+              <a href={chatgptUrl} target="_blank" rel="noreferrer" className="press rounded-full bg-ink px-4 py-2 text-subhead text-white">Open ChatGPT with the prompt</a>
               <Copy text={CHATGPT_PROMPT} label="Copy the prompt" />
             </span>
           </li>
           <li>
-            <span className="font-medium text-ink">2. Paste what it wrote.</span>
-            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} maxLength={4000} placeholder="For example: I’m in my 30s with endometriosis and pelvic pain. I prefer telehealth and a woman doctor who listens and explains things plainly." className="field mt-2 w-full rounded-[16px] border-2 border-line bg-white p-3 text-[15px] outline-none" />
-            <button type="button" disabled={!text.trim() || busy} onClick={() => void read()} className="press mt-2 rounded-full border border-hairline bg-white px-4 py-2 text-[14px] text-ink disabled:opacity-50">{busy ? "Reading" : "Read it"}</button>
+            <span className="text-ink">2. Paste what it wrote.</span>
+            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} maxLength={4000} placeholder="For example: I’m in my 30s with endometriosis and pelvic pain. I prefer telehealth and a woman doctor who listens and explains things plainly." className="field mt-2 w-full rounded-field bg-white px-4 py-3 text-body outline-none" />
+            <button type="button" disabled={!text.trim() || busy} onClick={() => void read()} className="press mt-2 inline-flex h-11 items-center rounded-full bg-ink px-5 text-subhead font-semibold text-white disabled:opacity-[.32]">{busy ? "Reading" : "Read it"}</button>
           </li>
         </ol>
         {items ? (
           <div className="mt-5">
-            <p className="text-[15px] font-medium text-ink">3. What <Brand /> understood</p>
-            {items.length === 0 ? <p className="mt-2 text-[14px] text-grey">Nothing to search on yet. Mention a condition, who it’s for, or how you like a doctor to work.</p> : null}
+            <p className="text-subhead text-ink">3. What <Brand /> understood</p>
+            {items.length === 0 ? <p className="mt-2 text-subhead text-grey">Nothing to search on yet. Mention a condition, who it’s for, or how you like a doctor to work.</p> : null}
             <ul className="mt-2 flex flex-col">
               {items.map((it, i) => (
-                <li key={it.id} className="flex items-center gap-4 border-b border-[#e3ebe5] py-3 last:border-b-0">
+                <li key={it.id} className="flex items-center gap-4 border-b border-hairline py-3 last:border-b-0">
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[16px] text-ink">{it.label}</span>
-                    <span className="block text-[13px] text-grey">{KIND[it.kind] ?? "Context"}</span>
+                    <span className="block text-body text-ink">{it.label}</span>
+                    <span className="block text-footnote text-grey">{KIND[it.kind] ?? "Context"}</span>
                   </span>
                   <button type="button" role="switch" aria-checked={it.on} aria-label={`Use ${it.label}`} onClick={() => setItems(items.map((x, j) => (j === i ? { ...x, on: !x.on } : x)))} className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: it.on ? "#1b1b1b" : "#e3e3e3" }}>
                     <span className="absolute top-[2px] size-[27px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] transition-transform duration-200" style={{ transform: `translateX(${it.on ? 22 : 2}px)` }} />
@@ -116,7 +113,7 @@ export function ContextSettings() {
               ))}
             </ul>
             <div className="mt-4"><Cta fixed={false} onClick={save}>{saved ? "Update my context" : "Use this in my searches"}</Cta></div>
-            {saved ? <p className="mt-2 text-center text-[13px] text-grey">Saved on this device {new Date(saved.updatedAt).toLocaleDateString("en-AU")}.</p> : null}
+            {saved ? <p className="mt-2 text-center text-footnote text-grey">Saved on this device {new Date(saved.updatedAt).toLocaleDateString("en-AU")}.</p> : null}
           </div>
         ) : null}
       </section>
@@ -124,7 +121,7 @@ export function ContextSettings() {
       <ConnectorCard origin={origin} />
 
       {saved ? (
-        <button type="button" onClick={clear} className="press-dim mt-6 text-[15px] text-danger">Delete my health context</button>
+        <button type="button" onClick={clear} className="press-dim mt-6 text-subhead text-danger">Delete my health context</button>
       ) : null}
     </Screen>
   );

@@ -15,17 +15,17 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
   if (!areas) {
     return (
       <div className="rise mt-6">
-        <h2 className="display text-[28px] leading-[1.2] text-ink">What do you want more good years for?</h2>
-        <textarea value={text} onChange={(e) => setText(e.target.value)} rows={3} placeholder="Keep up with my kids, stay sharp, sleep properly…" className="field mt-5 w-full rounded-[18px] border-2 border-line p-4 text-[17px] outline-none" />
+        <h2 className="text-title1 text-ink">What do you want more good years for?</h2>
+        <textarea value={text} onChange={(e) => setText(e.target.value)} rows={3} placeholder="Keep up with my kids, stay sharp, sleep properly…" className="field mt-5 w-full rounded-field bg-surface px-4 py-3 text-body outline-none" />
         <div className="mt-3 flex flex-col gap-1.5">
           {EXAMPLES.map((e) => (
-            <button key={e} type="button" onClick={() => setText(e)} className="press-dim self-start text-left text-[15px] text-accent">“{e}”</button>
+            <button key={e} type="button" onClick={() => setText(e)} className="press-dim self-start text-left text-subhead text-accent">“{e}”</button>
           ))}
         </div>
-        <p className="mt-6 text-[14px] font-medium text-grey">What do you wear?</p>
+        <p className="mt-6 text-subhead text-grey">What do you wear?</p>
         <div className="mt-2 grid grid-cols-2 gap-2">
           {DEVICES.map((d) => (
-            <button key={d.id} type="button" aria-pressed={device === d.id} onClick={() => setDevice(d.id)} className={`press rounded-[14px] border px-3 py-2.5 text-left text-[15px] ${device === d.id ? "border-[#1b1b1b] bg-[#f4f4f4] text-ink" : "border-hairline text-grey"}`}>{d.label}</button>
+            <button key={d.id} type="button" aria-pressed={device === d.id} onClick={() => setDevice(d.id)} className={`press rounded-card border px-3 py-2.5 text-left text-subhead ${device === d.id ? "border-ink bg-surface-soft text-ink" : "border-hairline text-grey"}`}>{d.label}</button>
           ))}
         </div>
         <div className="mt-6"><Cta fixed={false} disabled={text.trim().length < 3} onClick={() => { const a = readHealthspan(text); setAreas(a); setOpen(a[0]?.id ?? null); }}>Show my plan</Cta></div>
@@ -36,39 +36,39 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
   const dev = DEVICES.find((d) => d.id === device)!;
   return (
     <div className="rise mt-6">
-      <p className="text-[14px] text-grey">You said “{text.trim()}”</p>
-      <h2 className="display mt-1 text-[26px] leading-tight text-ink">{areas.length === 1 ? "One area to work on" : `${areas.length} areas to work on`}</h2>
+      <p className="text-subhead text-grey">You said “{text.trim()}”</p>
+      <h2 className="mt-1 text-title1 text-ink">{areas.length === 1 ? "One area to work on" : `${areas.length} areas to work on`}</h2>
       <div className="mt-5 flex flex-col gap-3">
         {areas.map((a) => {
           const on = open === a.id;
           const fits = offerings.filter((o) => a.categories.includes(o.category)).slice(0, 2);
           const signal = device === "none" ? null : a.wearable[device] ?? `${dev.label} doesn’t measure much here. A test with your doctor will tell you more.`;
           return (
-            <section key={a.id} className="rounded-[22px] border border-hairline">
+            <section key={a.id} className="rounded-card bg-surface-soft">
               <button type="button" aria-expanded={on} onClick={() => setOpen(on ? null : a.id)} className="press-soft flex w-full items-center justify-between px-5 py-4 text-left">
-                <span className="font-display text-[20px] text-ink">{a.title}</span>
+                <span className="font-display text-quote text-ink">{a.title}</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className="shrink-0 text-grey"><path d="M2 8h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /><path className="plus-bar" d="M8 2v12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
               </button>
               {on ? (
                 <div className="rise px-5 pb-5">
-                  <p className="text-[15px] leading-[1.5] text-charcoal">{a.why}</p>
-                  <p className="mt-4 text-[13px] font-medium text-[#1b1b1b]">Ask your doctor about</p>
+                  <p className="text-subhead leading-read text-charcoal">{a.why}</p>
+                  <p className="mt-4 text-footnote text-ink">Ask your doctor about</p>
                   <ul className="mt-1.5 flex flex-col gap-1">
                     {a.measure.map((m) => (
-                      <li key={m} className="flex gap-2 text-[15px] text-charcoal"><span className="mt-0.5 text-[#1b1b1b]"><Check size={14} /></span>{m}</li>
+                      <li key={m} className="flex gap-2 text-subhead text-charcoal"><span className="mt-0.5 text-ink"><Check size={14} /></span>{m}</li>
                     ))}
                   </ul>
                   {signal ? (
                     <>
-                      <p className="mt-4 text-[13px] font-medium text-[#8a6a3b]">From your {dev.label}</p>
-                      <p className="mt-1 text-[15px] leading-[1.5] text-charcoal">{signal}</p>
+                      <p className="mt-4 text-footnote text-[#8a6a3b]">From your {dev.label}</p>
+                      <p className="mt-1 text-subhead leading-read text-charcoal">{signal}</p>
                     </>
                   ) : null}
                   {fits.length ? (
                     <>
-                      <p className="mt-4 text-[13px] font-medium text-grey">Services that do this</p>
+                      <p className="mt-4 text-footnote text-grey">Services that do this</p>
                       {fits.map((o) => (
-                        <a key={o.id} href={o.url} target="_blank" rel="noreferrer" className="press-dim mt-1.5 block text-[15px] text-accent">{o.name} · {o.provider}{o.price ? ` · ${o.price.split(/[;(]/)[0]!.trim()}` : ""}</a>
+                        <a key={o.id} href={o.url} target="_blank" rel="noreferrer" className="press-dim mt-1.5 block text-subhead text-accent">{o.name} · {o.provider}{o.price ? ` · ${o.price.split(/[;(]/)[0]!.trim()}` : ""}</a>
                       ))}
                     </>
                   ) : null}
@@ -78,8 +78,8 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
           );
         })}
       </div>
-      <button type="button" onClick={() => setAreas(null)} className="press-dim mt-5 text-[15px] text-accent">Ask something else</button>
-      <p className="mt-6 text-[12px] leading-[1.5] text-grey">General information to take to your GP, not medical advice. Wearable numbers are estimates.</p>
+      <button type="button" onClick={() => setAreas(null)} className="press-dim mt-5 text-subhead text-accent">Ask something else</button>
+      <p className="mt-6 text-caption1 leading-read text-grey">General information to take to your GP, not medical advice. Wearable numbers are estimates.</p>
     </div>
   );
 }

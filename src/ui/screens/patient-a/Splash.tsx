@@ -28,13 +28,13 @@ export function Splash() {
       style={{ background: "linear-gradient(180deg, #1b1b1b 0%, #000000 100%)" }}
     >
       <div className="settle absolute inset-x-0 top-[390px] flex items-center justify-center gap-[10px]">
-        <span className="text-[44px] leading-normal text-white" style={{ fontFamily: '"Lobster", cursive' }}>
+        <span className="text-[44px] text-white" style={{ fontFamily: '"Lobster", cursive' }}>
           {brand === "ADHDme" ? "ADHDme" : "wattle"}
         </span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={asset("/figma/leaf.svg")} alt="" width={34} height={34} className="float block size-[34px]" />
       </div>
-      <p style={{ animationDelay: "350ms" }} className="settle absolute left-1/2 top-[474px] w-[300px] -translate-x-1/2 text-center text-[20px] font-medium leading-normal text-[#e8e8e8]">Doctors who listen</p>
+      <p style={{ animationDelay: "350ms" }} className="settle absolute left-1/2 top-[474px] w-[300px] -translate-x-1/2 text-center text-title3 text-[#e8e8e8]">Doctors who listen</p>
     </main>
   );
 }

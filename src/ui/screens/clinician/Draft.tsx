@@ -45,17 +45,17 @@ export function DraftScreen({ n }: { n: number }) {
       <DevBanner backend={ready ? state.backend : undefined} />
       <StepTitle>Sound right?</StepTitle>
       <div className="h-6" />
-      <div className="flex flex-col gap-5 rounded-field border-2 border-surface p-[22px]">
+      <div className="flex flex-col gap-4 rounded-card bg-surface-soft p-4">
         {mode === "edit" ? (
           <textarea
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             aria-label="Edit the draft"
             rows={5}
-            className="w-full resize-none bg-transparent text-[18px] font-medium leading-[1.5] text-charcoal outline-none"
+            className="w-full resize-none bg-transparent text-body leading-read text-charcoal outline-none"
           />
         ) : (
-          <p className="text-[18px] font-medium leading-[1.5] text-charcoal">{draft || "Nothing to tidy yet. Say it again."}</p>
+          <p className="text-body leading-read text-charcoal">{draft || "Nothing to tidy yet. Say it again."}</p>
         )}
         <div className="flex gap-[10px]">
           <SmallPill on={mode === "keep"} onClick={() => { setMode("keep"); persist(); }}>Keep</SmallPill>
@@ -66,10 +66,10 @@ export function DraftScreen({ n }: { n: number }) {
       <Note className="mt-2">Tidied, not rewritten.</Note>
       <div className="h-7" />
       <div className="flex items-center justify-between">
-        <span className="text-[18px] font-medium text-charcoal">Show on my profile</span>
+        <span className="text-body text-charcoal">Show on my profile</span>
         <SmallPill role="switch" label="Show on my profile" on={show} onClick={() => { setShow(!show); persist({ show: !show }); }}>{show ? "On" : "Off"}</SmallPill>
       </div>
-      <Cta onClick={next} disabled={!draft.trim()} icon={<Asset name="arrow-right" size={22} />}>
+      <Cta onClick={next} disabled={!draft.trim()}>
         {n < TOTAL ? "Next question" : "Continue"}
       </Cta>
     </Screen>

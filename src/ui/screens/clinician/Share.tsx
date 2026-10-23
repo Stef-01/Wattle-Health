@@ -38,8 +38,8 @@ export function ShareScreen() {
           <div key={r.key}>
             <div className="flex items-center gap-[14px] py-[14px]">
               <span className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="text-[16px] font-medium text-charcoal">{r.title}</span>
-                {sub ? <span className="truncate text-[14px] text-grey">{sub}</span> : null}
+                <span className="text-body text-charcoal">{r.title}</span>
+                {sub ? <span className="truncate text-subhead text-grey">{sub}</span> : null}
               </span>
               <SmallPill role="switch" label={r.title} on={on} onClick={() => update((s) => ({ shares: { ...s.shares, [r.key]: !s.shares[r.key] } }))}>
                 {on ? "On" : "Off"}
@@ -49,7 +49,7 @@ export function ShareScreen() {
           </div>
         );
       })}
-      <Cta href="/join/review" icon={<Asset name="arrow-right" size={22} />}>
+      <Cta href="/join/review">
         Continue
       </Cta>
     </Screen>

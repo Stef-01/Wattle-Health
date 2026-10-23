@@ -29,7 +29,7 @@ export function InterviewIntroScreen() {
       <Note className="mt-[22px]">You choose what goes on your profile.</Note>
       <div className="frame-fixed pointer-events-none bottom-0 z-20">
         <div className="pointer-events-auto flex flex-col items-center gap-[26px] frame-pad pb-[26px] pt-3">
-          <Link href="/join/share" className="text-[16px] font-semibold text-grey">Skip for now</Link>
+          <Link href="/join/share" className="text-body font-semibold text-grey">Skip for now</Link>
           <Cta href="/join/interview/1" fixed={false} icon={<Asset name="mic-22" size={22} />}>
             Start
           </Cta>

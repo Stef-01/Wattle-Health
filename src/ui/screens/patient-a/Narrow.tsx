@@ -10,7 +10,7 @@ import { Orb } from "@/src/ui/kit/Orb";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { Chip } from "@/src/data/search-types";
-import { ArrowLeft, Check, Circle, Cta, Screen } from "@/src/ui/kit";
+import { Button, Cell, Group, NavBar, Progress, Screen } from "@/src/ui/kit";
 import { getDraft, setDraft } from "@/src/ui/store";
 import { runMatch } from "./lib";
 import { contextPhrases } from "@/src/ui/context";
@@ -215,91 +215,75 @@ export function Narrow() {
 
   return (
     <Screen padBottom="pb-[150px]">
-      <div className="flex h-11 items-center justify-between">
-        {index <= 0 ? <Circle href="/" label="Back"><ArrowLeft size={20} /></Circle> : <Circle onClick={() => setIndex((i) => i - 1)} label="Back"><ArrowLeft size={20} /></Circle>}
-        {index >= 0 && step ? <span className="text-[14px] text-grey">{index + 1} of {total}</span> : null}
-      </div>
-      <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-surface" role="progressbar" aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100}>
-        <div className="bar-fill h-full w-full rounded-full" style={{ transform: `scaleX(${progress})`, background: "#1b1b1b" }} />
+      <NavBar
+        back={index <= 0 ? "/" : undefined}
+        onBack={index > 0 ? () => setIndex((i) => i - 1) : undefined}
+        title={index >= 0 && step ? <span className="tnum">{index + 1} of {total}</span> : undefined}
+      />
+      <div className="mt-3">
+        <Progress step={Math.max(0.0001, progress)} of={1} />
       </div>
 
       {index < 0 ? (
         <div key="entry" className="rise mt-16 flex flex-col items-center text-center">
           <Orb size={72} />
-          <h1 className="mt-10 text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">A few questions to narrow your search</h1>
-          <p className="mt-3 text-[16px] leading-[1.5] text-grey">Your answers shape who we show you.</p>
-          {sentence ? <p className="mt-8 rounded-[6px] bg-surface-soft px-5 py-3 text-[15px] leading-[1.45] text-charcoal">“{sentence}”</p> : null}
+          <h1 className="mt-10 text-title1 text-ink">A few questions to narrow your search</h1>
+          <p className="mt-2 text-body text-grey">Your answers shape who we show you.</p>
+          {sentence ? <p className="mt-8 rounded-card bg-surface-soft px-5 py-3 text-body text-ink">“{sentence}”</p> : null}
         </div>
       ) : step ? (
-        <div key={step.id} className="rise mt-10">
-          <h1 className="text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">{step.ask}</h1>
-          {step.help ? <p className="mt-3 text-[15px] leading-[1.5] text-grey">{step.help}</p> : null}
-          <div role="radiogroup" aria-label={step.ask} className="mt-7 flex flex-col gap-2.5">
-            {options.map((o, i) => {
-              const on = picked === o.id;
-              return (
-                <button
-                  key={o.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={on}
-                  data-answer={i}
-                  onClick={() => choose(o.id)}
-                  className={`rise press press-soft flex w-full items-center gap-4 rounded-[6px] border px-5 py-4 text-left ${on ? "border-[#1b1b1b] bg-[#f4f4f4]" : "border-hairline bg-white"}`}
-                  style={{ "--i": i } as React.CSSProperties}
-                >
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-[17px] text-ink">{o.label}</span>
-                    {o.sub ? <span className="block text-[14px] text-grey">{o.sub}</span> : null}
-                  </span>
-                  <span aria-hidden="true" className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full border ${on ? "border-[#1b1b1b] bg-[#1b1b1b] text-white" : "border-hairline text-transparent"}`}>
-                    <Check size={13} />
-                  </span>
-                </button>
-              );
-            })}
+        <div key={step.id} className="rise mt-8">
+          <h1 className="text-title1 text-ink">{step.ask}</h1>
+          {step.help ? <p className="mt-2 text-body text-grey">{step.help}</p> : null}
+          <div role="radiogroup" aria-label={step.ask} className="mt-6">
+            <Group tone="soft">
+              {options.map((o, i) => (
+                <Cell key={o.id} role="radio" selected={picked === o.id} accessory="check" title={o.label} sub={o.sub} onClick={() => choose(o.id)} attrs={{ "data-answer": i }} />
+              ))}
+            </Group>
           </div>
         </div>
       ) : ctx ? (
-        <div key="summary" className="rise mt-10">
-          <h1 className="text-[26px] leading-[1.25] tracking-[-0.015em] text-ink">What we’ll search for</h1>
-          <p className="mt-3 text-[15px] text-grey">You can change this on the results page.</p>
-          <dl className="mt-6 rounded-[22px] px-5 py-2" style={{ background: "#f4f4f4" }}>
-            <div className="border-b border-[#e3ebe5] py-3">
-              <dt className="text-[13px] text-grey">In your words</dt>
-              <dd className="text-[16px] text-ink">{sentence}</dd>
-            </div>
-            {contextPhrases(sentence ?? "").labels.length ? (
-              <div className="border-b border-[#e3ebe5] py-3">
-                <dt className="text-[13px] text-grey">From your health context</dt>
-                <dd className="text-[16px] text-ink">{contextPhrases(sentence ?? "").labels.join(", ")}</dd>
+        <div key="summary" className="rise mt-8">
+          <h1 className="text-title1 text-ink">What we’ll search for</h1>
+          <p className="mt-2 text-body text-grey">You can change this on the results page.</p>
+          <dl className="mt-6">
+            <Group tone="soft">
+              <div className="px-4 py-3">
+                <dt className="text-footnote text-grey">In your words</dt>
+                <dd className="text-body text-ink">{sentence}</dd>
               </div>
-            ) : null}
-            {steps.filter((s) => answers[s.id]).map((s) => (
-              <div key={s.id} className="border-b border-[#e3ebe5] py-3 last:border-b-0">
-                <dt className="text-[13px] text-grey">{s.summary}</dt>
-                <dd className="text-[16px] text-ink">{answers[s.id]!.label}</dd>
-              </div>
-            ))}
+              {contextPhrases(sentence ?? "").labels.length ? (
+                <div className="px-4 py-3">
+                  <dt className="text-footnote text-grey">From your health context</dt>
+                  <dd className="text-body text-ink">{contextPhrases(sentence ?? "").labels.join(", ")}</dd>
+                </div>
+              ) : null}
+              {steps.filter((s) => answers[s.id]).map((s) => (
+                <div key={s.id} className="px-4 py-3">
+                  <dt className="text-footnote text-grey">{s.summary}</dt>
+                  <dd className="text-body text-ink">{answers[s.id]!.label}</dd>
+                </div>
+              ))}
+            </Group>
           </dl>
         </div>
       ) : (
-        <p className="rise mt-16 text-center font-display text-[22px] text-grey">Reading that…</p>
+        <p className="rise mt-16 text-center text-body text-grey">Reading that…</p>
       )}
 
-      <div className="frame-fixed pointer-events-none bottom-0 z-20 bg-white">
-        <div className="frame-pad pointer-events-auto flex flex-col items-center gap-3 pb-[26px] pt-3">
+      <div className="frame-fixed pointer-events-none bottom-0 z-20">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -top-6 bg-gradient-to-b from-white/0 via-white/90 via-30% to-white" />
+        <div className="frame-pad pointer-events-auto relative flex flex-col items-center gap-1 pt-2" style={{ paddingBottom: "var(--dock-pb)" }}>
           {index < 0 ? (
             <>
-              <Cta fixed={false} disabled={!ctx} onClick={() => (steps.length ? setIndex(0) : void finish({}))}>Continue</Cta>
-              <button type="button" disabled={!ctx} onClick={() => void finish({})} className="press-dim text-[15px] text-accent">Skip to my picks</button>
+              <Button full disabled={!ctx} onClick={() => (steps.length ? setIndex(0) : void finish({}))}>Continue</Button>
+              <Button kind="plain" size="medium" disabled={!ctx} onClick={() => void finish({})}>Skip to my picks</Button>
             </>
           ) : step ? (
-            <>
-              <button type="button" onClick={() => void finish(answers)} className="press-dim text-[15px] text-accent">Skip to my picks</button>
-            </>
+            <Button kind="plain" size="medium" onClick={() => void finish(answers)}>Skip to my picks</Button>
           ) : ctx ? (
-            <Cta fixed={false} onClick={() => void finish(answers)}>See your picks</Cta>
+            <Button full onClick={() => void finish(answers)}>See your picks</Button>
           ) : null}
         </div>
       </div>

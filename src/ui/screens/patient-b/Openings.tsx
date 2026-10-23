@@ -6,7 +6,7 @@ import { CalendarConnect } from "./CalendarConnect";
 import { useEffect, useRef, useState } from "react";
 import { icsFor, parseIcs, WINDOWS, type Window } from "@/src/data/calendar";
 import type { DoctorRecord } from "@/src/data/types";
-import { ArrowLeft, Check, Circle, Screen, Toggle } from "@/src/ui/kit";
+import { Check, LargeTitle, NavBar, Screen, Toggle } from "@/src/ui/kit";
 import { checkOpenings, getOpeningsState, setOpeningsState, type FitOpening, type OpeningsState } from "@/src/ui/openings";
 import { drName, placeOf, primaryRoom } from "./facts";
 
@@ -86,22 +86,19 @@ export function Openings() {
 
   return (
     <Screen padBottom="pb-[120px]">
-      <div className="flex h-11 items-center gap-4">
-        <Circle href="/me" label="Back"><ArrowLeft size={20} /></Circle>
-        <h1 className="display text-[22px] text-ink">Openings</h1>
-      </div>
-      <p className="mt-5 text-[16px] leading-[1.5] text-charcoal">Times that fit your calendar, from doctors you saved.</p>
+      <NavBar back="/me" />
+      <LargeTitle sub="Times that fit your calendar, from doctors you saved.">Openings</LargeTitle>
 
       <CalendarConnect state={s} onChange={() => void refresh()} />
 
       {cal ? (<>
       <div className="mt-5">
-        <p className="text-[17px] font-semibold text-ink">When suits you</p>
+        <p className="text-body font-semibold text-ink">When suits you</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {(Object.keys(WINDOWS) as Window[]).map((w) => {
             const on = s?.windows.includes(w) ?? true;
             return (
-              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press rounded-full px-4 py-2 text-[15px] ${on ? "bg-ink text-white" : "bg-[#f4f4f4] text-[#6b6b6b]"}`}>
+              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press rounded-full px-4 py-2 text-subhead ${on ? "bg-ink text-white" : "bg-surface-soft text-grey"}`}>
                 {WINDOWS[w].label.split(",")[0]}
               </button>
             );
@@ -110,39 +107,39 @@ export function Openings() {
       </div>
 
       <div className="mt-6 flex items-center justify-between">
-        <span className="text-[17px] font-semibold text-ink">Notify me</span>
+        <span className="text-body font-semibold text-ink">Notify me</span>
         <Toggle on={s?.notify ?? false} onChange={(v) => void setNotify(v)} label="Notify me about new openings" />
       </div>
-      {err ? <p className="mt-2 text-[14px] text-danger">{err}</p> : null}
+      {err ? <p className="mt-2 text-subhead text-danger">{err}</p> : null}
 
-      <h2 className="mt-8 text-[22px] text-ink">{fit === null ? "Checking…" : fit.length ? `${fit.length} ${fit.length === 1 ? "time fits" : "times fit"} your next two weeks` : doctors.length ? "Nothing fits yet" : "Save a doctor to watch them"}</h2>
+      <h2 className="mt-8 text-title2 text-ink">{fit === null ? "Checking…" : fit.length ? `${fit.length} ${fit.length === 1 ? "time fits" : "times fit"} your next two weeks` : doctors.length ? "Nothing fits yet" : "Save a doctor to watch them"}</h2>
       {fit && fit.length === 0 ? (
-        <p className="mt-2 text-[15px] leading-[1.5] text-grey">{doctors.length ? "Turn on more times above to see more." : "Tap the heart on a pick to see their openings here."}</p>
+        <p className="mt-2 text-subhead leading-read text-grey">{doctors.length ? "Turn on more times above to see more." : "Tap the heart on a pick to see their openings here."}</p>
       ) : null}
-      {doctors.length ? <p className="mt-1 text-[14px] text-grey">Watching {doctors.map((d) => drName(d)).join(", ")}</p> : null}
+      {doctors.length ? <p className="mt-1 text-subhead text-grey">Watching {doctors.map((d) => drName(d)).join(", ")}</p> : null}
 
       <div className="mt-5 flex flex-col gap-6">
         {[...days.entries()].map(([day, list]) => (
           <section key={day}>
-            <h3 className="text-[15px] text-ink">{day}</h3>
+            <h3 className="text-subhead text-ink">{day}</h3>
             <div className="mt-2 flex flex-col gap-3">
               {list.map((o) => {
                 const room = primaryRoom(o.doctor);
                 const phone = room?.phone ?? o.doctor.booking?.phone ?? null;
                 return (
-                  <article key={o.id} className="rise flex gap-4 rounded-[8px] border border-hairline p-3">
+                  <article key={o.id} className="rise flex gap-3 rounded-card bg-surface-soft p-4">
                     {o.doctor.photo ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={o.doctor.photo.url} alt="" referrerPolicy="no-referrer" className="size-14 shrink-0 rounded-full object-cover object-top" />
-                    ) : <span className="size-14 shrink-0 rounded-full bg-[#f4f4f4]" />}
+                    ) : <span className="size-14 shrink-0 rounded-full bg-surface-soft" />}
                     <div className="min-w-0 flex-1">
-                      <p className="flex flex-wrap items-center gap-x-2 text-[17px] text-ink">
+                      <p className="flex flex-wrap items-center gap-x-2 text-body text-ink">
                         <span className="whitespace-nowrap font-semibold">{timeOf(o.start)}</span>
-                        <span className="truncate text-[13px] text-grey">{o.mode === "telehealth" ? "Telehealth" : placeOf(o.doctor)}</span>
-                        {newIds.includes(o.id) ? <span className="rounded-full bg-[#1b1b1b] px-2 py-0.5 text-[12px] text-white">New</span> : null}
+                        <span className="truncate text-footnote text-grey">{o.mode === "telehealth" ? "Telehealth" : placeOf(o.doctor)}</span>
+                        {newIds.includes(o.id) ? <span className="rounded-full bg-ink px-2 py-0.5 text-caption1 text-white">New</span> : null}
                       </p>
-                      <p className="truncate text-[15px] text-charcoal">{drName(o.doctor)}</p>
-                      <div className="mt-1.5 flex gap-4 text-[14px]">
+                      <p className="truncate text-subhead text-charcoal">{drName(o.doctor)}</p>
+                      <div className="mt-1.5 flex gap-4 text-subhead">
                         {phone ? <a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="text-accent">Call to book</a> : null}
                         <button type="button" onClick={() => download(o)} className="text-accent">Add to calendar</button>
                       </div>

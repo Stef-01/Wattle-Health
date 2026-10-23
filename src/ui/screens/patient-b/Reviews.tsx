@@ -17,7 +17,7 @@ function Stars({ value, size = 16 }: { value: number; size?: number }) {
     <span className="inline-flex gap-0.5" aria-label={`${value} out of 5`}>
       {[1, 2, 3, 4, 5].map((i) => (
         <svg key={i} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= Math.round(value) ? "#1b1b1b" : "#e3e3e3"} />
+          <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= Math.round(value) ? "var(--color-ink)" : "#d1d1d6"} />
         </svg>
       ))}
     </span>
@@ -57,50 +57,50 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
 
   return (
     <section aria-label={`Reviews of ${name}`} className="flex flex-col gap-3">
-      <h2 className="display text-[19px] text-ink">Patient reviews</h2>
+      <h2 className="text-title3 text-ink">Patient reviews</h2>
       {data && data.count > 0 ? (
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="font-display text-[28px] leading-none text-ink">{data.average?.toFixed(1)}</span>
+          <span className="tnum text-large-title text-ink">{data.average?.toFixed(1)}</span>
           <Stars value={data.average ?? 0} size={18} />
-          <span className="text-[14px] text-grey">{data.count} {data.demo ? "example" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
-          {data.highlyRecommended && !data.demo ? <span className="w-full text-[14px] font-medium text-[#1b1b1b]">Recommended by <Brand /> patients</span> : null}
-          {data.demo ? <span className="w-full text-[12px] text-grey">Example reviews, showing how patient reviews will look.</span> : null}
+          <span className="text-subhead text-grey">{data.count} {data.demo ? "example" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
+          {data.highlyRecommended && !data.demo ? <span className="w-full text-subhead text-ink">Recommended by <Brand /> patients</span> : null}
+          {data.demo ? <span className="w-full text-footnote text-grey">Example reviews, showing how patient reviews will look.</span> : null}
         </div>
       ) : (
-        <p className="text-[15px] leading-[1.5] text-grey">No reviews yet. We only show reviews from people who saw this doctor, and a person checks each one first.</p>
+        <p className="text-subhead leading-read text-grey">No reviews yet. We only show reviews from people who saw this doctor, and a person checks each one first.</p>
       )}
       {data?.commentary ? (
-        <div className="rounded-[18px] bg-[#f4f4f4] px-4 py-4">
-          <p className="text-[13px] font-medium text-[#1b1b1b]">What patients say</p>
-          <p className="mt-1 text-[16px] leading-[1.5] text-ink">{data.commentary}</p>
+        <div className="rounded-card bg-surface-soft px-4 py-4">
+          <p className="text-footnote text-ink">What patients say</p>
+          <p className="mt-1 text-body leading-read text-ink">{data.commentary}</p>
           {data.themes && data.themes.length ? (
             <ul className="mt-3 flex flex-col gap-1">
               {data.themes.slice(0, 4).map((t) => (
-                <li key={t.id} className="flex justify-between text-[14px] text-charcoal"><span>{t.label}</span><span className="text-grey">{t.count} of {data.count}</span></li>
+                <li key={t.id} className="flex justify-between text-subhead text-charcoal"><span>{t.label}</span><span className="text-grey">{t.count} of {data.count}</span></li>
               ))}
             </ul>
           ) : null}
         </div>
       ) : null}
       {data && data.count > 0 && !all ? (
-        <button type="button" onClick={() => setAll(true)} className="press-dim self-start text-[15px] font-medium text-accent">Read the {data.count} reviews</button>
+        <button type="button" onClick={() => setAll(true)} className="press-dim self-start text-subhead text-accent">Read the {data.count} reviews</button>
       ) : null}
       {(all ? shown : []).map((r) => (
-        <article key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">
+        <article key={r.id} className="rounded-card bg-surface-soft px-4 py-3">
           <div className="flex items-center justify-between">
             <Stars value={r.rating} />
-            <span className="text-[13px] text-grey">{VISITED[r.visited] ?? ""}</span>
+            <span className="text-footnote text-grey">{VISITED[r.visited] ?? ""}</span>
           </div>
-          <p className="mt-2 text-[15px] leading-[1.5] text-charcoal">{r.body}</p>
+          <p className="mt-2 text-subhead leading-read text-charcoal">{r.body}</p>
         </article>
       ))}
-      {all ? <button type="button" onClick={() => setAll(false)} className="press-dim self-start text-[15px] font-medium text-accent">Hide reviews</button> : null}
-      <button type="button" onClick={() => setOpen(true)} className="press self-start rounded-full border border-hairline px-4 py-2.5 text-[15px] text-ink">Write a review</button>
+      {all ? <button type="button" onClick={() => setAll(false)} className="press-dim self-start text-subhead text-accent">Hide reviews</button> : null}
+      <button type="button" onClick={() => setOpen(true)} className="press inline-flex h-11 items-center self-start rounded-full bg-surface px-4 text-subhead font-semibold text-ink">Write a review</button>
 
       <Sheet open={open} onClose={() => setOpen(false)} title={state === "sent" ? "Thank you" : `Review ${name}`}>
         {state === "sent" ? (
           <>
-            <p className="text-[16px] leading-[1.5] text-charcoal">Your review is with us. It appears once a person has checked it.</p>
+            <p className="text-body leading-read text-charcoal">Your review is with us. It appears once a person has checked it.</p>
             <Cta fixed={false} onClick={() => setOpen(false)}>Done</Cta>
           </>
         ) : (
@@ -114,16 +114,16 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
             </div>
             <div className="flex flex-wrap gap-2">
               {Object.entries(VISITED).map(([k, v]) => (
-                <button key={k} type="button" onClick={() => setVisited(k)} className={`press rounded-full border px-3 py-2 text-[14px] ${visited === k ? "border-[#1b1b1b] bg-[#f4f4f4] text-ink" : "border-hairline text-grey"}`}>{v}</button>
+                <button key={k} type="button" onClick={() => setVisited(k)} className={`press inline-flex h-11 items-center rounded-full px-4 text-subhead ${visited === k ? "bg-ink font-semibold text-white" : "bg-surface text-ink"}`}>{v}</button>
               ))}
             </div>
-            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1000} placeholder="What was it like? How did they listen and explain things?" className="field w-full rounded-[16px] border-2 border-line p-3 text-[15px] outline-none" />
-            <p className="text-[12px] leading-[1.45] text-grey">Describe how they communicated and how you felt. Please don’t name medicines or describe results; we remove those before publishing.</p>
-            <label className="flex items-start gap-3 text-[14px] text-charcoal">
-              <input type="checkbox" checked={saw} onChange={(e) => setSaw(e.target.checked)} className="mt-1 size-4 accent-[#1b1b1b]" />
+            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1000} placeholder="What was it like? How did they listen and explain things?" className="field w-full rounded-field bg-surface px-4 py-3 text-body outline-none" />
+            <p className="text-footnote text-grey">Describe how they communicated and how you felt. Please don’t name medicines or describe results; we remove those before publishing.</p>
+            <label className="flex items-start gap-3 text-subhead text-charcoal">
+              <input type="checkbox" checked={saw} onChange={(e) => setSaw(e.target.checked)} className="mt-1 size-4 accent-ink" />
               I saw this doctor, myself or with someone I care for.
             </label>
-            {state === "error" ? <p className="text-[14px] text-danger">{error}</p> : null}
+            {state === "error" ? <p className="text-subhead text-danger">{error}</p> : null}
             <Cta fixed={false} disabled={!ready || state === "sending"} onClick={() => void submit()}>{state === "sending" ? "Sending" : "Send review"}</Cta>
           </>
         )}

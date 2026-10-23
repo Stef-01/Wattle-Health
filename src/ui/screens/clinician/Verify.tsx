@@ -105,17 +105,17 @@ export function VerifyScreen() {
       </form>
       <div className="h-7" />
       {result ? (
-        <div className="flex flex-col gap-[14px] rounded-field border-2 border-surface p-5" aria-live="polite">
+        <div className="flex flex-col gap-3 rounded-card bg-surface-soft p-4" aria-live="polite">
           <div className="flex items-center gap-3">
-            <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-[6px] bg-surface"><Asset name="check" size={17} /></span>
-            <span className="text-[18px] font-medium text-charcoal">{result.name}</span>
+            <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-[10px] bg-surface"><Asset name="check" size={17} /></span>
+            <span className="text-body text-charcoal">{result.name}</span>
           </div>
           <Note>{result.specialtyLine}</Note>
           <Note>{registerLine}</Note>
         </div>
       ) : null}
-      {error ? <p role="alert" className="mt-3 text-[14px] text-danger">{error}</p> : null}
-      <Cta onClick={thatsMe} disabled={pending || !ahpra || !name || !email} icon={<Asset name="arrow-right" size={22} />}>
+      {error ? <p role="alert" className="mt-3 text-subhead text-danger">{error}</p> : null}
+      <Cta onClick={thatsMe} disabled={pending || !ahpra || !name || !email}>
         {result ? "That’s me" : "Look me up"}
       </Cta>
     </Screen>

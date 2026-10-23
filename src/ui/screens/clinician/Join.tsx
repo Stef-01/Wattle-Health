@@ -32,11 +32,11 @@ export function JoinScreen() {
       <div className="h-10" />
       {STEPS.map((s) => (
         <div key={s.title}>
-          <Row icon={<Asset name={s.icon} size={17} />} title={s.title} sub={s.sub} meta={<span className="text-[14px]">{s.meta}</span>} />
+          <Row icon={<Asset name={s.icon} size={17} />} title={s.title} sub={s.sub} meta={<span className="text-subhead">{s.meta}</span>} />
           <Divider />
         </div>
       ))}
-      <Cta href={doctor ? `/join/verify?doctor=${encodeURIComponent(doctor)}` : "/join/verify"} icon={<Asset name="arrow-right" size={22} />}>
+      <Cta href={doctor ? `/join/verify?doctor=${encodeURIComponent(doctor)}` : "/join/verify"}>
         Get started
       </Cta>
     </Screen>

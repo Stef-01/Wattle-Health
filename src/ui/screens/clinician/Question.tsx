@@ -83,20 +83,20 @@ export function QuestionScreen({ n }: { n: number }) {
       <DevBanner backend={ready ? state.backend : undefined} />
       <StepTitle size={26} sub="Rough is fine. We’ll tidy it with you.">{q.text}</StepTitle>
       <div className="h-8" />
-      <label className="block h-[220px] w-full rounded-field border-2 border-line bg-white px-6 py-5">
+      <label className="field block h-[220px] w-full rounded-card bg-surface px-4 py-3.5">
         <span className="sr-only">Your answer</span>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder={listening ? "Listening…" : "Type, or tap the mic."}
-          className="size-full resize-none bg-transparent text-[16px] font-medium leading-[1.5] text-charcoal outline-none placeholder:text-grey/60"
+          className="size-full resize-none bg-transparent text-body leading-read text-charcoal outline-none placeholder:text-grey/60"
         />
       </label>
-      {!speechOk ? <p role="status" className="mt-3 text-[14px] text-grey">This browser has no speech input. Typing works.</p> : null}
+      {!speechOk ? <p role="status" className="mt-3 text-subhead text-grey">This browser has no speech input. Typing works.</p> : null}
       <Cta
         onClick={next}
         disabled={!text.trim()}
-        icon={<Asset name="arrow-right" size={22} />}
+       
         secondary={
           <button type="button" onClick={toggleMic} aria-pressed={listening} aria-label={listening ? "Stop listening" : "Speak your answer"} className={["inline-flex size-[66px] shrink-0 items-center justify-center rounded-cta", listening ? "bg-charcoal" : "bg-surface"].join(" ")}>
             <Asset name="mic-26" size={26} className={listening ? "invert" : undefined} />

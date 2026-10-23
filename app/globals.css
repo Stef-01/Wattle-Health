@@ -1,48 +1,111 @@
 @import "tailwindcss";
-@import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/500.css";
 @import "@fontsource-variable/newsreader/opsz.css";
-@import "@fontsource-variable/roboto/wdth.css";
 @import "@fontsource-variable/inter/opsz.css";
 
-/* Figma "Wattle" system (file NEbiukDE3TyWFptwaCBhwV, frame "Rules" 225:145):
-   white, charcoal #2F2F2F / #1B1B1B, grey text #767676 (4.5:1), surfaces #EDEDED #FBFBFB.
-   Roboto, Inter, Poppins. Pills 54 r20, small pills 44. Fields r20 2px #D2D2D2.
-   Photo cards r25.5 with #1D1D1D 40% blurred captions. CTA 373x66 r20. Missing photo = #D9D9D9 with initials.
-
-   Refinement layer (designmd.co/d/apple + Apple HIG + Emil Kowalski's design-eng notes):
-   one interactive colour (Action Blue #0066cc, focus #0071e3), hairline #E0E0E0 and soft
-   divider #F0F0F0, size-specific tracking, an 8 px spacing base, strong custom easings,
-   press feedback on every pressable, translucent chrome that degrades to solid. */
+/* Apple pass (2026-10-23, docs/apple/PLAN.md). One token layer replaces the four stacked layers
+   (Figma "Wattle" system, Apple refinement, Emil Kowalski motion, playful pass). Sources:
+   - iOS 26/27 system metrics: HIG Typography/Color/Layout, WWDC25 323/356/219, measured builds.
+   - Apple's shipped web CSS (apple/swift-docc-render-artifact, static extraction, docs/apple/):
+     17 px body, weights 400/600, no hand-set tracking, no uppercase, colour-change presses, one keyframe.
+   - Agreement across emilkowalski/skills, impeccable, taste-skill, Jakub Krehel, ui-skills, Vercel.
+   Faces stay as CLAUDE.md sets them: Newsreader display over Inter. Both have optical-size axes, so
+   tracking is left to `font-optical-sizing: auto` except a light tightening on the largest sizes. */
 @theme {
-  --color-ink: #1b1b1b;
-  --color-charcoal: #2f2f2f;
-  --color-grey: #767676;
-  --color-surface: #ededed;
-  --color-surface-soft: #fbfbfb;
-  --color-line: #d2d2d2;
-  --color-hairline: #e0e0e0;
-  --color-divider: #f0f0f0;
-  --color-placeholder: #d9d9d9;
-  --color-caption: rgba(29, 29, 29, 0.4);
-  --color-caption-text: #d6d4d4;
+  /* Colour: iOS semantic roles, light appearance. */
+  --color-ink: #1d1d1f; /* label */
+  --color-charcoal: #1d1d1f; /* label: one primary text colour (was #2f2f2f) */
+  --color-grey: #6c6c70; /* secondary label: Apple's increased-contrast grey, 5.2:1 on white, 4.7:1 on #f2f2f7 */
+  --color-grey-3: #8e8e93; /* tertiary: chevrons, placeholder glyphs, inactive icons (non-text, 3.2:1) */
+  --color-surface: rgba(118, 118, 128, 0.12); /* tertiarySystemFill: control and chip fills, icon wells */
+  --color-surface-soft: #f2f2f7; /* secondarySystemBackground */
+  --color-grouped: #f2f2f7; /* systemGroupedBackground: the page under inset-grouped lists */
+  --color-cell: #ffffff; /* secondarySystemGroupedBackground: a group on the grouped page */
+  --color-cell-press: #e5e5ea; /* systemGray5: a row while pressed */
+  --color-line: rgba(60, 60, 67, 0.18); /* control outline, used rarely */
+  --color-hairline: rgba(60, 60, 67, 0.29); /* separator, drawn at 0.5 px */
+  --color-divider: rgba(60, 60, 67, 0.13); /* separator drawn at 1 px (same visual weight) */
+  --color-placeholder: #d9d9d9; /* missing photo (Figma rule) */
+  --color-caption: rgba(0, 0, 0, 0.35); /* dimming under text over a photo (HIG Materials: 35%) */
+  --color-caption-text: rgba(255, 255, 255, 0.85);
   --color-splash: #1b1b1b;
   --color-splash-deep: #000000;
-  --color-accent: #0066cc;
+  --color-accent: #0066cc; /* the one tint for text actions: Apple web link blue, 5.6:1 */
   --color-accent-focus: #0071e3;
   --color-accent-soft: #e3effb;
   --color-dot: #0066cc;
   --color-danger: #d70015;
-  --font-display: "Newsreader Variable", Georgia, serif;
-  --font-poppins: "Poppins", "Inter Variable", system-ui, sans-serif;
-  --font-sans: "Roboto Variable", "Inter Variable", system-ui, sans-serif;
-  --font-inter: "Inter Variable", system-ui, sans-serif;
-  --radius-pill: 20px;
-  --radius-field: 20px;
-  --radius-card: 25.5px;
-  --radius-cta: 20px;
-  --shadow-cta: 0 13px 13px rgba(0, 0, 0, 0.12);
-  --shadow-photo: 0 18px 40px rgba(0, 0, 0, 0.16);
+  --color-success: #248a3d; /* systemGreen, accessible text variant */
+  --color-switch: #34c759; /* systemGreen: switch track when on */
+
+  /* Faces. */
+  --font-display: "Newsreader Variable", "New York", ui-serif, Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
+  --font-inter: "Inter Variable", system-ui, -apple-system, sans-serif;
+
+  /* Type: the iOS text styles at the default (Large) size, with Inter's dynamic-metrics tracking
+     (rsms.me/inter/dynmetrics: -0.0223 + 0.185·e^(-0.1745·px) em), halved from 28 px where the opsz
+     axis already gives Inter Display. Weight and colour carry hierarchy; a screen uses three or four. */
+  --text-large-title: 34px;
+  --text-large-title--line-height: 41px;
+  --text-large-title--letter-spacing: -0.011em;
+  --text-large-title--font-weight: 700;
+  --text-title1: 28px;
+  --text-title1--line-height: 34px;
+  --text-title1--letter-spacing: -0.01em;
+  --text-title1--font-weight: 700;
+  --text-title2: 22px;
+  --text-title2--line-height: 28px;
+  --text-title2--letter-spacing: -0.014em;
+  --text-title2--font-weight: 700;
+  --text-title3: 20px;
+  --text-title3--line-height: 25px;
+  --text-title3--letter-spacing: -0.014em;
+  --text-title3--font-weight: 600;
+  --text-headline: 17px;
+  --text-headline--line-height: 22px;
+  --text-headline--letter-spacing: -0.013em;
+  --text-headline--font-weight: 600;
+  --text-body: 17px;
+  --text-body--line-height: 22px;
+  --text-body--letter-spacing: -0.013em;
+  --text-callout: 16px;
+  --text-callout--line-height: 21px;
+  --text-callout--letter-spacing: -0.011em;
+  --text-subhead: 15px;
+  --text-subhead--line-height: 20px;
+  --text-subhead--letter-spacing: -0.009em;
+  --text-footnote: 13px;
+  --text-footnote--line-height: 18px;
+  --text-footnote--letter-spacing: -0.003em;
+  --text-caption1: 12px;
+  --text-caption1--line-height: 16px;
+  --text-caption2: 11px;
+  --text-caption2--line-height: 13px;
+  --text-caption2--letter-spacing: 0.005em;
+  /* Editorial hero (Healthspan, About): Apple's web 40/44, in Newsreader. Not for app screens. */
+  --text-hero: 40px;
+  --text-hero--line-height: 44px;
+  --text-hero--letter-spacing: -0.012em;
+  /* A doctor's own words in Newsreader, the New York role: 20/28 with New York's tracking. */
+  --text-quote: 20px;
+  --text-quote--line-height: 28px;
+  --text-quote--letter-spacing: -0.008em;
+  /* Reading leading for paragraphs (Apple's own 17/25). */
+  --leading-read: 1.47;
+
+  /* Shape: concentric. Groups and cards 26 (iOS 26), controls inside them 12, actions are capsules. */
+  --radius-card: 26px;
+  --radius-control: 12px;
+  --radius-field: 12px;
+  --radius-pill: 9999px;
+  --radius-cta: 9999px;
+
+  /* Depth: grouping is by background; only floating glass casts a shadow. */
+  --shadow-cta: 0 0 #0000;
+  --shadow-photo: 0 0 #0000;
+  --shadow-glass: 0 8px 28px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+
+  /* Motion: ease-out for UI, the iOS sheet curve for drawers; no overshoot anywhere. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
@@ -50,69 +113,59 @@
 
 :root {
   color-scheme: light;
+  /* One device pixel: iOS draws separators at 0.5 pt on 2x screens and 0.33 pt on 3x. */
+  --hairline: 1px;
+  /* Persistent nav: frames leave room for it, fixed docks sit above it (AppNav sets these). */
+  --nav-h: 0px;
+  /* The floating tab bar sits 21 pt above the screen edge on home-indicator phones (iOS 26). */
+  --tab-gap: max(12px, calc(env(safe-area-inset-bottom) - 13px));
+  /* Space under a docked CTA: the home indicator, or a little when the tab bar is below it. */
+  --dock-pb: max(16px, env(safe-area-inset-bottom));
 }
 
 html {
   background: #ffffff;
-  color: var(--color-charcoal);
+  color: var(--color-ink);
   font-family: var(--font-sans);
-  font-variation-settings: "wdth" 100;
+  font-size: 16px; /* rem stays 16 so the 4 px spacing grid holds */
+  line-height: 1.47;
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior-y: none;
 }
 
 body {
   margin: 0;
   min-height: 100dvh;
   background: #ffffff;
+  font-size: 17px; /* Apple's body size for any text that does not name a style */
 }
 
-/* Desktop: the 430 px phone frame sits centred on #1b1b1b, as in the Figma canvas. */
+/* Desktop: the 430 px phone frame sits centred on a dark canvas, as in the Figma canvas. */
 @media (min-width: 640px) {
+  html,
   body {
     background: #1b1b1b;
   }
 }
 
-/* Tracking is size-specific: display text tightens as it grows, body stays near zero,
-   captions open up slightly for legibility. */
-/* Newsreader carries names and headings (CLAUDE.md: Newsreader display over Inter): the one
-   typographic contrast on the page, as Headway and One Medical do. Poppins stays for the
-   clinician flow's step titles via .poppins. */
-/* Plain headings (no .display) are sans semibold, as on the Zocdoc provider page, and sit in the
-   base layer so a utility class (font-medium, text-grey) can still adjust them. */
 @layer base {
+  /* Plain headings are sans semibold and sit in the base layer so utilities can still adjust them. */
   h1,
   h2,
   h3 {
     font-family: var(--font-sans);
     font-weight: 600;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    text-wrap: balance;
   }
-}
-.display {
-  font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  font-optical-sizing: auto;
-}
-.poppins {
-  font-family: var(--font-poppins);
-  font-weight: 600;
-}
-h1,
-.display-lg {
-  letter-spacing: -0.02em;
-}
-.caption {
-  letter-spacing: 0.01em;
-}
+  p {
+    text-wrap: pretty;
+  }
 
-/* Base resets live in the base layer so utilities such as `text-white` on a button or link win. */
-@layer base {
   a {
     color: inherit;
     text-decoration: none;
@@ -120,7 +173,8 @@ h1,
 
   button,
   input,
-  textarea {
+  textarea,
+  select {
     font: inherit;
     color: inherit;
   }
@@ -129,7 +183,18 @@ h1,
     cursor: pointer;
   }
 
-  /* One focus style, in the one interactive colour; pointer users never see it. */
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea,
+  label {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* One focus ring, in the tint; pointer and touch users never see it. */
   :focus-visible {
     outline: 2px solid var(--color-accent-focus);
     outline-offset: 2px;
@@ -137,8 +202,33 @@ h1,
   }
 
   ::selection {
-    background: var(--color-accent-soft);
+    background: #b3d7ff;
   }
+
+  /* iOS zooms into any field under 16 px. */
+  @media (max-width: 639px) {
+    input,
+    select,
+    textarea {
+      font-size: max(16px, 1em);
+    }
+  }
+}
+
+/* Newsreader carries the doctor's own words and editorial headings: the one typographic contrast,
+   the role New York plays in Apple's apps. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+/* Kept for older markup: captions no longer open their tracking (Apple sets none). */
+.caption {
+  letter-spacing: 0;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
 }
 
 details > summary {
@@ -149,46 +239,75 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 
-/* ---------------------------------------------------------------- motion */
-
-/* Every pressable confirms the press on pointer-down, before anything else happens. */
+/* ---------------------------------------------------------------- press */
+/* The press shows on pointer-down and releases without overshoot. Buttons settle to .97
+   (Emil, Jakub: never below .95); rows and cards dim, the way Apple's own CSS changes colour. */
 .press {
   transition:
-    transform 160ms var(--ease-out),
-    background-color 150ms ease,
-    color 150ms ease,
-    opacity 150ms ease;
-  -webkit-tap-highlight-color: transparent;
+    transform 200ms var(--ease-out),
+    opacity 200ms var(--ease-out),
+    background-color 200ms ease;
 }
 .press:active {
   transform: scale(0.97);
+  transition-duration: 100ms;
 }
 .press-soft:active {
-  transform: scale(0.98);
+  transform: none;
+  opacity: 0.7;
+}
+.press-dim:active {
+  opacity: 0.5;
+  transition-duration: 0ms;
 }
 @media (hover: hover) and (pointer: fine) {
   .press-dim:hover {
-    opacity: 0.85;
+    opacity: 0.75;
   }
 }
+/* An inset-grouped row: the cell fills systemGray5 the instant it is touched. */
+.cell {
+  transition: background-color 250ms ease;
+}
+.cell:active {
+  background-color: var(--color-cell-press);
+  transition-duration: 0ms;
+}
 
-/* Arriving content fades up once. A `--i` index on the element staggers a group. */
+/* ---------------------------------------------------------------- arrival */
+/* Content that arrives after a fetch fades up 4 px once. `--i` staggers a short group. */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-.rise {
-  animation: rise 320ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 28ms);
+.rise,
+.bounce-in,
+.word-in,
+.settle {
+  animation: rise 280ms var(--ease-out) both;
+  animation-delay: calc(min(var(--i, 0), 8) * 30ms);
+}
+.word-in {
+  display: inline-block;
+}
+/* Tab switches in iOS are instant; a navigation here only cross-fades. */
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+.page-enter {
+  animation: fade 180ms ease-out both;
 }
 
-/* Bottom sheet: scrim cross-fades, the panel slides on the iOS drawer curve. */
+/* ---------------------------------------------------------------- sheets */
+/* Bottom sheet: scrim cross-fades, the panel slides on the iOS drawer curve and leaves the way it came. */
 .sheet-scrim {
   opacity: 1;
   transition: opacity 240ms ease;
@@ -198,78 +317,132 @@ details > summary::-webkit-details-marker {
 }
 .sheet-panel {
   transform: translateY(0);
-  transition: transform 320ms var(--ease-drawer);
+  transition: transform 420ms var(--ease-drawer);
   @starting-style {
     transform: translateY(100%);
   }
 }
+.sheet-closing .sheet-scrim {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.sheet-closing .sheet-panel {
+  transform: translateY(100%);
+  transition: transform 240ms var(--ease-out);
+}
+/* A notification leaves upward, the edge it came from. */
+.toast-out {
+  transform: translateY(calc(-100% - 16px));
+  opacity: 0;
+  transition:
+    transform 240ms var(--ease-out),
+    opacity 200ms ease;
+}
 
-/* Translucent chrome: a light material with content scrolling under it. */
+/* ---------------------------------------------------------------- materials */
+/* Chrome over scrolling content: Apple's web nav recipe (saturate 180%, blur 20 px, white 70%). */
 .material {
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
-
-/* Field focus moves the border to the interactive colour, nothing else. */
-.field {
-  transition: border-color 150ms ease;
+/* Floating glass controls (tab bar, toolbar circles): same recipe, a hairline edge and a soft shadow.
+   Glass is for controls and navigation only, never content (HIG Materials). */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  box-shadow: var(--shadow-glass);
 }
-.field:focus-within {
-  border-color: var(--color-accent-focus);
-}
-
-/* Progress bar fill: scaleX from the left stays on the compositor. */
-.bar-fill {
-  transform-origin: left center;
-  transition: transform 300ms var(--ease-out);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rise {
-    animation: none;
-  }
-  .press,
-  .press:active,
-  .press-soft:active {
-    transform: none;
-    transition: none;
-  }
-  .sheet-panel {
-    transition: opacity 200ms ease;
-    transform: none;
-    @starting-style {
-      opacity: 0;
-      transform: none;
-    }
-  }
-  .bar-fill {
-    transition: none;
-  }
+/* Glass over a photo: the HIG's 35% dimming layer under white symbols. */
+.glass-dark {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  color: #fff;
 }
 @media (prefers-reduced-transparency: reduce) {
-  .material {
+  .material,
+  .glass {
     background: #ffffff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
 }
 @media (prefers-contrast: more) {
-  .material {
+  .material,
+  .glass {
     background: #ffffff;
-    border-top: 1px solid var(--color-hairline);
+    box-shadow: 0 0 0 1px var(--color-hairline);
   }
 }
 
+@media (min-resolution: 2dppx) {
+  :root {
+    --hairline: 0.5px;
+  }
+}
+@media (min-resolution: 3dppx) {
+  :root {
+    --hairline: 0.333px;
+  }
+}
+/* A separator one device pixel thick. */
+.hairline {
+  height: var(--hairline);
+  background: var(--color-hairline);
+}
+/* Inset-grouped list: rows separated by a hairline that starts at the text column (--sep) and
+   stops at the trailing edge; none above the first row. */
+.ios-group > * {
+  position: relative;
+}
+.ios-group > * + *::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--sep, 16px);
+  right: 0;
+  height: var(--hairline);
+  background: var(--color-hairline);
+  pointer-events: none;
+}
+/* Chrome is not text: no selection or callout on bars and controls. */
+.chrome {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* A focused field deepens its fill a step (iOS shows the caret, not a ring). */
+.field {
+  transition: background-color 150ms ease;
+}
+.field:focus-within {
+  background-color: rgba(120, 120, 128, 0.16);
+}
+
+/* Progress fill: scaleX from the left stays on the compositor. */
+.bar-fill {
+  transform-origin: left center;
+  transition: transform 300ms var(--ease-out);
+}
+
 /* ---------------------------------------------------------------- frames */
-/* Phone: edge to edge. Tablet: a 430 px device frame on the dark canvas. Laptop (≥1024 px):
-   a 560 px reading column on white, no device chrome; fixed chrome keeps the same width. */
+/* Phone: edge to edge with iOS layout margins (16, or 20 on wide phones). Tablet: a 430 px device
+   frame on the dark canvas. Laptop (≥1024 px): a 560 px reading column on white. */
 .frame {
   position: relative;
   margin-inline: auto;
   min-height: 100dvh;
   width: 100%;
   max-width: 430px;
+  padding-bottom: var(--nav-h);
 }
 .frame-fixed {
   position: fixed;
@@ -279,7 +452,26 @@ details > summary::-webkit-details-marker {
   max-width: 430px;
 }
 .frame-pad {
-  padding-inline: 28px;
+  padding-inline: 16px;
+}
+@media (min-width: 414px) {
+  .frame-pad {
+    padding-inline: 20px;
+  }
+}
+.dock {
+  bottom: var(--nav-h) !important;
+}
+/* Full-bleed inside a padded frame: cancels the layout margin and restores it as padding. */
+.bleed {
+  margin-inline: -16px;
+  padding-inline: 16px;
+}
+@media (min-width: 414px) {
+  .bleed {
+    margin-inline: -20px;
+    padding-inline: 20px;
+  }
 }
 @media (min-width: 640px) and (max-width: 1023px) {
   .frame {
@@ -294,6 +486,7 @@ details > summary::-webkit-details-marker {
   }
 }
 @media (min-width: 1024px) {
+  html,
   body {
     background: #ffffff;
   }
@@ -304,7 +497,11 @@ details > summary::-webkit-details-marker {
   .frame-pad {
     padding-inline: 32px;
   }
-  /* Matches on laptop: two columns like the Zocdoc provider page (profile left, openings card right). */
+  .bleed {
+    margin-inline: -32px;
+    padding-inline: 32px;
+  }
+  /* Matches on laptop: two columns (profile left, openings card right). */
   .frame.frame-wide,
   .frame-wide .frame-fixed {
     max-width: 1320px;
@@ -312,225 +509,131 @@ details > summary::-webkit-details-marker {
   .frame-wide .frame-pad {
     padding-inline: 56px;
   }
-  .material {
-    border-top: 1px solid var(--color-divider);
+  .frame-wide .bleed {
+    margin-inline: -56px;
+    padding-inline: 56px;
   }
 }
 
-/* ---------------------------------------------------------------- delight */
-/* Every motion here is short, eases out, and switches off under prefers-reduced-motion. */
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.page-enter {
-  animation: page-in 360ms var(--ease-out) both;
-}
+/* ---------------------------------------------------------------- moments */
+/* Rare moments only (booking, calendar connected, saving): one each, short, no overshoot. */
 
-/* The searching state: a breathing wattle-green ring and words that arrive one by one. */
-@keyframes breathe {
-  0%,
-  100% {
-    transform: scale(0.92);
-    opacity: 0.55;
-  }
-  50% {
-    transform: scale(1.06);
-    opacity: 1;
-  }
-}
-@keyframes orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.search-orb {
-  position: relative;
-  width: 96px;
-  height: 96px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 35% 30%, #8a8a8a, #1b1b1b 70%);
-  box-shadow: 0 24px 60px rgba(27, 27, 27, 0.28);
-  animation: breathe 2.4s ease-in-out infinite;
-}
-.search-orb::after {
-  content: "";
-  position: absolute;
-  inset: -14px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(27, 27, 27, 0.25);
-  border-top-color: rgba(27, 27, 27, 0.9);
-  animation: orbit 1.6s linear infinite;
-}
-.word-in {
-  display: inline-block;
-  animation: rise 420ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 60ms);
-}
-
-/* Portraits arrive from a soft shimmer, never a pop. */
-@keyframes shimmer {
-  from {
-    background-position: -200% 0;
-  }
-  to {
-    background-position: 200% 0;
-  }
-}
+/* Portraits arrive by fading in over a flat fill; no shimmer, no zoom. */
 .shimmer {
-  background: linear-gradient(100deg, #ececec 30%, #f7f7f7 50%, #ececec 70%);
-  background-size: 200% 100%;
-  animation: shimmer 1.6s ease-in-out infinite;
+  background: #ececee;
 }
 .img-fade {
   opacity: 0;
-  transform: scale(1.03);
-  transition:
-    opacity 520ms var(--ease-out),
-    transform 900ms var(--ease-out);
+  transition: opacity 400ms var(--ease-out);
 }
 .img-fade[data-loaded="true"] {
   opacity: 1;
-  transform: none;
 }
 
-/* The heart pops once when it fills. */
-@keyframes pop {
+/* The heart answers once when it fills, like an SF Symbol bounce. */
+@keyframes symbol-bounce {
   0% {
     transform: scale(1);
   }
-  40% {
-    transform: scale(1.35);
+  35% {
+    transform: scale(0.82);
+  }
+  70% {
+    transform: scale(1.12);
   }
   100% {
     transform: scale(1);
   }
 }
 .pop {
-  animation: pop 360ms var(--ease-out);
+  animation: symbol-bounce 420ms var(--ease-out);
 }
 
-/* The leaf on the splash floats; the wordmark settles. */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-6px) rotate(6deg);
-  }
-}
-.float {
-  animation: float 3.6s ease-in-out infinite;
-}
-@keyframes settle {
+/* Success tick draws itself once (booking, calendar connected). */
+@keyframes draw {
   from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.98);
-    filter: blur(6px);
+    stroke-dashoffset: 24;
   }
   to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
+    stroke-dashoffset: 0;
   }
 }
-.settle {
-  animation: settle 900ms var(--ease-out) both;
+.tick path {
+  stroke-dasharray: 24;
+  animation: draw 420ms var(--ease-out) 120ms both;
+}
+.tick {
+  animation: fade 200ms ease-out both;
+}
+
+/* Plus turns into minus by rotating its vertical bar away. */
+.plus-bar {
+  transform-origin: center;
+  transition: transform 250ms var(--ease-out);
+}
+[aria-expanded="true"] .plus-bar {
+  transform: rotate(90deg) scaleX(0);
+}
+
+/* Dictation: a soft ring while the mic listens. */
+@keyframes listen {
+  from {
+    box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.35);
+  }
+  to {
+    box-shadow: 0 0 0 12px rgba(0, 102, 204, 0);
+  }
+}
+button[aria-pressed="true"][aria-label="Stop listening"] {
+  border-radius: 9999px;
+  animation: listen 1.2s ease-out infinite;
+}
+
+/* The splash wordmark settles once; the leaf holds still. */
+.float {
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-enter,
+  .rise,
+  .bounce-in,
   .word-in,
-  .settle {
-    animation: none;
-  }
-  .search-orb,
-  .search-orb::after,
-  .float,
+  .settle,
   .pop,
-  .shimmer {
-    animation: none;
+  .tick,
+  .tick path,
+  button[aria-label="Stop listening"] {
+    animation: none !important;
   }
-  .img-fade {
+  .tick path {
+    stroke-dasharray: none;
+  }
+  .page-enter {
+    animation-duration: 120ms;
+  }
+  .press,
+  .press:active,
+  .press-soft:active {
+    transform: none;
+  }
+  .sheet-panel {
     transition: opacity 200ms ease;
     transform: none;
+    @starting-style {
+      opacity: 0;
+      transform: none;
+    }
   }
-}
-
-/* ---------------------------------------------------------------- phone basics (2026-10-20) */
-/* Persistent nav: frames leave room for it, fixed docks sit on top of it. */
-:root { --nav-h: 0px; }
-.frame { padding-bottom: var(--nav-h); }
-.dock { bottom: var(--nav-h) !important; }
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  overscroll-behavior-y: none;
-}
-a, button, [role="button"], input, select, textarea, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-/* iOS zooms into any field under 16px. */
-@media (max-width: 639px) { input, select, textarea { font-size: max(16px, 1em); } }
-::selection { background: #1b1b1b; color: #fff; }
-:focus-visible { outline: 2px solid #1b1b1b; outline-offset: 2px; }
-
-/* ---------------------------------------------------------------- motion pass (Emil Kowalski skills, 2026-10-20) */
-/* Sheets leave the way they arrived: panel down, scrim out. Exit is quicker than entry. */
-.sheet-closing .sheet-scrim { opacity: 0; transition: opacity 200ms ease; }
-.sheet-closing .sheet-panel { transform: translateY(100%); transition: transform 220ms var(--ease-out); }
-/* Notification leaves upward, the edge it came from. */
-.toast-out { transform: translateY(calc(-100% - 16px)); opacity: 0; transition: transform 240ms var(--ease-out), opacity 200ms ease; }
-/* Success tick draws itself once (rare moment: booking, calendar connected). */
-@keyframes draw { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
-.tick path { stroke-dasharray: 24; animation: draw 420ms var(--ease-out) 120ms both; }
-@keyframes tick-in { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.tick { animation: tick-in 260ms var(--ease-out) both; }
-/* Plus turns into minus by rotating its vertical bar away. */
-.plus-bar { transform-origin: center; transition: transform 250ms var(--ease-out); }
-[aria-expanded="true"] .plus-bar { transform: rotate(90deg) scaleX(0); }
-@media (prefers-reduced-motion: reduce) {
-  .sheet-closing .sheet-panel { transform: none; opacity: 0; transition: opacity 150ms ease; }
-  .toast-out { transform: none; }
-  .tick, .tick path { animation: none; stroke-dasharray: none; }
-}
-
-/* ------------------------------------------------ playful pass (Duolingo-level feedback) */
-:root { --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); }
-/* Release springs back past rest, so every tap feels physical. */
-.press, .press-soft { transition: transform 380ms var(--ease-spring), background-color 150ms ease, color 150ms ease, opacity 150ms ease; }
-.press:active { transform: scale(0.94); transition-duration: 90ms; }
-.press-soft:active { transform: scale(0.965); transition-duration: 90ms; }
-/* Arrivals pop in with a little lift and overshoot, staggered wider. */
-@keyframes rise-pop { 0% { opacity: 0; transform: translateY(14px) scale(0.97); } 70% { opacity: 1; transform: translateY(-2px) scale(1.005); } 100% { opacity: 1; transform: none; } }
-.rise { animation: rise-pop 520ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 55ms); }
-/* Celebration burst. */
-.burst { position: fixed; z-index: 100; width: 0; height: 0; pointer-events: none; }
-.burst-ring { position: absolute; left: -22px; top: -22px; width: 44px; height: 44px; border-radius: 50%; border: 3px solid #f5b700; animation: burst-ring 520ms var(--ease-out) forwards; }
-.burst-dot { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; animation: burst-dot 700ms var(--ease-out) forwards; }
-@keyframes burst-ring { from { transform: scale(0.3); opacity: 1; } to { transform: scale(2.2); opacity: 0; border-width: 0; } }
-@keyframes burst-dot { 0% { transform: translate(0,0) scale(0); opacity: 1; } 60% { opacity: 1; } 100% { transform: translate(var(--dx), calc(var(--dy) + 18px)) scale(var(--s)); opacity: 0; } }
-/* Heart / bookmark pop when it turns on. */
-@keyframes heart-pop { 0% { transform: scale(1); } 30% { transform: scale(0.7); } 60% { transform: scale(1.3); } 100% { transform: scale(1); } }
-[aria-pressed="true"] svg, .saved-pop { animation: heart-pop 480ms var(--ease-spring); }
-/* Mic listening: a breathing ring. */
-@keyframes listen { 0% { box-shadow: 0 0 0 0 rgba(255,122,89,0.45); } 100% { box-shadow: 0 0 0 14px rgba(255,122,89,0); } }
-button[aria-pressed="true"][aria-label="Stop listening"] { border-radius: 9999px; animation: listen 1.1s ease-out infinite; }
-/* Send arrow nudges forward when there is something to send. */
-@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
-.nudge svg { animation: nudge 1.4s ease-in-out infinite; }
-/* Wiggle for a gentle "look here". */
-@keyframes wiggle { 0%,100% { transform: rotate(0); } 20% { transform: rotate(-6deg); } 40% { transform: rotate(5deg); } 60% { transform: rotate(-3deg); } 80% { transform: rotate(2deg); } }
-.wiggle { animation: wiggle 700ms ease-in-out 600ms both; }
-/* Booked card bounces in. */
-@keyframes bounce-in { 0% { transform: scale(0.9); opacity: 0; } 60% { transform: scale(1.03); opacity: 1; } 100% { transform: scale(1); } }
-.bounce-in { animation: bounce-in 520ms var(--ease-spring) both; }
-@media (prefers-reduced-motion: reduce) {
-  .rise, .burst, .nudge svg, .wiggle, .bounce-in, [aria-pressed="true"] svg, .saved-pop, button[aria-label="Stop listening"] { animation: none !important; }
-  .press:active, .press-soft:active { transform: none; }
+  .sheet-closing .sheet-panel {
+    transform: none;
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+  .toast-out {
+    transform: none;
+  }
+  .bar-fill,
+  .img-fade {
+    transition: none;
+  }
 }

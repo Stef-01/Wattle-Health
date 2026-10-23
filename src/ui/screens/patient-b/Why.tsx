@@ -77,7 +77,7 @@ export function Why({ doctor: d }: { doctor: DoctorRecord }) {
       {state.kind === "absent" ? <Body>{drShort(d)} was not in your last matches.</Body> : null}
       {state.kind === "ready" ? (
         <>
-          <h2 className="display text-[20px] text-charcoal">Clinical</h2>
+          <h2 className="text-title3 text-ink">Clinical</h2>
           <Space h={4} />
           {clinical.length > 0 ? (
             <ReasonRows doctor={d} reasons={clinical} />
@@ -88,7 +88,7 @@ export function Why({ doctor: d }: { doctor: DoctorRecord }) {
             </>
           )}
           <Space h={30} />
-          <h2 className="display text-[20px] text-charcoal">Personal</h2>
+          <h2 className="text-title3 text-ink">Personal</h2>
           <Space h={4} />
           {noProfile ? (
             <>
@@ -99,7 +99,7 @@ export function Why({ doctor: d }: { doctor: DoctorRecord }) {
             <ReasonRows doctor={d} reasons={personal} />
           )}
           <Space h={22} />
-          <p className="text-[14px] leading-normal text-grey">Every reason links to its source.</p>
+          <p className="text-subhead text-grey">Every reason links to its source.</p>
         </>
       ) : null}
     </Screen>

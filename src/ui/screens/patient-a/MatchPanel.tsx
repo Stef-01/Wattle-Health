@@ -9,7 +9,7 @@ import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
 import { demoOpenings } from "@/src/data/calendar";
-import { Check, Labelled } from "@/src/ui/kit";
+import { Check, Group, Labelled } from "@/src/ui/kit";
 import { Facts, Research, Sources, WordsFull } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
@@ -33,7 +33,8 @@ function useReviewSummary(id: string): ReviewData | null {
   return data;
 }
 
-/** Zocdoc-style highlight row: illustrated icon in a soft wattle-gold disc, bold title, grey line. */
+/** Highlight row (Maps "Good to know"): a monochrome glyph, the label, a secondary line; a trailing
+ *  check in the tint when it matches what was asked. */
 const ICONS: Record<Highlight["kind"], string> = {
   clinical: "M12 4v16M4 12h16",
   approach: "M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Zm4 0a4 4 0 1 0 8 0 4 4 0 0 0-8 0",
@@ -45,21 +46,17 @@ const ICONS: Record<Highlight["kind"], string> = {
 };
 function HighlightRows({ items }: { items: Highlight[] }) {
   return (
-    <ul className="grid grid-cols-1 gap-x-10 gap-y-5 lg:grid-cols-2">
+    <ul className="grid grid-cols-1 gap-x-10 gap-y-4 lg:grid-cols-2">
       {items.map((h, i) => (
-        <li key={h.id} className="rise flex gap-3.5" style={{ "--i": i } as React.CSSProperties}>
-          <span aria-hidden="true" className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-full" style={{ background: "#fbf1cf", color: "#8a6a00" }}>
-            <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d={ICONS[h.kind]} /></svg>
-            {h.matched ? (
-              <span className="absolute -bottom-0.5 -right-0.5 inline-flex size-[18px] items-center justify-center rounded-full border-2 border-white bg-[#1b1b1b] text-white">
-                <Check size={10} />
-              </span>
-            ) : null}
+        <li key={h.id} className="rise flex items-start gap-3" style={{ "--i": i } as React.CSSProperties}>
+          <span aria-hidden="true" className="inline-flex size-[30px] shrink-0 items-center justify-center text-grey">
+            <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round"><path d={ICONS[h.kind]} /></svg>
           </span>
-          <span className="min-w-0">
-            <span className="block text-[17px] font-semibold leading-[1.3] tracking-[-0.01em] text-ink">{h.label}</span>
-            <span className="mt-1 line-clamp-2 text-[15px] leading-[1.5] text-[#6b6b6b]">{h.detail ?? (h.matched ? "Matches what you asked for" : "")}</span>
+          <span className="min-w-0 flex-1 pt-1">
+            <span className="block text-body text-ink">{h.label}</span>
+            {h.detail ?? h.matched ? <span className="mt-0.5 line-clamp-2 text-subhead text-grey">{h.detail ?? "Matches what you asked for"}</span> : null}
           </span>
+          {h.matched ? <Check size={18} strokeWidth={2.25} className="mt-1.5 shrink-0 text-accent" aria-label="Matches your search" /> : null}
         </li>
       ))}
     </ul>
@@ -110,93 +107,95 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   return (
     <section className="rise" aria-label={variant === "match" ? ORDINAL[index] : d.name.display} data-match={variant === "match" ? index : undefined}>
       {variant === "match" ? (
-        <div className="mb-5 flex items-baseline justify-between">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#1b1b1b]">{ORDINAL[index]}</p>
-          <p className="text-[13px] text-grey">{index + 1} of {total}</p>
+        <div className="mb-3 flex items-baseline justify-between">
+          <p className="text-headline text-ink">{ORDINAL[index]}</p>
+          <p className="tnum text-subhead text-grey">{index + 1} of {total}</p>
         </div>
       ) : null}
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_500px] lg:items-start lg:gap-16">
       <div className="min-w-0">
-      <Link href={doctorHref(d.id)} className="press block">
+      <Link href={doctorHref(d.id)} className="press-soft block">
         <Portrait d={d} height={440} saved={saved} onSave={onSave} eager={index === 0} caption={false} />
       </Link>
-      <header className="mt-5">
+      <header className="mt-4">
         <Link href={doctorHref(d.id)} className="press-dim block">
-          <p role="heading" aria-level={2} className="text-[24px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink lg:text-[28px]">{d.name.display}</p>
+          <p role="heading" aria-level={2} className="text-title1 text-ink">{d.name.display}</p>
         </Link>
-        <p className="mt-1 text-[16px] font-medium leading-snug text-ink lg:text-[17px]">{line}</p>
-        <p className="mt-1 text-[15px] leading-snug text-[#6b6b6b] lg:text-[16px]">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
+        <p className="mt-1 text-body text-ink">{line}</p>
+        <p className="mt-0.5 text-subhead text-grey">{[placeOf(d), km].filter(Boolean).join(" · ")}</p>
       </header>
-      {ownLine ? <p className="mt-5 font-display text-[19px] leading-[1.45] text-ink lg:text-[21px]">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="mt-5 text-[15px] leading-[1.5] text-[#6b6b6b]">{fitSentence(card, labels)}</p>}
+      {ownLine ? <p className="mt-4 font-display text-quote text-ink">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="mt-4 text-body leading-read text-grey">{fitSentence(card, labels)}</p>}
       {reviews && reviews.count > 0 ? (
-        <button type="button" onClick={() => setTab("Reviews")} className="press-soft mt-5 flex w-full items-stretch gap-4 rounded-[4px] bg-[#f6f4ee] px-4 py-4 text-left lg:gap-6 lg:px-8 lg:py-6">
-          <span className="flex shrink-0 flex-col items-center justify-center border-r border-[#d9d5ca] pr-4 lg:pr-6">
-            <span className="text-[32px] font-medium leading-none tracking-[-0.02em] text-ink lg:text-[48px]">{reviews.average?.toFixed(1)}</span>
-            <span className="mt-1.5 text-[13px] tracking-[1px] text-[#e8b72f] lg:text-[17px] lg:tracking-[2px]" aria-label={`${reviews.average?.toFixed(1)} out of 5`}>{"★".repeat(Math.round(reviews.average ?? 0))}</span>
+        <button type="button" onClick={() => setTab("Reviews")} className="cell mt-4 flex w-full items-center gap-4 rounded-card bg-surface-soft p-4 text-left">
+          <span className="flex shrink-0 flex-col items-center">
+            <span className="tnum text-large-title text-ink">{reviews.average?.toFixed(1)}</span>
+            <span className="text-footnote text-grey" aria-label={`${reviews.average?.toFixed(1)} out of 5`}>{"★".repeat(Math.round(reviews.average ?? 0))}</span>
           </span>
-          <span className="min-w-0 flex-1 self-center">
-            {reviews.commentary ? <span className="line-clamp-3 text-[15px] leading-[1.5] text-ink lg:text-[16px] lg:leading-[1.55]">{reviews.commentary}</span> : null}
-            <span className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <span className="text-[13px] text-[#6b6b6b] lg:text-[14px]">{reviews.demo ? "Example reviews" : `${reviews.count} verified reviews`}</span>
-              <span className="text-[15px] font-semibold text-ink underline underline-offset-4">See all {reviews.count} reviews</span>
+          <span className="min-w-0 flex-1">
+            {reviews.commentary ? <span className="line-clamp-3 text-subhead text-ink">{reviews.commentary}</span> : null}
+            <span className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+              <span className="text-footnote text-grey">{reviews.demo ? "Example reviews" : `${reviews.count} verified reviews`}</span>
+              <span className="text-subhead text-accent">See all {reviews.count}</span>
             </span>
           </span>
         </button>
       ) : null}
       {outside ? (
-        <p className="mt-4 text-[16px] leading-[1.5] text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-[#4a4a4a]">{outside.charAt(0).toUpperCase() + outside.slice(1)}</span></p>
+        <p className="mt-4 text-body leading-read text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-grey">{outside.charAt(0).toUpperCase() + outside.slice(1)}</span></p>
       ) : null}
 
-      <div role="tablist" aria-label="Doctor details" className="mt-8 flex gap-7 overflow-x-auto border-b border-divider [scrollbar-width:none] lg:gap-10">
+      <div role="tablist" aria-label="Doctor details" className="chrome mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
         {tabs.map((t) => (
-          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`press-soft -mb-px shrink-0 border-b-2 pb-3.5 text-[16px] lg:text-[17px] ${tab === t ? "border-ink font-semibold text-ink" : "border-transparent text-[#6b6b6b]"}`}>{t}</button>
+          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`truncate rounded-full px-1 text-footnote transition-[background-color,box-shadow] duration-200 ${tab === t ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink"}`}>{t}</button>
         ))}
       </div>
-      <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-6">
+      <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-5">
         {tab === "Highlights" ? <HighlightRows items={highlights} /> : null}
         {tab === "About" ? (
           <div className="flex flex-col gap-7">
             <Facts d={d} />
-            {personal ? <WordsFull d={d} shown={[ownLine, outside]} /> : <p className="text-[16px] text-grey">They haven’t written about how they work yet.</p>}
+            {personal ? <WordsFull d={d} shown={[ownLine, outside]} /> : <p className="text-body text-grey">They haven’t written about how they work yet.</p>}
             <Labelled label="Sees">
-              <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
+              <p className="text-body leading-read text-ink">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
             </Labelled>
             <div className="flex flex-col"><Research d={d} /><Sources d={d} /></div>
-            {source ? <p className="caption text-[12px] text-grey">{source.text} {source.href ? <a href={source.href} target="_blank" rel="noreferrer" className="text-accent">Source</a> : null}</p> : null}
+            {source ? <p className="text-footnote text-grey">{source.text} {source.href ? <a href={source.href} target="_blank" rel="noreferrer" className="text-accent">Source</a> : null}</p> : null}
           </div>
         ) : null}
         {tab === "Location" ? (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {d.rooms.slice(0, 3).map((r) => {
               const address = [r.name, r.address, `${r.suburb} ${r.state} ${r.postcode}`.trim()].filter(Boolean).join(", ");
               return (
-                <div key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">
-                  <p className="text-[16px] font-medium text-ink">{r.name ?? r.suburb}</p>
-                  <p className="mt-0.5 text-[14px] leading-[1.45] text-grey">{address}</p>
-                  <div className="mt-2 flex gap-4 text-[14px]">
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`} target="_blank" rel="noreferrer" className="text-accent">Directions</a>
-                    {r.phone ? <a href={`tel:${r.phone.replace(/[^\d+]/g, "")}`} className="text-accent">Call {r.phone}</a> : null}
-                    {r.website ? <a href={r.website} target="_blank" rel="noreferrer" className="text-accent">Website</a> : null}
+                <div key={r.id} className="rounded-card bg-surface-soft px-4 pt-3">
+                  <p className="text-headline text-ink">{r.name ?? r.suburb}</p>
+                  <p className="mt-0.5 text-subhead text-grey">{address}</p>
+                  <div className="flex flex-wrap gap-x-4 text-body">
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`} target="_blank" rel="noreferrer" className="press-dim inline-flex h-11 items-center text-accent">Directions</a>
+                    {r.phone ? <a href={`tel:${r.phone.replace(/[^\d+]/g, "")}`} className="press-dim inline-flex h-11 items-center text-accent">Call {r.phone}</a> : null}
+                    {r.website ? <a href={r.website} target="_blank" rel="noreferrer" className="press-dim inline-flex h-11 items-center text-accent">Website</a> : null}
                   </div>
                 </div>
               );
             })}
-            {d.declared.telehealth && d.telehealth.value !== "none" ? <p className="text-[15px] text-charcoal">Also sees patients by telehealth.</p> : null}
+            {d.declared.telehealth && d.telehealth.value !== "none" ? <p className="px-4 text-subhead text-grey">Also sees patients by telehealth.</p> : null}
           </div>
         ) : null}
         {tab === "Reviews" ? <Reviews doctorId={d.id} name={drShort(d)} /> : null}
         {tab === "FAQs" ? (
-          <dl className="flex flex-col">
-            {faqs(d).map((f) => (
-              <div key={f.q} className="border-b border-divider py-3 last:border-b-0">
-                <dt className="text-[16px] font-medium text-ink">{f.q}</dt>
-                <dd className="mt-0.5 text-[15px] leading-[1.45] text-grey">{f.a}</dd>
-              </div>
-            ))}
+          <dl>
+            <Group tone="soft">
+              {faqs(d).map((f) => (
+                <div key={f.q} className="px-4 py-3">
+                  <dt className="text-headline text-ink">{f.q}</dt>
+                  <dd className="mt-0.5 text-subhead text-grey">{f.a}</dd>
+                </div>
+              ))}
+            </Group>
           </dl>
         ) : null}
       </div>
-      <div className="mt-6 lg:hidden">
+      <div className="mt-8 lg:hidden">
         {next ? <NextFree doctor={d} when={next} mode={nextMode} referral={referral} /> : <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />}
       </div>
       </div>

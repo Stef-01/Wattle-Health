@@ -1,0 +1,256 @@
+{
+ "totals": {
+  "sizes": [
+   "7px",
+   "10px",
+   "11px",
+   "12px",
+   "13px",
+   "15px",
+   "17px",
+   "20px",
+   "22px",
+   "28px",
+   "34px",
+   "40px"
+  ],
+  "weights": [
+   "400",
+   "500",
+   "600",
+   "700"
+  ],
+  "colors": 9,
+  "colorList": [
+   "rgb(29, 29, 31)",
+   "rgb(255, 255, 255)",
+   "rgb(90, 70, 50)",
+   "rgb(60, 74, 53)",
+   "rgb(52, 70, 90)",
+   "rgb(108, 108, 112)",
+   "oklab(0.999994 0.0000455677 0.0000200868 / 0.7)",
+   "oklab(0.999994 0.0000455678 0.0000200868 / 0.85)",
+   "rgb(0, 102, 204)"
+  ],
+  "radii": [
+   "8px",
+   "10px",
+   "12px",
+   "18px",
+   "26px",
+   "3.35544e+07px"
+  ]
+ },
+ "routes": {
+  "/": {
+   "sizes": 5,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 6,
+   "radii": 4,
+   "uppercase": 0,
+   "tracking": {
+    "-0.374px": 1,
+    "-0.221px": 9,
+    "-0.135px": 3
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/recent": {
+   "sizes": 4,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 4,
+   "radii": 3,
+   "uppercase": 0,
+   "tracking": {
+    "-0.374px": 1,
+    "-0.135px": 8,
+    "-0.221px": 4
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/saved": {
+   "sizes": 5,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 3,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.374px": 1,
+    "-0.221px": 1,
+    "-0.135px": 2
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/me": {
+   "sizes": 4,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 2,
+   "radii": 3,
+   "uppercase": 0,
+   "tracking": {
+    "-0.374px": 1,
+    "-0.221px": 8,
+    "-0.135px": 8
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/me/openings": {
+   "sizes": 6,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 2,
+   "radii": 1,
+   "uppercase": 0,
+   "tracking": {
+    "-0.374px": 1,
+    "-0.221px": 5,
+    "-0.135px": 1
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/me/discover": {
+   "sizes": 6,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 4,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.374px": 1,
+    "-0.221px": 1,
+    "-0.308px": 4,
+    "-0.135px": 7,
+    "-0.039px": 1
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/me/context": {
+   "sizes": 7,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 3,
+   "radii": 4,
+   "uppercase": 0,
+   "tracking": {
+    "-0.374px": 1,
+    "-0.221px": 2,
+    "-0.039px": 10,
+    "-0.135px": 10,
+    "0.055px": 1
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/healthspan": {
+   "sizes": 5,
+   "weights": [
+    "400",
+    "500",
+    "600",
+    "700"
+   ],
+   "colors": 3,
+   "radii": 3,
+   "uppercase": 0,
+   "tracking": {
+    "-0.4px": 1,
+    "-0.221px": 16,
+    "-0.22px": 3,
+    "-0.308px": 1,
+    "-0.135px": 7
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/about": {
+   "sizes": 5,
+   "weights": [
+    "400",
+    "500",
+    "600"
+   ],
+   "colors": 2,
+   "radii": 1,
+   "uppercase": 0,
+   "tracking": {
+    "-0.4px": 1,
+    "-0.22px": 4,
+    "-0.221px": 4,
+    "-0.135px": 1
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/doctor/general-practice~sian-hebron": {
+   "sizes": 7,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 4,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.28px": 1,
+    "-0.221px": 12,
+    "-0.135px": 4,
+    "-0.16px": 1,
+    "-0.374px": 1,
+    "-0.039px": 8
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  },
+  "/join": {
+   "sizes": 4,
+   "weights": [
+    "400",
+    "600",
+    "700"
+   ],
+   "colors": 4,
+   "radii": 2,
+   "uppercase": 0,
+   "tracking": {
+    "-0.221px": 6,
+    "0.055px": 1,
+    "-0.28px": 1,
+    "-0.135px": 6
+   },
+   "lowContrast": [],
+   "smallTargets": []
+  }
+ }
+}

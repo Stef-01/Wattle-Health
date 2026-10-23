@@ -1,0 +1,14 @@
+import { chromium, devices } from "@playwright/test";
+import { throughNarrow } from "../figma/narrow-helper.mjs";
+const b = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium" });
+const page = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
+page.on("console", (m) => { if (["error", "warning"].includes(m.type())) console.log(m.type(), m.text().slice(0, 300)); });
+page.on("pageerror", (e) => console.log("pageerror", (e.stack ?? e.message).slice(0, 1200)));
+await page.goto("http://localhost:3300/");
+await page.evaluate(() => localStorage.setItem("wattle.splash.seen", "true"));
+await page.goto("http://localhost:3300/", { waitUntil: "networkidle" });
+await page.fill("textarea", "Endometriosis, I feel like nobody listens");
+await page.locator("button[type=submit], button:has-text('Find')").first().click();
+await throughNarrow(page, { pick: 1 });
+await page.waitForTimeout(2500);
+await b.close();

@@ -66,8 +66,8 @@ export function PracticeScreen() {
         {pill("Bulk billing", bulk, setBulk)}
       </Pills>
       <Note className="mt-[18px]">Tap to turn on.</Note>
-      {error ? <p role="alert" className="mt-3 text-[14px] text-danger">{error}</p> : null}
-      <Cta onClick={submit} disabled={pending || !practice.trim()} icon={<Asset name="arrow-right" size={22} />}>
+      {error ? <p role="alert" className="mt-3 text-subhead text-danger">{error}</p> : null}
+      <Cta onClick={submit} disabled={pending || !practice.trim()}>
         Continue
       </Cta>
     </Screen>

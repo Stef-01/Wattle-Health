@@ -43,7 +43,7 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false, captio
   const [loaded, setLoaded] = useState(false);
   const suburb = d.rooms[0]?.suburb ?? d.rooms[0]?.suburb ?? null;
   return (
-    <div className="relative w-full overflow-hidden rounded-[30px] shadow-photo" style={{ height, background: d.photo ? "#e9e9e9" : bg }}>
+    <div className="relative w-full overflow-hidden rounded-card" style={{ height, background: d.photo ? "#ececee" : bg }}>
       {d.photo ? (
         // eslint-disable-next-line @next/next/no-img-element
         <>
@@ -65,17 +65,17 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false, captio
             e.stopPropagation();
             onSave();
           }}
-          className="press absolute right-5 top-5 inline-flex size-11 items-center justify-center rounded-full bg-caption text-white backdrop-blur-[20px]"
+          className="press glass-dark absolute right-4 top-4 inline-flex size-11 items-center justify-center rounded-full"
         >
           <Heart key={saved ? "on" : "off"} size={22} fill={saved ? "currentColor" : "none"} className={saved ? "pop" : undefined} />
         </button>
       ) : null}
-      {caption ? <div className="absolute bottom-5 left-5 flex h-[75px] max-w-[calc(100%-40px)] items-center rounded-[15px] bg-caption px-4 py-3 text-white shadow-[0_5px_4.5px_rgba(0,0,0,0.1)] backdrop-blur-[20px]">
-        <span className="flex min-w-0 flex-col gap-2">
-          <span className="truncate text-[16px] font-medium leading-normal">{name}{d.synthetic ? " (example)" : ""}</span>
+      {caption ? <div className="glass-dark absolute bottom-4 left-4 flex max-w-[calc(100%-32px)] items-center rounded-card px-4 py-2.5">
+        <span className="flex min-w-0 flex-col gap-0.5">
+          <span className="truncate text-headline">{name}{d.synthetic ? " (example)" : ""}</span>
           {suburb ? (
-            <span className="inline-flex items-center gap-1.5 text-[14px] leading-normal text-caption-text">
-              <MapPin size={16} />
+            <span className="inline-flex items-center gap-1 text-subhead text-caption-text">
+              <MapPin size={15} />
               <span className="truncate">{suburb}</span>
             </span>
           ) : null}
@@ -94,14 +94,14 @@ export function DoctorCard({ card, labels, saved, onSave, index = 0 }: { card: C
   void suburbOf;
   return (
     <article className="rise" style={{ "--i": index } as React.CSSProperties}>
-      <Link href={doctorHref(d.id)} className="press press-soft block">
+      <Link href={doctorHref(d.id)} className="press-soft block">
         <Portrait d={d} saved={saved} onSave={onSave} eager={index < 3} />
         {quote ? (
-          <p className="mt-4 font-display text-[19px] leading-[1.35] text-ink">“{clip(quote.text, 140)}”</p>
+          <p className="mt-3 font-display text-quote text-ink">“{clip(quote.text, 140)}”</p>
         ) : (
-          <p className="mt-4 text-[16px] leading-[1.5] text-charcoal">{fitSentence(card, labels)}</p>
+          <p className="mt-3 text-body leading-read text-ink">{fitSentence(card, labels)}</p>
         )}
-        <p className="mt-2 text-[14px] text-grey">{practical.join(" · ")}</p>
+        <p className="mt-1.5 text-subhead text-grey">{practical.join(" · ")}</p>
       </Link>
     </article>
   );

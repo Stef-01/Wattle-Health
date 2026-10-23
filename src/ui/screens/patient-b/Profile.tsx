@@ -5,7 +5,7 @@
 // Server component; the client bits (bookmark, clamp, disclosures, contact sheet) are small.
 import type { DoctorRecord } from "@/src/data/types";
 import { asList } from "@/src/data/types";
-import { Avatar, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
+import { Avatar, ChevronLeft, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
 import { HeroScreen, Space } from "./bits";
 import { approachSentence, clip, conditionLabels, drName, drShort, feeOf, hobbyChips, hobbySentence, listSentence, niceSource, personalOf, placeOf, practicalChips, primaryRoom, pronouns, providerTitle, TIER_WORD, verifiedPublications, wordsSource, yearsLine } from "./facts";
 import { BookmarkCircle, ContactCta, ShareCircle } from "./ProfileClient";
@@ -19,7 +19,7 @@ function Header({ d }: { d: DoctorRecord }) {
   return (
     <>
       <div className="flex h-11 items-center justify-between">
-        <Circle href="/results" label="Back"><FigmaIcon name="arrow-left-22" size={22} /></Circle>
+        <Circle href="/results" label="Back"><ChevronLeft size={22} strokeWidth={2} /></Circle>
         <span className="flex gap-2">
           <ShareCircle name={name} />
           <BookmarkCircle id={d.id} />
@@ -29,14 +29,14 @@ function Header({ d }: { d: DoctorRecord }) {
       <div className="flex items-center gap-4">
         {d.photo ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={d.photo.url} alt={d.photo.alt ?? name} referrerPolicy="no-referrer" className="settle size-[88px] shrink-0 rounded-full object-cover object-top" style={{ background: "#e9e9e9" }} />
+          <img src={d.photo.url} alt={d.photo.alt ?? name} referrerPolicy="no-referrer" className="settle size-[88px] shrink-0 rounded-full object-cover object-top" style={{ background: "var(--color-surface-soft)" }} />
         ) : (
           <Avatar name={name} size={88} />
         )}
         <div className="flex min-w-0 flex-col gap-1">
-          <h1 className="display text-[30px] leading-[1.1] tracking-[-0.01em] text-ink">{name}{d.synthetic ? " (example)" : ""}</h1>
-          <p className="text-[14px] leading-snug text-grey">{line}</p>
-          <p className="text-[14px] text-grey">{placeOf(d)}</p>
+          <h1 className="text-title1 text-ink">{name}{d.synthetic ? " (example)" : ""}</h1>
+          <p className="text-subhead text-grey">{line}</p>
+          <p className="text-subhead text-grey">{placeOf(d)}</p>
         </div>
       </div>
     </>
@@ -46,7 +46,7 @@ function Header({ d }: { d: DoctorRecord }) {
 export function Facts({ d }: { d: DoctorRecord }) {
   const facts = [yearsLine(d), ...practicalChips(d)].filter(Boolean) as string[];
   if (facts.length === 0) return null;
-  return <p className="text-[14px] leading-[1.5] text-grey">{facts.join(" · ")}</p>;
+  return <p className="text-subhead leading-read text-grey">{facts.join(" · ")}</p>;
 }
 
 /** True when two passages share most of their words (a paraphrase of the same line). */
@@ -80,7 +80,7 @@ export function WordsFull({ d, shown = [] }: { d: DoctorRecord; shown?: (string 
     seen.push(t);
     return t;
   };
-  const para = (t: string, k?: string) => <p key={k} className="text-[17px] leading-[1.6] text-charcoal">{t}</p>;
+  const para = (t: string, k?: string) => <p key={k} className="text-body leading-read text-charcoal">{t}</p>;
   const philosophy = take(p.philosophyOfCare ?? p.philosophy ?? null);
   const approach = take(p.communicationApproach ?? null);
   const purpose = take(p.professionalPurpose ?? p.purpose ?? null);
@@ -106,7 +106,7 @@ export function WordsFull({ d, shown = [] }: { d: DoctorRecord; shown?: (string 
           <div className="flex flex-col gap-3">
             {outsideMed ? para(outsideMed) : null}
             {hobbies.length && !hobbiesShown ? (
-              <ul className="flex flex-col gap-1.5">{hobbies.map((h) => <li key={h} className="flex gap-2.5 text-[17px] leading-[1.5] text-charcoal"><span aria-hidden="true" className="mt-[11px] size-1.5 shrink-0 rounded-full bg-[#8a6a3b]" />{h}</li>)}</ul>
+              <ul className="flex flex-col gap-1.5">{hobbies.map((h) => <li key={h} className="flex gap-2.5 text-body leading-read text-charcoal"><span aria-hidden="true" className="mt-[11px] size-1.5 shrink-0 rounded-full bg-[#8a6a3b]" />{h}</li>)}</ul>
             ) : null}
           </div>
         </Labelled>
@@ -115,9 +115,9 @@ export function WordsFull({ d, shown = [] }: { d: DoctorRecord; shown?: (string 
         <Labelled label="From their page">
           <div className="flex flex-col gap-5">
             {quotes.map((q, i) => (
-              <blockquote key={i} className="border-l-2 border-[#d9d5ca] pl-4">
-                <p className="font-display text-[19px] leading-[1.5] text-ink">“{q.text.replace(/^[“"]|[”"]$/g, "")}”</p>
-                <p className="mt-1 text-[14px] text-[#6b6b6b]">{ABOUT[q.about] ?? "From their page"}</p>
+              <blockquote key={i} className="border-l-2 border-hairline pl-4">
+                <p className="font-display text-quote text-ink">“{q.text.replace(/^[“"]|[”"]$/g, "")}”</p>
+                <p className="mt-1 text-subhead text-grey">{ABOUT[q.about] ?? "From their page"}</p>
               </blockquote>
             ))}
           </div>
@@ -140,7 +140,7 @@ export function Words({ d, skipMeet = false, skipOutside = false, shown = null }
   const ABOUT: Record<string, string> = { why: "Why medicine", approach: "How they work", lived: "Lived experience", hobbies: "Outside the clinic", other: "Also from their page" };
   const rest = (p.quotes ?? []).filter((q) => !similar(q.text, philosophy) && !similar(q.text, approach));
   const more = rest.length ? rest.map((q, i) => (
-    <p key={i} className="text-[16px] leading-[1.5] text-charcoal">
+    <p key={i} className="text-body leading-read text-charcoal">
       <span className="text-grey">{ABOUT[q.about] ?? "From their page"} · </span>“{q.text}”
     </p>
   )) : undefined;
@@ -149,12 +149,12 @@ export function Words({ d, skipMeet = false, skipOutside = false, shown = null }
     <div className="flex flex-col gap-8">
       {philosophy && !skipMeet ? (
         <Labelled label={`Meet ${drShort(d)}`}>
-          <Clamp text={`“${philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" more={more} />
+          <Clamp text={`“${philosophy}”`} className="font-display text-quote text-ink" more={more} />
         </Labelled>
       ) : null}
       {approach && !similar(approach, philosophy) && !similar(approach, shown) ? (
         <Labelled label={`In ${pr.possessive.toLowerCase()} own words`}>
-          <Clamp text={approach} more={purpose ? <p className="text-[16px] leading-[1.5] text-charcoal">{purpose}</p> : undefined} />
+          <Clamp text={approach} more={purpose ? <p className="text-body leading-read text-charcoal">{purpose}</p> : undefined} />
         </Labelled>
       ) : null}
       {why ? (
@@ -169,7 +169,7 @@ export function Words({ d, skipMeet = false, skipOutside = false, shown = null }
       ) : null}
       {lived ? (
         <Labelled label="Lived experience">
-          <p className="text-[17px] leading-[1.5] text-charcoal">{clip(lived, 220)}</p>
+          <p className="text-body leading-read text-charcoal">{clip(lived, 220)}</p>
         </Labelled>
       ) : null}
     </div>
@@ -191,7 +191,7 @@ export function Practical({ d }: { d: DoctorRecord }) {
     <Disclosure tint="practical" title="Practical" sub={clip(rows.filter((r) => r.k !== "Rooms").slice(0, 3).map((r) => r.v).join(" · ") || rows[0]!.v, 64)}>
       <dl className="flex flex-col gap-2">
         {rows.map((r) => (
-          <div key={r.k} className="flex gap-4 text-[15px]">
+          <div key={r.k} className="flex gap-4 text-subhead">
             <dt className="w-24 shrink-0 text-grey">{r.k}</dt>
             <dd className="text-charcoal">{r.v}</dd>
           </div>
@@ -221,7 +221,7 @@ export function Research({ d }: { d: DoctorRecord }) {
       {pubs.slice(0, 5).map((p) => (
         <SourceRow key={p.title} icon={<FigmaIcon name="book" size={17} />} title={clip(p.title, 90)} sub={[p.venue, p.year].filter(Boolean).join(", ") || "Venue not recorded"} href={p.url} />
       ))}
-      {pubs.length > 5 ? <p className="pt-2 text-[13px] text-grey">And {pubs.length - 5} more, identifier-matched on OpenAlex.</p> : null}
+      {pubs.length > 5 ? <p className="pt-2 text-footnote text-grey">And {pubs.length - 5} more, identifier-matched on OpenAlex.</p> : null}
     </Disclosure>
   );
 }
@@ -237,17 +237,17 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
       <Facts d={d} />
       <Space h={28} />
       {personal?.healthspan ? (
-        <a href="/healthspan" className="press press-soft mb-7 block rounded-[22px] bg-[#1b1b1b] px-5 py-4 text-white">
-          <span className="block text-[13px] font-medium uppercase tracking-[0.12em] text-white/75">Healthspan</span>
-          <span className="mt-1 block font-display text-[19px] leading-snug">{drShort(d)} works on prevention{personal.healthspan.opensTo.includes("wearables") ? " and welcomes your wearable data" : personal.healthspan.opensTo.includes("biomarkers") ? " and reads bloodwork with you" : ""}.</span>
-          <span className="mt-1 block text-[14px] text-white/85">How healthspan care works →</span>
+        <a href="/healthspan" className="press press-soft mb-7 block rounded-card bg-ink px-5 py-4 text-white">
+          <span className="block text-footnote text-white/75">Healthspan</span>
+          <span className="mt-1 block font-display text-quote">{drShort(d)} works on prevention{personal.healthspan.opensTo.includes("wearables") ? " and welcomes your wearable data" : personal.healthspan.opensTo.includes("biomarkers") ? " and reads bloodwork with you" : ""}.</span>
+          <span className="mt-1 block text-subhead text-white/85">How healthspan care works</span>
         </a>
       ) : null}
       {fold && personal ? (
         <>
           {(personal.philosophyOfCare ?? personal.philosophy) ? (
             <Labelled label={`Meet ${drShort(d)}`}>
-              <Clamp text={`“${personal.philosophyOfCare ?? personal.philosophy}”`} className="font-display text-[20px] leading-[1.35] text-ink" />
+              <Clamp text={`“${personal.philosophyOfCare ?? personal.philosophy}”`} className="font-display text-quote text-ink" />
             </Labelled>
           ) : null}
           <Space h={16} />
@@ -255,7 +255,7 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
             <div className="flex flex-col gap-7 pt-2">
               <Words d={d} skipMeet />
               <Labelled label="Sees">
-                <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
+                <p className="text-body leading-read text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
               </Labelled>
             </div>
           </Disclosure>
@@ -265,7 +265,7 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
           <Words d={d} />
         </div>
       ) : (
-        <p className="text-[16px] leading-[1.5] text-grey">
+        <p className="text-body leading-read text-grey">
           {pr.hasnt} shared how {pr.subject} {pr.practises} yet. What is here comes from the public listing.
         </p>
       )}
@@ -273,7 +273,7 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
         <>
           <Space h={28} />
           <Labelled label="Sees">
-            <p className="text-[17px] leading-[1.5] text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
+            <p className="text-body leading-read text-charcoal">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
           </Labelled>
         </>
       )}
@@ -288,7 +288,7 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
       </div>
       <Space h={20} />
       {source ? (
-        <p className="caption text-[12px] leading-normal text-grey">
+        <p className="caption text-caption1 text-grey">
           {source.text}
           {source.href ? (
             <>

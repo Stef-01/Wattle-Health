@@ -5,7 +5,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Body, Circle, Cta, Gap, Screen } from "@/src/ui/kit";
+import { ChevronLeft, Body, Circle, Cta, Gap, Screen } from "@/src/ui/kit";
 import { getCurrentRequest, getRequest, setDraft, setRequest, type StoredRequest } from "@/src/ui/store";
 import { Dock } from "./Dock";
 import { heardPills, withoutPill } from "./lib";
@@ -45,15 +45,15 @@ export function Heard() {
     <Screen padBottom="pb-[150px]">
       <div className="flex h-11 items-center gap-4">
         <Circle href="/" label="Back">
-          <ArrowLeft size={20} />
+          <ChevronLeft size={22} strokeWidth={2} />
         </Circle>
-        <h1 className="display flex-1 text-[20px] text-charcoal">What we heard</h1>
+        <h1 className="flex-1 text-title3 text-ink">What we heard</h1>
         <Link
           href="/"
           onClick={() => {
             if (req) setDraft(req.sentence);
           }}
-          className="text-[16px] font-semibold text-grey"
+          className="text-body font-semibold text-grey"
         >
           Edit
         </Link>
@@ -65,9 +65,9 @@ export function Heard() {
           <div style={{ height: 36 }} aria-hidden="true" />
           {pills.map((p) => (
             <div key={p.id} className="flex items-center justify-between border-b border-divider py-3.5" style={busy === p.id ? { opacity: 0.5 } : undefined}>
-              <span className="text-[17px] text-ink">{p.label}<span className="text-grey">{p.must ? " · must" : ""}</span></span>
+              <span className="text-body text-ink">{p.label}<span className="text-grey">{p.must ? " · must" : ""}</span></span>
               {p.removable ? (
-                <button type="button" onClick={() => void toggle(p.id)} className="press-dim text-[15px] text-accent">Remove</button>
+                <button type="button" onClick={() => void toggle(p.id)} className="press-dim text-subhead text-accent">Remove</button>
               ) : null}
             </div>
           ))}
@@ -80,7 +80,7 @@ export function Heard() {
           {req.response.careGuidance ? (
             <>
               <Gap h={24} />
-              <Body className="text-[16px]">{req.response.careGuidance}</Body>
+              <Body className="text-body">{req.response.careGuidance}</Body>
             </>
           ) : null}
         </>

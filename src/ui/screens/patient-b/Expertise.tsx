@@ -43,7 +43,7 @@ export function Expertise({ doctor: d, labels }: { doctor: DoctorRecord; labels:
       <Space h={30} />
       <div className="flex gap-6 border-b border-divider">
         {(["Conditions", "Research", "Training"] as Tab[]).map((t) => (
-          <button key={t} type="button" onClick={() => setTab(t)} className={`press-soft press -mb-px border-b-2 pb-3 text-[16px] ${tab === t ? "border-ink text-ink" : "border-transparent text-grey"}`}>{t}</button>
+          <button key={t} type="button" onClick={() => setTab(t)} className={`press-soft press -mb-px border-b-2 pb-3 text-body ${tab === t ? "border-ink text-ink" : "border-transparent text-grey"}`}>{t}</button>
         ))}
       </div>
       <Space h={30} />
@@ -53,37 +53,37 @@ export function Expertise({ doctor: d, labels }: { doctor: DoctorRecord; labels:
           {conditions.length === 0 ? (
             <Body>Not declared.</Body>
           ) : (
-            <p className="text-[17px] leading-[1.5] text-charcoal">{listSentence(conditions)}.</p>
+            <p className="text-body leading-read text-charcoal">{listSentence(conditions)}.</p>
           )}
           <Space h={10} />
-          <p className="text-[12px] text-grey">{badge}</p>
+          <p className="text-caption1 text-grey">{badge}</p>
           <Space h={26} />
           <div className="flex items-center justify-between">
-            <h2 className="display text-[20px] text-charcoal">Research</h2>
+            <h2 className="text-title3 text-ink">Research</h2>
             {pubs.length > 2 ? (
-              <button type="button" onClick={() => setTab("Research")} className="text-[16px] font-semibold text-grey">View all</button>
+              <button type="button" onClick={() => setTab("Research")} className="text-body font-semibold text-grey">View all</button>
             ) : null}
           </div>
           <Space h={8} />
-          {pubs.length === 0 ? <Body className="text-[16px]">No verified publications yet.</Body> : research(pubs.slice(0, 2))}
+          {pubs.length === 0 ? <Body className="text-body">No verified publications yet.</Body> : research(pubs.slice(0, 2))}
         </>
       ) : null}
 
       {tab === "Research" ? (
         <>
-          <h2 className="display text-[20px] text-charcoal">Research</h2>
+          <h2 className="text-title3 text-ink">Research</h2>
           <Space h={8} />
-          {pubs.length === 0 ? <Body className="text-[16px]">No verified publications yet.</Body> : research(pubs)}
-          {pubs.length > 0 ? <p className="pt-3 text-[12px] text-grey">OpenAlex, authorship {pubs[0]!.verification.replace("-", " ")}.</p> : null}
+          {pubs.length === 0 ? <Body className="text-body">No verified publications yet.</Body> : research(pubs)}
+          {pubs.length > 0 ? <p className="pt-3 text-caption1 text-grey">OpenAlex, authorship {pubs[0]!.verification.replace("-", " ")}.</p> : null}
         </>
       ) : null}
 
       {tab === "Training" ? (
         <>
-          <h2 className="display text-[20px] text-charcoal">Training</h2>
+          <h2 className="text-title3 text-ink">Training</h2>
           <Space h={8} />
           {training.length === 0 ? (
-            <Body className="text-[16px]">Not declared.</Body>
+            <Body className="text-body">Not declared.</Body>
           ) : (
             training.map((t) => (
               <div key={t.title}>

@@ -1,10 +1,11 @@
-// Shared primitives for the Figma "Wattle" system (file NEbiukDE3TyWFptwaCBhwV).
-// Every screen is a 430-wide white phone frame; on desktop it sits centred on #1b1b1b.
-// Measurements come from the Rules frame (225:145) and P02/P04 design context.
+// Shared primitives. Apple pass (2026-10-23, docs/apple/PLAN.md): the Figma "Wattle" frame
+// (file NEbiukDE3TyWFptwaCBhwV) rebuilt on iOS 26 system components. Every earlier export keeps its
+// API so screens restyle in place; NavBar, LargeTitle, Group, Cell, GroupHeader, Segmented and Button
+// are the iOS pieces new screens should compose from.
 import Link from "next/link";
 import { asset } from "@/src/ui/base-path";
 import { Children, type CSSProperties, type ReactNode } from "react";
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Clock, Heart, Home, User } from "./icons";
+import { Check, ChevronLeft, ChevronRight, Clock, Heart, Home, User } from "./icons";
 import { tintFor } from "./tint";
 import { Portal } from "./bits";
 
@@ -15,43 +16,67 @@ const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(
 
 /* ------------------------------------------------------------------ frame */
 
-/** The phone frame. `padBottom` leaves room for a fixed CTA and/or the tab bar. */
-export function Screen({ children, className, padBottom = "pb-[120px]" }: { children: ReactNode; className?: string; padBottom?: string }) {
+/** The phone frame. `tone="grouped"` puts the screen on systemGroupedBackground for inset-grouped lists.
+ *  `padBottom` leaves room for a fixed CTA and/or the tab bar. Screens start with a 44 px nav row. */
+export function Screen({ children, className, padBottom = "pb-[120px]", tone = "plain" }: { children: ReactNode; className?: string; padBottom?: string; tone?: "plain" | "grouped" }) {
   return (
-    <main className={cx("frame overflow-x-clip bg-white", className)}>
-      <div className={cx("frame-pad pt-[34px]", padBottom)}>{children}</div>
+    <main className={cx("frame overflow-x-clip", tone === "grouped" ? "bg-grouped" : "bg-white", className)}>
+      <div className={cx("frame-pad pt-2", padBottom)}>{children}</div>
     </main>
   );
 }
 
-/** Round 44 px icon button: light on white, blurred dark over photos. */
+/** A 44 px toolbar circle (iOS 26 glass). `over` = over a photo (dark glass, white glyph). */
 export function Circle({ children, href, onClick, label, over = false, className }: { children: ReactNode; href?: string; onClick?: () => void; label: string; over?: boolean; className?: string }) {
-  const cls = cx(
-    "press inline-flex size-11 shrink-0 items-center justify-center rounded-full",
-    over ? "bg-caption text-white backdrop-blur-[20px]" : "bg-surface text-charcoal",
-    className,
-  );
+  const cls = cx("press chrome inline-flex size-11 shrink-0 items-center justify-center rounded-full", over ? "glass-dark" : "glass text-ink", className);
   if (href) return <Link href={href} aria-label={label} className={cls}>{children}</Link>;
   return <button type="button" aria-label={label} onClick={onClick} className={cls}>{children}</button>;
 }
 
-/** Back circle + Poppins title + optional right text action (P03 "Edit"). */
-export function TopBar({ title, back = "/", right, rightHref, onRight }: { title?: string; back?: string; right?: string; rightHref?: string; onRight?: () => void }) {
+/** iOS navigation bar row: back circle (chevron only, HIG), centred inline title, trailing items. */
+export function NavBar({ back, onBack, title, right }: { back?: string; onBack?: () => void; title?: ReactNode; right?: ReactNode }) {
   return (
-    <div className="flex h-11 items-center gap-4">
-      <Circle href={back} label="Back"><ArrowLeft size={20} /></Circle>
-      {title ? <h1 className="text-[20px] text-charcoal">{title}</h1> : null}
-      <span className="ml-auto">
-        {right && rightHref ? <Link href={rightHref} className="press-dim text-[14px] font-medium text-accent">{right}</Link> : null}
-        {right && !rightHref ? <button type="button" onClick={onRight} className="press-dim text-[14px] font-medium text-accent">{right}</button> : null}
+    <div className="chrome grid h-11 grid-cols-[minmax(44px,1fr)_auto_minmax(44px,1fr)] items-center gap-2">
+      <span className="flex">
+        {back || onBack ? (
+          <Circle href={back} onClick={onBack} label="Back">
+            <ChevronLeft size={22} strokeWidth={2} />
+          </Circle>
+        ) : null}
       </span>
+      <span className="truncate text-center text-headline text-ink">{title}</span>
+      <span className="flex justify-end gap-2">{right}</span>
     </div>
   );
 }
 
-/** Vertical rhythm helper: gaps in the design are explicit (8, 24, 32, 38, 40). */
+/** Back circle + inline title + optional trailing text action ("Edit"). */
+export function TopBar({ title, back = "/", right, rightHref, onRight }: { title?: string; back?: string; right?: string; rightHref?: string; onRight?: () => void }) {
+  const action = right ? (
+    rightHref ? (
+      <Link href={rightHref} className="press-dim inline-flex h-11 items-center px-1 text-body text-accent">{right}</Link>
+    ) : (
+      <button type="button" onClick={onRight} className="press-dim inline-flex h-11 items-center px-1 text-body text-accent">{right}</button>
+    )
+  ) : null;
+  return <NavBar back={back} title={title} right={action} />;
+}
+
+/** The screen title under the nav row: 34/41 bold. */
+export function LargeTitle({ children, sub, trailing }: { children: ReactNode; sub?: ReactNode; trailing?: ReactNode }) {
+  return (
+    <div className="pb-2 pt-[3px]">
+      <div className="flex items-end justify-between gap-3">
+        <h1 className="text-large-title text-ink">{children}</h1>
+        {trailing}
+      </div>
+      {sub ? <p className="mt-1 text-body text-grey">{sub}</p> : null}
+    </div>
+  );
+}
+
+/** Vertical rhythm helper on the 4 px grid. Off-grid Figma gaps (34, 38) snap to it. */
 const SNAP: Record<number, number> = { 34: 32, 38: 40 };
-/** Off-grid Figma gaps (34, 38) snap to the 8 px base. */
 export function Gap({ h }: { h: 8 | 12 | 16 | 24 | 32 | 34 | 38 | 40 | 48 }) {
   return <div style={{ height: SNAP[h] ?? h }} aria-hidden="true" />;
 }
@@ -59,32 +84,28 @@ export function Gap({ h }: { h: 8 | 12 | 16 | 24 | 32 | 34 | 38 | 40 | 48 }) {
 /* ---------------------------------------------------------------- text */
 
 export function Title({ children, sub }: { children: ReactNode; sub?: ReactNode }) {
-  return (
-    <div className="flex flex-col gap-2">
-      <h1 className="text-[28px] leading-[1.2] tracking-[-0.015em] text-charcoal">{children}</h1>
-      {sub ? <p className="font-inter text-[20px] font-medium text-grey">{sub}</p> : null}
-    </div>
-  );
+  return <LargeTitle sub={sub}>{children}</LargeTitle>;
 }
 
+/** A content section heading (App Store, Music): Title 3, semibold. */
 export function SectionTitle({ children, right, rightHref }: { children: ReactNode; right?: string; rightHref?: string }) {
   return (
-    <div className="flex items-center justify-between">
-      <h2 className="text-[20px] text-charcoal">{children}</h2>
-      {right && rightHref ? <Link href={rightHref} className="press-dim text-[14px] font-medium text-accent">{right}</Link> : null}
+    <div className="flex items-baseline justify-between">
+      <h2 className="text-title3 text-ink">{children}</h2>
+      {right && rightHref ? <Link href={rightHref} className="press-dim text-body text-accent">{right}</Link> : null}
     </div>
   );
 }
 
-/** Tab-like heading pair (P04 "Why you'll connect" / "Profile"). */
+/** Tab-like heading pair, kept for older screens. */
 export function HeadingTabs({ items }: { items: { label: string; href?: string; active?: boolean }[] }) {
   return (
-    <div className="flex items-end gap-7 font-inter font-semibold">
+    <div className="flex items-end gap-6">
       {items.map((t) =>
         t.href && !t.active ? (
-          <Link key={t.label} href={t.href} className="text-[16px] text-ink/60">{t.label}</Link>
+          <Link key={t.label} href={t.href} className="text-body text-grey">{t.label}</Link>
         ) : (
-          <span key={t.label} className={t.active ? "text-[22px] text-ink" : "text-[16px] text-ink/60"}>{t.label}</span>
+          <span key={t.label} className={t.active ? "text-title2 text-ink" : "text-body text-grey"}>{t.label}</span>
         ),
       )}
     </div>
@@ -92,21 +113,21 @@ export function HeadingTabs({ items }: { items: { label: string; href?: string; 
 }
 
 export function Body({ children, className }: { children: ReactNode; className?: string }) {
-  return <p className={cx("text-[18px] font-medium leading-[1.5] text-grey", className)}>{children}</p>;
+  return <p className={cx("text-body leading-read text-grey", className)}>{children}</p>;
 }
 
 export function Hint({ children }: { children: ReactNode }) {
-  return <p className="caption text-[12px] leading-normal text-grey">{children}</p>;
+  return <p className="text-footnote text-grey">{children}</p>;
 }
 
 /* --------------------------------------------------------------- pills */
 
-/** Pill 54 r20 (small = 44). `on` = charcoal fill, white text. */
+/** A choice capsule (44 tall). `on` = filled in ink, white text. */
 export function Pill({ children, on = false, small = false, onClick, href }: { children: ReactNode; on?: boolean; small?: boolean; onClick?: () => void; href?: string }) {
   const cls = cx(
-    "press inline-flex shrink-0 items-center justify-center rounded-pill px-[21px] text-[16px] font-medium whitespace-nowrap",
-    small ? "h-11 text-[14px]" : "h-[54px]",
-    on ? "bg-charcoal text-white" : "bg-surface-soft text-grey",
+    "press inline-flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-full",
+    small ? "px-4 text-subhead" : "px-5 text-body",
+    on ? "bg-ink font-semibold text-white" : "bg-surface text-ink",
   );
   if (href) return <Link href={href} className={cls}>{children}</Link>;
   return <button type="button" aria-pressed={on} onClick={onClick} className={cls}>{children}</button>;
@@ -114,7 +135,7 @@ export function Pill({ children, on = false, small = false, onClick, href }: { c
 
 export function Pills({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-2">
       {Children.map(children, (c, i) => (
         <div className="rise" style={{ "--i": i } as CSSProperties}>{c}</div>
       ))}
@@ -124,49 +145,167 @@ export function Pills({ children }: { children: ReactNode }) {
 
 /* -------------------------------------------------------------- fields */
 
-/** Field r20 2px #D2D2D2. */
+/** A filled field (no border): tertiary fill, 12 px corners, the tint ring on focus. */
 export function FieldBox({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cx("field rounded-field border-2 border-line bg-white", className)}>{children}</div>;
+  return <div className={cx("field rounded-field bg-surface", className)}>{children}</div>;
 }
 
 /* -------------------------------------------------------------- rows */
 
-/** Icon box 34 r6 #EDEDED + title/sub + chevron or meta. */
+/** A plain-list row: optional icon well, title 17, subtitle 15 secondary, chevron when it navigates. */
 export function Row({ icon, title, sub, meta, href, onClick, chevron = true }: { icon?: ReactNode; title: ReactNode; sub?: ReactNode; meta?: ReactNode; href?: string; onClick?: () => void; chevron?: boolean }) {
   const inner = (
     <>
-      {icon ? <span className="inline-flex min-h-[34px] min-w-[34px] shrink-0 items-center justify-center rounded-[6px] text-charcoal [&:not(:has(img))]:bg-surface">{icon}</span> : null}
-      <span className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="text-[16px] font-medium text-charcoal">{title}</span>
-        {sub ? <span className="text-[14px] text-grey">{sub}</span> : null}
+      {icon ? <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-[8px] text-ink [&:not(:has(img))]:bg-surface">{icon}</span> : null}
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-body text-ink">{title}</span>
+        {sub ? <span className="text-subhead text-grey">{sub}</span> : null}
       </span>
-      {meta ? <span className="text-[12px] text-grey">{meta}</span> : null}
-      {chevron && (href || onClick) ? <ChevronRight size={20} className="text-grey" /> : null}
+      {meta ? <span className="text-subhead text-grey">{meta}</span> : null}
+      {chevron && (href || onClick) ? <ChevronRight size={16} strokeWidth={2.25} className="shrink-0 text-grey-3" /> : null}
     </>
   );
-  const cls = "press press-soft flex w-full items-center gap-[14px] py-[14px] text-left";
-  if (href) return <Link href={href} className={cls}>{inner}</Link>;
+  const cls = "press-soft flex min-h-[52px] w-full items-center gap-3 py-2.5 text-left";
+  if (href) return <Link href={href} className={cls} onClick={onClick}>{inner}</Link>;
   if (onClick) return <button type="button" onClick={onClick} className={cls}>{inner}</button>;
   return <div className={cls}>{inner}</div>;
 }
 
-export function Divider() {
-  return <div className="h-px w-full bg-divider" />;
+/** A hairline separator. `inset` starts it at the text column of an icon row. */
+export function Divider({ inset = false }: { inset?: boolean }) {
+  return <div aria-hidden="true" className={cx("hairline w-full", inset && "ml-[42px] w-auto")} />;
 }
 
-/** Check row (P07, P09): tick box 24 r6 + text + optional source link. */
+/* ------------------------------------------------------- grouped lists */
+
+/** An inset-grouped section (iOS 26): 26 px continuous-looking corners, white on the grouped page
+ *  (or the grouped grey on a white page), rows separated by hairlines from the text column. */
+export function Group({ children, tone = "cell", className, sep = 16 }: { children: ReactNode; tone?: "cell" | "soft"; className?: string; sep?: number }) {
+  return (
+    <div className={cx("ios-group overflow-hidden rounded-card", tone === "cell" ? "bg-cell" : "bg-surface-soft", className)} style={{ "--sep": `${sep}px` } as CSSProperties}>
+      {children}
+    </div>
+  );
+}
+
+/** Section header above a group: 17 semibold in secondary label (iOS 26 Settings), on the text column. */
+export function GroupHeader({ children, trailing }: { children: ReactNode; trailing?: ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between px-4 pb-[7px] pt-7">
+      <h2 className="text-headline text-grey">{children}</h2>
+      {trailing}
+    </div>
+  );
+}
+
+/** Footnote under a group. */
+export function GroupFooter({ children }: { children: ReactNode }) {
+  return <p className="px-4 pt-2 text-footnote text-grey">{children}</p>;
+}
+
+/** One row of a Group: 52 tall, 16 padding, highlight on touch. `accessory` "chevron" only when it
+ *  navigates (HIG); "check" for the selected option; any node (a Switch) otherwise. */
+export function Cell({ icon, bare = false, title, sub, value, href, onClick, accessory, tint = false, external = false, role, selected, attrs }: {
+  icon?: ReactNode;
+  /** The icon sits without a well (a face or a face stack). */
+  bare?: boolean;
+  title: ReactNode;
+  sub?: ReactNode;
+  value?: ReactNode;
+  href?: string;
+  onClick?: () => void;
+  accessory?: "chevron" | "check" | "none" | ReactNode;
+  tint?: boolean;
+  external?: boolean;
+  role?: "radio";
+  selected?: boolean;
+  attrs?: Record<`data-${string}`, string | number>;
+}) {
+  const acc = accessory ?? (href && !external ? "chevron" : "none");
+  const inner = (
+    <>
+      {icon ? <span className={cx("inline-flex shrink-0 items-center justify-center text-ink", bare ? "min-w-[30px]" : "size-[30px] rounded-[8px] bg-surface")}>{icon}</span> : null}
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5 py-[15px]">
+        <span className={cx("text-body", tint ? "text-accent" : "text-ink")}>{title}</span>
+        {sub ? <span className="text-subhead text-grey">{sub}</span> : null}
+      </span>
+      {value ? <span className="shrink-0 text-body text-grey">{value}</span> : null}
+      {acc === "chevron" ? <ChevronRight size={16} strokeWidth={2.25} className="shrink-0 text-grey-3" /> : null}
+      {acc === "check" ? <Check size={20} strokeWidth={2.25} className={cx("shrink-0 text-accent", !selected && "invisible")} /> : null}
+      {acc !== "chevron" && acc !== "check" && acc !== "none" ? acc : null}
+    </>
+  );
+  const cls = "flex min-h-[52px] w-full items-center gap-3 px-4 text-left";
+  if (href) return <Link href={href} className={cx("cell", cls)} onClick={onClick} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>{inner}</Link>;
+  if (onClick) return <button type="button" onClick={onClick} className={cx("cell", cls)} role={role} aria-checked={role ? Boolean(selected) : undefined} {...attrs}>{inner}</button>;
+  return <div className={cls}>{inner}</div>;
+}
+
+/** iOS segmented control: a filled track with a raised white thumb on the selected segment. */
+export function Segmented<T extends string>({ items, value, onChange, label }: { items: { value: T; label: ReactNode }[]; value: T; onChange: (v: T) => void; label: string }) {
+  return (
+    <div role="radiogroup" aria-label={label} className="chrome grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+      {items.map((it) => {
+        const on = it.value === value;
+        return (
+          <button key={it.value} type="button" role="radio" aria-checked={on} onClick={() => onChange(it.value)} className={cx("truncate rounded-full px-2 text-subhead transition-[background-color,box-shadow] duration-200", on ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink")}>
+            {it.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Capsule buttons (iOS 26). `filled` is the one prominent action per view; `gray` is bordered;
+ *  `plain` is tint text. Large 50, medium 44, small 34 (with a 44 hit area kept by its row). */
+export function Button({ children, href, onClick, kind = "filled", size = "large", type = "button", disabled, full = false, icon, className, external = false }: {
+  children: ReactNode;
+  href?: string;
+  onClick?: () => void;
+  kind?: "filled" | "gray" | "plain";
+  size?: "large" | "medium" | "small";
+  type?: "button" | "submit";
+  disabled?: boolean;
+  full?: boolean;
+  icon?: ReactNode;
+  className?: string;
+  external?: boolean;
+}) {
+  const cls = cx(
+    "press chrome inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full disabled:opacity-[.32] aria-disabled:opacity-[.32]",
+    size === "large" && "h-[50px] px-6 text-headline",
+    size === "medium" && "h-11 px-5 text-headline",
+    size === "small" && "h-[34px] px-3.5 text-subhead font-semibold",
+    kind === "filled" && "bg-ink text-white",
+    kind === "gray" && "bg-surface text-ink",
+    kind === "plain" && "px-1 text-accent",
+    full && "w-full",
+    className,
+  );
+  const inner = (
+    <>
+      {icon}
+      {children}
+    </>
+  );
+  if (href) return <Link href={href} onClick={onClick} className={cls} aria-disabled={disabled} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>{inner}</Link>;
+  return <button type={type} onClick={onClick} disabled={disabled} className={cls}>{inner}</button>;
+}
+
+/** Check row: tick box + text + optional source link. */
 export function CheckRow({ title, sub, href, checked = true }: { title: ReactNode; sub?: ReactNode; href?: string; checked?: boolean }) {
   return (
     <div className="flex items-start gap-3 py-3">
-      <span className={cx("mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-[6px]", checked ? "bg-surface text-charcoal" : "border border-line text-transparent")}>
+      <span className={cx("mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-[6px]", checked ? "bg-surface text-ink" : "border border-line text-transparent")}>
         <Check size={14} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-[14px] font-medium text-charcoal">{title}</span>
-        {sub ? <span className="text-[12px] text-grey">{sub}</span> : null}
+        <span className="text-subhead font-semibold text-ink">{title}</span>
+        {sub ? <span className="text-footnote text-grey">{sub}</span> : null}
       </span>
       {href ? (
-        <a href={href} target="_blank" rel="noreferrer" aria-label="Source" className="press text-accent">
+        <a href={href} target="_blank" rel="noreferrer" aria-label="Source" className="press-dim inline-flex size-11 items-center justify-center text-accent">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 4h6v6" /><path d="M20 4 10 14" /><path d="M18 13v7H4V6h7" /></svg>
         </a>
       ) : null}
@@ -174,30 +313,30 @@ export function CheckRow({ title, sub, href, checked = true }: { title: ReactNod
   );
 }
 
-/** Stat: icon box + label (P04 "14 yrs", "Telehealth", "Referral"). */
+/** Stat: icon well + label. */
 export function Stat({ icon, children }: { icon: ReactNode; children: ReactNode }) {
   return (
     <span className="inline-flex items-center gap-1.5">
-      <span className="inline-flex size-[34px] items-center justify-center rounded-[6px] bg-surface text-charcoal">{icon}</span>
-      <span className="text-[18px] font-medium text-grey">{children}</span>
+      <span className="inline-flex size-[30px] items-center justify-center rounded-[8px] bg-surface text-ink">{icon}</span>
+      <span className="text-body text-grey">{children}</span>
     </span>
   );
 }
 
-/** On/Off toggle pill (C07). */
+/** iOS switch: 51 × 31, green when on, a white knob that slides. */
 export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("press inline-flex h-8 w-[38px] items-center justify-center rounded-[10px] text-[12px] font-medium", on ? "bg-accent text-white" : "bg-surface text-grey")}>
-      {on ? "On" : "Off"}
+    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("chrome relative inline-flex h-[31px] w-[51px] shrink-0 items-center rounded-full transition-colors duration-200", on ? "bg-switch" : "bg-[rgba(120,120,128,0.16)]")}>
+      <span aria-hidden="true" className="absolute left-[2px] size-[27px] rounded-full bg-white shadow-[0_3px_8px_rgba(0,0,0,0.15),0_3px_1px_rgba(0,0,0,0.06)] transition-transform duration-200" style={{ transform: on ? "translateX(20px)" : "none", transitionTimingFunction: "var(--ease-out)" }} />
     </button>
   );
 }
 
-/** Progress bar (C05–C07): charcoal fill over #EDEDED. */
+/** Progress: a 4 px capsule, ink fill over the tertiary fill. */
 export function Progress({ step, of }: { step: number; of: number }) {
   return (
-    <div className="h-0.5 w-full bg-surface" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={of}>
-      <div className="bar-fill h-full w-full bg-charcoal" style={{ transform: `scaleX(${step / of})` }} />
+    <div className="h-1 w-full overflow-hidden rounded-full bg-surface" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={of}>
+      <div className="bar-fill h-full w-full rounded-full bg-ink" style={{ transform: `scaleX(${step / of})` }} />
     </div>
   );
 }
@@ -214,33 +353,28 @@ export function initialsOf(name: string): string {
     .join("");
 }
 
-/** Photo card r25.5 with blurred caption. No photo = #D9D9D9 with initials. */
+/** Photo card with a dimmed caption. No photo = the doctor's tint with initials. */
 export function PhotoCard({ name, place, fee, photo, height = 460, caption = true, topLeft, topRight, href, children }: { name: string; place?: string; fee?: string; photo?: string | null; height?: number; caption?: boolean; topLeft?: ReactNode; topRight?: ReactNode; href?: string; children?: ReactNode }) {
   const body = (
-    <div className="relative w-full overflow-hidden rounded-[30px] shadow-photo" style={{ height, background: photo ? "#e9e9e9" : tintFor(name)[0] }}>
+    <div className="relative w-full overflow-hidden rounded-card" style={{ height, background: photo ? "#ececee" : tintFor(name)[0] }}>
       {photo ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={photo} alt="" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover object-top" />
       ) : (
         <span className="absolute inset-0 flex items-center justify-center font-display text-[64px]" style={{ color: tintFor(name)[1] }}>{initialsOf(name)}</span>
       )}
-      {topLeft ? <div className="absolute left-[21px] top-[18px]">{topLeft}</div> : null}
-      {topRight ? <div className="absolute right-[21px] top-[18px]">{topRight}</div> : null}
+      {topLeft ? <div className="absolute left-4 top-4">{topLeft}</div> : null}
+      {topRight ? <div className="absolute right-4 top-4">{topRight}</div> : null}
       {caption ? (
-        <div className="absolute inset-x-[21px] bottom-[21px] flex items-center gap-2.5 rounded-[15px] bg-caption px-4 py-[18px] text-white backdrop-blur-[20px] shadow-[0_5px_4.5px_rgba(0,0,0,0.1)]">
-          <span className="flex min-w-0 flex-1 flex-col gap-2.5">
-            <span className="truncate font-inter text-[24px] font-semibold">{name}</span>
-            {place ? (
-              <span className="caption inline-flex items-center gap-1.5 text-[18px] font-medium text-caption-text">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10Z" /><circle cx="12" cy="11" r="2.2" /></svg>
-                <span className="truncate">{place}</span>
-              </span>
-            ) : null}
+        <div className="glass-dark absolute inset-x-4 bottom-4 flex items-center gap-2.5 rounded-[14px] px-4 py-3">
+          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="truncate text-headline">{name}</span>
+            {place ? <span className="truncate text-subhead text-caption-text">{place}</span> : null}
           </span>
           {fee ? (
-            <span className="flex flex-col items-end gap-1.5">
-              <span className="caption text-[16px] font-medium text-caption-text">Fee</span>
-              <span className="text-[24px] font-medium">{fee}</span>
+            <span className="flex flex-col items-end">
+              <span className="text-footnote text-caption-text">Fee</span>
+              <span className="text-headline">{fee}</span>
             </span>
           ) : null}
         </div>
@@ -248,34 +382,26 @@ export function PhotoCard({ name, place, fee, photo, height = 460, caption = tru
       {children}
     </div>
   );
-  return href ? <Link href={href} className="press press-soft block">{body}</Link> : body;
+  return href ? <Link href={href} className="press-soft block">{body}</Link> : body;
 }
 
 /* ----------------------------------------------------------------- cta */
 
-/** CTA 373x66 r20 #1B1B1B, fixed to the frame bottom. `arrow` shows the trailing arrow. */
-export function Cta({ children, href, onClick, type = "button", arrow = true, icon, disabled, fixed = true, secondary, note }: { children: ReactNode; href?: string; onClick?: () => void; type?: "button" | "submit"; arrow?: boolean; icon?: ReactNode; disabled?: boolean; fixed?: boolean; secondary?: ReactNode; note?: ReactNode }) {
-  const cls = cx(
-    "press flex h-[66px] w-full items-center justify-center gap-5 rounded-cta text-[20px] font-medium",
-    disabled ? "bg-surface text-grey" : "bg-ink text-white shadow-cta",
-  );
-  const inner = (
-    <>
+/** The primary action: a 50 px capsule in ink, docked to the frame bottom unless `fixed={false}`.
+ *  No trailing arrow by default (Apple's buttons say what they do and stop). */
+export function Cta({ children, href, onClick, type = "button", arrow = false, icon, disabled, fixed = true, secondary, note }: { children: ReactNode; href?: string; onClick?: () => void; type?: "button" | "submit"; arrow?: boolean; icon?: ReactNode; disabled?: boolean; fixed?: boolean; secondary?: ReactNode; note?: ReactNode }) {
+  const button = (
+    <Button href={href} onClick={onClick} type={type} disabled={disabled} full icon={undefined}>
       {children}
-      {icon ?? (arrow ? <ArrowRight size={22} /> : null)}
-    </>
-  );
-  const button = href ? (
-    <Link href={href} className={cls} aria-disabled={disabled}>{inner}</Link>
-  ) : (
-    <button type={type} onClick={onClick} disabled={disabled} className={cls}>{inner}</button>
+      {icon ?? (arrow ? <ChevronRight size={18} strokeWidth={2.25} /> : null)}
+    </Button>
   );
   if (!fixed) return button;
   return (
-    <div className="dock frame-fixed pointer-events-none bottom-0 z-20 bg-white">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 -top-12 h-12 bg-gradient-to-b from-white/0 to-white" />
-      {note ? <p className="frame-pad caption pointer-events-auto pb-2 text-center text-[12px] text-grey">{note}</p> : null}
-      <div className="frame-pad pointer-events-auto flex items-center gap-3 pb-[26px] pt-2">
+    <div className="dock frame-fixed pointer-events-none bottom-0 z-20">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -top-6 bg-gradient-to-b from-white/0 via-white/90 via-30% to-white" />
+      {note ? <p className="frame-pad pointer-events-auto relative pb-2 text-center text-footnote text-grey">{note}</p> : null}
+      <div className="frame-pad pointer-events-auto relative flex items-center gap-3 pt-2" style={{ paddingBottom: "var(--dock-pb)" }}>
         {secondary}
         {button}
       </div>
@@ -292,24 +418,27 @@ const TABS = [
   { href: "/me", label: "Profile", Icon: User },
 ] as const;
 
-/** Bottom tab bar: four 23 px icons, red 8 px dot under the active one. */
+/** iOS 26 tab bar: a floating glass capsule, 62 tall, 21 from the sides and bottom; one-word labels;
+ *  the selected tab sits on a filled lens. */
 export function TabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
   return (
-    <nav aria-label="Primary" className="frame-fixed pointer-events-none bottom-0 z-30">
-      <div className="material pointer-events-auto flex items-start justify-around px-4 pt-2" style={{ height: "var(--nav-h, 88px)" }}>
-        {TABS.map(({ href, label, Icon }) => (
-          <Link key={href} href={href} aria-current={active === href ? "page" : undefined} className={cx("press flex min-w-16 flex-col items-center gap-1 py-1", active === href ? "text-ink" : "text-[#8a8a8a]")}>
-            <Icon size={23} />
-            <span className={cx("text-[11px] leading-none", active === href ? "font-semibold" : "font-medium")}>{label}</span>
-          </Link>
-        ))}
+    <nav aria-label="Primary" className="chrome frame-fixed pointer-events-none bottom-0 z-30 px-[21px]" style={{ paddingBottom: "var(--tab-gap)" }}>
+      <div className="glass pointer-events-auto grid h-[62px] grid-cols-4 items-stretch rounded-full p-1">
+        {TABS.map(({ href, label, Icon }) => {
+          const on = active === href;
+          return (
+            <Link key={href} href={href} aria-current={on ? "page" : undefined} className={cx("press flex flex-col items-center justify-center gap-0.5 rounded-full", on ? "bg-surface text-ink" : "text-grey")}>
+              <Icon size={24} strokeWidth={on ? 2.1 : 1.75} fill={on && label !== "Recent" ? "currentColor" : "none"} />
+              <span className="text-[10px] font-semibold leading-[12px]">{label}</span>
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
 }
 
 /* ---------------------------------------------------- patient-b additions (P06–P11) */
-// New exports only. Measured from P06 226:58, P07 226:132, P09 226:257 and P10 226:308.
 
 /** A downloaded Figma icon from public/figma/b, at its exported size. */
 export function FigmaIcon({ name, size, className }: { name: string; size: number; className?: string }) {
@@ -317,17 +446,17 @@ export function FigmaIcon({ name, size, className }: { name: string; size: numbe
   return <img src={asset(`/figma/b/${name}.svg`)} alt="" width={size} height={size} aria-hidden="true" className={cx("block shrink-0", className)} />;
 }
 
-/** Row with a 34 r6 icon box, 16/14 text and an 18 px external-link to the source (P07 Research, P09 reasons). */
+/** Row with an icon well, 17/15 text and a link to the source (P07 Research, P09 reasons). */
 export function SourceRow({ icon, title, sub, href }: { icon: ReactNode; title: ReactNode; sub?: ReactNode; href?: string | null }) {
   return (
-    <div className="flex w-full items-center gap-[14px] py-[14px]">
-      <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-[6px] bg-surface text-charcoal">{icon}</span>
-      <span className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="text-[16px] font-medium leading-normal text-charcoal">{title}</span>
-        {sub ? <span className="text-[14px] leading-normal text-grey">{sub}</span> : null}
+    <div className="flex min-h-[52px] w-full items-center gap-3 py-2.5">
+      <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-[8px] bg-surface text-ink">{icon}</span>
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-body text-ink">{title}</span>
+        {sub ? <span className="text-subhead text-grey">{sub}</span> : null}
       </span>
       {href ? (
-        <a href={href} target="_blank" rel="noreferrer" aria-label="Source" className="press shrink-0 text-accent">
+        <a href={href} target="_blank" rel="noreferrer" aria-label="Source" className="press-dim inline-flex size-11 shrink-0 items-center justify-center text-accent">
           <FigmaIcon name="external" size={18} />
         </a>
       ) : null}
@@ -335,21 +464,20 @@ export function SourceRow({ icon, title, sub, href }: { icon: ReactNode; title: 
   );
 }
 
-/** Check item in a wrapping grid (P07 Conditions): 34 r6 box with tick + 16 px label. */
+/** Check item in a wrapping grid (P07 Conditions). */
 export function CheckItem({ children, sub }: { children: ReactNode; sub?: ReactNode }) {
   return (
     <span className="inline-flex items-center gap-2">
-      <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-[6px] bg-surface"><FigmaIcon name="check" size={17} /></span>
+      <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-[8px] bg-surface"><FigmaIcon name="check" size={16} /></span>
       <span className="flex flex-col">
-        <span className="text-[16px] font-medium leading-normal text-grey">{children}</span>
-        {sub ? <span className="text-[12px] leading-normal text-grey">{sub}</span> : null}
+        <span className="text-body text-ink">{children}</span>
+        {sub ? <span className="text-footnote text-grey">{sub}</span> : null}
       </span>
     </span>
   );
 }
 
-/** The 70 px white fade above a fixed CTA (P06/P07 228:15). */
+/** The white fade above a fixed CTA. */
 export function Fade() {
   return <div aria-hidden="true" className="frame-fixed pointer-events-none bottom-[118px] z-10 h-[70px] bg-gradient-to-b from-white/0 to-white" />;
 }
-

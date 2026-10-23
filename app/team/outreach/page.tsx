@@ -10,22 +10,22 @@ export default async function OutreachPage() {
   const published = q.filter((r) => r.status === "published");
   return (
     <Screen>
-      <h1 className="display mt-6 text-[30px] text-ink">Outreach queue</h1>
-      <p className="mt-2 text-[15px] text-grey">{q.length} doctors with gaps. {published.length} already in their own words need one short call. Thin profiles rank lower until filled. JSON: /api/outreach</p>
+      <h1 className="display mt-6 text-title1 text-ink">Outreach queue</h1>
+      <p className="mt-2 text-subhead text-grey">{q.length} doctors with gaps. {published.length} already in their own words need one short call. Thin profiles rank lower until filled. JSON: /api/outreach</p>
       <div className="mt-6 flex flex-col gap-3">
         {q.slice(0, 120).map((r) => (
-          <details key={r.id} className="rounded-[18px] border border-hairline px-4 py-3">
+          <details key={r.id} className="rounded-card border border-hairline px-4 py-3">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
               <span className="min-w-0">
-                <span className="block truncate text-[16px] text-ink">{r.name}</span>
-                <span className="block text-[13px] text-grey">{r.specialty} · {r.suburb ?? "—"} · {Math.round(r.score * 100)}% · {r.status}</span>
+                <span className="block truncate text-body text-ink">{r.name}</span>
+                <span className="block text-footnote text-grey">{r.specialty} · {r.suburb ?? "—"} · {Math.round(r.score * 100)}% · {r.status}</span>
               </span>
-              <span className="shrink-0 text-[13px] text-grey">{r.missing.length} gaps</span>
+              <span className="shrink-0 text-footnote text-grey">{r.missing.length} gaps</span>
             </summary>
-            <ol className="mt-3 list-decimal pl-5 text-[14px] leading-[1.5] text-charcoal">
+            <ol className="mt-3 list-decimal pl-5 text-subhead leading-read text-charcoal">
               {r.questions.map((x) => <li key={x}>{x}</li>)}
             </ol>
-            <p className="mt-2 flex gap-4 text-[14px]">
+            <p className="mt-2 flex gap-4 text-subhead">
               {r.phone ? <a className="text-accent" href={`tel:${r.phone.replace(/[^\d+]/g, "")}`}>{r.phone}</a> : null}
               {r.website ? <a className="text-accent" href={r.website} target="_blank" rel="noreferrer">Website</a> : null}
             </p>

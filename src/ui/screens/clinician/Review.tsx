@@ -58,10 +58,10 @@ export function ReviewScreen() {
           </button>
         }
       >
-        <div className="absolute left-5 top-[145px] flex h-[75px] w-[224px] items-center rounded-[15px] bg-caption px-4 py-3 text-white backdrop-blur-[20px] shadow-[0_5px_4.5px_rgba(0,0,0,0.1)]">
+        <div className="absolute left-5 top-[145px] flex h-[75px] w-[224px] items-center rounded-card bg-caption px-4 py-3 text-white backdrop-blur-[20px] shadow-[0_5px_4.5px_rgba(0,0,0,0.1)]">
           <span className="flex min-w-0 flex-col gap-2">
-            <span className="truncate text-[16px] font-medium">{name}</span>
-            <span className="inline-flex items-center gap-1.5 text-[14px] text-caption-text">
+            <span className="truncate text-body">{name}</span>
+            <span className="inline-flex items-center gap-1.5 text-subhead text-caption-text">
               <Asset name="map-pin-16" size={16} />
               <span className="truncate">{state.practice || "Practice not set"}</span>
             </span>
@@ -72,14 +72,14 @@ export function ReviewScreen() {
       <div className="h-[18px]" />
       <Row icon={<Asset name="check" size={17} className={verified ? undefined : "opacity-30"} />} title={verified ? "Registration verified" : "Registration check pending"} sub={verified ? undefined : "We check the register before publishing."} />
       <Divider />
-      <Row icon={<Asset name="check" size={17} />} title="Practice details" meta={<span className="text-[14px]">Edit</span>} href="/join/practice" chevron={false} />
+      <Row icon={<Asset name="check" size={17} />} title="Practice details" meta={<span className="text-subhead">Edit</span>} href="/join/practice" chevron={false} />
       <Divider />
-      <Row icon={<Asset name="check" size={17} className={interview ? undefined : "opacity-30"} />} title="How you practise" sub={interview ? "From your interview" : "Not answered yet"} meta={<span className="text-[14px]">Edit</span>} href="/join/interview/1" chevron={false} />
+      <Row icon={<Asset name="check" size={17} className={interview ? undefined : "opacity-30"} />} title="How you practise" sub={interview ? "From your interview" : "Not answered yet"} meta={<span className="text-subhead">Edit</span>} href="/join/interview/1" chevron={false} />
       <Divider />
-      <Row icon={<Asset name="check" size={17} className={outside ? undefined : "opacity-30"} />} title="Outside medicine" sub={`${outside} shared`} meta={<span className="text-[14px]">Edit</span>} href="/join/share" chevron={false} />
+      <Row icon={<Asset name="check" size={17} className={outside ? undefined : "opacity-30"} />} title="Outside medicine" sub={`${outside} shared`} meta={<span className="text-subhead">Edit</span>} href="/join/share" chevron={false} />
       <Divider />
-      {error ? <p role="alert" className="mt-3 text-[14px] text-danger">{error}</p> : null}
-      <Cta onClick={publish} disabled={pending} icon={<Asset name="arrow-right" size={22} />}>
+      {error ? <p role="alert" className="mt-3 text-subhead text-danger">{error}</p> : null}
+      <Cta onClick={publish} disabled={pending}>
         Publish
       </Cta>
     </Screen>
@@ -101,7 +101,7 @@ function Submitted({ backend }: { backend?: "supabase" | "memory" }) {
       <Row icon={<Asset name="shield" size={17} />} title="Register check next" sub="AHPRA public register" />
       <Divider />
       <Note className="mt-[22px]">You can edit anything until it goes live.</Note>
-      <Cta href="/" icon={<Asset name="arrow-right" size={22} />}>
+      <Cta href="/">
         Done
       </Cta>
     </Screen>

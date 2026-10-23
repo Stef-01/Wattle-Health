@@ -17,14 +17,14 @@ export function Searching({ sentence }: { sentence: string }) {
   return (
     <div className="frame-fixed inset-y-0 z-40 flex flex-col items-center justify-center bg-white px-8 text-center" role="status" aria-live="polite">
       <Orb size={96} />
-      <p className="mt-12 font-display text-[22px] leading-[1.35] text-ink">
+      <p className="mt-12 font-display text-title2 text-ink">
         {words.map((w, i) => (
           <span key={`${w}-${i}`} className="word-in" style={{ "--i": i } as React.CSSProperties}>
             {w}&nbsp;
           </span>
         ))}
       </p>
-      <p key={step} className="rise mt-6 text-[15px] text-grey">{STEPS[step]}…</p>
+      <p key={step} className="rise mt-6 text-subhead text-grey">{STEPS[step]}…</p>
     </div>
   );
 }
