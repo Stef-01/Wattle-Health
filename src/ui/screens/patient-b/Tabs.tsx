@@ -36,7 +36,7 @@ export function Recent() {
   const shown = only ? groups.filter((g) => g.condition === only) : groups;
   return (
     <Screen tone="grouped" padBottom="pb-[110px]">
-      <NavBar />
+      <NavBar title="Recent" collapse />
       <LargeTitle>Recent</LargeTitle>
       {rows && rows.length === 0 ? <Body className="mt-2">No searches yet.</Body> : null}
       {groups.length > 1 ? <FilterChips label="Filter by condition" items={[null, ...groups.map((g) => g.condition)].map((c) => ({ key: c, label: c ?? "All", n: c === null ? rows?.length ?? 0 : groups.find((g) => g.condition === c)!.rows.length }))} value={only} onChange={setOnly} /> : null}
@@ -114,7 +114,7 @@ export function Saved() {
   const shown = only ? groups.filter((g) => g.category === only) : groups;
   return (
     <Screen tone="grouped" padBottom="pb-[110px]">
-      <NavBar onBack={only ? () => setOnly(null) : undefined} />
+      <NavBar onBack={only ? () => setOnly(null) : undefined} title={only ?? "Saved"} collapse />
       <LargeTitle>{only ?? "Saved"}</LargeTitle>
       {ids && ids.length === 0 ? <Body className="mt-2">Nothing saved yet. Tap the heart on a pick to keep them here and watch for openings.</Body> : null}
       {groups.length > 1 ? <FilterChips label="Filter saved doctors" items={[null, ...groups.map((g) => g.category)].map((c) => ({ key: c, label: c ?? "All", n: c === null ? doctors.length : groups.find((g) => g.category === c)!.doctors.length }))} value={only} onChange={setOnly} /> : null}
@@ -194,7 +194,7 @@ export function Me() {
   useEffect(() => setNameState(getName() ?? ""), []);
   return (
     <Screen tone="grouped" padBottom="pb-[110px]">
-      <NavBar />
+      <NavBar title="Profile" collapse />
       <LargeTitle>Profile</LargeTitle>
       <GroupHeader>Your name</GroupHeader>
       <Group>

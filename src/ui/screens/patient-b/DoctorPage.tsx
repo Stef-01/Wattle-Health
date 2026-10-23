@@ -14,9 +14,8 @@ export function DoctorPage({ card, labels }: { card: Card; labels: Record<string
   useEffect(() => setSaved(getSavedIds().includes(card.doctor.id)), [card.doctor.id]);
   return (
     <Screen padBottom="pb-[120px]" className="frame-wide">
-      <div className="mb-3">
-        <NavBar onBack={() => (window.history.length > 1 ? router.back() : router.push("/"))} />
-      </div>
+      <NavBar onBack={() => (window.history.length > 1 ? router.back() : router.push("/"))} />
+      <div className="h-3" aria-hidden="true" />
       <MatchPanel variant="profile" card={card} index={0} total={1} labels={labels} saved={saved} onSave={() => setSaved(toggleSavedId(card.doctor.id).includes(card.doctor.id))} />
     </Screen>
   );

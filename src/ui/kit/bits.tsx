@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronRight } from "./icons";
+import { lockScroll, unlockScroll } from "./scroll-lock";
 import { initialsFor, tintFor } from "./tint";
 export { initialsFor, tintFor } from "./tint";
 
@@ -156,18 +157,48 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
   // Stay mounted for the exit so the sheet leaves the way it came (down), instead of vanishing.
   const [shown, setShown] = useState(open);
   const [last, setLast] = useState<ReactNode>(children);
+  const panel = useRef<HTMLDivElement>(null);
+  const close = useRef(onClose);
+  close.current = onClose;
   useEffect(() => {
     if (open) { setShown(true); return; }
     const t = window.setTimeout(() => setShown(false), 240);
     return () => window.clearTimeout(t);
   }, [open]);
   useEffect(() => { if (open) setLast(children); }, [open, children]);
+  // Apple's modal behaviour (REA, docs/apple/REA.md): the page behind stays still, Escape and the browser's
+  // back close the sheet, focus moves into it and returns to the control that opened it; Tab stays inside.
+  useEffect(() => {
+    if (!open || !shown) return;
+    const el = panel.current;
+    const opener = document.activeElement as HTMLElement | null;
+    lockScroll(el);
+    el?.focus({ preventScroll: true });
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { e.preventDefault(); close.current(); return; }
+      if (e.key !== "Tab" || !el) return;
+      const items = [...el.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+      if (items.length === 0) return;
+      const first = items[0]!, lastItem = items[items.length - 1]!;
+      if (e.shiftKey && (document.activeElement === first || document.activeElement === el)) { e.preventDefault(); lastItem.focus(); }
+      else if (!e.shiftKey && document.activeElement === lastItem) { e.preventDefault(); first.focus(); }
+    };
+    const onPop = () => close.current();
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("popstate", onPop);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("popstate", onPop);
+      unlockScroll(el);
+      opener?.focus?.({ preventScroll: true });
+    };
+  }, [open, shown]);
   if (!open && !shown) return null;
   return (
     <Portal>
     <div className={cx("frame-fixed inset-y-0 z-50", !open && "sheet-closing pointer-events-none")} role="dialog" aria-modal="true" aria-label={title}>
-      <button type="button" aria-label="Close" onClick={onClose} className="sheet-scrim absolute inset-0 bg-black/30" />
-      <div className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto overscroll-contain rounded-t-[32px] bg-white pt-[5px]" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }}>
+      <button type="button" aria-label="Close" tabIndex={-1} onClick={onClose} className="sheet-scrim absolute inset-0 bg-black/30" />
+      <div ref={panel} tabIndex={-1} className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto overscroll-contain rounded-t-[32px] bg-white pt-[5px] outline-none" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }}>
         <span aria-hidden="true" className="mx-auto h-[5px] w-9 shrink-0 rounded-full bg-[#c7c7cc]" />
         <div className="chrome grid grid-cols-[44px_1fr_44px] items-center gap-2">
           <span />

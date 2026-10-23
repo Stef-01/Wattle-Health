@@ -76,7 +76,7 @@ export function ContextSettings() {
 
   return (
     <Screen padBottom="pb-[140px]">
-      <NavBar back="/me" />
+      <NavBar back="/me" title="Health context" collapse />
       <LargeTitle sub="Tell us about your health so your picks fit. It stays on this phone.">Your health context</LargeTitle>
 
       <section className="mt-8 rounded-card px-5 py-5" style={{ background: "var(--color-surface-soft)" }}>

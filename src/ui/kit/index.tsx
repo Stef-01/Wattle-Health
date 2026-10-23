@@ -11,6 +11,8 @@ import { Portal } from "./bits";
 
 export * from "./icons";
 export * from "./bits";
+export * from "./nav";
+import { NavBar } from "./nav";
 
 const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(Boolean).join(" ");
 
@@ -20,7 +22,7 @@ const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(
  *  `padBottom` leaves room for a fixed CTA and/or the tab bar. Screens start with a 44 px nav row. */
 export function Screen({ children, className, padBottom = "pb-[120px]", tone = "plain" }: { children: ReactNode; className?: string; padBottom?: string; tone?: "plain" | "grouped" }) {
   return (
-    <main className={cx("frame overflow-x-clip", tone === "grouped" ? "bg-grouped" : "bg-white", className)}>
+    <main className={cx("frame overflow-x-clip", tone === "grouped" ? "bg-grouped" : "bg-white", className)} style={{ "--page-bg": tone === "grouped" ? "#f2f2f7" : "#ffffff" } as CSSProperties}>
       <div className={cx("frame-pad pt-2", padBottom)}>{children}</div>
     </main>
   );
@@ -31,23 +33,6 @@ export function Circle({ children, href, onClick, label, over = false, className
   const cls = cx("press chrome inline-flex size-11 shrink-0 items-center justify-center rounded-full", over ? "glass-dark" : "glass text-ink", className);
   if (href) return <Link href={href} aria-label={label} className={cls}>{children}</Link>;
   return <button type="button" aria-label={label} onClick={onClick} className={cls}>{children}</button>;
-}
-
-/** iOS navigation bar row: back circle (chevron only, HIG), centred inline title, trailing items. */
-export function NavBar({ back, onBack, title, right }: { back?: string; onBack?: () => void; title?: ReactNode; right?: ReactNode }) {
-  return (
-    <div className="chrome grid h-11 grid-cols-[minmax(44px,1fr)_auto_minmax(44px,1fr)] items-center gap-2">
-      <span className="flex">
-        {back || onBack ? (
-          <Circle href={back} onClick={onBack} label="Back">
-            <ChevronLeft size={22} strokeWidth={2} />
-          </Circle>
-        ) : null}
-      </span>
-      <span className="truncate text-center text-headline text-ink">{title}</span>
-      <span className="flex justify-end gap-2">{right}</span>
-    </div>
-  );
 }
 
 /** Back circle + inline title + optional trailing text action ("Edit"). */

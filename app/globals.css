@@ -346,6 +346,32 @@ details > summary::-webkit-details-marker {
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
+/* iOS 26 scroll edge (and Apple's sticky-nav rule, docs/apple/REA.md): a pinned bar has no background at
+   the top of the page; once content passes under it, a soft blur fades in, dissolving downward instead of
+   ending in a hard line. --page-bg is the screen's own background (white or grouped). */
+.scroll-edge {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--page-bg, #fff) 88%, transparent) 55%, color-mix(in srgb, var(--page-bg, #fff) 0%, transparent));
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  -webkit-mask-image: linear-gradient(#000 60%, transparent);
+  mask-image: linear-gradient(#000 60%, transparent);
+  opacity: 0;
+}
+.scroll-edge[data-on="true"] {
+  opacity: 1;
+}
+.scroll-edge[data-ready="true"] {
+  transition: opacity 200ms ease;
+}
+@media (prefers-reduced-transparency: reduce) {
+  .scroll-edge {
+    background: var(--page-bg, #fff);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
 /* Floating glass controls (tab bar, toolbar circles): same recipe, a hairline edge and a soft shadow.
    Glass is for controls and navigation only, never content (HIG Materials). */
 .glass {

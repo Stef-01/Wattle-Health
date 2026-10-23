@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Card, SearchResponse } from "@/src/data/search-types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Body, Button, Cell, Cta, Face, Gap, Group, Screen, Sliders } from "@/src/ui/kit";
+import { Body, Button, Cell, Cta, Face, Gap, Group, Screen, Sliders, useSticking } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
@@ -49,6 +49,7 @@ export function Matches() {
   const [reading, setReading] = useState(0);
   const [refining, setRefining] = useState(false);
   const sentinel = useRef<HTMLDivElement>(null);
+  const edge = useSticking<HTMLDivElement>();
 
   useEffect(() => {
     const found = getCurrentRequest();
@@ -123,10 +124,12 @@ export function Matches() {
 
   return (
     <Screen padBottom="pb-[120px]" className="frame-wide">
+      <div ref={edge.sentinel} aria-hidden="true" className="-mt-2 h-px" />
       {cards.length > 1 ? (
-        <div className="material bleed sticky top-0 z-10 -mt-2 mb-2 flex h-11 items-center justify-center gap-1.5" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
+        <div className="bleed sticky top-0 z-10 -mt-px mb-2 flex h-11 items-center justify-center gap-1.5" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
+          <span aria-hidden="true" className="scroll-edge pointer-events-none absolute inset-x-0 -top-2 h-[64px]" data-on={edge.sticking} data-ready={edge.ready} />
           {cards.map((c, i) => (
-            <span key={c.doctor.id} className="h-[7px] rounded-full transition-[width,background-color] duration-300" style={{ width: i === reading ? 22 : 7, background: i === reading ? "var(--color-ink)" : i < shown ? "#aeaeb2" : "#d1d1d6", transitionTimingFunction: "var(--ease-out)" }} />
+            <span key={c.doctor.id} className="relative h-[7px] rounded-full transition-[width,background-color] duration-300" style={{ width: i === reading ? 22 : 7, background: i === reading ? "var(--color-ink)" : i < shown ? "#aeaeb2" : "#d1d1d6", transitionTimingFunction: "var(--ease-out)" }} />
           ))}
         </div>
       ) : null}

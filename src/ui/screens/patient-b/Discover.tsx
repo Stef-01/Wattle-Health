@@ -81,7 +81,7 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
 
   return (
     <Screen padBottom="pb-[150px]">
-      {cat === null ? <NavBar back="/me" /> : <NavBar onBack={back} />}
+      {cat === null ? <NavBar back="/me" title="Discover" collapse /> : <NavBar onBack={back} />}
       {cat === null ? <LargeTitle sub="Newer kinds of care you can book directly.">Discover</LargeTitle> : null}
 
       {cat === null ? (

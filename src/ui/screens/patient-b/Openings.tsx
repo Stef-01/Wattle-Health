@@ -86,7 +86,7 @@ export function Openings() {
 
   return (
     <Screen padBottom="pb-[120px]">
-      <NavBar back="/me" />
+      <NavBar back="/me" title="Openings" collapse />
       <LargeTitle sub="Times that fit your calendar, from doctors you saved.">Openings</LargeTitle>
 
       <CalendarConnect state={s} onChange={() => void refresh()} />
