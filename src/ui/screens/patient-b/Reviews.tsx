@@ -12,7 +12,7 @@ type Data = { reviews: Review[]; count: number; average: number | null; highlyRe
 
 const VISITED: Record<string, string> = { "this-month": "Visited this month", "this-year": "Visited this year", earlier: "Visited earlier" };
 
-function Stars({ value, size = 16 }: { value: number; size?: number }) {
+export function Stars({ value, size = 16 }: { value: number; size?: number }) {
   return (
     <span className="inline-flex gap-0.5" aria-label={`${value} out of 5`}>
       {[1, 2, 3, 4, 5].map((i) => (
@@ -62,9 +62,9 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="tnum text-large-title text-ink">{data.average?.toFixed(1)}</span>
           <Stars value={data.average ?? 0} size={18} />
-          <span className="text-subhead text-grey">{data.count} {data.demo ? "example" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
+          <span className="text-subhead text-grey">{data.count} {data.demo ? "demo" : "verified"} {data.count === 1 ? "review" : "reviews"}</span>
           {data.highlyRecommended && !data.demo ? <span className="w-full text-subhead text-ink">Recommended by <Brand /> patients</span> : null}
-          {data.demo ? <span className="w-full text-footnote text-grey">Example reviews, showing how patient reviews will look.</span> : null}
+          {data.demo ? <span className="w-full text-footnote text-grey">Demo reviews, not real patients.</span> : null}
         </div>
       ) : (
         <p className="text-subhead leading-read text-grey">No reviews yet. We only show reviews from people who saw this doctor, and a person checks each one first.</p>
@@ -117,14 +117,14 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
                 <button key={k} type="button" onClick={() => setVisited(k)} className={`press inline-flex h-11 items-center rounded-full px-4 text-subhead ${visited === k ? "bg-ink font-semibold text-white" : "bg-surface text-ink"}`}>{v}</button>
               ))}
             </div>
-            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1000} placeholder="What was it like? How did they listen and explain things?" className="field w-full rounded-field bg-surface px-4 py-3 text-body outline-none" />
+            <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1000} placeholder="What was it like? How did they listen and explain things?" className="field w-full resize-none rounded-field bg-surface px-4 py-3 text-body outline-none placeholder:text-grey" />
             <p className="text-footnote text-grey">Describe how they communicated and how you felt. Please don’t name medicines or describe results; we remove those before publishing.</p>
             <label className="flex items-start gap-3 text-subhead text-charcoal">
               <input type="checkbox" checked={saw} onChange={(e) => setSaw(e.target.checked)} className="mt-1 size-4 accent-ink" />
               I saw this doctor, myself or with someone I care for.
             </label>
             {state === "error" ? <p className="text-subhead text-danger">{error}</p> : null}
-            <Cta fixed={false} disabled={!ready || state === "sending"} onClick={() => void submit()}>{state === "sending" ? "Sending" : "Send review"}</Cta>
+            <Cta fixed={false} disabled={!ready || state === "sending"} onClick={() => void submit()}>{state === "sending" ? "Sending…" : "Send review"}</Cta>
           </>
         )}
       </Sheet>

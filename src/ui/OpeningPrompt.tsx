@@ -80,8 +80,8 @@ export function OpeningPrompt() {
   return (
     <div className="pointer-events-none fixed inset-x-0 top-3 z-[60] flex justify-center px-3">
       <div role="dialog" aria-label="Appointment opening" className={`${leaving ? "toast-out" : "rise"} glass pointer-events-auto w-full max-w-[400px] rounded-card p-4`}>
-        <div className="flex items-center gap-2 text-caption1 text-grey">
-          <span className="inline-flex size-5 items-center justify-center rounded-[6px] bg-surface-soft"><Orb size={14} /></span>
+        <div className="flex items-center gap-2 text-footnote text-grey">
+          <span className="inline-flex size-5 items-center justify-center rounded-[8px] bg-surface-soft"><Orb size={14} /></span>
           <span><Brand /></span>
           <span className="ml-auto">now</span>
         </div>

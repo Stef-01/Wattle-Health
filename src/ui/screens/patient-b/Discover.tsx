@@ -6,7 +6,7 @@ import { Brand } from "@/src/ui/brand";
 // with what you get, price and a link to their own site. Listings are facts from each provider's
 // website (data/discover/offerings.json); Wattle does not endorse or take payment from them.
 import { useMemo, useState } from "react";
-import { Check, ChevronRight, Cta, LargeTitle, NavBar, Screen } from "@/src/ui/kit";
+import { Check, ChevronRight, Cta, NavBar, Screen } from "@/src/ui/kit";
 import { Healthspan } from "./Healthspan";
 
 export type Offering = {
@@ -28,8 +28,8 @@ export type Offering = {
 };
 
 const CATEGORIES = [
-  { id: "biomarkers", title: "Know your biomarkers", sub: "A doctor reads an extended blood panel with you and makes a plan.", tint: "var(--color-surface-soft)" },
-  { id: "wearables", title: "Make your wearable useful", sub: "Bring your Oura, Apple Watch, Whoop or glucose monitor data to a doctor.", tint: "var(--color-surface-soft)" },
+  { id: "biomarkers", title: "Know your biomarkers", sub: "A doctor reads an extended blood panel with you.", tint: "var(--color-surface-soft)" },
+  { id: "wearables", title: "Make your wearable useful", sub: "Bring Oura, Apple Watch, Whoop or glucose data to a doctor.", tint: "var(--color-surface-soft)" },
   { id: "menopause", title: "Menopause, properly", sub: "Longer, whole-person consults for perimenopause and menopause.", tint: "var(--color-surface-soft)" },
 ] as const;
 
@@ -81,15 +81,15 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
 
   return (
     <Screen padBottom="pb-[150px]">
-      {cat === null ? <NavBar back="/me" title="Discover" collapse /> : <NavBar onBack={back} />}
-      {cat === null ? <LargeTitle sub="Newer kinds of care you can book directly.">Discover</LargeTitle> : null}
+      {cat === null ? <NavBar back="/me" title="Discover" /> : <NavBar onBack={back} />}
+      {cat === null ? <p className="mt-2 text-body text-grey">Newer care you can book directly.</p> : null}
 
       {cat === null ? (
         <div className="rise mt-4">
           <div className="flex flex-col gap-3">
             <a href="/healthspan" className="rise press-soft block rounded-card bg-ink px-5 py-5 text-left">
               <span className="block font-display text-title2 text-white">Plan your healthspan</span>
-              <span className="mt-1 block text-subhead leading-read text-white/85">Doctors who work on prevention with your wearable and bloodwork.</span>
+              <span className="mt-1 block text-subhead text-white/85">Prevention, with your wearable and bloodwork.</span>
             </a>
             {CATEGORIES.map((c, i) => {
               const n = offerings.filter((o) => o.category === c.id).length;

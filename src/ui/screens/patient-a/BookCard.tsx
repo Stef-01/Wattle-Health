@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { demoOpenings, type Opening } from "@/src/data/calendar";
 import type { DoctorRecord } from "@/src/data/types";
 import { primaryRoom } from "@/src/ui/screens/patient-b/facts";
+import { ChevronLeft, ChevronRight } from "@/src/ui/kit";
 
 const DAY = 86400000;
 
@@ -36,7 +37,7 @@ export function BookCard({ doctor: d, telehealthOnly, referral }: { doctor: Doct
   return (
     <div className="rounded-card bg-surface-soft p-6">
       <p role="heading" aria-level={3} className="text-title2 text-ink">Openings that fit</p>
-      <p className="mt-1 text-subhead text-grey">Times that fit your calendar. Tap to book.</p>
+      <p className="mt-1 text-subhead text-grey">Demo times. Call the practice to book.</p>
 
       {tele ? (
         <div className="chrome mt-5 grid h-9 grid-cols-2 rounded-full bg-surface p-[2px]">
@@ -51,15 +52,15 @@ export function BookCard({ doctor: d, telehealthOnly, referral }: { doctor: Doct
       <div className="mt-7 flex items-center justify-between">
         <p className="text-headline text-ink">{view[0] ? `${fmt(view[0].day, { weekday: "short", day: "numeric", month: "short" })} – ${fmt(view.at(-1)!.day, { weekday: "short", day: "numeric", month: "short" })}` : "Checking…"}</p>
         <span className="flex gap-1">
-          <button type="button" aria-label="Earlier days" disabled={start === 0} onClick={() => setStart(0)} className="press-dim inline-flex size-11 items-center justify-center text-title3 text-accent disabled:opacity-[.32]">‹</button>
-          <button type="button" aria-label="Later days" disabled={start === 7} onClick={() => setStart(7)} className="press-dim inline-flex size-11 items-center justify-center text-title3 text-accent disabled:opacity-[.32]">›</button>
+          <button type="button" aria-label="Earlier days" disabled={start === 0} onClick={() => setStart(0)} className="press-dim inline-flex size-11 items-center justify-center text-title3 text-accent disabled:opacity-[.32]"><ChevronLeft size={20} strokeWidth={2.25} /></button>
+          <button type="button" aria-label="Later days" disabled={start === 7} onClick={() => setStart(7)} className="press-dim inline-flex size-11 items-center justify-center text-title3 text-accent disabled:opacity-[.32]"><ChevronRight size={20} strokeWidth={2.25} /></button>
         </span>
       </div>
       <div className="mt-3 grid grid-cols-7 gap-1.5">
         {view.map(({ day, slots }) => {
           const on = slots.length > 0;
           return (
-            <div key={day} title={on ? slots.map((o) => new Date(o.start).toLocaleTimeString("en-AU", { hour: "numeric", minute: "2-digit" })).join(", ") : undefined} className={`rounded-[10px] px-1.5 py-2 text-footnote ${on ? "bg-ink text-white" : "bg-white text-grey"}`}>
+            <div key={day} title={on ? slots.map((o) => new Date(o.start).toLocaleTimeString("en-AU", { hour: "numeric", minute: "2-digit" })).join(", ") : undefined} className={`rounded-control px-1.5 py-2 text-footnote ${on ? "bg-ink text-white" : "bg-white text-grey"}`}>
               <span className="block font-semibold">{fmt(day, { weekday: "short" })}</span>
               <span className="block">{fmt(day, { day: "numeric", month: "short" })}</span>
               <span className="mt-2 block">{on ? `${slots.length} ${slots.length === 1 ? "time" : "times"}` : "None"}</span>
@@ -98,7 +99,7 @@ export function NextFree({ doctor: d, when, mode, referral }: { doctor: DoctorRe
       <a href={href} target={phone ? undefined : "_blank"} rel="noreferrer" className="press chrome flex h-[50px] w-full items-center justify-center rounded-full bg-ink px-5 text-headline text-white">
         Next free {when}
       </a>
-      <p className="mt-2 text-center text-footnote text-grey">{[referral ? "GP referral needed first" : null, mode === "telehealth" ? "Telehealth" : "In person", phone ? `call ${phone} to book` : "book on their site"].filter(Boolean).join(" · ")}</p>
+      <p className="mt-2 text-center text-footnote text-grey">{[referral ? "GP referral needed first" : null, "Demo time", mode === "telehealth" ? "Telehealth" : "In person", phone ? `call ${phone} to book` : "book on their site"].filter(Boolean).join(" · ")}</p>
     </div>
   );
 }

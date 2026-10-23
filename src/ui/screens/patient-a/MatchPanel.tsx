@@ -12,7 +12,7 @@ import { demoOpenings } from "@/src/data/calendar";
 import { Check, Group, Labelled } from "@/src/ui/kit";
 import { Facts, Research, Sources, WordsFull } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
-import { Reviews } from "@/src/ui/screens/patient-b/Reviews";
+import { Reviews, Stars } from "@/src/ui/screens/patient-b/Reviews";
 import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, providerTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
 import { fitSentence, Portrait } from "./DoctorCard";
 import { BookCard, NextFree, nextFreeLabel } from "./BookCard";
@@ -118,7 +118,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <Portrait d={d} height={440} saved={saved} onSave={onSave} eager={index === 0} caption={false} />
       </Link>
       <header className="mt-4">
-        <Link href={doctorHref(d.id)} className="press-dim block">
+        <Link href={doctorHref(d.id)} className="press-dim hit block">
           <p role="heading" aria-level={2} className="text-title1 text-ink">{d.name.display}</p>
         </Link>
         <p className="mt-1 text-body text-ink">{line}</p>
@@ -129,12 +129,12 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <button type="button" onClick={() => setTab("Reviews")} className="cell mt-4 flex w-full items-center gap-4 rounded-card bg-surface-soft p-4 text-left">
           <span className="flex shrink-0 flex-col items-center">
             <span className="tnum text-large-title text-ink">{reviews.average?.toFixed(1)}</span>
-            <span className="text-footnote text-grey" aria-label={`${reviews.average?.toFixed(1)} out of 5`}>{"★".repeat(Math.round(reviews.average ?? 0))}</span>
+            <span className="mt-0.5"><Stars value={reviews.average ?? 0} size={12} /></span>
           </span>
           <span className="min-w-0 flex-1">
             {reviews.commentary ? <span className="line-clamp-3 text-subhead text-ink">{reviews.commentary}</span> : null}
             <span className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-              <span className="text-footnote text-grey">{reviews.demo ? "Example reviews" : `${reviews.count} verified reviews`}</span>
+              <span className="text-footnote text-grey">{reviews.demo ? "Demo reviews, not real patients" : `${reviews.count} verified reviews`}</span>
               <span className="text-subhead text-accent">See all {reviews.count}</span>
             </span>
           </span>
@@ -146,7 +146,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
 
       <div role="tablist" aria-label="Doctor details" className="chrome mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
         {tabs.map((t) => (
-          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`truncate rounded-full px-1 text-footnote transition-[background-color,box-shadow] duration-200 ${tab === t ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink"}`}>{t}</button>
+          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`hit truncate rounded-full px-1 text-footnote transition-[background-color,box-shadow] duration-200 ${tab === t ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink"}`}>{t}</button>
         ))}
       </div>
       <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-5">

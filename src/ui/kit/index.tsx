@@ -110,9 +110,9 @@ export function Hint({ children }: { children: ReactNode }) {
 /** A choice capsule (44 tall). `on` = filled in ink, white text. */
 export function Pill({ children, on = false, small = false, onClick, href }: { children: ReactNode; on?: boolean; small?: boolean; onClick?: () => void; href?: string }) {
   const cls = cx(
-    "press inline-flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-full",
+    "press chrome inline-flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-full",
     small ? "px-4 text-subhead" : "px-5 text-body",
-    on ? "bg-ink font-semibold text-white" : "bg-surface text-ink",
+    on ? "bg-ink text-white" : "bg-surface text-ink",
   );
   if (href) return <Link href={href} className={cls}>{children}</Link>;
   return <button type="button" aria-pressed={on} onClick={onClick} className={cls}>{children}</button>;
@@ -150,7 +150,7 @@ export function Row({ icon, title, sub, meta, href, onClick, chevron = true }: {
       {chevron && (href || onClick) ? <ChevronRight size={16} strokeWidth={2.25} className="shrink-0 text-grey-3" /> : null}
     </>
   );
-  const cls = "press-soft flex min-h-[52px] w-full items-center gap-3 py-2.5 text-left";
+  const cls = "press-soft chrome flex min-h-[52px] w-full items-center gap-3 py-2.5 text-left";
   if (href) return <Link href={href} className={cls} onClick={onClick}>{inner}</Link>;
   if (onClick) return <button type="button" onClick={onClick} className={cls}>{inner}</button>;
   return <div className={cls}>{inner}</div>;
@@ -220,7 +220,7 @@ export function Cell({ icon, bare = false, title, sub, value, href, onClick, acc
       {acc !== "chevron" && acc !== "check" && acc !== "none" ? acc : null}
     </>
   );
-  const cls = "flex min-h-[52px] w-full items-center gap-3 px-4 text-left";
+  const cls = "chrome flex min-h-[52px] w-full items-center gap-3 px-4 text-left";
   if (href) return <Link href={href} className={cx("cell", cls)} onClick={onClick} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>{inner}</Link>;
   if (onClick) return <button type="button" onClick={onClick} className={cx("cell", cls)} role={role} aria-checked={role ? Boolean(selected) : undefined} {...attrs}>{inner}</button>;
   return <div className={cls}>{inner}</div>;
@@ -233,7 +233,7 @@ export function Segmented<T extends string>({ items, value, onChange, label }: {
       {items.map((it) => {
         const on = it.value === value;
         return (
-          <button key={it.value} type="button" role="radio" aria-checked={on} onClick={() => onChange(it.value)} className={cx("truncate rounded-full px-2 text-subhead transition-[background-color,box-shadow] duration-200", on ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink")}>
+          <button key={it.value} type="button" role="radio" aria-checked={on} onClick={() => onChange(it.value)} className={cx("hit truncate rounded-full px-2 text-subhead transition-[background-color,box-shadow] duration-200", on ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink")}>
             {it.label}
           </button>
         );
@@ -261,7 +261,7 @@ export function Button({ children, href, onClick, kind = "filled", size = "large
     "press chrome inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full disabled:opacity-[.32] aria-disabled:opacity-[.32]",
     size === "large" && "h-[50px] px-6 text-headline",
     size === "medium" && "h-11 px-5 text-headline",
-    size === "small" && "h-[34px] px-3.5 text-subhead font-semibold",
+    size === "small" && "hit h-[34px] px-3.5 text-subhead font-semibold",
     kind === "filled" && "bg-ink text-white",
     kind === "gray" && "bg-surface text-ink",
     kind === "plain" && "px-1 text-accent",
@@ -282,7 +282,7 @@ export function Button({ children, href, onClick, kind = "filled", size = "large
 export function CheckRow({ title, sub, href, checked = true }: { title: ReactNode; sub?: ReactNode; href?: string; checked?: boolean }) {
   return (
     <div className="flex items-start gap-3 py-3">
-      <span className={cx("mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-[6px]", checked ? "bg-surface text-ink" : "border border-line text-transparent")}>
+      <span className={cx("mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-[8px]", checked ? "bg-surface text-ink" : "border border-line text-transparent")}>
         <Check size={14} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -311,7 +311,7 @@ export function Stat({ icon, children }: { icon: ReactNode; children: ReactNode 
 /** iOS switch: 51 × 31, green when on, a white knob that slides. */
 export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("chrome relative inline-flex h-[31px] w-[51px] shrink-0 items-center rounded-full transition-colors duration-200", on ? "bg-switch" : "bg-[rgba(120,120,128,0.16)]")}>
+    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("hit chrome relative inline-flex h-[31px] w-[51px] shrink-0 items-center rounded-full transition-colors duration-200", on ? "bg-switch" : "bg-[rgba(120,120,128,0.16)]")}>
       <span aria-hidden="true" className="absolute left-[2px] size-[27px] rounded-full bg-white shadow-[0_3px_8px_rgba(0,0,0,0.15),0_3px_1px_rgba(0,0,0,0.06)] transition-transform duration-200" style={{ transform: on ? "translateX(20px)" : "none", transitionTimingFunction: "var(--ease-out)" }} />
     </button>
   );
@@ -351,7 +351,7 @@ export function PhotoCard({ name, place, fee, photo, height = 460, caption = tru
       {topLeft ? <div className="absolute left-4 top-4">{topLeft}</div> : null}
       {topRight ? <div className="absolute right-4 top-4">{topRight}</div> : null}
       {caption ? (
-        <div className="glass-dark absolute inset-x-4 bottom-4 flex items-center gap-2.5 rounded-[14px] px-4 py-3">
+        <div className="glass-dark absolute inset-x-4 bottom-4 flex items-center gap-2.5 rounded-control px-4 py-3">
           <span className="flex min-w-0 flex-1 flex-col gap-0.5">
             <span className="truncate text-headline">{name}</span>
             {place ? <span className="truncate text-subhead text-caption-text">{place}</span> : null}
@@ -403,18 +403,19 @@ const TABS = [
   { href: "/me", label: "Profile", Icon: User },
 ] as const;
 
-/** iOS 26 tab bar: a floating glass capsule, 62 tall, 21 from the sides and bottom; one-word labels;
- *  the selected tab sits on a filled lens. */
+/** iOS 26 tab bar: a floating glass capsule, 62 tall, 21 from the sides and bottom; one-word 11 pt labels;
+ *  the selected tab sits on a filled lens; content dissolves under a bottom scroll edge. */
 export function TabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
   return (
     <nav aria-label="Primary" className="chrome frame-fixed pointer-events-none bottom-0 z-30 px-[21px]" style={{ paddingBottom: "var(--tab-gap)" }}>
-      <div className="glass pointer-events-auto grid h-[62px] grid-cols-4 items-stretch rounded-full p-1">
+      <div aria-hidden="true" className="scroll-edge-bottom pointer-events-none absolute inset-x-0 bottom-0 h-[calc(100%+28px)]" />
+      <div className="glass pointer-events-auto relative grid h-[62px] grid-cols-4 items-stretch rounded-full p-1">
         {TABS.map(({ href, label, Icon }) => {
           const on = active === href;
           return (
             <Link key={href} href={href} aria-current={on ? "page" : undefined} className={cx("press flex flex-col items-center justify-center gap-0.5 rounded-full", on ? "bg-surface text-ink" : "text-grey")}>
               <Icon size={24} strokeWidth={on ? 2.1 : 1.75} fill={on && label !== "Recent" ? "currentColor" : "none"} />
-              <span className="text-[10px] font-semibold leading-[12px]">{label}</span>
+              <span className="text-caption2 font-semibold">{label}</span>
             </Link>
           );
         })}

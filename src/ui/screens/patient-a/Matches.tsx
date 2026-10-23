@@ -126,10 +126,10 @@ export function Matches() {
     <Screen padBottom="pb-[120px]" className="frame-wide">
       <div ref={edge.sentinel} aria-hidden="true" className="-mt-2 h-px" />
       {cards.length > 1 ? (
-        <div className="bleed sticky top-0 z-10 -mt-px mb-2 flex h-11 items-center justify-center gap-1.5" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
+        <div className="bleed sticky top-0 z-10 -mt-px mb-2 flex h-11 items-center justify-center gap-2" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
           <span aria-hidden="true" className="scroll-edge pointer-events-none absolute inset-x-0 -top-2 h-[64px]" data-on={edge.sticking} data-ready={edge.ready} />
           {cards.map((c, i) => (
-            <span key={c.doctor.id} className="relative h-[7px] rounded-full transition-[width,background-color] duration-300" style={{ width: i === reading ? 22 : 7, background: i === reading ? "var(--color-ink)" : i < shown ? "#aeaeb2" : "#d1d1d6", transitionTimingFunction: "var(--ease-out)" }} />
+            <span key={c.doctor.id} className="relative size-[7px] rounded-full transition-colors duration-300" style={{ background: i === reading ? "var(--color-ink)" : i < shown ? "#aeaeb2" : "#d1d1d6" }} />
           ))}
         </div>
       ) : null}
@@ -141,15 +141,15 @@ export function Matches() {
             <Button href="/" kind="gray" size="small" className="bg-white" onClick={() => setDraft(req.sentence)}>Edit</Button>
             <Button kind="gray" size="small" className="bg-white" onClick={() => setRefining(true)} icon={<Sliders size={15} />}>Refine</Button>
           </div>
-          {cards.length > 0 ? (
+          {cards.length > 0 && !(["telehealth", "woman"] as const).every((k) => readRefine(req.sentence, req.anywhere === true)[k]) ? (
             <div className="mt-3 border-t-[length:var(--hairline)] border-hairline pt-3">
               <p className="text-footnote text-grey">Also try</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {[
-                  { label: "By video", on: { telehealth: true } },
-                  { label: "A woman", on: { woman: true } },
-                  { label: "Anywhere in Australia", on: { anywhere: true } },
-                ].map((f) => (
+                  { label: "By video", key: "telehealth", on: { telehealth: true } },
+                  { label: "A woman", key: "woman", on: { woman: true } },
+                  { label: "Anywhere in Australia", key: "anywhere", on: { anywhere: true } },
+                ].filter((f) => { const r = readRefine(req.sentence, req.anywhere === true); return !(r[f.key as keyof RefineState] || (f.key === "anywhere" && r.telehealth)); }).map((f) => (
                   <Button key={f.label} kind="gray" size="small" className="bg-white font-normal" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })}>{f.label}</Button>
                 ))}
               </div>
@@ -168,7 +168,12 @@ export function Matches() {
         </>
       ) : null}
       <Gap h={24} />
-      {missing ? <Body>No search yet.</Body> : null}
+      {missing ? (
+        <div className="mt-6 flex flex-col items-start gap-4">
+          <Body>No search yet.</Body>
+          <Button href="/" size="medium">Start a search</Button>
+        </div>
+      ) : null}
       {res && cards.length === 0 ? (
         <Empty res={res} place={place} busy={busy} onWiden={() => void rerun({ anywhere: true })} onTelehealth={() => void rerun({ sentence: `${req!.sentence}, telehealth only` })} onChange={() => router.push("/")} onClosest={() => void rerun({ anywhere: true })} />
       ) : null}
@@ -225,11 +230,7 @@ function Empty({ res, place, busy, onWiden, onTelehealth, onChange, onClosest }:
         <Cell tint title={`Add telehealth-only doctors${count(n.telehealth, "")}`} onClick={onTelehealth} />
         <Cell tint title="Change what you need" onClick={onChange} />
       </Group>
-      <Dock bottom={16}>
-        <Cta fixed={false} onClick={onClosest} disabled={busy}>
-          Show closest fits
-        </Cta>
-      </Dock>
+
     </div>
   );
 }

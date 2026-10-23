@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { lookup } from "@/src/data/api";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { DoctorRecord } from "@/src/data/types";
-import { Body, Cell, Clock, FaceStack, FigmaIcon, Group, GroupHeader, LargeTitle, NavBar, Screen, Segmented, Toggle } from "@/src/ui/kit";
+import { Body, Button, Cell, Clock, FaceStack, FigmaIcon, Group, GroupHeader, LargeTitle, Leaf, NavBar, Screen, Segmented, Toggle } from "@/src/ui/kit";
 import { getOpeningsState, setOpeningsState } from "@/src/ui/openings";
 import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
@@ -38,7 +38,12 @@ export function Recent() {
     <Screen tone="grouped" padBottom="pb-[110px]">
       <NavBar title="Recent" collapse />
       <LargeTitle>Recent</LargeTitle>
-      {rows && rows.length === 0 ? <Body className="mt-2">No searches yet.</Body> : null}
+      {rows && rows.length === 0 ? (
+        <div className="mt-2 flex flex-col items-start gap-4">
+          <Body>No searches yet.</Body>
+          <Button href="/" size="medium">Start a search</Button>
+        </div>
+      ) : null}
       {groups.length > 1 ? <FilterChips label="Filter by condition" items={[null, ...groups.map((g) => g.condition)].map((c) => ({ key: c, label: c ?? "All", n: c === null ? rows?.length ?? 0 : groups.find((g) => g.condition === c)!.rows.length }))} value={only} onChange={setOnly} /> : null}
       {shown.map((g) => (
         <section key={g.condition}>
@@ -61,7 +66,7 @@ function FilterChips<T extends string | null>({ items, value, onChange, label }:
       {items.map((it) => {
         const on = value === it.key;
         return (
-          <button key={it.key ?? "all"} type="button" role="tab" aria-selected={on} onClick={() => onChange(it.key)} className={`press inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full px-4 text-subhead ${on ? "bg-ink font-semibold text-white" : "bg-cell text-ink"}`}>
+          <button key={it.key ?? "all"} type="button" role="tab" aria-selected={on} onClick={() => onChange(it.key)} className={`press hit inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full px-4 text-subhead ${on ? "bg-ink text-white" : "bg-cell text-ink"}`}>
             {it.label} <span className={`tnum ${on ? "text-white/70" : "text-grey"}`}>{it.n}</span>
           </button>
         );
@@ -214,7 +219,7 @@ export function Me() {
       </Group>
       <div className="h-8" />
       <Group sep={58}>
-        <Cell icon={<FigmaIcon name="check" size={17} />} title="Healthspan" sub="Doctors who work on prevention with you" href="/healthspan" />
+        <Cell icon={<Leaf size={18} />} title="Healthspan" sub="Doctors who work on prevention with you" href="/healthspan" />
         <Cell icon={<FigmaIcon name="clock" size={17} />} title="Openings" sub="Times from saved doctors that fit your week" href="/me/openings" />
         <Cell icon={<FigmaIcon name="sliders" size={17} />} title="Your health context" sub={<>Bring it from ChatGPT, or use <Brand /> inside it</>} href="/me/context" />
         <Cell icon={<FigmaIcon name="book" size={17} />} title="Discover" sub="Healthspan, biomarkers, wearables, menopause care" href="/me/discover" />

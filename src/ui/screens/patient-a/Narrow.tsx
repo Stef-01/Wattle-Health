@@ -89,7 +89,7 @@ const STEPS: Step[] = [
     when: (c) => c.answers.care?.id === "medication" || c.answers.care?.id === "assessment",
     options: () => [
       { id: "yes", label: "Yes, a GP is fine" },
-      { id: "no", label: "No, a specialist only", exclude: ["general-practice"] },
+      { id: "no", label: "No, not a GP", exclude: ["general-practice"] },
     ],
   },
   {

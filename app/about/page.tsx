@@ -1,7 +1,8 @@
 import { getDoctors, rosterCounts } from "@/src/data/providers";
-import { ChevronLeft, Circle, Screen } from "@/src/ui/kit";
+import { Disclosure, NavBar, Screen } from "@/src/ui/kit";
 
 export const metadata = { title: "About · Wattle Health" };
+// Apple pass: progressive disclosure keeps the first screen inside the 20-60 word budget; each point opens in place.
 export const revalidate = 3600;
 
 const POINTS = [
@@ -16,17 +17,16 @@ export default async function AboutPage() {
   const own = (await getDoctors()).filter((d) => d.personal?.status === "published").length;
   return (
     <Screen>
-      <div className="flex h-11 items-center"><Circle href="/me" label="Back"><ChevronLeft size={22} strokeWidth={2} /></Circle></div>
-      <h1 className="display rise mt-6 text-hero text-ink">A doctor who fits you as well as your condition.</h1>
-      <div className="mt-10 flex flex-col gap-7">
-        {POINTS.map((p, i) => (
-          <div key={p.title} className="rise" style={{ "--i": i } as React.CSSProperties}>
-            <h2 className="display text-title2 text-ink">{p.title}</h2>
-            <p className="mt-1.5 text-body leading-read text-charcoal">{p.body}</p>
-          </div>
+      <NavBar back="/me" />
+      <h1 className="display rise mt-4 text-large-title font-medium text-ink">A doctor who fits you as well as your condition.</h1>
+      <p className="mt-3 text-body text-grey">{counts.total} doctors listed across Australia, {own} in their own words.</p>
+      <div className="mt-8">
+        {POINTS.map((p) => (
+          <Disclosure key={p.title} title={p.title}>
+            <p className="text-body leading-read text-ink">{p.body}</p>
+          </Disclosure>
         ))}
       </div>
-      <p className="mt-10 text-subhead text-grey">{counts.total} doctors listed across Australia, {own} in their own words.</p>
     </Screen>
   );
 }

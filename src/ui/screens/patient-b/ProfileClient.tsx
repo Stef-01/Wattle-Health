@@ -26,7 +26,7 @@ export function ContactCta({ doctor, label, note, inline = false }: { doctor: Do
     <>
       {inline ? (
         <div className="flex flex-col gap-2">
-          {note ? <p className="caption text-center text-caption1 text-grey">{note}</p> : null}
+          {note ? <p className="caption text-center text-footnote text-grey">{note}</p> : null}
           <Cta fixed={false} onClick={() => setOpen(true)}>{label}</Cta>
         </div>
       ) : (

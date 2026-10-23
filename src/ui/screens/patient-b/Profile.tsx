@@ -288,7 +288,7 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
       </div>
       <Space h={20} />
       {source ? (
-        <p className="caption text-caption1 text-grey">
+        <p className="caption text-footnote text-grey">
           {source.text}
           {source.href ? (
             <>

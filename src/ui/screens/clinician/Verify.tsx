@@ -107,7 +107,7 @@ export function VerifyScreen() {
       {result ? (
         <div className="flex flex-col gap-3 rounded-card bg-surface-soft p-4" aria-live="polite">
           <div className="flex items-center gap-3">
-            <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-[10px] bg-surface"><Asset name="check" size={17} /></span>
+            <span className="inline-flex size-[34px] shrink-0 items-center justify-center rounded-control bg-surface"><Asset name="check" size={17} /></span>
             <span className="text-body text-charcoal">{result.name}</span>
           </div>
           <Note>{result.specialtyLine}</Note>

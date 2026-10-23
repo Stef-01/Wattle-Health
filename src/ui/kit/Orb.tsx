@@ -67,24 +67,34 @@ export function Orb({ size = 96, className }: { size?: number; className?: strin
     let raf = 0;
     let start = performance.now();
     let pausedAt = 0;
+    let onScreen = true;
+    let running = false;
     const loop = (now: number) => {
       paint(now - start);
       raf = requestAnimationFrame(loop);
     };
-    const onVis = () => {
-      if (document.hidden) {
+    // Runs only while the tab is visible and the orb is on screen (a loop nobody sees is wasted work).
+    const sync = () => {
+      const want = onScreen && !document.hidden;
+      if (want && !running) {
+        if (pausedAt) start += performance.now() - pausedAt;
+        raf = requestAnimationFrame(loop);
+        running = true;
+      } else if (!want && running) {
         cancelAnimationFrame(raf);
         pausedAt = performance.now();
-      } else {
-        start += performance.now() - pausedAt;
-        raf = requestAnimationFrame(loop);
+        running = false;
       }
     };
-    raf = requestAnimationFrame(loop);
-    document.addEventListener("visibilitychange", onVis);
+    const host = refs.current[0]?.ownerSVGElement ?? null;
+    const io = host ? new IntersectionObserver(([e]) => { onScreen = Boolean(e?.isIntersecting); sync(); }) : null;
+    if (host && io) io.observe(host);
+    sync();
+    document.addEventListener("visibilitychange", sync);
     return () => {
       cancelAnimationFrame(raf);
-      document.removeEventListener("visibilitychange", onVis);
+      io?.disconnect();
+      document.removeEventListener("visibilitychange", sync);
     };
   }, []);
   return (

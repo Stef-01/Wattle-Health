@@ -81,7 +81,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
   return (
     <Screen padBottom="pb-[110px]">
       <NavBar />
-      <LargeTitle trailing={initials ? <span aria-hidden="true" className="mb-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</span> : undefined}>
+      <LargeTitle trailing={initials ? <Link href="/me" aria-label="Your profile" className="press mb-1 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</Link> : undefined}>
         {name ? `Hi, ${display}.` : "Who do you need?"}
       </LargeTitle>
       <Gap h={16} />
@@ -107,7 +107,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
                 void submit(text);
               }
             }}
-            placeholder="Endometriosis, someone who listens"
+            placeholder="Tell us what’s going on"
             className="block w-full resize-none bg-transparent px-4 pb-11 pt-3.5 text-body text-ink outline-none placeholder:text-grey"
           />
           {canListen ? (
@@ -124,7 +124,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
       {error ? <p className="pt-2 text-subhead text-grey">{error}</p> : null}
       <OpeningsBanner />
       {faces.length > 0 ? (
-        <Link href="/results?all=1" className="press-soft mt-6 flex items-center gap-3" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
+        <Link href="/results?all=1" className="press-soft mt-6 flex min-h-11 items-center gap-3" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
           <span className="flex shrink-0 -space-x-2.5">
             {faces.map((f) => (
               <Face key={f.id} url={f.url} name={f.name} size={36} ring />

@@ -7,7 +7,7 @@ import { ConnectorCard } from "./ConnectorCard";
 // 2. Use Wattle inside ChatGPT or Claude: add the MCP connector or the GPT Action, and your own
 //    assistant searches Wattle with everything it already knows. No API key on Wattle's side.
 import { useEffect, useState } from "react";
-import { Cta, LargeTitle, NavBar, Screen } from "@/src/ui/kit";
+import { Button, Cta, NavBar, Screen, Toggle } from "@/src/ui/kit";
 import { CHATGPT_PROMPT, getContext, setContext, type ContextItem, type HealthContext } from "@/src/ui/context";
 
 const KIND: Record<string, string> = { condition: "Health", population: "Who it’s for", must: "Must have", preference: "Preference", human: "How they work" };
@@ -65,6 +65,7 @@ export function ContextSettings() {
     setSaved(c);
   }
 
+  const [confirming, setConfirming] = useState(false);
   function clear() {
     setContext(null);
     setSaved(null);
@@ -76,8 +77,8 @@ export function ContextSettings() {
 
   return (
     <Screen padBottom="pb-[140px]">
-      <NavBar back="/me" title="Health context" collapse />
-      <LargeTitle sub="Tell us about your health so your picks fit. It stays on this phone.">Your health context</LargeTitle>
+      <NavBar back="/me" title="Health context" />
+      <p className="mt-2 text-body text-grey">Tell us about your health so your picks fit. It stays on this phone.</p>
 
       <section className="mt-8 rounded-card px-5 py-5" style={{ background: "var(--color-surface-soft)" }}>
         <p className="text-footnote text-ink">Bring it from ChatGPT</p>
@@ -85,14 +86,14 @@ export function ContextSettings() {
           <li>
             <span className="text-ink">1. Ask ChatGPT for a short summary.</span>
             <span className="mt-2 flex flex-wrap gap-2">
-              <a href={chatgptUrl} target="_blank" rel="noreferrer" className="press rounded-full bg-ink px-4 py-2 text-subhead text-white">Open ChatGPT with the prompt</a>
+              <a href={chatgptUrl} target="_blank" rel="noreferrer" className="press inline-flex h-11 items-center rounded-full bg-white px-4 text-subhead font-semibold text-ink">Open ChatGPT with the prompt</a>
               <Copy text={CHATGPT_PROMPT} label="Copy the prompt" />
             </span>
           </li>
           <li>
             <span className="text-ink">2. Paste what it wrote.</span>
             <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} maxLength={4000} placeholder="For example: I’m in my 30s with endometriosis and pelvic pain. I prefer telehealth and a woman doctor who listens and explains things plainly." className="field mt-2 w-full rounded-field bg-white px-4 py-3 text-body outline-none" />
-            <button type="button" disabled={!text.trim() || busy} onClick={() => void read()} className="press mt-2 inline-flex h-11 items-center rounded-full bg-ink px-5 text-subhead font-semibold text-white disabled:opacity-[.32]">{busy ? "Reading" : "Read it"}</button>
+            <button type="button" disabled={!text.trim() || busy} onClick={() => void read()} className="press mt-2 inline-flex h-11 items-center rounded-full bg-ink px-5 text-subhead font-semibold text-white disabled:opacity-[.32]">{busy ? "Reading…" : "Read it"}</button>
           </li>
         </ol>
         {items ? (
@@ -106,9 +107,7 @@ export function ContextSettings() {
                     <span className="block text-body text-ink">{it.label}</span>
                     <span className="block text-footnote text-grey">{KIND[it.kind] ?? "Context"}</span>
                   </span>
-                  <button type="button" role="switch" aria-checked={it.on} aria-label={`Use ${it.label}`} onClick={() => setItems(items.map((x, j) => (j === i ? { ...x, on: !x.on } : x)))} className="relative h-[31px] w-[51px] shrink-0 rounded-full transition-colors duration-200" style={{ background: it.on ? "#1b1b1b" : "#e3e3e3" }}>
-                    <span className="absolute top-[2px] size-[27px] rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] transition-transform duration-200" style={{ transform: `translateX(${it.on ? 22 : 2}px)` }} />
-                  </button>
+                  <Toggle on={it.on} label={`Use ${it.label}`} onChange={(v) => setItems(items.map((x, j) => (j === i ? { ...x, on: v } : x)))} />
                 </li>
               ))}
             </ul>
@@ -121,7 +120,15 @@ export function ContextSettings() {
       <ConnectorCard origin={origin} />
 
       {saved ? (
-        <button type="button" onClick={clear} className="press-dim mt-6 text-subhead text-danger">Delete my health context</button>
+        confirming ? (
+          <div className="mt-6 flex items-center gap-2">
+            <span className="flex-1 text-subhead text-grey">Delete it from this phone?</span>
+            <Button kind="gray" size="small" onClick={() => setConfirming(false)}>Cancel</Button>
+            <Button size="small" className="bg-danger" onClick={() => { clear(); setConfirming(false); }}>Delete</Button>
+          </div>
+        ) : (
+          <button type="button" onClick={() => setConfirming(true)} className="press-dim mt-6 inline-flex h-11 items-center text-subhead text-danger">Delete my health context</button>
+        )
       ) : null}
     </Screen>
   );

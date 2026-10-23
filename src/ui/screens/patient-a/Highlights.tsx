@@ -17,7 +17,7 @@ export function Highlights({ items, name }: { items: Highlight[]; name: string }
       <ul className="flex flex-col">
         {shown.map((h, i) => (
           <li key={h.id} className="rise flex gap-3 border-b border-hairline py-3 last:border-b-0" style={{ "--i": i } as React.CSSProperties}>
-            <span aria-hidden="true" className={`mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full text-caption1 ${h.matched ? "bg-ink text-white" : "bg-white text-ink"}`}>
+            <span aria-hidden="true" className={`mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full text-footnote ${h.matched ? "bg-ink text-white" : "bg-white text-ink"}`}>
               {h.matched ? <Check size={13} /> : ICON[h.kind]}
             </span>
             <span className="min-w-0">

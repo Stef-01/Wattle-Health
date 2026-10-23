@@ -6,7 +6,7 @@
 // practice publishes on the page we cite; without one the card carries the doctor's initials
 // on their tint. The whole card opens the profile.
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Card } from "@/src/data/search-types";
 import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
@@ -41,14 +41,22 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false, captio
   const name = drName(d);
   const [bg, fg] = tintFor(name);
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const img = useRef<HTMLImageElement>(null);
+  // A photo that failed before hydration never fires React's onError; check once mounted.
+  useEffect(() => {
+    const el = img.current;
+    if (el && el.complete && el.naturalWidth === 0) setFailed(true);
+  }, [d.photo?.url]);
+  const photo = d.photo && !failed ? d.photo : null;
   const suburb = d.rooms[0]?.suburb ?? d.rooms[0]?.suburb ?? null;
   return (
-    <div className="relative w-full overflow-hidden rounded-card" style={{ height, background: d.photo ? "#ececee" : bg }}>
-      {d.photo ? (
+    <div className="relative w-full overflow-hidden rounded-card" style={{ height, background: photo ? "#ececee" : bg }}>
+      {photo ? (
         // eslint-disable-next-line @next/next/no-img-element
         <>
           {!loaded ? <span aria-hidden="true" className="shimmer absolute inset-0" /> : null}
-          <img src={d.photo.url} alt={d.photo.alt && !/^(picture|image|photo|headshot)$/i.test(d.photo.alt.trim()) ? d.photo.alt : name} loading={eager ? "eager" : "lazy"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} data-loaded={loaded} className="img-fade absolute inset-0 size-full object-cover object-top" />
+          <img ref={img} src={photo.url} alt={photo.alt && !/^(picture|image|photo|headshot)$/i.test(photo.alt.trim()) ? photo.alt : name} loading={eager ? "eager" : "lazy"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} onError={() => setFailed(true)} data-loaded={loaded} className="img-fade absolute inset-0 size-full object-cover object-top" />
         </>
       ) : (
         <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-display text-[72px]" style={{ color: fg }}>

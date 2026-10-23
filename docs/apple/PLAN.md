@@ -115,3 +115,37 @@ Before/after sheets: `qa/apple/sheet-1.png`, `qa/apple/sheet-2.png`. Re-run:
 Not done here (founder's call): Discover, Healthspan and About were over the 60-word budget before this
 pass and still are; that is copy, not chrome. SF Pro via `system-ui` on Apple devices instead of Inter.
 Whether any of the playful pass's celebration should come back (now a haptic plus the drawn tick).
+
+## 4. Second round (2026-10-23, after review)
+
+Research: a second, longer round (an independent critique that read the rule files of impeccable,
+emilkowalski/skills, taste-skill, Jakub Krehel, ui-skills, Vercel WIG, Rauno, the Apple DESIGN.md and
+xenitV1/liquid-glass-skill in full, and a teardown of Apple Maps' place card, Maps search, Health and Sports
+from measured simulator builds). REA ran on Apple's shipped bundle: `docs/apple/REA.md`.
+
+Applied:
+- From REA (Apple's own code): sheet scroll lock, Escape, focus return and trap, close on back; pinned nav
+  with the sticking rule and an iOS 26 scroll edge; large titles collapse into the inline title.
+- From the critique, each verified against the code first:
+  - CLAUDE.md compliance: "Demo reviews, not real patients" (was "Example reviews"), "No, not a GP" (was
+    "specialist"), demo booking times say so ("Demo time"; "Tap to book" removed from non-tappable tiles).
+  - 44 px targets everywhere: Apple-sized controls keep their look with a `.hit` extender; the audit now
+    flags either dimension and counts the extender.
+  - A bottom scroll edge behind the tab bar; 11 pt tab labels; drag-to-dismiss on the sheet grabber;
+    concentric 10 px inner radius; failed portraits fall back to initials; the iOS page control for results;
+    16 px iCal field (no iOS zoom); readable placeholders; kit switch on Context; two-step delete; empty
+    states with one action; suggestions that do not repeat the search; per-route theme colour; the orb
+    pauses off screen; the tab bar highlights Profile on pages opened from it.
+  - Text budget: Discover 56, Healthspan 60, About 37 (progressive disclosure, as apple.com does).
+  - Seven unused v1 components deleted.
+- Not taken, with reasons: large titles stay in Inter (Apple's large titles are its UI sans; the founder's
+  earlier screens did the same), the 1.4 s search minimum (a founder decision), dark mode (a product decision).
+
+| Measure (rendered, iPhone 15) | Baseline | Round 1 | Round 2 |
+|---|---|---|---|
+| Font sizes | 20 | 12 | 11 (UI ramp 13-34; plus 7 logo, 40 hero, 72 initials fallback) |
+| Corner radii | 11 | 6 | 4 (8, 10, 26, capsule) |
+| Text under 4.5:1 | 37 | 0 | 0 |
+| Targets under 44 px (either side) | not measured | not measured | 0 |
+| Screens over 60 words | 3 | 3 | 0 |
+| Behaviour checks (`qa/apple/behaviour.mjs`) | n/a | n/a | 15 of 15 pass |

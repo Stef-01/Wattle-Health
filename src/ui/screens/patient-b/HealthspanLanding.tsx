@@ -8,15 +8,15 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { AREAS, DEVICES, type Device } from "@/src/data/healthspan";
 import type { HealthspanMatch } from "@/src/data/healthspan-match";
-import { Button, Check, NavBar, Screen, Toggle } from "@/src/ui/kit";
+import { Button, Check, Disclosure, NavBar, Screen, Toggle } from "@/src/ui/kit";
 import { doctorHref } from "@/src/data/doctor-slug";
 import type { Offering } from "./Discover";
 import { Portrait } from "../patient-a/DoctorCard";
 import { drName, placeOf, providerTitle } from "./facts";
 
 const BEATS = [
-  { n: "01", title: "Measure early", body: "Blood pressure, ApoB, HbA1c, fitness and sleep show risk years before illness does." },
-  { n: "02", title: "Read it together", body: "A doctor goes through your numbers and your wearable’s trends with you." },
+  { n: "01", title: "Measure early", body: "Blood pressure, ApoB, HbA1c, fitness and sleep show risk years before illness." },
+  { n: "02", title: "Read it together", body: "A doctor reads your numbers and wearable trends with you." },
   { n: "03", title: "Adjust and recheck", body: "Make small changes, then measure again in three to six months." },
 ];
 
@@ -54,25 +54,25 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
 
       <header className="rise mt-6">
         <h1 className="display text-hero font-medium text-ink">More years in good health.</h1>
-        <p className="mt-3 text-body leading-read text-ink">Healthspan is the part of life you spend well. Most Australians spend around their last decade living with illness. Much of that illness shows early signs you can act on.</p>
+        <p className="mt-3 text-body leading-read text-ink">Most Australians spend their last decade living with illness. Much of it shows early signs you can act on.</p>
         <div className="mt-5">
           <Button size="medium" onClick={() => plan.current?.scrollIntoView({ behavior: "smooth" })}>Find a doctor who works this way</Button>
         </div>
       </header>
 
-      <section className="mt-16 flex flex-col gap-9">
-        {BEATS.map((b, i) => (
-          <div key={b.n} className="rise" style={{ "--i": i } as React.CSSProperties}>
-            <h2 className="display text-title2 font-medium text-ink">{b.title}</h2>
-            <p className="mt-1 text-body leading-read text-ink">{b.body}</p>
-          </div>
+      {/* The three steps open in place (apple.com's feature tiles do the same), keeping the first screen calm. */}
+      <section className="mt-10">
+        {BEATS.map((b) => (
+          <Disclosure key={b.n} title={b.title}>
+            <p className="text-body leading-read text-ink">{b.body}</p>
+          </Disclosure>
         ))}
       </section>
 
       <div ref={plan} className="mt-10 scroll-mt-6 rounded-card bg-surface-soft p-4">
         <h2 className="px-1 text-title2 text-ink">What matters most to you?</h2>
         <p className="mt-1 px-1 text-subhead text-grey">Pick any. We pick doctors who work on these.</p>
-        <div className="mt-4 ios-group overflow-hidden rounded-[18px] bg-white">
+        <div className="mt-4 ios-group overflow-hidden rounded-control bg-white">
           {AREAS.map((a) => {
             const on = areas.includes(a.id);
             return (
@@ -94,11 +94,11 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
           ))}
         </div>
 
-        <div className="mt-6 ios-group overflow-hidden rounded-[18px] bg-white">
+        <div className="mt-6 ios-group overflow-hidden rounded-control bg-white">
           <div className="flex min-h-[52px] items-center justify-between gap-3 px-4 py-2.5"><span className="text-body text-ink">Read extended bloodwork with me</span><Toggle on={bloodwork} onChange={setBloodwork} label="Read extended bloodwork with me" /></div>
           <div className="flex min-h-[52px] items-center justify-between gap-3 px-4 py-2.5"><span className="text-body text-ink">Telehealth is fine</span><Toggle on={telehealth} onChange={setTelehealth} label="Telehealth is fine" /></div>
         </div>
-        <div className="mt-5"><Button full disabled={busy} onClick={() => void find()}>{busy ? "Picking" : "Show my picks"}</Button></div>
+        <div className="mt-5"><Button full disabled={busy} onClick={() => void find()}>{busy ? "Picking…" : "Show my picks"}</Button></div>
       </div>
 
       <div ref={results} className="scroll-mt-6">

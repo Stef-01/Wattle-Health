@@ -99,7 +99,7 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
           <ProviderIcon id={cal.source} size={32} />
           <p className="flex-1 text-body text-ink">{cal.label}</p>
           <span className="mr-2 inline-flex items-center gap-1.5 text-subhead text-grey"><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="#1b1b1b" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Connected</span>
-          <button type="button" aria-label="Disconnect" onClick={() => { setOpeningsState({ calendar: null }); onChange(); }} className="press-dim p-1"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1 1 11" stroke="#9a9a9a" strokeWidth="1.6" strokeLinecap="round" /></svg></button>
+          <button type="button" aria-label="Disconnect" onClick={() => { setOpeningsState({ calendar: null }); onChange(); }} className="press-dim inline-flex size-11 items-center justify-center text-grey"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1 1 11" stroke="#9a9a9a" strokeWidth="1.6" strokeLinecap="round" /></svg></button>
         </div>
       ) : (
         <>
@@ -112,11 +112,11 @@ export function CalendarConnect({ state, onChange }: { state: OpeningsState | nu
                 <svg width="8" height="14" viewBox="0 0 8 14" aria-hidden="true"><path d="M1 1l6 6-6 6" fill="none" stroke="#c4c4c4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             ))}
-            <button type="button" onClick={() => setOther((v) => !v)} className="press-dim self-start py-2 text-subhead text-grey">{other ? "Hide" : "Use a link or .ics"}</button>
+            <button type="button" onClick={() => setOther((v) => !v)} className="press-dim inline-flex h-11 items-center self-start text-subhead text-accent">{other ? "Hide" : "Use a link or .ics"}</button>
           </div>
           {other ? (
             <div className="mt-1 flex gap-2">
-              <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="iCal link" className="field min-w-0 flex-1 rounded-full bg-surface-soft px-4 py-2.5 text-subhead outline-none" />
+              <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="iCal link" className="field min-w-0 flex-1 rounded-full bg-surface px-4 py-2.5 text-body outline-none placeholder:text-grey" />
               <button type="button" disabled={!link || busy} onClick={() => void fromLink()} className="press rounded-full bg-ink px-4 text-subhead text-white disabled:opacity-30">{busy ? "…" : "Add"}</button>
               <button type="button" aria-label="Upload .ics" onClick={() => file.current?.click()} className="press rounded-full bg-surface-soft px-4 text-subhead text-ink">.ics</button>
               <input ref={file} type="file" accept=".ics,text/calendar" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) { const now = Date.now(); save("ics-file", f.name, parseIcs(await f.text()).filter((b) => b.end > now && b.start < now + 21 * 86400000)); } }} />

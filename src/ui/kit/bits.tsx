@@ -3,6 +3,7 @@
 // held), small chips, a labelled section, and a disclosure that opens in place (Apple: show the
 // common path first, one level deeper on request; Emil: transitions, never keyframes).
 import type { ReactNode } from "react";
+import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronRight } from "./icons";
@@ -85,7 +86,7 @@ export function Disclosure({ title, sub, children, defaultOpen = false, tint }: 
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className={cx(tint ? "mb-2 rounded-card px-4" : "border-b-[length:var(--hairline)] border-hairline")} style={tint ? { background: PANEL_TINTS[tint] } : undefined}>
-      <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="press-soft flex min-h-[52px] w-full items-center gap-3 py-3 text-left">
+      <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="press-soft chrome flex min-h-[52px] w-full items-center gap-3 py-3 text-left">
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="text-body text-ink">{title}</span>
           {sub ? <span className="text-footnote text-grey">{sub}</span> : null}
@@ -102,7 +103,7 @@ export function Disclosure({ title, sub, children, defaultOpen = false, tint }: 
 /** A compact two-state toggle pill for an inline filter. */
 export function TogglePill({ on, onChange, children }: { on: boolean; onChange: (v: boolean) => void; children: ReactNode }) {
   return (
-    <button type="button" role="switch" aria-checked={on} onClick={() => onChange(!on)} className={cx("press inline-flex h-9 items-center whitespace-nowrap rounded-full px-4 text-subhead", on ? "bg-ink font-semibold text-white" : "bg-surface text-ink")}>
+    <button type="button" role="switch" aria-checked={on} onClick={() => onChange(!on)} className={cx("press chrome hit inline-flex h-9 items-center whitespace-nowrap rounded-full px-4 text-subhead", on ? "bg-ink text-white" : "bg-surface text-ink")}>
       {children}
     </button>
   );
@@ -193,19 +194,51 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
       opener?.focus?.({ preventScroll: true });
     };
   }, [open, shown]);
+  // Drag the grabber or title row down to dismiss (Vaul's iOS-derived thresholds: past 25% of the panel's
+  // height, or faster than 0.4 px/ms); otherwise it springs back on the iOS drawer curve.
+  const drag = useRef<{ y: number; t: number } | null>(null);
+  const onDragStart = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0 || (e.target as Element).closest("button")) return;
+    drag.current = { y: e.clientY, t: performance.now() };
+    e.currentTarget.setPointerCapture(e.pointerId);
+    if (panel.current) panel.current.style.transition = "none";
+  };
+  const onDragMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!drag.current || !panel.current) return;
+    const dy = Math.max(0, e.clientY - drag.current.y);
+    panel.current.style.transform = `translateY(${dy}px)`;
+  };
+  const onDragEnd = (e: React.PointerEvent<HTMLDivElement>) => {
+    const start = drag.current;
+    const el = panel.current;
+    drag.current = null;
+    if (!start || !el) return;
+    const dy = Math.max(0, e.clientY - start.y);
+    const v = dy / Math.max(1, performance.now() - start.t);
+    if (dy > el.offsetHeight * 0.25 || (dy > 10 && v > 0.4)) {
+      el.style.transition = "transform 220ms var(--ease-out)";
+      el.style.transform = "translateY(100%)";
+      onClose();
+    } else {
+      el.style.transition = "transform 320ms var(--ease-drawer)";
+      el.style.transform = "translateY(0)";
+    }
+  };
   if (!open && !shown) return null;
   return (
     <Portal>
     <div className={cx("frame-fixed inset-y-0 z-50", !open && "sheet-closing pointer-events-none")} role="dialog" aria-modal="true" aria-label={title}>
       <button type="button" aria-label="Close" tabIndex={-1} onClick={onClose} className="sheet-scrim absolute inset-0 bg-black/30" />
       <div ref={panel} tabIndex={-1} className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto overscroll-contain rounded-t-[32px] bg-white pt-[5px] outline-none" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }}>
-        <span aria-hidden="true" className="mx-auto h-[5px] w-9 shrink-0 rounded-full bg-[#c7c7cc]" />
-        <div className="chrome grid grid-cols-[44px_1fr_44px] items-center gap-2">
-          <span />
-          <h2 className="truncate text-center text-headline text-ink">{title}</h2>
-          <button type="button" aria-label="Close" onClick={onClose} className="press inline-flex size-11 items-center justify-center rounded-full bg-surface text-ink">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" /></svg>
-          </button>
+        <div className="chrome -mx-4 flex touch-none cursor-grab flex-col gap-1 px-4 active:cursor-grabbing" onPointerDown={onDragStart} onPointerMove={onDragMove} onPointerUp={onDragEnd} onPointerCancel={onDragEnd}>
+          <span aria-hidden="true" className="mx-auto h-[5px] w-9 shrink-0 rounded-full bg-[#c7c7cc]" />
+          <div className="grid grid-cols-[44px_1fr_44px] items-center gap-2">
+            <span />
+            <h2 className="truncate text-center text-headline text-ink">{title}</h2>
+            <button type="button" aria-label="Close" onClick={onClose} className="press inline-flex size-11 items-center justify-center rounded-full bg-surface text-ink">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" /></svg>
+            </button>
+          </div>
         </div>
         {open ? children : last}
       </div>

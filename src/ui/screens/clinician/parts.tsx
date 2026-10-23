@@ -105,7 +105,7 @@ export function StepProgress({ step, of }: { step: number; of: number }) {
 export function DevBanner({ backend }: { backend?: "supabase" | "memory" }) {
   if (backend !== "memory") return null;
   return (
-    <p role="status" className="pointer-events-none absolute inset-x-7 top-2 text-center text-caption2 leading-none text-grey">
+    <p role="status" className="pointer-events-none absolute inset-x-7 top-2 text-center text-footnote leading-none text-grey">
       Local mode: no Supabase key, nothing is saved.
     </p>
   );

@@ -43,7 +43,7 @@ export function ConnectorCard({ origin }: { origin: string }) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-body font-semibold text-ink"><Brand /></p>
-            <span className="rounded-[10px] bg-surface-soft px-1.5 py-0.5 text-caption2 font-semibold text-grey">MCP</span>
+            <span className="rounded-full bg-white px-2 py-0.5 text-footnote font-semibold text-grey">MCP</span>
           </div>
           <p className="text-subhead text-grey">Find a doctor who fits you, from inside your assistant</p>
           <p className="mt-1 flex items-center gap-1.5 text-footnote text-grey">
@@ -58,7 +58,7 @@ export function ConnectorCard({ origin }: { origin: string }) {
         <ul className="mt-2 flex flex-col gap-2.5">
           {TOOLS.map((t) => (
             <li key={t.name} className="flex gap-3">
-              <code className="shrink-0 rounded-[10px] bg-surface-soft px-1.5 py-0.5 text-caption1 text-ink">{t.name}</code>
+              <code className="shrink-0 rounded-control bg-surface-soft px-1.5 py-0.5 text-footnote text-ink">{t.name}</code>
               <span className="text-subhead leading-read text-grey">{t.what}</span>
             </li>
           ))}
@@ -68,15 +68,15 @@ export function ConnectorCard({ origin }: { origin: string }) {
 
       <div className="border-t border-hairline px-5 py-4">
         <p className="text-footnote font-semibold text-grey">Server URL</p>
-        <div className="mt-2 flex items-center gap-2 rounded-[12px] bg-white py-1 pl-3 pr-1">
+        <div className="mt-2 flex items-center gap-2 rounded-control bg-white py-1 pl-3 pr-1">
           <code className="min-w-0 flex-1 truncate text-footnote text-ink">{url}</code>
-          <button type="button" onClick={() => void copy()} className="press shrink-0 rounded-[10px] bg-white px-3 py-1.5 text-footnote text-ink ring-1 ring-black/10">{copied ? "Copied" : "Copy"}</button>
+          <button type="button" onClick={() => void copy()} className="press hit shrink-0 rounded-full bg-surface px-3 py-1.5 text-footnote font-semibold text-ink">{copied ? "Copied" : "Copy"}</button>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <a href="https://claude.ai/settings/connectors" target="_blank" rel="noreferrer" onClick={() => void copy()} className="press inline-flex h-11 items-center justify-center rounded-[10px] bg-ink text-subhead font-semibold text-white">Add to Claude</a>
-          <a href="https://chatgpt.com/#settings/Connectors" target="_blank" rel="noreferrer" onClick={() => void copy()} className="press inline-flex h-11 items-center justify-center rounded-[10px] border border-ink text-subhead font-semibold text-ink">Add to ChatGPT</a>
+          <a href="https://claude.ai/settings/connectors" target="_blank" rel="noreferrer" onClick={() => void copy()} className="press inline-flex h-11 items-center justify-center rounded-control bg-ink text-subhead font-semibold text-white">Add to Claude</a>
+          <a href="https://chatgpt.com/#settings/Connectors" target="_blank" rel="noreferrer" onClick={() => void copy()} className="press inline-flex h-11 items-center justify-center rounded-control border border-ink text-subhead font-semibold text-ink">Add to ChatGPT</a>
         </div>
-        <p className="mt-2 text-caption1 leading-read text-grey">Opens the app’s connector settings with the URL copied. Choose “Add custom connector” and paste.</p>
+        <p className="mt-2 text-footnote leading-read text-grey">Opens the app’s connector settings with the URL copied. Choose “Add custom connector” and paste.</p>
         <details className="mt-3">
           <summary className="cursor-pointer text-footnote text-grey">Using a custom GPT instead?</summary>
           <p className="mt-2 text-footnote text-grey">GPT editor › Actions › Import from URL: <code className="text-ink">{origin}/api/openapi.json</code></p>

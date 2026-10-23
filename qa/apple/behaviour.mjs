@@ -43,5 +43,16 @@ out.bodyUnlocked = await page.evaluate(() => getComputedStyle(document.body).pos
 out.yAfter = await page.evaluate(() => scrollY);
 out.scrollRestored = Math.abs(out.yAfter - y0) <= 2;
 out.focusBackOnRefine = await page.evaluate(() => document.activeElement?.textContent?.trim());
+// 4) drag the grabber down: the sheet dismisses past 25% of its height
+await refine.click(); await page.waitForTimeout(600);
+const grab = await page.locator("[role=dialog] .touch-none").first().boundingBox();
+if (grab) {
+  await page.mouse.move(grab.x + grab.width / 2, grab.y + 6);
+  await page.mouse.down();
+  for (let i = 1; i <= 8; i++) { await page.mouse.move(grab.x + grab.width / 2, grab.y + 6 + i * 40); await page.waitForTimeout(16); }
+  await page.mouse.up();
+  await page.waitForTimeout(500);
+}
+out.sheetClosedByDrag = !(await page.getByRole("dialog", { name: "Refine" }).isVisible().catch(() => false));
 console.log(JSON.stringify(out, null, 1));
 await b.close();

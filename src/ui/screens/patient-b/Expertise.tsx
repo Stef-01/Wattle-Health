@@ -56,7 +56,7 @@ export function Expertise({ doctor: d, labels }: { doctor: DoctorRecord; labels:
             <p className="text-body leading-read text-charcoal">{listSentence(conditions)}.</p>
           )}
           <Space h={10} />
-          <p className="text-caption1 text-grey">{badge}</p>
+          <p className="text-footnote text-grey">{badge}</p>
           <Space h={26} />
           <div className="flex items-center justify-between">
             <h2 className="text-title3 text-ink">Research</h2>
@@ -74,7 +74,7 @@ export function Expertise({ doctor: d, labels }: { doctor: DoctorRecord; labels:
           <h2 className="text-title3 text-ink">Research</h2>
           <Space h={8} />
           {pubs.length === 0 ? <Body className="text-body">No verified publications yet.</Body> : research(pubs)}
-          {pubs.length > 0 ? <p className="pt-3 text-caption1 text-grey">OpenAlex, authorship {pubs[0]!.verification.replace("-", " ")}.</p> : null}
+          {pubs.length > 0 ? <p className="pt-3 text-footnote text-grey">OpenAlex, authorship {pubs[0]!.verification.replace("-", " ")}.</p> : null}
         </>
       ) : null}
 

@@ -1,7 +1,8 @@
 // Apple pass audit (2026-10-23): reads computed styles from the rendered DOM of every patient
 // screen at iPhone 15 size and reports what an Apple design review would count: distinct font
 // sizes, weights, text colours and corner radii in use; text below 4.5:1 contrast; tap targets
-// under 44 px; uppercase labels; hand-set letter-spacing. Run before and after a change:
+// under 44 px in either dimension (inline links inside a sentence excepted, as WCAG 2.5.8 does); uppercase
+// labels; hand-set letter-spacing. Run before and after a change:
 //   CHROME=/opt/pw-browsers/chromium node qa/apple/audit.mjs > qa/apple/audit-after.json
 import { chromium, devices } from "@playwright/test";
 const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
@@ -67,8 +68,13 @@ for (const r of ROUTES) {
     for (const e of document.querySelectorAll("a[href], button, [role=button], [role=tab], [role=switch], input, textarea")) {
       if (!vis(e) || e.closest("nextjs-portal") || e.closest("[aria-hidden=true]")) continue;
       const x = e.getBoundingClientRect();
-      if (x.width < 44 && x.height < 44) out.smallTargets.push(`${(e.getAttribute("aria-label") ?? e.textContent ?? "").trim().slice(0, 24)} ${Math.round(x.width)}x${Math.round(x.height)}`);
-      else if (Math.min(x.width, x.height) < 28) out.smallTargets.push(`${(e.getAttribute("aria-label") ?? e.textContent ?? "").trim().slice(0, 24)} ${Math.round(x.width)}x${Math.round(x.height)}`);
+      // A .hit ::after extends the target without changing the box; count its real size.
+      const after = getComputedStyle(e, "::after");
+      const ext = after.content !== "none" && after.position === "absolute" ? { h: parseFloat(after.height) || 0, w: parseFloat(after.minWidth) || 0 } : { h: 0, w: 0 };
+      const h = Math.max(x.height, ext.h);
+      const w = Math.max(x.width, ext.w);
+      const inline = getComputedStyle(e).display === "inline" && e.closest("p");
+      if (!inline && (w < 44 || h < 44)) out.smallTargets.push(`${(e.getAttribute("aria-label") ?? e.textContent ?? "").trim().slice(0, 24)} ${Math.round(w)}x${Math.round(h)}`);
     }
     return out;
   });

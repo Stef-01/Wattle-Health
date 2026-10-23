@@ -12,7 +12,8 @@ const HIDDEN = ["/splash", "/narrow", "/join", "/claim", "/team", "/adjust"];
 function activeFor(path: string): "/" | "/recent" | "/saved" | "/me" {
   if (path.startsWith("/recent")) return "/recent";
   if (path.startsWith("/saved")) return "/saved";
-  if (path.startsWith("/me")) return "/me";
+  // Pages opened from Profile keep Profile selected (wayfinding: where am I?).
+  if (path.startsWith("/me") || path.startsWith("/about") || path.startsWith("/healthspan")) return "/me";
   return "/";
 }
 

@@ -6,7 +6,7 @@ import { CalendarConnect } from "./CalendarConnect";
 import { useEffect, useRef, useState } from "react";
 import { icsFor, parseIcs, WINDOWS, type Window } from "@/src/data/calendar";
 import type { DoctorRecord } from "@/src/data/types";
-import { Check, LargeTitle, NavBar, Screen, Toggle } from "@/src/ui/kit";
+import { Check, Face, NavBar, Screen, Toggle } from "@/src/ui/kit";
 import { checkOpenings, getOpeningsState, setOpeningsState, type FitOpening, type OpeningsState } from "@/src/ui/openings";
 import { drName, placeOf, primaryRoom } from "./facts";
 
@@ -86,8 +86,8 @@ export function Openings() {
 
   return (
     <Screen padBottom="pb-[120px]">
-      <NavBar back="/me" title="Openings" collapse />
-      <LargeTitle sub="Times that fit your calendar, from doctors you saved.">Openings</LargeTitle>
+      <NavBar back="/me" title="Openings" />
+      <p className="mt-2 text-body text-grey">Times that fit your calendar, from doctors you saved.</p>
 
       <CalendarConnect state={s} onChange={() => void refresh()} />
 
@@ -98,7 +98,7 @@ export function Openings() {
           {(Object.keys(WINDOWS) as Window[]).map((w) => {
             const on = s?.windows.includes(w) ?? true;
             return (
-              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press rounded-full px-4 py-2 text-subhead ${on ? "bg-ink text-white" : "bg-surface-soft text-grey"}`}>
+              <button key={w} type="button" aria-pressed={on} onClick={() => toggleWindow(w)} className={`press chrome inline-flex h-11 items-center rounded-full px-4 text-subhead ${on ? "bg-ink text-white" : "bg-surface text-ink"}`}>
                 {WINDOWS[w].label.split(",")[0]}
               </button>
             );
@@ -128,15 +128,12 @@ export function Openings() {
                 const phone = room?.phone ?? o.doctor.booking?.phone ?? null;
                 return (
                   <article key={o.id} className="rise flex gap-3 rounded-card bg-surface-soft p-4">
-                    {o.doctor.photo ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={o.doctor.photo.url} alt="" referrerPolicy="no-referrer" className="size-14 shrink-0 rounded-full object-cover object-top" />
-                    ) : <span className="size-14 shrink-0 rounded-full bg-surface-soft" />}
+                    <Face url={o.doctor.photo?.url} name={o.doctor.name.display} size={56} />
                     <div className="min-w-0 flex-1">
                       <p className="flex flex-wrap items-center gap-x-2 text-body text-ink">
                         <span className="whitespace-nowrap font-semibold">{timeOf(o.start)}</span>
                         <span className="truncate text-footnote text-grey">{o.mode === "telehealth" ? "Telehealth" : placeOf(o.doctor)}</span>
-                        {newIds.includes(o.id) ? <span className="rounded-full bg-ink px-2 py-0.5 text-caption1 text-white">New</span> : null}
+                        {newIds.includes(o.id) ? <span className="rounded-full bg-ink px-2 py-0.5 text-footnote text-white">New</span> : null}
                       </p>
                       <p className="truncate text-subhead text-charcoal">{drName(o.doctor)}</p>
                       <div className="mt-1.5 flex gap-4 text-subhead">

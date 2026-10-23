@@ -79,7 +79,7 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
         })}
       </div>
       <button type="button" onClick={() => setAreas(null)} className="press-dim mt-5 text-subhead text-accent">Ask something else</button>
-      <p className="mt-6 text-caption1 leading-read text-grey">General information to take to your GP, not medical advice. Wearable numbers are estimates.</p>
+      <p className="mt-6 text-footnote leading-read text-grey">General information to take to your GP, not medical advice. Wearable numbers are estimates.</p>
     </div>
   );
 }
