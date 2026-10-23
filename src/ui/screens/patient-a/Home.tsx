@@ -134,7 +134,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
         </Link>
       ) : null}
       <GroupHeader>Or try one of these</GroupHeader>
-      <Group tone="soft">
+      <Group tone="plain">
         {EXAMPLES.map((ex) => (
           <Cell key={ex} title={ex} onClick={() => void submit(ex)} />
         ))}
@@ -142,7 +142,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
       {recent.length > 0 ? (
         <>
           <GroupHeader>Recent</GroupHeader>
-          <Group tone="soft" sep={58}>
+          <Group tone="plain" sep={58}>
             {recent.map((r) => (
               <Cell key={r.id} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}`} href="/results" onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
             ))}

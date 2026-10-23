@@ -132,7 +132,7 @@ export function Pills({ children }: { children: ReactNode }) {
 
 /** A filled field (no border): tertiary fill, 12 px corners, the tint ring on focus. */
 export function FieldBox({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cx("field rounded-field bg-surface", className)}>{children}</div>;
+  return <div className={cx("field rounded-field border border-line bg-white", className)}>{children}</div>;
 }
 
 /* -------------------------------------------------------------- rows */
@@ -165,9 +165,9 @@ export function Divider({ inset = false }: { inset?: boolean }) {
 
 /** An inset-grouped section (iOS 26): 26 px continuous-looking corners, white on the grouped page
  *  (or the grouped grey on a white page), rows separated by hairlines from the text column. */
-export function Group({ children, tone = "cell", className, sep = 16 }: { children: ReactNode; tone?: "cell" | "soft"; className?: string; sep?: number }) {
+export function Group({ children, tone = "cell", className, sep = 16 }: { children: ReactNode; tone?: "cell" | "soft" | "plain"; className?: string; sep?: number }) {
   return (
-    <div className={cx("ios-group overflow-hidden rounded-card", tone === "cell" ? "bg-cell" : "bg-surface-soft", className)} style={{ "--sep": `${sep}px` } as CSSProperties}>
+    <div className={cx("ios-group overflow-hidden", tone === "plain" ? "" : "rounded-card", tone === "cell" ? "bg-cell" : tone === "soft" ? "bg-surface-soft" : "", className)} style={{ "--sep": `${sep}px` } as CSSProperties}>
       {children}
     </div>
   );
