@@ -1,21 +1,33 @@
 "use client";
-// The platform name (founder 2026-10-19): one setting switches the whole app between "Wattle" and
-// "ADHDme". Stored on this device; every <Brand /> and the tab title follow it live.
+// The platform name and mode (founder 2026-10-19; a real mode since 2026-10-24, src/mode.ts). One
+// setting switches the whole app between Wattle and ADHDme: the name, and in ADHDme mode the
+// roster, the copy and the surfaces too. The `wattle.mode` cookie is the source of truth because
+// the server reads it; localStorage keeps the old key in step for screens that read it directly.
 import { useEffect, useState } from "react";
+import { defaultMode, MODE_COOKIE, MODES, parseMode, type AppMode } from "@/src/mode";
 
-export const BRANDS = { wattle: "Wattle", adhdme: "ADHDme" } as const;
-export type BrandId = keyof typeof BRANDS;
+export const BRANDS = MODES;
+export type BrandId = AppMode;
 const KEY = "wattle.brand.v1";
 
+function cookieMode(): AppMode | null {
+  if (typeof document === "undefined") return null;
+  const hit = document.cookie.split(/;\s*/).find((c) => c.startsWith(`${MODE_COOKIE}=`));
+  return parseMode(hit?.slice(MODE_COOKIE.length + 1));
+}
+
 export function getBrand(): BrandId {
+  const fromCookie = cookieMode();
+  if (fromCookie) return fromCookie;
   try {
-    const v = localStorage.getItem(KEY);
-    return v === "adhdme" ? "adhdme" : "wattle";
+    return parseMode(localStorage.getItem(KEY)) ?? defaultMode();
   } catch {
-    return "wattle";
+    return defaultMode();
   }
 }
+
 export function setBrand(id: BrandId): void {
+  document.cookie = `${MODE_COOKIE}=${id}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
   try {
     localStorage.setItem(KEY, id);
   } catch {
@@ -24,8 +36,9 @@ export function setBrand(id: BrandId): void {
   window.dispatchEvent(new Event("wattle:brand"));
 }
 
-export function useBrandName(): string {
-  const [id, setId] = useState<BrandId>("wattle");
+/** The current mode, live. */
+export function useMode(): AppMode {
+  const [id, setId] = useState<AppMode>(defaultMode());
   useEffect(() => {
     const sync = () => setId(getBrand());
     sync();
@@ -36,7 +49,11 @@ export function useBrandName(): string {
       window.removeEventListener("storage", sync);
     };
   }, []);
-  return BRANDS[id];
+  return id;
+}
+
+export function useBrandName(): string {
+  return BRANDS[useMode()];
 }
 
 /** Renders the current platform name. */

@@ -69,7 +69,7 @@ export function Matches() {
   const res: SearchResponse | null = req?.response ?? null;
   const cards = (res?.cards ?? []).slice(0, MAX);
   const labels = res?.conditionLabels ?? {};
-  const place = (res?.place.suburb ?? req?.suburb ?? "Brisbane").replace(/ City$/, "");
+  const place = (res?.place.suburb ?? (req?.suburb || "Australia")).replace(/ City$/, "");
 
   // Which match is under the top third of the screen, for the progress dots.
   useEffect(() => {
@@ -158,6 +158,9 @@ export function Matches() {
           {req.answers?.some((a) => /Talking it through|talk to someone/i.test(a.answer)) ? (
             <p className="mt-3 border-t-[length:var(--hairline)] border-hairline pt-3 text-subhead text-grey">For talking therapy, a psychologist is often the place to start. A GP’s Mental Health Treatment Plan gives you Medicare-subsidised sessions.</p>
           ) : null}
+          {res?.stateNote && cards.length > 0 ? (
+            <p className="mt-3 border-t-[length:var(--hairline)] border-hairline pt-3 text-subhead text-ink">{res.stateNote}</p>
+          ) : null}
         </section>
       ) : null}
       {req ? <Refine key={`${req.sentence}|${req.anywhere}`} open={refining} onClose={() => setRefining(false)} initial={readRefine(req.sentence, req.anywhere === true)} onApply={(s) => void refine(s)} place={place} /> : null}
@@ -174,7 +177,13 @@ export function Matches() {
           <Button href="/" size="medium">Start a search</Button>
         </div>
       ) : null}
-      {res && cards.length === 0 ? (
+      {res?.scopeNote ? (
+        <div className="flex flex-col items-start gap-4">
+          <h2 className="text-title2 text-ink">Not something ADHDme covers</h2>
+          <Body>{res.scopeNote}</Body>
+          <Button href="/me" kind="gray" size="medium">Change mode</Button>
+        </div>
+      ) : res && cards.length === 0 ? (
         <Empty res={res} place={place} busy={busy} onWiden={() => void rerun({ anywhere: true })} onTelehealth={() => void rerun({ sentence: `${req!.sentence}, telehealth only` })} onChange={() => router.push("/")} onClosest={() => void rerun({ anywhere: true })} />
       ) : null}
       <div className="flex flex-col" style={busy ? { opacity: 0.5, transition: "opacity 150ms ease" } : { transition: "opacity 150ms ease" }}>

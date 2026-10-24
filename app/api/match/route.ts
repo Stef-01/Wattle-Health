@@ -1,6 +1,7 @@
 // POST /api/match. The sentence travels in the body, never the URL, and is not logged.
 import { NextResponse } from "next/server";
 import { runSearch, type SearchRequest } from "@/src/data/search";
+import { currentMode } from "@/src/server/mode";
 
 export const dynamic = "force-dynamic";
 
@@ -19,5 +20,5 @@ export async function POST(request: Request): Promise<Response> {
   if (body.weights && typeof body.weights === "object") req.weights = body.weights;
   if (Array.isArray(body.removed)) req.removed = body.removed.filter((r): r is string => typeof r === "string");
   if (Array.isArray(body.exclude)) req.exclude = body.exclude.filter((r): r is string => typeof r === "string").slice(0, 6);
-  return NextResponse.json(await runSearch(req));
+  return NextResponse.json(await runSearch(req, await currentMode()));
 }

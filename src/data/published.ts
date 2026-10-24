@@ -14,7 +14,8 @@ import "@/src/geo/national";
 import { resolvePlace } from "@/src/geo/suburbs";
 import { withPersonalLabels } from "@/src/matching/personal-labels";
 import type { Gender, Location, Observed, Population, Specialty, Telehealth } from "@/src/matching/types";
-import type { DoctorRecord, PersonalProfile, Room, SourceRef } from "./types";
+import { cardFrom, type RawCard } from "./adhdme";
+import { STATES, type DoctorRecord, type PersonalProfile, type Reach, type Room, type SourceRef, type StateCode } from "./types";
 
 export type ResearchedDoctor = {
   name: string;
@@ -25,7 +26,7 @@ export type ResearchedDoctor = {
   profession?: string | null;
   gender: Gender | null;
   /** `state` defaults to QLD. A practice in another state is never geocoded: such a record is telehealth-only for Queenslanders. */
-  practice: { name: string; address?: string | null; suburb: string; state?: Location["state"] | null; postcode?: string | null; phone?: string | null; website?: string | null; lat?: number | null; lng?: number | null };
+  practice: { name: string; address?: string | null; /** Null when the source states no location. */ suburb: string | null; state?: Location["state"] | null; postcode?: string | null; phone?: string | null; website?: string | null; lat?: number | null; lng?: number | null };
   telehealth?: Telehealth | null;
   referral_required?: boolean | null;
   fee_initial_dollars?: number | null;
@@ -50,6 +51,10 @@ export type ResearchedDoctor = {
   /** Later sweeps record the portrait URL inline; earlier ones live in portraits.json. */
   photo_url?: string | null;
   healthspan?: { areas?: string[]; opens_to?: string[]; evidence?: string } | null;
+  /** Where the provider can see somebody, by state (written by pipeline/adapters/adhdme.py). */
+  reach?: { home_state?: string | null; in_person_states?: string[]; telehealth_states?: string[]; national_telehealth?: boolean; states?: string[]; note?: string } | null;
+  /** The whole ADHDme network card (pipeline/adapters/adhdme.py). */
+  adhdme?: RawCard | null;
 };
 
 type ResearchFile = { category: string; researched_at: string; doctors: ResearchedDoctor[] };
@@ -117,7 +122,7 @@ function healthspanOf(d: ResearchedDoctor, texts: (string | undefined)[]): Perso
 
 function personalOf(d: ResearchedDoctor): PersonalProfile {
   const raw = d.personal ?? {};
-  const p: PersonalProfile = { status: "published", sourceUrl: d.source.url, sourceName: d.practice.name || d.source.page_title || "practice website", observedAt: d.source.observed_at.slice(0, 10) };
+  const p: PersonalProfile = { status: "published", sourceUrl: d.source.url, sourceName: d.adhdme ? "their ADHDme network page" : d.practice.name || d.source.page_title || "practice website", observedAt: d.source.observed_at.slice(0, 10) };
   const philosophy = str(raw.philosophy_of_care);
   const whyMedicine = str(raw.why_medicine);
   const approach = str(raw.communication_approach);
@@ -141,9 +146,33 @@ function personalOf(d: ResearchedDoctor): PersonalProfile {
   return p;
 }
 
+const isState = (s: unknown): s is StateCode => typeof s === "string" && (STATES as readonly string[]).includes(s);
+
+function reachOf(d: ResearchedDoctor): Reach | undefined {
+  const r = d.reach;
+  if (!r) return undefined;
+  const inPersonStates = (r.in_person_states ?? []).filter(isState);
+  const telehealthStates = (r.telehealth_states ?? []).filter(isState);
+  const states = STATES.filter((s) => inPersonStates.includes(s) || telehealthStates.includes(s));
+  const out: Reach = { homeState: isState(r.home_state) ? r.home_state : null, inPersonStates, telehealthStates, nationalTelehealth: r.national_telehealth === true, states };
+  if (r.note) out.note = r.note;
+  return out;
+}
+
+/** The ADHDme card and reach onto a record (new or existing); the card's own booking link wins over a bare website. */
+function applyNetwork(record: DoctorRecord, d: ResearchedDoctor): void {
+  const reach = reachOf(d);
+  if (reach) record.reach = reach;
+  if (!d.adhdme) return;
+  const card = cardFrom(d.adhdme, d.source.observed_at.slice(0, 10));
+  record.adhdme = card;
+  if (card.booking) record.booking = { via: "website", url: card.booking.url, ...(card.booking.hint ? { note: card.booking.hint } : {}) };
+  if (card.bulkBilled) record.billing = found("bulk-bills", sourceOf(d));
+}
+
 function sourceOf(d: ResearchedDoctor): SourceRef {
   return {
-    source: SOURCE,
+    source: d.adhdme ? "adhdme" : SOURCE,
     sourceUrl: d.source.url,
     observedAt: d.source.observed_at,
     legalBasis: d.source.legal_basis ?? "facts and the doctor's own published words from their practice website; short quotations attributed; no images copied",
@@ -164,7 +193,7 @@ function roomOf(d: ResearchedDoctor, id: string): Room {
     const p = resolvePlace(pr.postcode ? `${pr.suburb} ${pr.postcode}` : `${pr.suburb} ${state}`) ?? resolvePlace(`${pr.suburb} ${state}`);
     return p ? { lat: p.lat, lng: p.lon } : { lat: null, lng: null };
   })();
-  return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb, state, postcode: pr.postcode ?? "", lat: point.lat, lng: point.lng, phone: pr.phone ?? null, website: pr.website ?? null };
+  return { id, name: pr.name || null, address: pr.address ?? null, suburb: pr.suburb ?? "", state, postcode: pr.postcode ?? "", lat: point.lat, lng: point.lng, phone: pr.phone ?? null, website: pr.website ?? null };
 }
 
 function locationOf(room: Room, src: SourceRef, telehealthOnly: boolean): Location | null {
@@ -217,8 +246,8 @@ function applyFacts(record: DoctorRecord, d: ResearchedDoctor, src: SourceRef, d
 function newRecord(d: ResearchedDoctor, discipline: Discipline): DoctorRecord {
   const id = `${d.specialty}:${nameKey(d.name).replace(/[^a-z]+/g, "-")}`;
   const src = sourceOf(d);
-  const room = roomOf(d, `${id}:0`);
-  const loc = locationOf(room, src, d.telehealth === "only");
+  const room = d.practice.suburb ? roomOf(d, `${id}:0`) : null;
+  const loc = room ? locationOf(room, src, d.telehealth === "only") : null;
   const record: DoctorRecord = {
     id,
     realPerson: true,
@@ -232,16 +261,17 @@ function newRecord(d: ResearchedDoctor, discipline: Discipline): DoctorRecord {
     billing: found("unknown", src),
     capacity: found("unknown", src),
     locations: loc ? [loc] : [],
-    booking: room.phone ? { via: "phone", phone: room.phone } : room.website ? { via: "website", url: room.website } : { via: "none" },
+    booking: room?.phone ? { via: "phone", phone: room.phone } : room?.website ? { via: "website", url: room.website } : { via: "none" },
     focusTags: found([], src),
     credential: null,
     declared: { telehealth: Boolean(d.telehealth), capacity: false, languages: false },
     waitTimeText: null,
-    rooms: [room],
+    rooms: room ? [room] : [],
     sources: [src],
     publications: [],
   };
   applyFacts(record, d, src, discipline);
+  applyNetwork(record, d);
   return record;
 }
 
@@ -270,13 +300,14 @@ export function withPublished(doctors: DoctorRecord[], discipline: Discipline, r
       const idx = out.indexOf(record);
       record = { ...record, declared: { ...record.declared }, sources: [...record.sources, src] };
       const geocoded = record.rooms.some((room) => room.lat !== null && room.lng !== null);
-      if (!geocoded || !record.rooms.some((room) => room.website)) {
+      if (r.practice.suburb && (!geocoded || !record.rooms.some((room) => room.website))) {
         const room = roomOf(r, `${record.id}:w`);
         record.rooms = [room, ...record.rooms];
         const loc = locationOf(room, src, r.telehealth === "only");
         if (loc) record.locations = [loc, ...record.locations];
       }
       applyFacts(record, r, src, discipline);
+      applyNetwork(record, r);
       record.personal = personalOf(r);
       const photo = photoFor(r);
       if (photo) record.photo = photo;

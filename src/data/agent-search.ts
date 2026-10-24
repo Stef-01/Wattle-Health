@@ -4,16 +4,18 @@
 import { doctorHref } from "./doctor-slug";
 import { getDoctor, getDoctors, mvpDiscipline } from "./providers";
 import { searchWith } from "./search-core";
+import { defaultMode } from "@/src/mode";
 
 const ORIGIN = process.env.NEXT_PUBLIC_SITE_URL ?? "https://wattlehealth.vercel.app";
 
 const hobbiesOf = (h: string | string[] | undefined) => (Array.isArray(h) ? h : h ? [h] : []);
 
 export async function agentSearch(sentence: string, suburb?: string) {
-  const res = searchWith(await getDoctors(), mvpDiscipline(), { sentence: sentence.slice(0, 1200), suburb: suburb || "Brisbane" });
+  // An assistant has no cookie: the deployment's mode. No place given means all of Australia.
+  const res = searchWith(await getDoctors(), mvpDiscipline(), { sentence: sentence.slice(0, 1200), suburb: suburb || "" }, { mode: defaultMode() });
   return {
     understood: res.chips.map((c) => c.label),
-    note: res.emergency?.note ?? res.careGuidance ?? null,
+    note: res.emergency?.note ?? res.scopeNote ?? res.careGuidance ?? res.stateNote ?? null,
     matches: res.cards.slice(0, 3).map((c) => {
       const d = c.doctor;
       const room = d.rooms[0];

@@ -67,6 +67,8 @@ export function clearCompare(): void {
 
 export const SAVED_KEY = "wattle.saved.v1";
 const NAME = "wattle.name";
+/** The suburb or postcode the person says they are in (every state, 2026-10-24). Searches start from it. */
+const PLACE = "wattle.place.v1";
 const RECENT = "wattle.recent.v1";
 const SPLASH = "wattle.splash.seen";
 const CURRENT = "wattle.req.current";
@@ -121,6 +123,9 @@ export function toggleSavedId(id: string, context?: string): string[] {
 
 export const getName = () => read<string>(() => localStorage, NAME);
 export const setName = (name: string) => write(() => localStorage, NAME, name);
+
+export const getPlace = () => read<string>(() => localStorage, PLACE)?.trim() || null;
+export const setPlace = (place: string) => write(() => localStorage, PLACE, place.trim());
 
 export const splashSeen = () => read<boolean>(() => localStorage, SPLASH) === true;
 export const markSplashSeen = () => write(() => localStorage, SPLASH, true);

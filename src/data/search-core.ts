@@ -26,6 +26,9 @@ const PROFESSIONS: { re: RegExp; test: (specialty: string, profession: string) =
 
 const NEAR_KM = 50;
 
+/** Specialties that prescribe. A prescriber-only ask (yaml `prescriber: true`, ADHD) is unmet in a state none of them reach. */
+const PRESCRIBING = new Set(["general-practice", "psychiatry", "paediatrics"]);
+
 /** When the sentence names a profession, providers of it lead (stable); nobody is removed. */
 export function byAskedProfession<T extends { doctor: { specialty: string; profession?: string } }>(sentence: string, cards: T[]): T[] {
   const asked = PROFESSIONS.filter((p) => p.re.test(sentence));
@@ -41,6 +44,7 @@ import { highlightsFor } from "./highlights";
 import { resolveSuburb } from "./places";
 import { placeInSentence } from "@/src/geo/suburbs";
 import type { DoctorRecord } from "./types";
+import { isAdhdSupport, offTopicNote, onTopic, type AppMode } from "@/src/mode";
 import { DEFAULT_WEIGHTS, type Card, type Chip, type FitBand, type SearchRequest, type SearchResponse, type Weights } from "./search-types";
 
 export function toHumanFitWeights(w: Weights): HumanFitWeights {
@@ -135,16 +139,21 @@ export function toCard(ranked: Ranked, byId: Map<string, DoctorRecord>, intent?:
   return card;
 }
 
-export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Discipline, req: SearchRequest): SearchResponse {
+export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Discipline, req: SearchRequest, opts: { mode?: AppMode } = {}): SearchResponse {
+  const mode = opts.mode ?? "wattle";
   const exclude = new Set(req.exclude ?? []);
-  const pool = exclude.size ? allDoctors.filter((d) => !exclude.has(d.specialty)) : allDoctors;
+  // ADHDme's own call (owner, 2026-10-07): the evidence base for some care in the network is
+  // unclear, so its care navigator leaves those providers out. Their profile pages stay; search
+  // never ranks them. In ADHDme mode the pool is the ADHD cohort only (src/mode.ts).
+  const pool = allDoctors.filter((d) => !d.adhdme?.evidenceUnclear && !exclude.has(d.specialty) && (mode !== "adhdme" || isAdhdSupport(d)));
   // A named profession ("a psychologist", "ADHD coach") narrows the pool to it when we list any.
   const asked = PROFESSIONS.filter((p) => p.re.test(req.sentence));
   const narrowed = asked.length ? pool.filter((d) => asked.some((p) => p.test(d.specialty, (d as { profession?: string }).profession ?? ""))) : [];
   const doctors = narrowed.length ? narrowed : pool;
   const weights: Weights = { ...DEFAULT_WEIGHTS, ...(req.weights ?? {}) };
-  const typed = (req.suburb ?? "").trim() || placeInSentence(req.sentence ?? "")?.suburb || "Brisbane";
-  const place = resolveSuburb(typed, doctors);
+  // No place named: all of Australia, not Brisbane (every state, 2026-10-24).
+  const typed = (req.suburb ?? "").trim() || placeInSentence(req.sentence ?? "")?.suburb || "";
+  const place = typed ? resolveSuburb(typed, doctors) : null;
 
   const original = req.sentence.slice(0, 1200);
   const removed = new Set(req.removed ?? []);
@@ -161,10 +170,12 @@ export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Disc
   const near = (c: Card) => c.distanceKm === undefined || c.distanceKm <= NEAR_KM;
   const cards = byAskedProfession(original, (req.suburb ?? "").trim() ? [...fitted.filter(near), ...fitted.filter((c) => !near(c))] : fitted);
 
+  const askedConditions = result.intent?.conditions ?? [];
+  const offTopic = mode === "adhdme" && !result.emergency && !onTopic(askedConditions);
   const response: SearchResponse = {
     order: result.order,
     orderNote: result.orderNote,
-    cards,
+    cards: offTopic ? [] : cards,
     chips,
     clarifiers: result.clarifiers,
     place: { typed, suburb: place?.suburb ?? null },
@@ -174,7 +185,27 @@ export function searchWith(allDoctors: readonly DoctorRecord[], discipline: Disc
   if (result.careGuidance) response.careGuidance = result.careGuidance;
   if (result.emergency) response.emergency = result.emergency;
   if (result.unserved) response.unserved = result.unserved;
+  if (offTopic) response.scopeNote = offTopicNote(askedConditions, discipline);
+  const gap = offTopic ? null : prescriberGap(askedConditions, place?.state ?? null, doctors, discipline);
+  if (gap) response.stateNote = gap;
   return response;
+}
+
+/**
+ * The care asked for needs a prescriber (yaml `prescriber: true`) and no prescriber on the roster
+ * sees people in the person's state. Said in one sentence, never hidden: in October 2026 no ADHDme
+ * prescriber reaches SA, TAS, ACT or NT, because prescribing authority is state by state and every
+ * prescriber in the network is in QLD, NSW or VIC. The non-prescribing providers who do reach the
+ * state still show.
+ */
+export function prescriberGap(conditions: readonly string[], state: string | null, doctors: readonly DoctorRecord[], discipline: Discipline): string | null {
+  if (!state) return null;
+  const needs = conditions.map((id) => discipline.conditions.find((c) => c.id === id)).find((c) => c?.prescriber === true);
+  if (!needs) return null;
+  const reaches = (d: DoctorRecord) => (d.reach ? (d.reach.states as string[]).includes(state) : d.rooms.some((r) => r.state === state));
+  const served = doctors.some((d) => PRESCRIBING.has(d.specialty) && d.conditions.value.includes(needs.id) && reaches(d));
+  if (served) return null;
+  return `No ${needs.label} prescriber we list sees people in ${state} yet. The providers below can, and a GP near you can prescribe once you have a diagnosis.`;
 }
 
 /**

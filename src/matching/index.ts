@@ -56,6 +56,7 @@ export const FILTER_REASON_COPY: Record<FilterReason, string> = {
   "billing-mismatch": "bulk billing only",
   "no-telehealth": "telehealth only",
   "out-of-reach": `within ${REACH_KM} km`,
+  "out-of-state": "seeing people in your state",
   "registration-not-current": "a current registration",
   "gender-mismatch": "the gender you asked for",
   "language-mismatch": "a language they consult in",
@@ -193,7 +194,7 @@ export function match(
   const excluded: MatchResult["excluded"] = [];
   for (const doctor of doctors) {
     const clinician = toClinician(doctor);
-    const reason = layer1Filter(doctor, clinician, intent, asks, origin);
+    const reason = layer1Filter(doctor, clinician, intent, asks, origin, place?.state ?? null);
     if (reason) {
       excluded.push({ doctor, reason });
       continue;

@@ -52,6 +52,10 @@ export interface SearchResponse {
   rosterSize: number;
   /** Closed condition id → yaml `label` ("pcos" → "Polycystic ovary syndrome"), so the browser can name listed conditions properly. */
   conditionLabels?: Record<string, string>;
+  /** ADHDme mode, a sentence about something other than ADHD: why there are no cards (src/mode.ts). */
+  scopeNote?: string;
+  /** The care asked for needs a prescriber and none we list sees people in the person's state. Said plainly; the rest still show. */
+  stateNote?: string;
 }
 
 export interface SearchRequest {

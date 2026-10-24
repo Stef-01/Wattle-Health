@@ -34,6 +34,43 @@ export interface Publication {
   verification: "identifier-matched" | "doctor-confirmed";
 }
 
+export { STATES, type Reach, type StateCode } from "@/src/matching/types";
+
+/** One piece of an ADHDme fee note: plain text, emphasis, or a link (http(s) only). */
+export type NoteSegment = { kind: "text" | "strong"; text: string } | { kind: "link"; text: string; href: string };
+
+/**
+ * The provider's whole card from the ADHDme network (founder's site), as ADHDme publishes it:
+ * what it costs, how the pathway runs, who else is involved, and where to book. Found tier: the
+ * words are the network page's, attributed to `profileUrl`.
+ */
+export interface AdhdmeCard {
+  id: string;
+  slug: string;
+  /** ADHDme's own category: gp, psychiatrist, psychologist, occupational-therapy, physiotherapy, exercise-physiology, coach, allied. */
+  category: string;
+  role: string;
+  summary: string;
+  chips: string[];
+  qualifications: string | null;
+  experience: string[];
+  pathway: { step: string; detail: string }[];
+  worksWith: string[];
+  fees: { heading: string; figures: { amount: string; label: string }[]; notes: NoteSegment[][] };
+  booking: { url: string; hint: string | null } | null;
+  links: { kind: string; label: string; url: string }[];
+  /** Facts ADHDme lists under the card ("Appointments", "Billing", "Wheelchair access"…). "Not declared" is kept as written. */
+  details: { label: string; value: string }[];
+  disclosure: string | null;
+  /** Offers ADHD assessment. False for a continuation prescriber. */
+  assesses: boolean;
+  bulkBilled: boolean;
+  /** ADHDme's own call (owner, 2026-10-07): the evidence for this kind of care is unclear, so search leaves it out. */
+  evidenceUnclear: boolean;
+  profileUrl: string;
+  observedAt: string;
+}
+
 export interface DoctorRecord extends Doctor {
   /** The source's own focus tags, verbatim, with provenance. */
   focusTags: Observed<string[]>;
@@ -49,6 +86,8 @@ export interface DoctorRecord extends Doctor {
   photo?: { url: string; sourceUrl: string; alt?: string };
   sources: SourceRef[];
   publications: Publication[];
+  /** The ADHDme network card, for providers in that network. */
+  adhdme?: AdhdmeCard;
 }
 
 /** Human-readable source names for the tier badge. */
@@ -65,6 +104,7 @@ export const SOURCE_LABELS: Record<string, string> = {
   claim: "the doctor",
   illustrative: "Illustrative example",
   "practice-website": "their practice website",
+  adhdme: "the ADHDme network",
 };
 
 export function sourceLabel(source: string): string {

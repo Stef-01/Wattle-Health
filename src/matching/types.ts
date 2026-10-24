@@ -130,6 +130,26 @@ export type Capacity = "open" | "waitlist" | "closed" | "unknown";
 
 export type Gender = "woman" | "man" | "non-binary";
 
+/** Australian states and territories, in the order the coverage view lists them. */
+export const STATES = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"] as const;
+export type StateCode = (typeof STATES)[number];
+
+/**
+ * Where a provider can actually see somebody, by state (pipeline/adapters/adhdme.py `reach_of`).
+ * In person in their own state; by telehealth in their own state, or in every state when the
+ * source says the practice works Australia-wide. ADHD prescribers are authorised state by state,
+ * so the source never marks one national and neither does this. Layer 1 reads `states`.
+ */
+export interface Reach {
+  homeState: StateCode | null;
+  inPersonStates: StateCode[];
+  telehealthStates: StateCode[];
+  nationalTelehealth: boolean;
+  /** Union of the two, in STATES order. */
+  states: StateCode[];
+  note?: string;
+}
+
 export interface Location {
   id: string;
   name: string;
@@ -190,6 +210,8 @@ export interface Doctor {
   researchTopics?: Observed<string[]> | string[];
   /** Documented clinical interests from permitted sources, as condition ids from the discipline yaml. */
   clinicalInterests?: Observed<string[]> | string[];
+  /** Where this provider can see somebody, by state. Absent: not known beyond the rooms and the telehealth flag. */
+  reach?: Reach;
 }
 
 export interface Intent {
@@ -235,6 +257,7 @@ export type FilterReason =
   | "billing-mismatch"
   | "no-telehealth"
   | "out-of-reach"
+  | "out-of-state"
   | "registration-not-current"
   | "gender-mismatch"
   | "language-mismatch";

@@ -10,7 +10,7 @@ import type { DoctorRecord } from "@/src/data/types";
 import { doctorHref } from "@/src/data/doctor-slug";
 import { demoOpenings } from "@/src/data/calendar";
 import { Check, Group, Labelled } from "@/src/ui/kit";
-import { Facts, Research, Sources, WordsFull } from "@/src/ui/screens/patient-b/Profile";
+import { Costs, Facts, Pathway, Research, Sources, Training, WordsFull } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta } from "@/src/ui/screens/patient-b/ProfileClient";
 import { Reviews, Stars } from "@/src/ui/screens/patient-b/Reviews";
 import { conditionLabels, drShort, feeOf, listSentence, personalOf, placeOf, primaryRoom, providerTitle, wordsSource } from "@/src/ui/screens/patient-b/facts";
@@ -65,12 +65,15 @@ function HighlightRows({ items }: { items: Highlight[] }) {
 
 function faqs(d: DoctorRecord): { q: string; a: string }[] {
   const fee = feeOf(d);
-  const tele = d.declared.telehealth ? (d.telehealth.value === "none" ? "No, appointments are in person." : d.telehealth.value === "only" ? "Yes, appointments are by telehealth only." : "Yes, telehealth is available.") : "Not listed. Ask the practice when you call.";
+  const figures = d.adhdme?.fees.figures ?? [];
+  const reach = d.reach;
+  const where = reach && d.telehealth.value !== "none" ? (reach.nationalTelehealth ? " Anywhere in Australia." : reach.telehealthStates.length ? ` For people in ${reach.telehealthStates.join(", ")}.` : "") : "";
+  const tele = (d.declared.telehealth ? (d.telehealth.value === "none" ? "No, appointments are in person." : d.telehealth.value === "only" ? "Yes, appointments are by telehealth only." : "Yes, telehealth is available.") : "Not listed. Ask the practice when you call.") + where;
   return [
     { q: "Do I need a referral?", a: d.referralRequired ? (d.referralRequired.value ? "Yes. Get a referral from your GP before you book. It also lets you claim the Medicare rebate." : "No referral needed.") : "Not listed. Ask the practice when you call." },
     { q: "Are they taking new patients?", a: d.declared.capacity ? (d.capacity.value === "open" ? "Yes, their practice says so." : d.capacity.value === "waitlist" ? `There is a waitlist${d.waitlistWeeks ? ` of about ${d.waitlistWeeks.value} weeks` : ""}.` : d.capacity.value === "closed" ? "Not at the moment." : "Not listed.") : "Not listed. Ask the practice when you call." },
     { q: "Can I see them by video?", a: tele },
-    { q: "What does the first visit cost?", a: fee ? `${fee}, as published by the practice. Medicare rebates may apply.` : "Not published. Ask the practice when you call." },
+    { q: "What does the first visit cost?", a: figures.length ? `${figures.map((f) => `${f.amount} ${f.label.toLowerCase()}`).join(", ")}, as the practice sets them.` : fee ? `${fee}, as published by the practice. Medicare rebates may apply.` : "Not published. Ask the practice when you call." },
     { q: "What languages do they speak?", a: d.languages?.value.length ? d.languages.value.join(", ") : "Not listed." },
   ];
 }
@@ -158,7 +161,8 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
             <Labelled label="Sees">
               <p className="text-body leading-read text-ink">{conditions.length ? `${listSentence(conditions)}.` : "No clinical focus listed yet."}</p>
             </Labelled>
-            <div className="flex flex-col"><Research d={d} /><Sources d={d} /></div>
+            <div className="flex flex-col"><Costs d={d} /><Pathway d={d} /><Training d={d} /><Research d={d} /><Sources d={d} /></div>
+            {d.adhdme?.disclosure ? <p className="text-footnote text-grey">{d.adhdme.disclosure}</p> : null}
             {source ? <p className="text-footnote text-grey">{source.text} {source.href ? <a href={source.href} target="_blank" rel="noreferrer" className="text-accent">Source</a> : null}</p> : null}
           </div>
         ) : null}
@@ -178,7 +182,9 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
                 </div>
               );
             })}
-            {d.declared.telehealth && d.telehealth.value !== "none" ? <p className="px-4 text-subhead text-grey">Also sees patients by telehealth.</p> : null}
+            {d.reach?.note ? <p className="px-4 text-subhead text-grey">{d.reach.note}</p> : d.declared.telehealth && d.telehealth.value !== "none" ? <p className="px-4 text-subhead text-grey">Also sees patients by telehealth.</p> : null}
+            {d.rooms.length === 0 && !d.reach?.note ? <p className="px-4 text-subhead text-grey">No location published. Ask the practice.</p> : null}
+            {d.adhdme?.booking ? <a href={d.adhdme.booking.url} target="_blank" rel="noreferrer" className="press-dim inline-flex h-11 items-center px-4 text-body text-accent">Book online</a> : null}
           </div>
         ) : null}
         {tab === "Reviews" ? <Reviews doctorId={d.id} name={drShort(d)} /> : null}
@@ -196,7 +202,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         ) : null}
       </div>
       <div className="mt-8 lg:hidden">
-        {next ? <NextFree doctor={d} when={next} mode={nextMode} referral={referral} /> : <ContactCta inline doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />}
+        {next ? <NextFree doctor={d} when={next} mode={nextMode} referral={referral} /> : <ContactCta inline doctor={d} label={d.adhdme?.booking ? "Book" : "Call to book"} note={referral ? "GP referral needed first" : undefined} />}
       </div>
       </div>
       <aside className="hidden lg:sticky lg:top-20 lg:block">

@@ -218,6 +218,7 @@ export function layer1Filter(
   intent: Intent,
   asks: { telehealthOnly: boolean; bulkBillingOnly: boolean },
   origin: SuburbPoint | null,
+  originState?: string | null,
 ): FilterReason | null {
   const specialties = intent.specialties ?? [];
   const mandatory = intent.mandatory ?? [];
@@ -237,7 +238,22 @@ export function layer1Filter(
     const km = nearestKm(clinician, origin);
     if (km !== null && km > REACH_KM) return "out-of-reach";
   }
+  if (outOfState(doctor, clinician, origin, originState)) return "out-of-state";
   return null;
+}
+
+/**
+ * Every state (2026-10-24). A provider whose declared reach leaves out the person's state does not
+ * see them, by telehealth or otherwise: an ADHD prescriber's authority is state by state, and a
+ * Queensland GP's "telehealth" is telehealth to Queenslanders. Rooms within REACH_KM across a
+ * border still count (Coolangatta for someone in Tweed Heads). No reach on the record, or an
+ * unknown state for the person: nothing to check, so nothing is excluded.
+ */
+export function outOfState(doctor: Doctor, clinician: Clinician, origin: SuburbPoint | null, originState: string | null | undefined): boolean {
+  const states = doctor.reach?.states ?? [];
+  if (!originState || states.length === 0 || (states as string[]).includes(originState)) return false;
+  const km = origin ? nearestKm(clinician, origin) : null;
+  return km === null || km > REACH_KM;
 }
 
 function conditionLabel(id: string, discipline: Discipline): string {

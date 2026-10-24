@@ -34,8 +34,13 @@ export function ContactCta({ doctor, label, note, inline = false }: { doctor: Do
       )}
       <Sheet open={open} onClose={() => setOpen(false)} title={`Contact ${drShort(doctor)}`}>
         {c.room ? <p className="text-subhead text-grey">{c.room}</p> : null}
+        {doctor.adhdme?.booking ? (
+          <a href={doctor.adhdme.booking.url} target="_blank" rel="noreferrer" className="press flex h-[54px] items-center justify-center rounded-pill bg-ink text-body font-semibold text-white">
+            Book online
+          </a>
+        ) : null}
         {tel ? (
-          <a href={tel} className="press flex h-[54px] items-center justify-center rounded-pill bg-ink text-body font-semibold text-white">
+          <a href={tel} className={`press flex h-[54px] items-center justify-center rounded-pill text-body font-semibold ${doctor.adhdme?.booking ? "bg-surface-soft text-charcoal" : "bg-ink text-white"}`}>
             Call {c.phone}
           </a>
         ) : null}
@@ -44,7 +49,8 @@ export function ContactCta({ doctor, label, note, inline = false }: { doctor: Do
             Practice website
           </a>
         ) : null}
-        {!tel && !c.website ? <p className="text-body text-grey">No phone or website listed yet.</p> : null}
+        {doctor.adhdme?.booking?.hint ? <p className="text-center text-footnote text-grey">{doctor.adhdme.booking.hint}</p> : null}
+        {!tel && !c.website && !doctor.adhdme?.booking ? <p className="text-body text-grey">No phone or website listed yet.</p> : null}
       </Sheet>
     </>
   );

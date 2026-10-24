@@ -85,7 +85,8 @@ describe("published profiles", () => {
       else if (interstate) expect(placed.every((l) => d.rooms.some((r) => r.state === l.state)), `${d.name.display} geocoded outside its own state`).toBe(true);
       else expect(d.locations.length, `${d.name.display} has no geocoded room`).toBeGreaterThan(0);
       expect(d.personal?.sourceUrl).toMatch(/^https?:\/\//);
-      expect(d.sources.some((s) => s.source === "practice-website")).toBe(true);
+      // The ADHDme network's words come from its own page (pipeline/adapters/adhdme.py), so the source says so.
+      expect(d.sources.some((s) => s.source === (d.adhdme ? "adhdme" : "practice-website"))).toBe(true);
     }
   });
 });

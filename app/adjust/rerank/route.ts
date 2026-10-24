@@ -4,6 +4,7 @@
 import { NextResponse } from "next/server";
 import { getDoctors, mvpDiscipline } from "@/src/data/providers";
 import { RerankBadRequest, rerankWith, type RerankBody } from "@/src/data/rerank-core";
+import { currentMode, scopeRoster } from "@/src/server/mode";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +16,9 @@ export async function POST(request: Request): Promise<Response> {
     return NextResponse.json({ error: "bad request" }, { status: 400 });
   }
   try {
-    return NextResponse.json(rerankWith(await getDoctors(), mvpDiscipline(), body));
+    // The same pool the search used (search-core.ts): this mode's roster, without the providers ADHDme leaves out of its navigator.
+    const pool = scopeRoster(await getDoctors(), await currentMode()).filter((d) => !d.adhdme?.evidenceUnclear);
+    return NextResponse.json(rerankWith(pool, mvpDiscipline(), body));
   } catch (e) {
     if (e instanceof RerankBadRequest) return NextResponse.json({ error: e.message }, { status: 400 });
     throw e;

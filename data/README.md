@@ -38,3 +38,34 @@ Rebuild: `PYTHONUTF8=1 python -I pipeline/merge.py` (stdlib only, Python 3.13).
 **Merged (2026-10-15):** psychiatry 1,604 (30% of register), obstetrics-gynaecology 2,630 (74% of Fellows on register), paediatrics 502 (11%). Queensland: 311 / 504 / 61.
 
 Not collected: healthdirect public site (terms), ACD Find a Derm (robots), HealthShare (commercial, no reuse right), Ahpra register (terms; extract or PCA only), Macquarie University Hospital (host returns 421). Queensland Health specialist-outpatient waits exist only as Power BI embeds.
+
+## The ADHDme network (2026-10-24)
+
+The 59 clinicians on adhdme.au are the founder's own network, and their base of record is the
+`CLINICIANS` literal in `revamped-adhd.me/scripts/build-profiles.py`, the list that writes every
+profile page on that site. `pipeline/adapters/adhdme.py` reads it and writes three files. Two of
+them are generated, so don't edit them by hand:
+
+```
+data/adhdme/clinicians.json                        the base, verbatim, with source and date
+data/enriched/personal/research-adhdme.json        15 prescribers (GPs, psychiatrists)
+data/enriched/personal/research-adhdme-allied.json 44 psychology, OT, allied health and coaching
+```
+
+`data/adhdme/personal.json` is hand-owned: it holds the researched split of each clinician's own
+words (philosophy, lived experience, quotes), and the generator prefers it over its own derivation.
+
+```
+python -I pipeline/adapters/adhdme.py --source ../revamped-adhd.me   # refresh from the site repo
+python -I pipeline/adapters/adhdme.py                                 # rebuild from the snapshot
+python -I pipeline/adapters/adhdme.py --check                         # exit 1 if anything is stale
+```
+
+Each record carries the full ADHDme card (fees, pathway, qualifications, booking link, disclosure)
+and a `reach`: the states the clinician sees people in. `schema.area: "Australia"` on the source is
+the only thing that makes reach national, and it is set on no prescriber, because ADHD prescribing
+is authorised state by state. Measured 2026-10-24: inside the network, prescribers reach QLD, NSW
+and VIC only, while 33 non-prescribing providers reach every state by telehealth. Across Wattle's
+whole ADHD cohort (the network plus every provider who declares ADHD or autism, 730 in all),
+every state has a prescriber: `/about/coverage` shows the counts.
+

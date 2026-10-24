@@ -4,9 +4,10 @@
 import { getDoctors, mvpDiscipline } from "./providers";
 import { searchWith } from "./search-core";
 import type { SearchRequest, SearchResponse } from "./search-types";
+import { defaultMode, type AppMode } from "@/src/mode";
 
 export * from "./search-types";
 
-export async function runSearch(req: SearchRequest): Promise<SearchResponse> {
-  return searchWith(await getDoctors(), mvpDiscipline(), req);
+export async function runSearch(req: SearchRequest, mode: AppMode = defaultMode()): Promise<SearchResponse> {
+  return searchWith(await getDoctors(), mvpDiscipline(), req, { mode });
 }

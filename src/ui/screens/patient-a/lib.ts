@@ -6,16 +6,24 @@ import type { Card, Chip, SearchRequest, SearchResponse } from "@/src/data/searc
 import type { DoctorRecord } from "@/src/data/types";
 import { regionOf } from "@/src/ui/screens/patient-b/facts";
 import { placeInSentence } from "@/src/geo/suburbs";
-import { getRequest, newRequestId, pushRecent, REQUEST_VERSION, setRequest, type StoredRequest } from "@/src/ui/store";
+import { getPlace, getRequest, newRequestId, pushRecent, REQUEST_VERSION, setRequest, type StoredRequest } from "@/src/ui/store";
 
-export const DEFAULT_SUBURB = "Brisbane";
+/**
+ * Every state (2026-10-24): a search used to start from Brisbane whenever no place was named, so a
+ * person in Adelaide was matched as a Queenslander. Now it starts from the place in the sentence,
+ * else the place saved on Profile, else nowhere in particular (all of Australia, no distance filter).
+ */
+export const DEFAULT_SUBURB = "";
 export const REACH_KM = 20;
 
 /** The "Try" examples on P02. Each one surfaces doctors with published personal profiles. */
 export const EXAMPLES = ["Endometriosis, someone who listens", "ADHD, lived experience", "Menopause, longer appointments", "Fibromyalgia, whole-person care"];
 
+/** ADHDme mode (src/mode.ts): every example is about ADHD support, and each reaches someone. */
+export const ADHD_EXAMPLES = ["ADHD assessment as an adult", "My child might have ADHD", "ADHD medication, already diagnosed", "An ADHD coach, lived experience"];
+
 export async function runMatch(input: { sentence: string; suburb?: string; removed?: string[]; anywhere?: boolean; id?: string; exclude?: string[]; answers?: { ask: string; answer: string }[] }): Promise<StoredRequest> {
-  const named = input.suburb ?? placeInSentence(input.sentence)?.suburb;   // "..., Sydney" in the sentence sets the place
+  const named = input.suburb || placeInSentence(input.sentence)?.suburb || getPlace() || undefined;   // "..., Sydney" in the sentence sets the place
   const suburb = input.anywhere ? "" : (named ?? DEFAULT_SUBURB);
   const body: SearchRequest = { sentence: input.sentence, suburb, removed: input.removed ?? [], ...(input.exclude?.length ? { exclude: input.exclude } : {}) };
   const response: SearchResponse = await search(body);
@@ -87,13 +95,13 @@ export function suburbOf(card: Card): string | null {
   return d.locations[0]?.suburb ?? d.rooms[0]?.suburb ?? null;
 }
 
-/** "{suburb}, Brisbane" inside the reach; the state otherwise, since the roster is national. */
+/** "{suburb}, Gold Coast" in Queensland (regionOf), "{suburb}, NSW" elsewhere: the roster is national. */
 export function placeLine(card: Card): string | null {
   const suburb = suburbOf(card);
   if (!suburb) return null;
-  const inBrisbane = card.distanceKm !== undefined && card.distanceKm <= REACH_KM;
   const room = card.doctor.rooms[0];
-  return `${suburb}, ${inBrisbane ? "Brisbane" : room ? regionOf(room) : "Australia"}`;
+  const region = room ? regionOf(room) : "Australia";
+  return suburb.toLowerCase() === region.toLowerCase() ? suburb : `${suburb}, ${region}`;
 }
 
 /** Declared or found fee, never invented. */

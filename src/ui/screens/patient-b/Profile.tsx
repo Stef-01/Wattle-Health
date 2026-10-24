@@ -3,8 +3,9 @@
 // conditions → research → practical → why this match → where the words came from → call.
 // Everything visible comes from the record; long lists fold, prose clamps, nothing is invented.
 // Server component; the client bits (bookmark, clamp, disclosures, contact sheet) are small.
-import type { DoctorRecord } from "@/src/data/types";
+import type { DoctorRecord, NoteSegment } from "@/src/data/types";
 import { asList } from "@/src/data/types";
+import { cardDetail } from "@/src/data/adhdme";
 import { Avatar, ChevronLeft, Circle, Clamp, Disclosure, FigmaIcon, Labelled, SourceRow } from "@/src/ui/kit";
 import { HeroScreen, Space } from "./bits";
 import { approachSentence, clip, conditionLabels, drName, drShort, feeOf, hobbyChips, hobbySentence, listSentence, niceSource, personalOf, placeOf, practicalChips, primaryRoom, pronouns, providerTitle, TIER_WORD, verifiedPublications, wordsSource, yearsLine } from "./facts";
@@ -185,6 +186,11 @@ export function Practical({ d }: { d: DoctorRecord }) {
   if (d.referralRequired) rows.push({ k: "Referral", v: d.referralRequired.value ? "GP referral needed" : "Not needed" });
   if (d.waitTimeText) rows.push({ k: "Wait", v: d.waitTimeText });
   if (d.languages?.value.length) rows.push({ k: "Languages", v: d.languages.value.join(", ") });
+  if (d.reach) rows.push({ k: "Sees people in", v: d.reach.nationalTelehealth ? "Every state, by telehealth" : d.reach.states.join(", ") || "Ask the practice" });
+  for (const label of ["Appointments", "Billing", "Wheelchair access"]) {
+    const v = d.adhdme ? cardDetail(d.adhdme, label) : null;
+    if (v) rows.push({ k: label === "Wheelchair access" ? "Wheelchair" : label, v });
+  }
   if (room) rows.push({ k: "Rooms", v: Array.from(new Set([room.name, room.address, `${room.suburb} ${room.postcode}`.trim()].filter((x): x is string => Boolean(x)))).join(", ") });
   if (rows.length === 0) return null;
   return (
@@ -197,6 +203,99 @@ export function Practical({ d }: { d: DoctorRecord }) {
           </div>
         ))}
       </dl>
+    </Disclosure>
+  );
+}
+
+/** An ADHDme fee note: text, emphasis and links only (src/data/adhdme.ts never passes markup through). */
+function Note({ segs }: { segs: NoteSegment[] }) {
+  return (
+    <p className="text-subhead leading-read text-charcoal">
+      {segs.map((s, i) =>
+        s.kind === "link" ? (
+          <a key={i} href={s.href} target="_blank" rel="noreferrer" className="text-accent">{s.text}</a>
+        ) : s.kind === "strong" ? (
+          <strong key={i} className="font-semibold">{s.text}</strong>
+        ) : (
+          <span key={i}>{s.text}</span>
+        ),
+      )}
+    </p>
+  );
+}
+
+/** What it costs, as the ADHDme network page sets it out: the figures, then the notes on rebates and funding. */
+export function Costs({ d }: { d: DoctorRecord }) {
+  const card = d.adhdme;
+  if (!card || (card.fees.figures.length === 0 && card.fees.notes.length === 0)) return null;
+  const figures = card.fees.figures;
+  const sub = figures.length ? figures.map((f) => `${f.amount} ${f.label.toLowerCase()}`).join(" · ") : "Quoted by the practice";
+  return (
+    <Disclosure tint="practical" title={card.fees.heading} sub={clip(sub, 64)}>
+      <div className="flex flex-col gap-3">
+        {figures.length ? (
+          <dl className="flex flex-col gap-2">
+            {figures.map((f) => (
+              <div key={`${f.label}-${f.amount}`} className="flex gap-4 text-subhead">
+                <dt className="w-24 shrink-0 font-semibold text-ink">{f.amount}</dt>
+                <dd className="text-charcoal">{f.label}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
+        {card.fees.notes.map((n, i) => <Note key={i} segs={n} />)}
+        <p className="text-footnote text-grey">Fees are set and charged by the practice.</p>
+      </div>
+    </Disclosure>
+  );
+}
+
+/** How the care runs, step by step, and who else it involves. */
+export function Pathway({ d }: { d: DoctorRecord }) {
+  const card = d.adhdme;
+  if (!card || (card.pathway.length === 0 && card.worksWith.length === 0)) return null;
+  return (
+    <Disclosure tint="practical" title="How it works" sub={card.pathway.length ? `${card.pathway.length} steps, from the first visit` : "Who they work with"}>
+      <div className="flex flex-col gap-4">
+        {card.pathway.length ? (
+          <ol className="flex flex-col gap-3">
+            {card.pathway.map((s, i) => (
+              <li key={s.step} className="flex gap-3 text-subhead">
+                <span aria-hidden="true" className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-ink text-caption1 font-semibold text-white">{i + 1}</span>
+                <span className="flex flex-col gap-0.5">
+                  <span className="font-semibold text-ink">{s.step}</span>
+                  <span className="leading-read text-charcoal">{s.detail}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        ) : null}
+        {card.worksWith.length ? (
+          <Labelled label="Works with">
+            <div className="flex flex-col gap-2">{card.worksWith.map((w) => <p key={w} className="text-subhead leading-read text-charcoal">{w}</p>)}</div>
+          </Labelled>
+        ) : null}
+      </div>
+    </Disclosure>
+  );
+}
+
+/** Qualifications and experience, as the network page lists them. */
+export function Training({ d }: { d: DoctorRecord }) {
+  const card = d.adhdme;
+  if (!card || (!card.qualifications && card.experience.length === 0)) return null;
+  return (
+    <Disclosure tint="practical" title="Training" sub={clip(card.qualifications ?? card.experience[0]!, 64)}>
+      <div className="flex flex-col gap-3">
+        {card.qualifications ? <p className="text-subhead font-semibold text-ink">{card.qualifications}</p> : null}
+        {card.experience.length ? (
+          <ul className="flex flex-col gap-1.5">
+            {card.experience.map((e) => (
+              <li key={e} className="flex gap-2.5 text-subhead leading-read text-charcoal"><span aria-hidden="true" className="mt-[9px] size-1.5 shrink-0 rounded-full bg-grey-3" />{e}</li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
     </Disclosure>
   );
 }
@@ -282,11 +381,15 @@ export function ProfileBody({ doctor: d, labels, fold = false }: { doctor: Docto
       <Space h={20} />
       <div className="rise flex flex-col" style={{ "--i": 5 } as React.CSSProperties}>
         <Research d={d} />
+        <Costs d={d} />
+        <Pathway d={d} />
+        <Training d={d} />
         <Practical d={d} />
         <WhyInline doctor={d} />
         <Sources d={d} />
       </div>
       <Space h={20} />
+      {d.adhdme?.disclosure ? <p className="caption pb-2 text-footnote text-grey">{d.adhdme.disclosure}</p> : null}
       {source ? (
         <p className="caption text-footnote text-grey">
           {source.text}
@@ -310,7 +413,7 @@ export function Profile({ doctor: d, labels, photo = null }: { doctor: DoctorRec
       <Header d={d} />
       <Space h={20} />
       <ProfileBody doctor={d} labels={labels} />
-      <ContactCta doctor={d} label="Call to book" note={referral ? "GP referral needed first" : undefined} />
+      <ContactCta doctor={d} label={d.adhdme?.booking ? "Book" : "Call to book"} note={referral ? "GP referral needed first" : undefined} />
     </HeroScreen>
   );
 }

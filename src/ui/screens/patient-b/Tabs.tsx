@@ -1,5 +1,5 @@
 "use client";
-import { Brand, BRANDS, setBrand, useBrandName, type BrandId } from "@/src/ui/brand";
+import { Brand, BRANDS, setBrand, useMode, type BrandId } from "@/src/ui/brand";
 // Tab pages: /recent (localStorage recent searches), /saved (wattle.saved.v1 ids → cards),
 // /me (name, join as a doctor, about). Each sits under the TabBar with its own dot.
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import { Body, Button, Cell, Clock, FaceStack, FigmaIcon, Group, GroupHeader, La
 import { getOpeningsState, setOpeningsState } from "@/src/ui/openings";
 import { Portrait } from "@/src/ui/screens/patient-a/DoctorCard";
 import Link from "next/link";
-import { getName, getRecent, getRequest, getSavedContext, getSavedIds, setName, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
+import { getName, getPlace, getRecent, getRequest, getSavedContext, getSavedIds, setName, setPlace, setRequest, toggleSavedId, type RecentSearch } from "@/src/ui/store";
 import { Space } from "./bits";
 import { drName, placeOf, practicalChips, providerTitle, quoteOf } from "./facts";
 
@@ -196,7 +196,12 @@ export function groupSaved(doctors: DoctorRecord[], _ctx: Record<string, string>
 
 export function Me() {
   const [name, setNameState] = useState("");
-  useEffect(() => setNameState(getName() ?? ""), []);
+  const [place, setPlaceState] = useState("");
+  const adhd = useMode() === "adhdme";
+  useEffect(() => {
+    setNameState(getName() ?? "");
+    setPlaceState(getPlace() ?? "");
+  }, []);
   return (
     <Screen tone="grouped" padBottom="pb-[110px]">
       <NavBar title="Profile" collapse />
@@ -217,12 +222,29 @@ export function Me() {
           />
         </label>
       </Group>
+      <GroupHeader>Where you are</GroupHeader>
+      <Group>
+        <label className="flex min-h-[52px] items-center px-4">
+          <span className="sr-only">Your suburb or postcode</span>
+          <input
+            value={place}
+            onChange={(e) => {
+              setPlaceState(e.target.value);
+              setPlace(e.target.value);
+            }}
+            placeholder="Suburb or postcode"
+            autoComplete="postal-code"
+            className="h-[52px] w-full bg-transparent text-body text-ink outline-none placeholder:text-grey"
+          />
+        </label>
+      </Group>
+      <p className="px-4 pt-2 text-footnote text-grey">Searches start here. Leave it blank to search all of Australia.</p>
       <div className="h-8" />
       <Group sep={58}>
-        <Cell icon={<Leaf size={18} />} title="Healthspan" sub="Doctors who work on prevention with you" href="/healthspan" />
+        {adhd ? null : <Cell icon={<Leaf size={18} />} title="Healthspan" sub="Doctors who work on prevention with you" href="/healthspan" />}
         <Cell icon={<FigmaIcon name="clock" size={17} />} title="Openings" sub="Times from saved doctors that fit your week" href="/me/openings" />
         <Cell icon={<FigmaIcon name="sliders" size={17} />} title="Your health context" sub={<>Bring it from ChatGPT, or use <Brand /> inside it</>} href="/me/context" />
-        <Cell icon={<FigmaIcon name="book" size={17} />} title="Discover" sub="Healthspan, biomarkers, wearables, menopause care" href="/me/discover" />
+        {adhd ? null : <Cell icon={<FigmaIcon name="book" size={17} />} title="Discover" sub="Healthspan, biomarkers, wearables, menopause care" href="/me/discover" />}
       </Group>
       <div className="h-8" />
       <Group sep={58}>
@@ -249,14 +271,19 @@ function SavedCard({ doctor: d, index, onRemove }: { doctor: DoctorRecord; index
   );
 }
 
-/** Settings › App name: Wattle or ADHDme (founder 2026-10-19), as an iOS segmented control. */
+/**
+ * Settings › Mode: Wattle or ADHDme (founder 2026-10-19), as an iOS segmented control. ADHDme
+ * narrows the whole app to ADHD support (src/mode.ts); the server reads the cookie, so the screens
+ * are refreshed once it is set.
+ */
 function BrandSwitch() {
-  const name = useBrandName();
-  const current = (Object.keys(BRANDS) as BrandId[]).find((id) => BRANDS[id] === name) ?? "wattle";
+  const router = useRouter();
+  const current = useMode();
   return (
-    <section aria-label="App name">
-      <GroupHeader>App name</GroupHeader>
-      <Segmented label="App name" value={current} onChange={(id) => setBrand(id)} items={(Object.keys(BRANDS) as BrandId[]).map((id) => ({ value: id, label: BRANDS[id] }))} />
+    <section aria-label="Mode">
+      <GroupHeader>Mode</GroupHeader>
+      <Segmented label="Mode" value={current} onChange={(id) => { setBrand(id); router.refresh(); }} items={(Object.keys(BRANDS) as BrandId[]).map((id) => ({ value: id, label: BRANDS[id] }))} />
+      <p className="px-4 pt-2 text-footnote text-grey">{current === "adhdme" ? "ADHDme shows ADHD support only: assessment, medication, therapy and coaching." : "Wattle lists every kind of provider. ADHDme shows ADHD support only."}</p>
     </section>
   );
 }

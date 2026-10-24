@@ -1,0 +1,1318 @@
+{
+ "note": "Hand-researched split of each ADHDme clinician's own published words into philosophy, lived experience and quotes. Keyed on the ADHDme clinician id. pipeline/adapters/adhdme.py prefers these over its own derivation; an id with no entry here gets the derived split.",
+ "source": "data/enriched/personal/research-adhdme*.json as researched 2026-10-19",
+ "personal": {
+  "beth-hansen": {
+   "philosophy_of_care": "Aims to create a space where patients feel heard, understood and taken seriously; a gentle, practical and thorough approach to ADHD assessment and care.",
+   "communication_approach": "Takes time to explore symptoms in the context of a person's life: work, study, relationships, parenting, sleep, emotional regulation and mental health.",
+   "communication": [
+    "gentle",
+    "listens"
+   ],
+   "why_medicine": null,
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": "Has worked across urban, rural and remote settings, which shaped her interest in accessible and compassionate mental health care.",
+   "quotes": [
+    {
+     "text": "A UQ graduate and a Fellow of the Royal Australian College of General Practitioners, she brings a gentle, practical and thorough approach to ADHD assessment and care.",
+     "about": "approach"
+    },
+    {
+     "text": "In her consultations, Beth aims to create a space where patients feel heard, understood and taken seriously.",
+     "about": "approach"
+    },
+    {
+     "text": "She has a strong interest in how ADHD can present in women, especially when symptoms have been missed, minimised or attributed to other causes.",
+     "about": "other"
+    }
+   ]
+  },
+  "bill-liley": {
+   "philosophy_of_care": "A practical, whole-person approach to ADHD care that considers each patient's circumstances and how ADHD affects day-to-day life.",
+   "communication_approach": "Values the access telehealth gives people who would otherwise struggle to reach ADHD care.",
+   "communication": [
+    "holistic"
+   ],
+   "why_medicine": null,
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": "Rural generalist based in regional Queensland; has worked in Aboriginal Community Controlled Health Organisations and across Queensland, New South Wales and Victoria.",
+   "quotes": [
+    {
+     "text": "Bill brings a practical, whole-person approach to ADHD care, taking into consideration each patient’s individual circumstances and how ADHD impacts their day-to-day life.",
+     "about": "approach"
+    },
+    {
+     "text": "Based in regional Queensland, he also appreciates the accessibility that telehealth provides, particularly for people who may otherwise have difficulty accessing ADHD care.",
+     "about": "other"
+    }
+   ]
+  },
+  "hannah-gray": {
+   "philosophy_of_care": "Practical strategies and realistic next steps that fit a person's day-to-day life; welcomes people new to mental health or ADHD assessment.",
+   "communication_approach": "Calm, structured and collaborative; explains her thinking and plans clearly so patients understand each step.",
+   "communication": [
+    "collaborative"
+   ],
+   "why_medicine": null,
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "In consultations, Hannah is calm, structured and collaborative.",
+     "about": "approach"
+    },
+    {
+     "text": "She takes pride in explaining her thinking and plans clearly so patients understand each step of the process.",
+     "about": "approach"
+    },
+    {
+     "text": "Dr Hannah Gray is a warm and approachable GP with a strong interest in mental health and adult ADHD.",
+     "about": "other"
+    }
+   ]
+  },
+  "jae-cho": {
+   "philosophy_of_care": "Evidence-based, trauma-informed care grounded in the biopsychosocial model, with a tailored plan built with the patient.",
+   "communication_approach": "A calm manner and thoughtful explanations that make difficult topics feel manageable; works closely with GPs, psychologists and families.",
+   "communication": [
+    "evidence-based",
+    "collaborative",
+    "holistic"
+   ],
+   "why_medicine": null,
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Jae’s approach is evidence-based, trauma-informed, and grounded in the biopsychosocial model.",
+     "about": "approach"
+    },
+    {
+     "text": "He takes the time to understand each patient’s background, strengths, and goals, and works collaboratively to create a tailored treatment plan.",
+     "about": "approach"
+    }
+   ]
+  },
+  "john-ruberry": {
+   "philosophy_of_care": "Passionate about improving access to ADHD care and supporting patients through assessment and treatment.",
+   "communication_approach": null,
+   "communication": [],
+   "why_medicine": "Has seen firsthand the positive difference effective ADHD treatment can make to a person's quality of life.",
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": "Owned and ran his own busy clinic for five years.",
+   "quotes": [
+    {
+     "text": "Throughout his career, he has developed a strong interest in mental health and has seen firsthand the positive difference effective ADHD treatment can make to a person’s quality of life.",
+     "about": "why"
+    },
+    {
+     "text": "He is passionate about improving access to ADHD care and supporting patients through their assessment and treatment journey.",
+     "about": "approach"
+    }
+   ]
+  },
+  "kay-walls": {
+   "philosophy_of_care": "An ADHD assessment is never just a checklist: interested in the whole person, their history, relationships, patterns and strengths.",
+   "communication_approach": "Creates space for patients to tell their story fully; culturally sensitive, person-centred care.",
+   "communication": [
+    "holistic",
+    "listens",
+    "culturally-safe"
+   ],
+   "why_medicine": "Focuses on ADHD in adult women, a group she feels has historically been under-recognised and underserved.",
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "For Kay, an ADHD assessment is never just a checklist.",
+     "about": "approach"
+    },
+    {
+     "text": "She creates space for patients to tell their story fully, and many describe her consultations as the first time they have felt genuinely listened to.",
+     "about": "approach"
+    },
+    {
+     "text": "With a background spanning mental health and women’s health, she has developed a particular focus on ADHD in adult women, a group she feels has historically been under-recognised and underserved.",
+     "about": "why"
+    },
+    {
+     "text": "Dr Kay Walls is a specialist general practitioner who brings warmth, curiosity, and a deeply holistic lens to everything she does.",
+     "about": "approach"
+    }
+   ]
+  },
+  "natalie-cook": {
+   "philosophy_of_care": "Clear, evidence-based advice, tailored to each patient's circumstances, preferences and goals, including work, sleep and family.",
+   "communication_approach": "Direct, honest and safety-focused.",
+   "communication": [
+    "direct",
+    "evidence-based"
+   ],
+   "why_medicine": null,
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": "Russian-born and trained; has practised in Central Queensland for over 11 years.",
+   "quotes": [
+    {
+     "text": "Her approach is direct, honest and safety-focused, providing clear, evidence-based advice while tailoring treatment to each patient’s individual circumstances, preferences and goals, including their work, sleep, family and day-to-day demands.",
+     "about": "approach"
+    },
+    {
+     "text": "Dr Natalie Cook is a Russian-born and trained GP who has practised in Central Queensland for over 11 years.",
+     "about": "other"
+    }
+   ]
+  },
+  "rajitha-de-silva": {
+   "philosophy_of_care": "The best care begins with feeling heard; a safe, supportive, non-judgemental space for the most difficult issues.",
+   "communication_approach": "A thoughtful, culturally sensitive approach shaped by practice in Sri Lanka and Australia.",
+   "communication": [
+    "listens",
+    "culturally-safe"
+   ],
+   "why_medicine": null,
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": "Has practised psychiatry in both Sri Lanka and Australia.",
+   "quotes": [
+    {
+     "text": "She believes that the best care begins with feeling heard.",
+     "about": "approach"
+    },
+    {
+     "text": "Rajitha takes the time to understand each person’s unique experiences, concerns, and goals, creating a safe, supportive, and non-judgemental environment where patients feel comfortable discussing even the most difficult issues.",
+     "about": "approach"
+    },
+    {
+     "text": "Having practised in both Sri Lanka and Australia, she brings a thoughtful, culturally sensitive approach to helping people navigate life’s challenges.",
+     "about": "other"
+    }
+   ]
+  },
+  "shwetha-murthy": {
+   "philosophy_of_care": "Maps how symptoms have shown up over time and how they interact with mood, sleep and physical health.",
+   "communication_approach": "A calm, organised style with a strong focus on context (childhood, school reports, family roles, culture), explained in clear, practical language.",
+   "communication": [],
+   "why_medicine": null,
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": "Trained in India, worked in the United Kingdom, in Australia since 2007.",
+   "quotes": [
+    {
+     "text": "In consultations, Shwetha brings a calm, organised style and a strong focus on context: childhood experiences, school reports, family roles, cultural background and current life demands.",
+     "about": "approach"
+    },
+    {
+     "text": "She maps how symptoms have shown up over time and how they interact with mood, sleep and physical health, explained in clear, practical language.",
+     "about": "approach"
+    },
+    {
+     "text": "She is especially interested in supporting women who are starting to wonder how their own history, their children’s experiences and ADHD might be connected, and in adult ADHD in men across blue-collar and white-collar work.",
+     "about": "other"
+    }
+   ]
+  },
+  "anu-saxena": {
+   "philosophy_of_care": "Culturally sensitive, holistic and patient-centred care.",
+   "why_medicine": "Came to medicine through psychology: a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University.",
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Travelling",
+    "Learning about different cultures",
+    "Charity and community work",
+    "Cricket and tennis"
+   ],
+   "outside_medicine": "Travelling, learning about different cultures, charity and community work, and staying active through sport.",
+   "quotes": [
+    {
+     "text": "A GP with an honours degree in psychology and clinical interests in ADHD, mental health and women’s health.",
+     "about": "other"
+    },
+    {
+     "text": "Of Indian origin and speaking Hindi and Urdu, she values culturally sensitive, holistic and patient-centred care.",
+     "about": "approach"
+    },
+    {
+     "text": "She came to medicine through psychology, a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University.",
+     "about": "why"
+    },
+    {
+     "text": "Outside medicine she enjoys travelling, learning about different cultures, charity and community work, and staying active through sport, cricket and tennis included.",
+     "about": "hobbies"
+    }
+   ]
+  },
+  "allen-macbell": {
+   "philosophy_of_care": "Practical and individual, looking at how ADHD affects study, work, relationships and everyday life.",
+   "why_medicine": null,
+   "communication_approach": "Does every assessment himself, so you stay with one doctor from the first consultation through diagnosis, treatment and follow-up.",
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Teaching and mentoring medical students",
+    "Skin cancer medicine"
+   ],
+   "outside_medicine": "Teaches and mentors medical students and graduates at the University of Melbourne and Monash University.",
+   "quotes": [
+    {
+     "text": "He sees children aged 10 and over, teens and adults, and does every assessment himself, so you stay with one doctor from the first consultation through diagnosis, treatment and follow-up.",
+     "about": "approach"
+    },
+    {
+     "text": "His approach is practical and individual, looking at how ADHD affects study, work, relationships and everyday life.",
+     "about": "approach"
+    },
+    {
+     "text": "He was selected for the RACGP Victorian GP ADHD Training and Support Program, and teaches and mentors medical students and graduates.",
+     "about": "other"
+    },
+    {
+     "text": "His other interest is skin cancer medicine.",
+     "about": "other"
+    }
+   ]
+  },
+  "yogesh-kalra": {
+   "philosophy_of_care": "Keeps your ADHD medication going once you have been diagnosed and have a treatment plan, so you can manage it close to home.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "For ADHD, he is a continuation prescriber: he keeps your ADHD medication going once you have been diagnosed and have a treatment plan, so you can manage it close to home.",
+     "about": "approach"
+    },
+    {
+     "text": "His other interests are family medicine, women’s health, and skin cancer checks and surgery, with diplomas in skin cancer surgery and dermoscopy.",
+     "about": "other"
+    },
+    {
+     "text": "He speaks English and Hindi, and the practice bulk bills all eligible Medicare services.",
+     "about": "other"
+    }
+   ]
+  },
+  "anubhav-saxena": {
+   "philosophy_of_care": "Works from measurement rather than impression: ADHD looked at alongside sleep, cardiovascular and metabolic health, with a documented baseline before anything starts.",
+   "why_medicine": null,
+   "communication_approach": "Review at set intervals rather than only when a problem gets loud enough to prompt a call.",
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Parramatta Eels"
+   ],
+   "outside_medicine": "Gives a good deal of his spare time to the Parramatta Eels.",
+   "quotes": [
+    {
+     "text": "He works from measurement rather than impression, and takes an integrative view: ADHD is looked at alongside sleep, cardiovascular and metabolic health rather than on its own, with a documented baseline before anything starts and review at set intervals rather than only when a problem gets loud enough to prompt a call.",
+     "about": "approach"
+    },
+    {
+     "text": "He also does aged-care and home visits, and gives a good deal of his spare time to the long-suffering cause of the Parramatta Eels.",
+     "about": "hobbies"
+    },
+    {
+     "text": "Anubhav trained at the University of Sydney and works in Double Bay and Beecroft.",
+     "about": "other"
+    }
+   ]
+  },
+  "alex-lawson": {
+   "philosophy_of_care": "For the past decade, I’ve also had the privilege of supporting people with ADHD professionally.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": "I’ve been living with ADHD for over 30 years, and today I support adults, students, parents and families who are trying to make sense of ADHD in everyday life.",
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "I’ve been living with ADHD for over 30 years, and today I support adults, students, parents and families who are trying to make sense of ADHD in everyday life.",
+     "about": "lived"
+    },
+    {
+     "text": "Today, I combine lived experience with years of professional practice to help people with ADHD make life more manageable, understand what is getting in the way, and find practical ways forward.",
+     "about": "lived"
+    },
+    {
+     "text": "For the past decade, I’ve also had the privilege of supporting people with ADHD professionally.",
+     "about": "approach"
+    }
+   ]
+  },
+  "alexandra-wainwright": {
+   "philosophy_of_care": "I’m studying a Bachelor of Psychological Science at Griffith University, with a strong interest in developmental psychology, and my studies inform my therapy assistant and support work.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "In my spare time you will find me with a good book, with friends, or on a sunny beach day with an iced caramel latte."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "I’m studying a Bachelor of Psychological Science at Griffith University, with a strong interest in developmental psychology, and my studies inform my therapy assistant and support work.",
+     "about": "approach"
+    },
+    {
+     "text": "In my spare time you will find me with a good book, with friends, or on a sunny beach day with an iced caramel latte.",
+     "about": "hobbies"
+    }
+   ]
+  },
+  "alice-bui": {
+   "philosophy_of_care": "Her therapy style is trauma-informed and emphasises a safe collaborative space.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "trauma-informed"
+   ],
+   "lived_experience": null,
+   "hobbies": [
+    "She is particularly passionate about working with clients who are refugees and newly arrived backgrounds and thoroughly enjoys supporting clients from culturally and linguistically diverse (CALD) backgrounds who have experienced displacement, cultural transition and complex trauma with cultural sensitivity to tailor interventions to their unique lived experiences."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Her therapy style is trauma-informed and emphasises a safe collaborative space.",
+     "about": "approach"
+    },
+    {
+     "text": "She is experienced working with clients regarding trauma, PTSD, anxiety, depression, adjustment difficulties, autism, ADHD, intellectual disability, neurodivergence, emotional dysregulation, behavioural challenges, among other presenting concerns.",
+     "about": "other"
+    },
+    {
+     "text": "Alice has special clinical interests in evidence-based practice for clients who have experienced trauma.",
+     "about": "other"
+    }
+   ]
+  },
+  "ashleigh-feltham": {
+   "philosophy_of_care": "It takes a holistic and individualised approach, developing practical strategies that consider your lifestyle, preferences, abilities, goals and relationship with food.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "neurodiversity-affirming"
+   ],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "It takes a holistic and individualised approach, developing practical strategies that consider your lifestyle, preferences, abilities, goals and relationship with food.",
+     "about": "approach"
+    },
+    {
+     "text": "Ashleigh is particularly passionate about supporting neurodivergent individuals and people experiencing eating disorders, restrictive eating and challenges around food.",
+     "about": "approach"
+    },
+    {
+     "text": "The practice works collaboratively with you and, where appropriate, the people involved in your care, building skills and confidence for positive and sustainable change, without judgement or unnecessary pressure.",
+     "about": "approach"
+    }
+   ]
+  },
+  "bart-traynor": {
+   "philosophy_of_care": "Bart is a passionate, straight-talking Clinical Psychologist who believes mental health support should help people function better in everyday life, not just feel better in the therapy room.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Bart is a passionate, straight-talking Clinical Psychologist who believes mental health support should help people function better in everyday life, not just feel better in the therapy room.",
+     "about": "approach"
+    },
+    {
+     "text": "He works with clients facing complex challenges, career and performance pressures, and major life transitions, while also supporting clinicians through supervision and professional development.",
+     "about": "approach"
+    },
+    {
+     "text": "As Director of Atlantis Recovery Centre, Bart leads an integrated approach that brings together psychology, movement, physical rehabilitation, and performance.",
+     "about": "approach"
+    }
+   ]
+  },
+  "canice-curtis": {
+   "philosophy_of_care": "He supports people aged 15+ experiencing complex trauma, dissociative conditions, addictions, personality disorders, bipolar disorder, ADHD, chronic pain, parenting and relationship difficulties, men’s mental health concerns, grief and loss, anxiety, depression, and the mental health impacts of climate change and natural disasters.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "He supports people aged 15+ experiencing complex trauma, dissociative conditions, addictions, personality disorders, bipolar disorder, ADHD, chronic pain, parenting and relationship difficulties, men’s mental health concerns, grief and loss, anxiety, depression, and the mental health impacts of climate change and natural disasters.",
+     "about": "approach"
+    },
+    {
+     "text": "With a background spanning international development, child protection and academia, he brings a grounded, integrated, evidence-informed approach tailored to each person.",
+     "about": "approach"
+    }
+   ]
+  },
+  "chantelle-pin": {
+   "philosophy_of_care": null,
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": "I am a late-diagnosed neurodivergent (ADHD) adult, so I bring lived experience together with my training to support my clients.",
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "I am a late-diagnosed neurodivergent (ADHD) adult, so I bring lived experience together with my training to support my clients.",
+     "about": "lived"
+    },
+    {
+     "text": "I work across the lifespan with neurodiverse clients.",
+     "about": "other"
+    },
+    {
+     "text": "When I am not at Therapy Co, I spend my time with family, my two dachshunds, friends, jigsaw puzzles, Harry Potter and travelling.",
+     "about": "other"
+    }
+   ]
+  },
+  "debbie-hirte": {
+   "philosophy_of_care": "With nearly three decades in Independent schools, my commitment to supporting neurodivergent students and their families has been a driving force throughout my career.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "With nearly three decades in Independent schools, my commitment to supporting neurodivergent students and their families has been a driving force throughout my career.",
+     "about": "approach"
+    },
+    {
+     "text": "I’ve had the opportunity to work as a classroom teacher, specialist, and later, as a Gifted and Talented Specialist, advocating for students and helping them succeed both academically and socially.",
+     "about": "approach"
+    },
+    {
+     "text": "Over the years, I’ve developed a deep understanding of the unique challenges neurodivergent individuals face.",
+     "about": "approach"
+    }
+   ]
+  },
+  "donna-italiano": {
+   "philosophy_of_care": "With over two decades of experience across Australian and international school communities, Donna Italiano is an ADHD coach, consultant, and educator with a deep understanding of how learning, wellbeing, and performance intersect.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "neurodiversity-affirming"
+   ],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "With over two decades of experience across Australian and international school communities, Donna Italiano is an ADHD coach, consultant, and educator with a deep understanding of how learning, wellbeing, and performance intersect.",
+     "about": "approach"
+    },
+    {
+     "text": "Her background spans secondary education, ATAR Economics and Business Management, Special Needs Support, Commerce, and Sport, giving her a whole-person perspective on education that integrates neuroscience, emotional safety, and compassion.",
+     "about": "approach"
+    },
+    {
+     "text": "Throughout her career, Donna has taught and mentored thousands of students, led middle-management teams, supported both high-performing and neurodivergent learners, and contributed beyond the classroom through roles in professional services, governance, and community sport.",
+     "about": "approach"
+    }
+   ]
+  },
+  "ebony-young": {
+   "philosophy_of_care": "My psychology honours degree gave me a good understanding of mental health through psychological theory, assessment and research.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "My psychology honours degree gave me a good understanding of mental health through psychological theory, assessment and research.",
+     "about": "approach"
+    },
+    {
+     "text": "I hope to complete a Masters and become a clinical psychologist.",
+     "about": "other"
+    },
+    {
+     "text": "In my own time I enjoy my miniature dachshund, friends and family, jigsaw puzzles, reading and true crime podcasts.",
+     "about": "other"
+    }
+   ]
+  },
+  "eliza-keefe": {
+   "philosophy_of_care": "She is completing her Master of Clinical Psychology at Griffith University, with a particular interest in child and adolescent mental health, psychological assessment, and supporting children and adults with everyday life skills.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Outside work and study you’ll usually find her at the beach, with family and friends, or enjoying a good coffee."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "She is completing her Master of Clinical Psychology at Griffith University, with a particular interest in child and adolescent mental health, psychological assessment, and supporting children and adults with everyday life skills.",
+     "about": "approach"
+    },
+    {
+     "text": "Outside work and study you’ll usually find her at the beach, with family and friends, or enjoying a good coffee.",
+     "about": "hobbies"
+    }
+   ]
+  },
+  "ellie-putland": {
+   "philosophy_of_care": "She works with clients from a trauma-informed care framework and works collaboratively with families on psychoeducation towards their goals.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "trauma-informed"
+   ],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "She works with clients from a trauma-informed care framework and works collaboratively with families on psychoeducation towards their goals.",
+     "about": "approach"
+    },
+    {
+     "text": "Ellie is experienced in administering an array of assessments, incorporating relevant resources into sessions and liaising with clients’ wider support teams wherever helpful towards client goals.",
+     "about": "approach"
+    },
+    {
+     "text": "By supporting clients to develop and refine their psychological and coping skills, Ellie has a particular passion for supporting young people who would like to reduce their stressors.",
+     "about": "approach"
+    }
+   ]
+  },
+  "erin-lysle": {
+   "philosophy_of_care": "Over time, I’ve come to understand just how varied and complex ADHD can be for each individual, and this insight has shaped my approach as an ADHD coach.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Over time, I’ve come to understand just how varied and complex ADHD can be for each individual, and this insight has shaped my approach as an ADHD coach.",
+     "about": "approach"
+    },
+    {
+     "text": "I bring together my expertise in education with a deep understanding of ADHD, crafting strategies that truly connect with each client.",
+     "about": "approach"
+    },
+    {
+     "text": "I believe in creating a supportive, positive environment where clients feel encouraged to explore new strategies and tackle challenges head-on.",
+     "about": "approach"
+    }
+   ]
+  },
+  "fiona-alexander": {
+   "philosophy_of_care": "Throughout my 25 years in education, I’ve had the privilege of teaching children from all walks of life, each with their own strengths and unique ways of thinking.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Throughout my 25 years in education, I’ve had the privilege of teaching children from all walks of life, each with their own strengths and unique ways of thinking.",
+     "about": "approach"
+    },
+    {
+     "text": "This realisation inspired me to specialise in ADHD education, where I could focus on supporting neurodivergent students and their families.",
+     "about": "approach"
+    },
+    {
+     "text": "Understanding how your brain works is the first step in overcoming challenges, and it’s incredibly rewarding to help students and families discover that.",
+     "about": "approach"
+    }
+   ]
+  },
+  "flynn-simonis": {
+   "philosophy_of_care": "Flynn works with toddlers, children, teenagers and young adults.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Flynn enjoys supporting children with varying communication styles, sensory profiles, emotional regulation needs, and functional challenges."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Flynn works with toddlers, children, teenagers and young adults.",
+     "about": "approach"
+    },
+    {
+     "text": "He is experienced working with clients who have experienced developmental trauma, neurodivergence, autism, Attention-Deficit Hyperactivity Disorder (ADHD), school refusal / school can’t, developmental delay, non-verbal communication profiles, Generalised Anxiety Disorder (GAD), emotional regulation, parenting support, intellectual disability, Oppositional Defiant Disorder (ODD), Rett Syndrome, and Muscular Dystrophy and many other presentations.",
+     "about": "approach"
+    },
+    {
+     "text": "Flynn emphasises a foundation of communication with families, schools and multidisciplinary teams, to create a safe, supportive, creative and fun therapy environment.",
+     "about": "approach"
+    }
+   ]
+  },
+  "gisele-fortkamp": {
+   "philosophy_of_care": "I provide a warm, supportive space grounded in evidence-based practice, with clear, practical guidance.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "I provide a warm, supportive space grounded in evidence-based practice, with clear, practical guidance.",
+     "about": "approach"
+    },
+    {
+     "text": "I work with parents and children on emotional regulation, behaviour, communication and self-esteem, with a special interest in ADHD and autism, using a strengths-based, neurodivergence-affirming approach.",
+     "about": "approach"
+    },
+    {
+     "text": "I also support women with self-esteem, identity, life transitions, relationships, anxiety and low mood, including women exploring or adjusting to an ADHD or autism diagnosis.",
+     "about": "approach"
+    }
+   ]
+  },
+  "heather-mcauliffe": {
+   "philosophy_of_care": "Her background includes private and community practice, where she has engaged in detailed assessment and diagnosis, therapeutic intervention, and collaborative care coordination.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "collaborative"
+   ],
+   "lived_experience": "Heather is a neurodivergent Clinical Psychologist with a particular interest in neurodevelopment.",
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Heather is a neurodivergent Clinical Psychologist with a particular interest in neurodevelopment.",
+     "about": "lived"
+    },
+    {
+     "text": "Her background includes private and community practice, where she has engaged in detailed assessment and diagnosis, therapeutic intervention, and collaborative care coordination.",
+     "about": "approach"
+    },
+    {
+     "text": "She strives to ensure that the assessment process provides warmth, safety, and supportive recommendations, valuing the individual as the expert of their own experiences.",
+     "about": "approach"
+    }
+   ]
+  },
+  "jeff-leech": {
+   "philosophy_of_care": "Jeff is passionate about helping people overcome life’s most complex challenges.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Jeff is passionate about helping people overcome life’s most complex challenges.",
+     "about": "approach"
+    },
+    {
+     "text": "He is also completing advanced training in Psychedelic-Assisted Therapy, combining proven approaches with emerging treatments to help clients achieve lasting change.",
+     "about": "approach"
+    }
+   ]
+  },
+  "jessica-katsamatsas": {
+   "philosophy_of_care": "Hi, I’m Jess, a psychologist who believes therapy should feel like a space where you can take a breath, put the mask down, and be a little more human.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "neurodiversity-affirming",
+    "trauma-informed"
+   ],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Hi, I’m Jess, a psychologist who believes therapy should feel like a space where you can take a breath, put the mask down, and be a little more human.",
+     "about": "approach"
+    },
+    {
+     "text": "Many of the people I work with have spent a long time trying to understand why everyday life can feel harder than it seems to for everyone else.",
+     "about": "approach"
+    },
+    {
+     "text": "They may be used to overthinking, people-pleasing, masking, holding everything together, or feeling like they’re constantly trying to keep up.",
+     "about": "approach"
+    }
+   ]
+  },
+  "kate-dallimore": {
+   "philosophy_of_care": "Across my career, I have been drawn to supporting people who have not always felt understood, helping them feel safe enough to recognise their strengths, trust themselves and take the next step.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "neurodiversity-affirming",
+    "trauma-informed"
+   ],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Across my career, I have been drawn to supporting people who have not always felt understood, helping them feel safe enough to recognise their strengths, trust themselves and take the next step.",
+     "about": "approach"
+    },
+    {
+     "text": "My work with students, families, clients and professionals has always centred on creating calm, supportive spaces where people feel heard, respected and able to build confidence and belief in themselves.",
+     "about": "approach"
+    },
+    {
+     "text": "As an ADHD Consultant Coach with REACH ADHD, I bring a warm, neurodiversity-affirming and trauma-informed approach to supporting individuals with ADHD and executive functioning challenges.",
+     "about": "approach"
+    }
+   ]
+  },
+  "kate-row": {
+   "philosophy_of_care": "Kate works with toddlers, children, teenagers, and adults.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Kate enjoys working with clients to identify their goals and work towards achieving them to improve overall well-being and live their most fulfilling lives possible."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Kate works with toddlers, children, teenagers, and adults.",
+     "about": "approach"
+    },
+    {
+     "text": "The main therapeutic modalities she utilises include Cognitive Behavioural Therapy (CBT), Acceptance and Commitment Therapy (ACT), Motivational Interviewing (MI), solution-focused brief therapy, communication, and social skills building for growing client’s toolkits of practical coping strategies.",
+     "about": "approach"
+    },
+    {
+     "text": "She has a life-long passion for working with clients with diffabilities/disabilities and supporting individuals and families through their NDIS journey to thrive.",
+     "about": "approach"
+    }
+   ]
+  },
+  "kathy-cleland": {
+   "philosophy_of_care": "Her approach is relational, trauma-responsive and attentive to the systems that shape a person’s life.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Away from work she enjoys forest walks, theatre, making art and tinkering with software."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Her approach is relational, trauma-responsive and attentive to the systems that shape a person’s life.",
+     "about": "approach"
+    },
+    {
+     "text": "Extended sessions give more time to explore concerns in depth, understand how different factors interact, and work at a pace that supports substantive therapeutic work.",
+     "about": "approach"
+    },
+    {
+     "text": "Kathy is MindScope’s Principal Psychologist and Clinical Director.",
+     "about": "other"
+    }
+   ]
+  },
+  "kirstie-shaw": {
+   "philosophy_of_care": "Kirstie is a counsellor and mentor supporting people with disabilities and neurodivergence, and part of MindScope’s intake team.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Outside work she values family time, and a couch shared with her dogs."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "She combines academic training with lived experience of autism, ADHD and intellectual disability, which informs a thoughtful, compassionate and practical approach.",
+     "about": "lived"
+    },
+    {
+     "text": "Kirstie is a counsellor and mentor supporting people with disabilities and neurodivergence, and part of MindScope’s intake team.",
+     "about": "approach"
+    },
+    {
+     "text": "She is passionate about helping people build capacity, develop independence and navigate challenges with confidence, and a strong advocate for access to diagnosis, recognising how it opens the door to the right supports and services.",
+     "about": "approach"
+    }
+   ]
+  },
+  "lachlan-avent": {
+   "philosophy_of_care": "Lachlan works with children, teenagers and adults and is passionate about providing a safe space for clients to express themselves, achieve their potential and meet the challenges that life presents.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Lachlan works with children, teenagers and adults and is passionate about providing a safe space for clients to express themselves, achieve their potential and meet the challenges that life presents.",
+     "about": "approach"
+    },
+    {
+     "text": "He is experienced working with clients who have autism, ADHD, OCD, specific learning disorders, depression, intellectual disability, are experiencing anxiety, phobias, depression, issues with self-esteem / confidence, stress / burn out, anger, bullying, interpersonal difficulties, and provides parenting support.",
+     "about": "approach"
+    },
+    {
+     "text": "Lachlan utilises Cognitive Behavioural Therapy (CBT), Dialectical Behavioural Therapy (DBT), Acceptance and Commitment Therapy (ACT), Motivational Interviewing (MI) and Emotion Focussed Therapy (EFT) to support clients to create meaningful change and build skills to live a life that fulfils them.",
+     "about": "approach"
+    }
+   ]
+  },
+  "lana-hiscock": {
+   "philosophy_of_care": "My approach is warm, compassionate and non-judgmental, drawing on person-centred, strengths-based and evidence-based approaches including CBT, DBT, ACT and positive psychology.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "I integrate lived experience with professional training to support clients in a grounded, holistic way, in a safe and collaborative space where people feel genuinely understood.",
+     "about": "lived"
+    },
+    {
+     "text": "My approach is warm, compassionate and non-judgmental, drawing on person-centred, strengths-based and evidence-based approaches including CBT, DBT, ACT and positive psychology.",
+     "about": "approach"
+    },
+    {
+     "text": "In my downtime I get outdoors with a coffee and a good book, travel, do pilates or yoga, and make friends with the local king parrots.",
+     "about": "other"
+    }
+   ]
+  },
+  "lauren-poulos": {
+   "philosophy_of_care": "Lauren works with toddlers, children, teens and adults.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Lauren thoroughly enjoys facilitating a safe and collaborative space where clients can explore their goals and work toward meaningful change."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Lauren works with toddlers, children, teens and adults.",
+     "about": "approach"
+    },
+    {
+     "text": "She is experienced working with clients who are experiencing anxiety, depression, emotional regulation, neurodivergence, autism, ADHD, intellectual disability, self esteem/ confidence, trauma, friendships & socialising, and offers parenting support among other presenting concerns.",
+     "about": "approach"
+    },
+    {
+     "text": "She is experienced with Cognitive Behavioural Therapy (CBT), Motivational Interviewing (MI), skills building and coping strategies, Parent-Child Interaction Therapy (PCIT) and facilitating programs relating to managing disruptive behaviours in children to strengthen family dynamics.",
+     "about": "approach"
+    }
+   ]
+  },
+  "lester-rafanan": {
+   "philosophy_of_care": "Lester Rafanan graduated with a Doctor of Physiotherapy from Bond University and has a background in personal training, strength and conditioning, and competitive sport, giving Lester a strong understanding of movement, performance, and injury prevention.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Lester Rafanan graduated with a Doctor of Physiotherapy from Bond University and has a background in personal training, strength and conditioning, and competitive sport, giving Lester a strong understanding of movement, performance, and injury prevention.",
+     "about": "approach"
+    },
+    {
+     "text": "He takes an evidence-based, personalised approach to physiotherapy, whether you’re recovering from an injury or surgery, managing chronic pain, returning to sport, accessing NDIS supports, or simply wanting to stay active.",
+     "about": "approach"
+    },
+    {
+     "text": "Every treatment plan is tailored to your goals so you can move with confidence.",
+     "about": "approach"
+    }
+   ]
+  },
+  "matthew-persello": {
+   "philosophy_of_care": "His approach is strengths-based and solution-focused, drawing on CBT, ACT, Solution Focused Therapy and Motivational Interviewing tailored to each client’s needs.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "lgbtq-affirming"
+   ],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "His approach is strengths-based and solution-focused, drawing on CBT, ACT, Solution Focused Therapy and Motivational Interviewing tailored to each client’s needs.",
+     "about": "approach"
+    },
+    {
+     "text": "Matthew is a Registered Psychologist specialising in therapy for adolescents (13+ years) and adults, with a strong focus on men’s mental health, neurodiversity and the LGBTQIA+ community.",
+     "about": "other"
+    },
+    {
+     "text": "He completed his psychology honours degree through studies in both Australia and the United States, including a year-long research project exploring romantic self-sabotage within gender and sexually diverse populations.",
+     "about": "other"
+    }
+   ]
+  },
+  "meera-lakhani": {
+   "philosophy_of_care": "Meera is passionate about helping clients to identify their unique areas of strengths and difficulties and collaborate with relevant stakeholders to maximise positive outcomes in their lives.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "She enjoys working with clients to understand their goals then create a plan to achieve their goals."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Meera is passionate about helping clients to identify their unique areas of strengths and difficulties and collaborate with relevant stakeholders to maximise positive outcomes in their lives.",
+     "about": "approach"
+    },
+    {
+     "text": "She utilises assessment tools including WISC, WAIS, WIAT, MIGDAS and others as required to support clients with discovering an enhanced understanding of their unique neurotype.",
+     "about": "approach"
+    },
+    {
+     "text": "She thrives on supporting clients to lean into vulnerability, learn new skills and navigate life’s challenges.",
+     "about": "approach"
+    }
+   ]
+  },
+  "michael-rehardt": {
+   "philosophy_of_care": "He brings a thoughtful, creative and practical approach to his work and is continuing to build his clinical experience across a range of presentations.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "He brings a thoughtful, creative and practical approach to his work and is continuing to build his clinical experience across a range of presentations.",
+     "about": "approach"
+    },
+    {
+     "text": "Michael is completing his final externship placement at Atlantis Recovery Centre as part of his Master of Clinical Psychology at Griffith University.",
+     "about": "other"
+    },
+    {
+     "text": "Outside psychology, Michael is also an Aboriginal artist and former competitive sprinter, bringing creativity, discipline and a unique perspective to the Atlantis team.",
+     "about": "other"
+    }
+   ]
+  },
+  "nicholas-bailey": {
+   "philosophy_of_care": "He draws mainly on Acceptance and Commitment Therapy, and values therapeutic relationships built on respect, curiosity and collaboration.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Nick is a psychologist who works within an affirming framework, and particularly enjoys working with adolescents, adults and men, and with people from a wide range of backgrounds and life experiences."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "He draws mainly on Acceptance and Commitment Therapy, and values therapeutic relationships built on respect, curiosity and collaboration.",
+     "about": "approach"
+    },
+    {
+     "text": "Before psychology he contributed to a Rugby Australia initiative that expanded opportunities for neurodivergent young people to take part in community sport across Queensland, and he brings that breadth to his practice.",
+     "about": "other"
+    },
+    {
+     "text": "He is interested in the unique experiences, perspectives and stories each person brings.",
+     "about": "other"
+    }
+   ]
+  },
+  "nzubechi-oguoma": {
+   "philosophy_of_care": null,
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Nzubechi is a Registered Psychologist with experience working with individuals and families from age 5 and across the lifespan, presenting with a range of mental health conditions as well as neurodevelopmental disorders.",
+     "about": "other"
+    },
+    {
+     "text": "Areas of interest include anxiety, depression, trauma and post-traumatic stress disorder, family therapy, relationships, self-esteem and self-development, and work-related issues.",
+     "about": "other"
+    },
+    {
+     "text": "The primary evidence-based modalities used are Cognitive Behaviour Therapy, Acceptance and Commitment Therapy and Trauma-Informed Practice.",
+     "about": "other"
+    }
+   ]
+  },
+  "paula-garrido": {
+   "philosophy_of_care": "Paula Garrido is a Clinical Psychologist with extensive experience supporting individuals with ADHD and other neurodevelopmental differences.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [
+    "trauma-informed"
+   ],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Paula Garrido is a Clinical Psychologist with extensive experience supporting individuals with ADHD and other neurodevelopmental differences.",
+     "about": "approach"
+    },
+    {
+     "text": "She has a special interest in providing compassionate, neuroaffirming, and trauma-informed psychological care, helping individuals better understand their unique strengths, challenges, and ways of experiencing the world.",
+     "about": "approach"
+    },
+    {
+     "text": "With additional training in ADHD, autism, complex trauma, and evidence-based psychological therapies, Paula supports individuals to navigate challenges with emotional regulation, executive functioning, anxiety, self-esteem, relationships, and everyday life.",
+     "about": "approach"
+    }
+   ]
+  },
+  "romney-taylor": {
+   "philosophy_of_care": "Recognising this truth inspired me to pursue specialist training as an ADHD coach, allowing me to focus on supporting neurodivergent individuals in a way that celebrates their strengths and addresses their unique challenges.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Recognising this truth inspired me to pursue specialist training as an ADHD coach, allowing me to focus on supporting neurodivergent individuals in a way that celebrates their strengths and addresses their unique challenges.",
+     "about": "approach"
+    },
+    {
+     "text": "It’s incredibly rewarding to help them develop strategies that fit their individual needs, whether that’s in the classroom, in relationships, or at home.",
+     "about": "approach"
+    },
+    {
+     "text": "Watching my clients grow and achieve goals they once thought were out of reach is the most fulfilling part of my work.",
+     "about": "approach"
+    }
+   ]
+  },
+  "samantha-courtney": {
+   "philosophy_of_care": "Samantha is a Credentialed Eating Disorder Clinician (CEDC-MH) and her experience includes supporting clients who are mums, new parents, athletes, and clients from diverse life experiences with co-occurring health conditions to navigate eating disorder treatment.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Samantha is a Credentialed Eating Disorder Clinician (CEDC-MH) and her experience includes supporting clients who are mums, new parents, athletes, and clients from diverse life experiences with co-occurring health conditions to navigate eating disorder treatment.",
+     "about": "approach"
+    },
+    {
+     "text": "She is able to liaise with clients’ wider support teams such as dieticians, GPs and psychiatrists wherever helpful towards client goals.",
+     "about": "approach"
+    },
+    {
+     "text": "Samantha works from a trauma-informed care framework and a strengths-based lens to provide a calm, inclusive, and supportive environment for her clients to engage in individualised interventions.",
+     "about": "approach"
+    }
+   ]
+  },
+  "sarah-bibo": {
+   "philosophy_of_care": "I am dedicated to creating a safe, supportive and non-judgmental environment where clients feel empowered to navigate life’s challenges and work towards their goals.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Outside work I enjoy gardening, hiking, swimming, travelling, the gym, and time with family and friends."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "I am dedicated to creating a safe, supportive and non-judgmental environment where clients feel empowered to navigate life’s challenges and work towards their goals.",
+     "about": "approach"
+    },
+    {
+     "text": "My approach is warm, compassionate, person-centred and strengths-based, drawing on CBT, DBT, ACT, Compassion-Focused Therapy and Positive Psychology.",
+     "about": "approach"
+    },
+    {
+     "text": "I have worked with depression, anxiety, trauma, neurodiversity (autism and ADHD), interpersonal difficulties, disordered eating and body image concerns.",
+     "about": "other"
+    }
+   ]
+  },
+  "sarah-savage": {
+   "philosophy_of_care": "Sarah is passionate about helping people move with confidence, build strength, and enjoy a better quality of life.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Sarah is passionate about helping people move with confidence, build strength, and enjoy a better quality of life.",
+     "about": "approach"
+    },
+    {
+     "text": "Sarah combines her Exercise Physiology expertise with Pilates, Functional Range Conditioning, and hydrotherapy to create safe, personalised programs that make exercise feel achievable, empowering, and enjoyable.",
+     "about": "other"
+    }
+   ]
+  },
+  "tom-hissey": {
+   "philosophy_of_care": "He specialises in helping people return to full function, from young athletes to older clients, drawing on experience in a high-performance setting in Glasgow working with runners, HYROX athletes, and footballers.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "He specialises in helping people return to full function, from young athletes to older clients, drawing on experience in a high-performance setting in Glasgow working with runners, HYROX athletes, and footballers.",
+     "about": "approach"
+    },
+    {
+     "text": "Having gone through back surgery and rehab himself, Tom understands what recovery really takes.",
+     "about": "approach"
+    }
+   ]
+  },
+  "tracey-dale": {
+   "philosophy_of_care": "She works with clients of all ages through major life transitions such as pregnancy and motherhood, and challenges like anxiety, depression, burnout, trauma (including complex PTSD using EMDR), grief, sleep difficulties, disordered eating, and recovery from violence or substance use.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "She works with clients of all ages through major life transitions such as pregnancy and motherhood, and challenges like anxiety, depression, burnout, trauma (including complex PTSD using EMDR), grief, sleep difficulties, disordered eating, and recovery from violence or substance use.",
+     "about": "approach"
+    },
+    {
+     "text": "She has provided counselling at QUT, worked in private practice and led clinical operations in busy mental health settings, including crisis support services.",
+     "about": "approach"
+    },
+    {
+     "text": "The first session is about getting to know you, your story and what you would like to achieve, and she aims for you to leave each session with practical skills to take into everyday life.",
+     "about": "approach"
+    }
+   ]
+  },
+  "trisha-harris": {
+   "philosophy_of_care": "I work with individuals, couples and teens, including NDIS participants.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": "Hi, I’m Trisha, a Clinical Counsellor, mum of 4 (3 who have diagnosis'), I have ADHD and run a business, so I absolutely understand how busy, stressful and chaotic life can get!",
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "Hi, I’m Trisha, a Clinical Counsellor, mum of 4 (3 who have diagnosis'), I have ADHD and run a business, so I absolutely understand how busy, stressful and chaotic life can get!",
+     "about": "lived"
+    },
+    {
+     "text": "I work with individuals, couples and teens, including NDIS participants.",
+     "about": "approach"
+    },
+    {
+     "text": "I understand the need for support, to be heard, to have undivided attention that is just for YOU.",
+     "about": "approach"
+    }
+   ]
+  },
+  "valeria-urrutia": {
+   "philosophy_of_care": "I tailor therapy to each person, drawing on CBT, ACT, DBT and Compassion-Focused Therapy.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": [
+    "Outside work I enjoy beach days, hiking, tennis, new recipes and a good record."
+   ],
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "I tailor therapy to each person, drawing on CBT, ACT, DBT and Compassion-Focused Therapy.",
+     "about": "approach"
+    },
+    {
+     "text": "I work across the lifespan with life transitions, anxiety and depression, grief and loss, neurodiversity, alcohol and other drug concerns, and psychological assessments, which I approach in a client-centred, strengths-based way.",
+     "about": "approach"
+    },
+    {
+     "text": "I aim to create a space where people feel respected, understood and comfortable being themselves.",
+     "about": "other"
+    }
+   ]
+  },
+  "yuri-lima": {
+   "philosophy_of_care": "With a lifelong passion for movement and sports, Yuri’s approach combines clinical expertise in orthopaedic and sports rehabilitation and patient-centred care to help clients return to their optimal level of function and performance.",
+   "why_medicine": null,
+   "communication_approach": null,
+   "communication": [],
+   "lived_experience": null,
+   "hobbies": null,
+   "outside_medicine": null,
+   "quotes": [
+    {
+     "text": "With a lifelong passion for movement and sports, Yuri’s approach combines clinical expertise in orthopaedic and sports rehabilitation and patient-centred care to help clients return to their optimal level of function and performance.",
+     "about": "approach"
+    },
+    {
+     "text": "He believes in empowering individuals through education and active involvement in their recovery process.",
+     "about": "approach"
+    },
+    {
+     "text": "He is also committed to advancing the field of physiotherapy by holding a Master in Rehabilitation Sciences and a PhD where he investigated ACL injuries in Athletes.",
+     "about": "other"
+    }
+   ]
+  }
+ }
+}

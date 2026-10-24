@@ -9,7 +9,8 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Cell, Clock, Face, FaceStack, FieldBox, Gap, Group, GroupHeader, LargeTitle, Mic, NavBar, Screen, initialsOf } from "@/src/ui/kit";
 import { OpeningsBanner } from "@/src/ui/OpeningsBanner";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
-import { EXAMPLES } from "./lib";
+import { ADHD_EXAMPLES, EXAMPLES } from "./lib";
+import type { AppMode } from "@/src/mode";
 
 type Recognition = { lang: string; interimResults: boolean; onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onend: (() => void) | null; start: () => void; stop: () => void };
 type RecognitionCtor = new () => Recognition;
@@ -22,7 +23,8 @@ function speechCtor(): RecognitionCtor | null {
 
 export type Face = { id: string; name: string; url: string };
 
-export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number }) {
+export function Home({ faces = [], count = 0, mode = "wattle" }: { faces?: Face[]; count?: number; mode?: AppMode }) {
+  const adhd = mode === "adhdme";
   const router = useRouter();
   const [name, setNameState] = useState<string | null>(null);
   const [text, setText] = useState("");
@@ -82,7 +84,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
     <Screen padBottom="pb-[110px]">
       <NavBar />
       <LargeTitle trailing={initials ? <Link href="/me" aria-label="Your profile" className="press mb-1 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</Link> : undefined}>
-        {name ? `Hi, ${display}.` : "Who do you need?"}
+        {name ? `Hi, ${display}.` : adhd ? "What ADHD support do you need?" : "Who do you need?"}
       </LargeTitle>
       <Gap h={16} />
       <form
@@ -107,7 +109,7 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
                 void submit(text);
               }
             }}
-            placeholder="Tell us what’s going on"
+            placeholder={adhd ? "Assessment, medication, coaching…" : "Tell us what’s going on"}
             className="block w-full resize-none bg-transparent px-4 pb-11 pt-3.5 text-body text-ink outline-none placeholder:text-grey"
           />
           {canListen ? (
@@ -130,12 +132,12 @@ export function Home({ faces = [], count = 0 }: { faces?: Face[]; count?: number
               <Face key={f.id} url={f.url} name={f.name} size={36} ring />
             ))}
           </span>
-          <span className="text-subhead text-ink">Meet {count} doctors in their own words.</span>
+          <span className="text-subhead text-ink">Meet {count} {adhd ? "ADHD providers" : "doctors"} in their own words.</span>
         </Link>
       ) : null}
       <GroupHeader>Or try one of these</GroupHeader>
       <Group tone="plain">
-        {EXAMPLES.map((ex) => (
+        {(adhd ? ADHD_EXAMPLES : EXAMPLES).map((ex) => (
           <Cell key={ex} title={ex} onClick={() => void submit(ex)} />
         ))}
       </Group>
