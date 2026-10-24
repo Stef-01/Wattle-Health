@@ -10,3 +10,6 @@ data/load/
 
 # Decisions loop local store (src/decisions/store.ts): case studies stay off git.
 data/decisions/.local/
+
+# Redaction debug log and eval reports (pipeline/redact): redacted text only, still kept off git.
+data/redact/.local/

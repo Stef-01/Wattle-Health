@@ -17,6 +17,7 @@
 import { createHash } from "node:crypto";
 import { mvpDiscipline } from "@/src/data/providers";
 import { DecisionsUnavailable, openaiModel, structured } from "./openai";
+import { outbound } from "./redact";
 import { get, list, newId, put, remove } from "./store";
 import { evaluate, fit, predict, type Row } from "./tree";
 import { CATEGORY_GROUPS, keyOf, slugOf, type Candidate, type CaseStudy, type Category, type CategoryGroup, type DecisionResult, type Scores, type TreeModel } from "./types";
@@ -254,7 +255,8 @@ export async function extractCases(notes: string): Promise<ExtractedCase[]> {
       },
     },
   };
-  const out = await structured<{ cases: ExtractedCase[] }>("case_studies", schema, `${EXTRACT_BRIEF}\n\nExisting decision labels: ${labels.length ? labels.join("; ") : "none yet"}`, notes.slice(0, MAX_TRANSCRIPT));
+  const { text: sent } = await outbound(notes.slice(0, MAX_TRANSCRIPT));
+  const out = await structured<{ cases: ExtractedCase[] }>("case_studies", schema, `${EXTRACT_BRIEF}\n\nExisting decision labels: ${labels.length ? labels.join("; ") : "none yet"}`, sent);
   return (out.cases ?? []).filter((c) => c.text?.trim() && c.decision?.trim()).slice(0, 40);
 }
 
@@ -323,18 +325,22 @@ export interface ClassifyResult {
   model: string;
   categories: number;
   ms: number;
+  /** What was taken out before sending (counts per placeholder), or null when redaction is off. */
+  redaction: { counts: Record<string, number>; model: string; ms: number } | null;
 }
 
-export async function classify(transcript: string, opts: { discover?: boolean } = {}): Promise<ClassifyResult> {
+/** `redact: false` sends the transcript as given: only for the redaction eval's baseline, behind the API key. */
+export async function classify(transcript: string, opts: { discover?: boolean; redact?: boolean } = {}): Promise<ClassifyResult> {
   const text = transcript.trim().slice(0, MAX_TRANSCRIPT);
   if (!text) throw new Error("transcript required");
   const started = Date.now();
+  const { text: sent, redaction } = opts.redact === false ? { text, redaction: null } : await outbound(text);
   const categories = await activeCategories();
-  const [scores, found] = await Promise.all([scoreTranscript(text, categories), opts.discover === false ? Promise.resolve([] as Found[]) : findCandidates(text, categories)]);
+  const [scores, found] = await Promise.all([scoreTranscript(sent, categories), opts.discover === false ? Promise.resolve([] as Found[]) : findCandidates(sent, categories)]);
   const { touched } = await queueCandidates(found, categories);
   const model = await currentModel();
   const decision = model ? { ...predict(model, scores, labeller(categories)), modelVersion: model.version, stale: model.scoredWith !== scoredWithKey(categories) } : null;
-  const result: ClassifyResult = { scores, decision, candidates: touched, model: openaiModel(), categories: categories.length, ms: Date.now() - started };
+  const result: ClassifyResult = { scores, decision, candidates: touched, model: openaiModel(), categories: categories.length, ms: Date.now() - started, redaction: redaction ? { counts: redaction.counts, model: redaction.model, ms: redaction.ms } : null };
   const top = Object.entries(scores).sort((a, b) => b[1] - a[1]).slice(0, 8);
   await put("runs", {
     id: newId("run"),
@@ -347,6 +353,7 @@ export async function classify(transcript: string, opts: { discover?: boolean } 
     top,
     candidates: touched.map((c) => c.id),
     ms: result.ms,
+    redacted: result.redaction?.counts ?? null,
   });
   return result;
 }
