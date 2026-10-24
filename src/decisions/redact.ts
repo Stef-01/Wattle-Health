@@ -1,6 +1,7 @@
 // Personal details come out of a transcript before it leaves for the classifier (founder 2026-10-24).
-// The redactor is `pipeline/redact/redact.py`: patterns, then a model on Amazon Bedrock in Sydney
-// that points at names, addresses, dates of birth and named organisations for code to replace.
+// The redactor is `pipeline/redact/redact.py`: patterns, then a Bedrock model kept in Australia
+// (an `au.` profile or a Sydney-only model) that points at names, addresses, dates of birth and
+// named organisations for code to replace, then guards that keep places and clinical words.
 // It fails closed: if redaction is required and does not succeed, nothing is sent.
 import { spawn } from "node:child_process";
 import path from "node:path";
@@ -15,7 +16,7 @@ export function redactionRequired(): boolean {
   return mode === "on" || process.env.NODE_ENV === "production" || Boolean(process.env.AWS_BEARER_TOKEN_BEDROCK?.trim());
 }
 
-export async function redact(text: string, timeoutMs = 60_000): Promise<Redaction> {
+export async function redact(text: string, timeoutMs = 90_000): Promise<Redaction> {
   const started = Date.now();
   const script = path.join(process.cwd(), "pipeline", "redact", "redact.py");
   const out = await new Promise<string>((resolve, reject) => {
