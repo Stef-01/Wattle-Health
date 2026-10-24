@@ -7,3 +7,6 @@ __pycache__/
 next-env.d.ts
 *.tmp
 data/load/
+
+# Decisions loop local store (src/decisions/store.ts): case studies stay off git.
+data/decisions/.local/

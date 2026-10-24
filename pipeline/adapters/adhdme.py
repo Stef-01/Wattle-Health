@@ -24,7 +24,7 @@ LEGAL BASIS. ADHDme is the founder's own site and the clinicians on it published
 there. Facts and the clinician's own published description, short quotations attributed, portraits
 served from adhdme.au rather than copied. Same basis the first two sweeps recorded.
 
-Rules kept from CLAUDE.md: no model calls, no paraphrase of a review, every fact carries its
+This adapter makes no model calls. Kept from CLAUDE.md: no paraphrase of a review, every fact carries its
 source and date, "not declared" is a rendered value and never a blank.
 """
 from __future__ import annotations

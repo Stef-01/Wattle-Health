@@ -44,4 +44,50 @@ Copy `.env.example` to `.env.local`. The publishable key is safe; `SUPABASE_SERV
 
 ## Rules that do not bend
 
-No scraping of the Ahpra register. No Google Places content stored. No reviews, ratings or testimonials. No model calls in the request path and no API keys. Every fact carries a source tier (register / declared / found) and a date; "Not declared" is rendered, never invented.
+No scraping of the Ahpra register. No Google Places content stored. No reviews, ratings or testimonials. Patient search makes no model calls: it is lexical and deterministic. The decisions loop below is the one place a model is called. Every fact carries a source tier (register / declared / found) and a date; "Not declared" is rendered, never invented.
+
+## Decisions loop and admin (2026-10-24)
+
+A transcript goes in; every category comes back scored 0 to 1; a decision tree trained on the
+founder's case studies turns the scores into a decision and shows the rule it took. A second pass
+finds what the transcript says that no category covers and queues it for a person in `/admin`.
+Approving one makes it a category: the next transcript is scored on it, and the next training run
+can split on it. Nothing is weighted up front; the tree learns which parameters matter.
+
+| | |
+|---|---|
+| Categories | `disciplines/mvp.yaml` (conditions, populations, approaches, manner, human fit, practical needs) plus categories approved in review |
+| Model | OpenAI Responses API, strict JSON schema, `OPENAI_MODEL` (default `gpt-5.4-mini`), `store: false` |
+| Tree | CART on the scores, Gini, depth 4, deterministic; leave-one-out accuracy reported |
+| Storage | Supabase `decision_docs` (migration 0006) with `SUPABASE_SERVICE_ROLE_KEY`; else a gitignored local file in development; else memory |
+| Privacy | Transcripts are never stored (a run keeps its SHA-256 and length). Case studies stay in the store, never in git |
+
+Environment (`.env.local` locally, Vercel env in production):
+
+```
+OPENAI_API_KEY=                 # required to classify
+OPENAI_MODEL=gpt-5.4-mini       # optional
+ADMIN_PASSWORD=                 # opens /admin; unset keeps it shut
+DECISIONS_API_KEY=              # bearer key for outside tools
+DECISIONS_REVIEW_WEBHOOK_URL=   # optional: new candidates are POSTed here for external review
+DECISIONS_REVIEW_WEBHOOK_TOKEN= # optional bearer token for that webhook
+```
+
+API (every route needs the admin session or `Authorization: Bearer $DECISIONS_API_KEY`):
+
+```
+POST  /api/decisions/classify          {transcript, discover?} → scores, decision, candidates
+GET   /api/decisions/categories        everything the classifier outputs
+PATCH /api/decisions/categories/:key   {label?, description?, active?}   reviewed categories only
+GET   /api/decisions/candidates        review queue (?status=pending)
+PATCH /api/decisions/candidates/:id    {action: approve | reject | update, label?, description?, group?}
+GET   /api/decisions/cases             case studies
+POST  /api/decisions/cases             {title, text, decision, source?, sourceRef?} or an array
+POST  /api/decisions/cases/extract     {notes} → draft case studies from meeting notes (not saved)
+POST  /api/decisions/train             re-score stale cases, fit the tree
+GET   /api/decisions/model             the tree, its rules and feature importance
+```
+
+An external validator receives `candidates.created` at the webhook and answers with the same PATCH
+the dashboard uses.
+

@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { TabBar } from "./kit";
 
-const HIDDEN = ["/splash", "/narrow", "/join", "/claim", "/team", "/adjust"];
+const HIDDEN = ["/splash", "/narrow", "/join", "/claim", "/team", "/adjust", "/admin"];
 
 function activeFor(path: string): "/" | "/recent" | "/saved" | "/me" {
   if (path.startsWith("/recent")) return "/recent";

@@ -2,9 +2,17 @@
 // app in ADHDme mode. The parameter is dropped from the URL once the cookie is set.
 import { NextResponse, type NextRequest } from "next/server";
 import { hiddenIn, MODE_COOKIE, defaultMode, parseMode } from "@/src/mode";
+import { ADMIN_COOKIE, verifySession } from "@/src/admin-session";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
+  // /admin is behind ADMIN_PASSWORD (src/admin-session.ts); the API routes check for themselves.
+  if (url.pathname.startsWith("/admin") && url.pathname !== "/admin/login" && !(await verifySession(request.cookies.get(ADMIN_COOKIE)?.value))) {
+    const login = url.clone();
+    login.pathname = "/admin/login";
+    login.search = `?next=${encodeURIComponent(url.pathname)}`;
+    return NextResponse.redirect(login);
+  }
   const asked = parseMode(url.searchParams.get("mode"));
   const mode = asked ?? parseMode(request.cookies.get(MODE_COOKIE)?.value) ?? defaultMode();
   // A surface that is not about ADHD support does not exist in ADHDme mode.
