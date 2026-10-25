@@ -44,8 +44,9 @@ TITLE_RE = re.compile(
 )
 EXPIRES = {"capacity": 90, "wait_time": 90, "phone": 365, "website": 365}  # days; others never expire
 
-# The seeded conditions (supabase/migrations/0002_mvp_tables.sql). Kept here so the loader needs no DB round
-# trip; the insert still resolves ids through the conditions table by slug, so a reseed cannot desync it.
+# The seeded conditions (adhd.me supabase/migrations/0016_wattle_mvp_tables.sql, table focus_conditions). Kept
+# here so the loader needs no DB round trip; the insert still resolves ids through focus_conditions by slug, so a
+# reseed cannot desync it.
 CONDITIONS = {
     "endometriosis": ["endo", "endometriosis", "adenomyosis", "painful periods", "period pain"],
     "pcos": ["pcos", "polycystic ovary", "polycystic ovarian syndrome", "irregular periods"],
@@ -315,7 +316,7 @@ def sql_focus(rows: list[dict]) -> str:
         "insert into provider_clinical_focus (practitioner_id, condition_id, strength, tier, source_id, source_url, observed_at)\n"
         "select v.practitioner_id, c.id, 'secondary', 'found', v.source_id, v.source_url, v.observed_at\n"
         "from (values\n" + vals + "\n) as v(practitioner_id, slug, source_id, source_url, observed_at)\n"
-        "join conditions c on c.slug = v.slug\n"
+        "join focus_conditions c on c.slug = v.slug\n"
         "on conflict (practitioner_id, condition_id) do update set strength = excluded.strength, tier = excluded.tier, "
         "source_id = excluded.source_id, source_url = excluded.source_url, observed_at = excluded.observed_at;"
     )

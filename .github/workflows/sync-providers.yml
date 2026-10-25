@@ -1,0 +1,63 @@
+# Keeps providers current without anyone running anything (2026-10-25).
+# 1. Rebuilds the ADHDme network from the live site's CLINICIANS (revamped-adhd.me, private) and
+#    commits it when it changed, which redeploys Wattle on Vercel.
+# 2. Reloads the provider directory (data/providers/*.jsonl) into the adhd-me Supabase project.
+#    Every statement is an upsert, so an unchanged directory changes nothing.
+# Secrets (repository settings, never in git): ADHDME_REPO_TOKEN, a fine-grained token with read access
+# to revamped-adhd.me contents; SUPABASE_DB_URL, the adhd-me session-pooler URI.
+name: Sync providers
+
+on:
+  schedule:
+    - cron: "0 16 * * *"   # 02:00 or 03:00 in Brisbane/Sydney
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-providers
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out the ADHDme site
+        uses: actions/checkout@v4
+        with:
+          repository: Stef-01/revamped-adhd.me
+          token: ${{ secrets.ADHDME_REPO_TOKEN }}
+          path: _site/revamped-adhd.me
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Rebuild the ADHDme network
+        run: python -I pipeline/adapters/adhdme.py --source _site/revamped-adhd.me
+
+      - name: Commit the network if it changed
+        run: |
+          if git diff --quiet -- data/adhdme data/enriched/personal; then
+            echo "ADHDme network unchanged"
+          else
+            git config user.name "wattle-sync"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/adhdme data/enriched/personal
+            git commit -m "ADHDme network: rebuilt from the live site's clinician list"
+            git push
+          fi
+
+      - name: Install psql
+        run: sudo apt-get update -q && sudo apt-get install -y -q postgresql-client
+
+      - name: Load providers into adhd-me
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          python -I pipeline/load/load_providers.py
+          python -I pipeline/load/apply.py

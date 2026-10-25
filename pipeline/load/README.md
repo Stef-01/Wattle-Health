@@ -1,7 +1,10 @@
 # pipeline/load
 
 Loads the merged provider records (`data/providers/*.jsonl`, written by `pipeline/merge.py`) into the
-Supabase schema (`supabase/migrations/0001` to `0003`). No database driver: the loader emits plain SQL
+Supabase schema. Since 2026-10-25 that is the **adhd-me** project: the schema lives in the adhd.me repo
+(`supabase/migrations/0015` to `0020`, Wattle's `conditions` table renamed `focus_conditions`), and this
+repo's `supabase/migrations` are the history of the retired wattle-health project. `apply.py` runs a
+cohort's files with `psql` and `SUPABASE_DB_URL`; `.github/workflows/sync-providers.yml` does both steps daily. No database driver: the loader emits plain SQL
 batches, and something that holds the service role (Supabase MCP `execute_sql`, `psql`, the SQL editor)
 runs them in filename order.
 
