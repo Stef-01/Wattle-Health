@@ -78,6 +78,24 @@ The scanners above read the DOM. Round 2 photographed production: `qa/edge/shoot
 
 Looked at and left: the tab bar crossing a long page mid-scroll (it is fixed, as iOS's is); the join review's name card over the monogram (the preview of the doctor card); the Discover footnote under the tab bar when the page is scrolled to its foot (padded, scrolls clear).
 
+## Round 3: why it felt slow, and the motion that was missing (2026-11-08)
+
+Measured on production with `qa/edge/hops.mjs` (a tab-bar hop, timed to the moment the new title is on screen) and `curl` time to first byte.
+
+| what | before | after | cause |
+|---|---|---|---|
+| hop back to Home | 574 to 1093 ms | 50 ms | Home read the mode cookie, which made it a per-request function; it is static now and both modes' faces ship in the page (`app/page.tsx`, picked by `useMode`) |
+| About, Coverage, a GP profile, cold | 4.6 to 4.7 s to first byte | served prerendered | the same cookie read on About and Coverage (`src/ui/ByMode.tsx` renders both modes, the browser picks); only 40 profiles were prerendered, now every published profile plus 40 (252) |
+| the searching moment | 1.4 s floor | 0.9 s | `MIN_SEARCH_MS`; the steps change every 450 ms |
+| a navigation | 200 ms fade | 150 ms fade; a drill-down (a screen with Back) arrives with a 12 px push | `.page-enter`, `push` |
+| a selection change | each segment painted its own background | one thumb slides (`src/ui/kit/thumb.tsx`: tab-bar lens, segmented controls, profile tabs; transform only, 200 ms, off under reduced motion) | measured 259 → 89 px over 150 ms |
+
+Spacing was measured against eight reference sites at 390 px (`qa/bench/measure.mjs`: side margins, text sizes, control heights, gaps between text blocks, card padding) and screen by screen with `qa/bench/rhythm.mjs` (every vertical gap with the words on each side). Wattle's margins (16, 20 at 414), body (17/22), rows (52) and group gaps (32) sit where Apple's own pages sit (16, 17/21, 36 to 48 rows); HotDoc and Headspace run 20 px margins and 16 px body, Linear 24 and 13 to 15. Nothing moved on that evidence. What the rhythm pass did fix: Recent grouped single searches under headers that repeated the row (flat list until a condition repeats), a face stack that squeezed into a 30 px icon well on Home so three faces spilled over the title, two- and three-face rows whose titles did not line up (the stack reserves three faces), and a label that ended in a comma when no place was named.
+
+What patients weigh (Zocdoc's 2025 booking data, published 2026-06): a personal connection first, twice the weight of location; 21 profiles compared before booking, 84% then stay; 93% in person. Wattle's "in their own words", "listens" highlights and in-person default already sit on that; the comparison habit is why profile hops and Compare had to be fast.
+
+Still open for the founder: production runs the join flow in memory mode. The Supabase project `wattle-health` exists with the tables; Vercel is missing `SUPABASE_SERVICE_ROLE_KEY` (the MCP cannot list or set it), so nothing a doctor enters on /join is kept.
+
 ## The quoted compiled rules the detectors missed
 
 ```
