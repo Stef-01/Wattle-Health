@@ -31,15 +31,15 @@ await page.screenshot({ path: `${OUT}/join-2-after-verify.png` });
 if (/practice/.test(page.url())) {
   const practice = page.getByPlaceholder(/Spring Hill/i); if (await practice.count()) await practice.fill("QA Practice");
   const fee = page.getByPlaceholder(/280/); if (await fee.count()) await fee.fill("200");
-  await page.getByRole("button", { name: /Continue/ }).click(); await page.waitForTimeout(1200);
+  await page.getByRole("button", { name: /Continue/ }).click(); await page.waitForURL(/interview/, { timeout: 30000 }).catch(() => {}); await page.waitForTimeout(600);
 }
 log("after practice:", page.url().replace(BASE, ""));
-const skip = page.getByText(/Skip for now/).first(); if (await skip.count()) { await skip.click(); await page.waitForTimeout(1200); }
+const skip = page.getByText(/Skip for now/).first(); if (await skip.count()) { await skip.click(); await page.waitForURL(/share|review/, { timeout: 30000 }).catch(() => {}); await page.waitForTimeout(600); }
 log("after interview:", page.url().replace(BASE, ""));
-if (/share/.test(page.url())) { await page.getByText(/^Continue$/).first().click(); await page.waitForTimeout(1200); }
+if (/share/.test(page.url())) { await page.getByText(/^Continue$/).first().click(); await page.waitForURL(/review/, { timeout: 30000 }).catch(() => {}); await page.waitForTimeout(600); }
 log("after share:", page.url().replace(BASE, ""));
 const publish = page.getByRole("button", { name: /Publish/ }).first();
-if (await publish.count()) { await publish.click(); await page.waitForTimeout(2500); }
+if (await publish.count()) { await publish.click(); await page.getByText(/^Submitted\.$/).waitFor({ timeout: 30000 }).catch(() => {}); await page.waitForTimeout(600); }
 log("after publish:", page.url().replace(BASE, ""), "|", (await page.locator("h1").first().innerText().catch(() => "")).trim());
 await page.screenshot({ path: `${OUT}/join-3-submitted.png` });
 await browser.close();
