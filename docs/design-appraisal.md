@@ -107,6 +107,8 @@ What patients weigh (Zocdoc's 2025 booking data, published 2026-06): a personal 
 
 A second pair of eyes (a code-review pass over the day's diff) found that ADHDme readers would see a frame of Wattle content on the static pages before the cookie was read. Now a one-line script in `<head>` stamps `data-mode` on `<html>` before first paint, `ByMode` renders both modes and CSS shows one, and `useMode` reads the cookie synchronously (`useSyncExternalStore`); the same pass had the sliding thumb observe its children and the font load, measure to the fraction, and leave a plain fill on the selected item until it has measured (server HTML, no script). On a laptop a grouped screen (Recent, Saved, Profile, Coverage) now paints the whole page grouped grey, as iPad Settings does, instead of a 560 px grey column on white.
 
+Lighthouse (mobile, production, 2026-11-08 after these rounds): Profile 100 accessibility, About 95 performance, a doctor profile 86 to 94 (the external portrait is the largest paint), the first visit 82 performance and 100 accessibility. The first visit lands on the splash through a client redirect from Home (the gate is localStorage), so it pays two navigations; a cookie-gated edge redirect would make it one but would change how every QA script primes the app, so it is left as is.
+
 Still open for the founder: production runs the join flow in memory mode. The Supabase project `wattle-health` exists with the tables; Vercel is missing `SUPABASE_SERVICE_ROLE_KEY` (the MCP cannot list or set it), so nothing a doctor enters on /join is kept.
 
 ## The quoted compiled rules the detectors missed
