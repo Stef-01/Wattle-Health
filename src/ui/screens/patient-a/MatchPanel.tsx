@@ -147,9 +147,9 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <p className="mt-4 text-body leading-read text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-grey">{outside.charAt(0).toUpperCase() + outside.slice(1)}</span></p>
       ) : null}
 
-      <div role="tablist" aria-label="Doctor details" className="chrome mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
+      <div role="tablist" aria-label="Doctor details" className="chrome mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, auto)` }}>
         {tabs.map((t) => (
-          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`hit flex min-w-0 items-center justify-center rounded-full px-1 text-footnote transition-[background-color,box-shadow] duration-(--duration-base) ${tab === t ? "bg-white font-semibold text-ink shadow-float" : "text-ink"}`}><span className="truncate">{t}</span></button>
+          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`hit flex min-w-0 items-center justify-center rounded-full px-2 text-footnote transition-[background-color,box-shadow] duration-(--duration-base) ${tab === t ? "bg-white font-semibold text-ink shadow-float" : "text-ink"}`}><span className="truncate">{t}</span></button>
         ))}
       </div>
       <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-5">

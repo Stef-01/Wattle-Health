@@ -24,7 +24,7 @@ export function Splash() {
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") router.push("/");
       }}
-      className="frame cursor-pointer overflow-clip"
+      className="frame cursor-pointer overflow-clip outline-none"
       style={{ background: "linear-gradient(180deg, var(--color-splash) 0%, var(--color-splash-deep) 100%)" }}
     >
       <div className="settle absolute inset-x-0 top-[390px] flex items-center justify-center gap-[10px]">

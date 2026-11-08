@@ -110,9 +110,7 @@ export function Adjust() {
           ))}
         </div>
       ))}
-      <Space h={30} />
-      <p className="text-subhead text-grey">{req === null ? "Search first, then choose what matters." : failed ? "Couldn’t update. Try again." : "Clinical needs come first."}</p>
-      <Cta onClick={() => void update()} disabled={busy}>{busy ? "Updating" : "Update picks"}</Cta>
+      <Cta onClick={() => void update()} disabled={busy} note={req === null ? "Search first, then choose what matters." : failed ? "Couldn’t update. Try again." : "Clinical needs come first."}>{busy ? "Updating" : "Update picks"}</Cta>
     </Screen>
   );
 }

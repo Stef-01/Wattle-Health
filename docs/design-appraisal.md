@@ -63,6 +63,21 @@ The rendering: `pnpm build && pnpm start`, each route fetched with curl into a f
 
 `qa/edge/edge.mjs` walks 18 patient routes at 320, 390 and 1280 px (320 with reduced motion), at the top and scrolled to the foot, and fails on: anything running off the right edge; a control whose real hit area is under 44 px (a 44 px square probed with `elementFromPoint`, so a `.hit` extension counts only when a tap there would land); any word under WCAG AA against the colour actually under it (sampled at the text node's own box, skipping text still arriving, text under a photo or a gradient, and text covered by chrome); a console error or a response of 400 or more (the Vercel insights scripts, absent off Vercel, excepted). It then runs a 180-character search and a German one (both land on `/narrow` with words on screen), and walks the keyboard on Home, a profile and Me, failing on a stop without a focus ring or off screen. `BASE=https://wattlehealth.vercel.app node qa/edge/edge.mjs` checks production.
 
+## Round 2: every screen looked at (2026-11-08)
+
+The scanners above read the DOM. Round 2 photographed production: `qa/edge/shoot.mjs` takes every route at 390 (2x) and 1280, viewport and full page, and `qa/edge/home-frames.mjs` records the first-run path frame by frame (splash, tap, Home arriving, Home with a stored name). 58 screenshots plus 16 frames were read one by one. What they found, all fixed in this commit:
+
+- **Home's title swapped on screen.** The server rendered "Who do you need?"; after hydration a stored name turned it into "Hi, Stefan." and the avatar arriving pushed the field and everything under it down 14 px, during the page's own cross-fade. The avatar slot is now always laid out, and the title's words appear once the name is read instead of rendering one title and replacing it.
+- **A focus ring around the whole splash.** The redirect from Home focuses the splash's `main` (a `role=button`), and with no pointer interaction yet Chromium treats it as keyboard focus: a 2 px blue ring around the viewport, plainly visible on tablet and laptop. The screen is the button, so it carries `outline-none`.
+- **"Highlig…"** on every profile at 390: five equal-width tabs could not hold the semibold "Highlights". Columns are now sized to their words with the leftover shared (`repeat(n, auto)`).
+- **"Local mode: no Supabase key, nothing is saved."** was absolutely positioned over the join flow's back button and step counter on every join screen (production has no Supabase key, so the banner shows there). It is in the flow under the header now.
+- **Compare with nothing to compare** rendered a bare paragraph at the viewport's edge with no margins, nav bar or title. It sits in a `Screen` with a top bar.
+- **Results and a match with no search** had no title above "No search yet." They open with "Your picks" like Recent and Saved.
+- **Adjust's state line** ("Search first, then choose what matters.") sat under the fixed button. It travels with the button as its note.
+- **Home's "Meet 170 doctors in their own words."** left "words." alone on a second line; `text-pretty`.
+
+Looked at and left: the tab bar crossing a long page mid-scroll (it is fixed, as iOS's is); the join review's name card over the monogram (the preview of the doctor card); the Discover footnote under the tab bar when the page is scrolled to its foot (padded, scrolls clear).
+
 ## The quoted compiled rules the detectors missed
 
 ```

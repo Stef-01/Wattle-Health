@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Card, SearchResponse } from "@/src/data/search-types";
 import { doctorHref } from "@/src/data/doctor-slug";
-import { Body, Button, Cell, Cta, Face, Gap, Group, Screen, Sliders, useSticking } from "@/src/ui/kit";
+import { Body, Button, Cell, Cta, Face, Gap, Group, LargeTitle, Screen, Sliders, useSticking } from "@/src/ui/kit";
 import { getCurrentRequest, getSavedIds, REQUEST_VERSION, setDraft, toggleSavedId, type StoredRequest } from "@/src/ui/store";
 import { ProfileBody } from "@/src/ui/screens/patient-b/Profile";
 import { ContactCta, ShareCircle } from "@/src/ui/screens/patient-b/ProfileClient";
@@ -172,7 +172,8 @@ export function Matches() {
       ) : null}
       <Gap h={24} />
       {missing ? (
-        <div className="mt-6 flex flex-col items-start gap-4">
+        <div className="flex flex-col items-start gap-4">
+          <LargeTitle>Your picks</LargeTitle>
           <Body>No search yet.</Body>
           <Button href="/" size="medium">Start a search</Button>
         </div>

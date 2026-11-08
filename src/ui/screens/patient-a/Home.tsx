@@ -33,6 +33,7 @@ export function Home({ faces = [], count = 0, mode = "wattle" }: { faces?: Face[
   const [listening, setListening] = useState(false);
   const [canListen, setCanListen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [ready, setReady] = useState(false); // the title is written once the name is known, so it never swaps on screen
   const rec = useRef<Recognition | null>(null);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export function Home({ faces = [], count = 0, mode = "wattle" }: { faces?: Face[
     setText(getDraft());
     setRecent(getRecent());
     setCanListen(speechCtor() !== null);
+    setReady(true);
   }, [router]);
 
   /** Home only takes the sentence; /narrow asks the follow-up questions and runs the search. */
@@ -83,8 +85,10 @@ export function Home({ faces = [], count = 0, mode = "wattle" }: { faces?: Face[
   return (
     <Screen padBottom="pb-[110px]">
       <NavBar />
-      <LargeTitle trailing={initials ? <Link href="/me" aria-label="Your profile" className="press mb-1 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</Link> : undefined}>
-        {name ? `Hi, ${display}.` : adhd ? "What ADHD support do you need?" : "Who do you need?"}
+      {/* The avatar slot is always laid out (44 px) so the title sits at the same height with or without a name;
+          the words appear once the stored name is read, instead of rendering one title and swapping to another. */}
+      <LargeTitle trailing={initials ? <Link href="/me" aria-label="Your profile" className="press mb-1 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</Link> : <span aria-hidden="true" className="mb-1 inline-block size-11 shrink-0" />}>
+        <span className={ready ? "rise" : "invisible"}>{name ? `Hi, ${display}.` : adhd ? "What ADHD support do you need?" : "Who do you need?"}</span>
       </LargeTitle>
       <Gap h={16} />
       <form
@@ -132,7 +136,7 @@ export function Home({ faces = [], count = 0, mode = "wattle" }: { faces?: Face[
               <Face key={f.id} url={f.url} name={f.name} size={36} ring />
             ))}
           </span>
-          <span className="text-subhead text-ink">Meet {count} {adhd ? "ADHD providers" : "doctors"} in their own words.</span>
+          <span className="text-pretty text-subhead text-ink">Meet {count} {adhd ? "ADHD providers" : "doctors"} in their own words.</span>
         </Link>
       ) : null}
       <GroupHeader>Or try one of these</GroupHeader>

@@ -30,7 +30,7 @@ export function CompareTable() {
   if (pair === null) return null;
   if (pair.length === 0) {
     return (
-      <p className="pt-6 text-ink-soft">
+      <p className="pt-6 text-body text-grey">
         Nothing to compare yet. <Link href="/results" className="text-foliage underline underline-offset-4">Pick two from your results.</Link>
       </p>
     );
@@ -39,8 +39,7 @@ export function CompareTable() {
   const right = pair[1] ? rows(pair[1]) : null;
   return (
     <section className="rise flex flex-col gap-4 pt-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl">Compare</h1>
+      <div className="flex items-center justify-end">
         <button type="button" onClick={() => { clearCompare(); setPair([]); }} className="min-h-11 px-2 text-sm text-foliage underline-offset-4 hover:underline">Clear</button>
       </div>
       <table className="w-full border-collapse text-sm">
