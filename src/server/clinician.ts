@@ -21,7 +21,7 @@ import {
   type PracticeInput,
   type ProfileText,
 } from "./clinician-local";
-import { backend, insert, select, upsert, type Backend } from "./store";
+import { backend, inboxPost, insert, select, upsert, type Backend } from "./store";
 
 export type { ClaimResult, Lookup, PracticeInput, ProfileText };
 
@@ -32,7 +32,11 @@ export async function lookupDoctor(input: { ahpra: string; name: string; doctorI
 
 /** C02 "That's me": a provider_claims row (method ahpra+domain-email, status pending). Only the email domain is stored. */
 export async function createClaim(input: ClaimInput): Promise<ClaimResult> {
-  if (backend() === "memory") return createClaimLocal(input);
+  if (backend() !== "supabase") {
+    const local = createClaimLocal(input);
+    if (backend() === "inbox") await inboxPost("claim", { ...input, email: undefined, domain: claimFields(input).domain, localClaimId: local.claimId });
+    return { ...local, backend: backend() };
+  }
   const { ahpra, domain, name, given, family } = claimFields(input);
 
   let practitioner = (await select<{ id: string }>("practitioners", `select=id&ahpra_number=eq.${ahpra}&limit=1`))[0];
@@ -60,7 +64,11 @@ export async function createClaim(input: ClaimInput): Promise<ClaimResult> {
 
 /** C03 Continue: location + primary practitioner_role, provider_services (declared), fee as observation + field_evidence. */
 export async function savePractice(input: PracticeInput): Promise<{ roleId: string; backend: Backend }> {
-  if (backend() === "memory") return savePracticeLocal(input);
+  if (backend() !== "supabase") {
+    const local = savePracticeLocal(input);
+    if (backend() === "inbox") await inboxPost("practice", { ...input, localRoleId: local.roleId });
+    return { ...local, backend: backend() };
+  }
   const { practice, now, expires, services, fee } = practiceFields(input);
 
   let location = (await select<{ id: string }>("locations", `select=id&name=eq.${encodeURIComponent(practice)}&limit=1`))[0];
@@ -80,7 +88,11 @@ export async function savePractice(input: PracticeInput): Promise<{ roleId: stri
 
 /** C08 Publish: personal_profiles row, status 'draft', consent_at now. 'doctor-approved' is set by Wattle after the register check. */
 export async function publishProfile(input: { practitionerId: string; profile: ProfileText }): Promise<{ status: "draft"; backend: Backend }> {
-  if (backend() === "memory") return publishProfileLocal(input);
+  if (backend() !== "supabase") {
+    const local = publishProfileLocal(input);
+    if (backend() === "inbox") await inboxPost("profile", { ...input });
+    return { ...local, backend: backend() };
+  }
   await upsert("personal_profiles", profileRow(input), "practitioner_id");
   return { status: "draft", backend: "supabase" };
 }

@@ -4,12 +4,36 @@
 // No SDK: plain fetch, as src/data/providers.ts does for the published_* views.
 // Imported only from "use server" modules (src/server/clinician.ts); never from client code.
 
-export type Backend = "supabase" | "memory";
+//   - "inbox": no service role key but the publishable key is present (production on 2026-11-08): the
+//     screens run on the in-memory store and every step is also posted to `join_submissions`, a table with
+//     an insert-only policy for the publishable key (supabase/migrations/0007_join_submissions.sql), so a
+//     doctor's sign-up is kept for Wattle to review and promote by hand.
+export type Backend = "supabase" | "inbox" | "memory";
 
 export { memFind, memInsert, memSnapshot, memUpsert } from "./memory";
 
 export function backend(): Backend {
-  return process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY ? "supabase" : "memory";
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return "memory";
+  if (process.env.SUPABASE_SERVICE_ROLE_KEY) return "supabase";
+  return process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "inbox" : "memory";
+}
+
+/** Inbox mode: one insert-only POST per step with the publishable key. Never throws into the screen. */
+export async function inboxPost(kind: "claim" | "practice" | "profile", payload: Record<string, unknown>): Promise<boolean> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return false;
+  try {
+    const res = await fetch(`${url}/rest/v1/join_submissions`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+      body: JSON.stringify({ kind, payload }),
+      cache: "no-store",
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
 type Row = Record<string, unknown>;

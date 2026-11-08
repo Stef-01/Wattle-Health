@@ -13,7 +13,7 @@ export interface Answer {
 }
 
 export interface JoinState {
-  backend?: "supabase" | "memory";
+  backend?: "supabase" | "inbox" | "memory";
   ahpra?: string;
   name?: string;
   email?: string;

@@ -86,7 +86,7 @@ export function ReviewScreen() {
   );
 }
 
-function Submitted({ backend }: { backend?: "supabase" | "memory" }) {
+function Submitted({ backend }: { backend?: "supabase" | "inbox" | "memory" }) {
   return (
     <Screen>
       <StepHeader back="/join/review" right="Done" />

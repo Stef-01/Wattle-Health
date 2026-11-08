@@ -102,7 +102,7 @@ export function StepProgress({ step, of }: { step: number; of: number }) {
 }
 
 /** Local-mode banner: shown when the server actions write to memory, not Supabase. */
-export function DevBanner({ backend }: { backend?: "supabase" | "memory" }) {
+export function DevBanner({ backend }: { backend?: "supabase" | "inbox" | "memory" }) {
   if (backend !== "memory") return null;
   return (
     <p role="status" className="-mt-4 pb-6 text-footnote text-grey">

@@ -5,7 +5,7 @@
 import type { DoctorRecord } from "@/src/data/types";
 import { memFind, memInsert, memUpsert } from "./memory";
 
-export type Backend = "supabase" | "memory";
+export type Backend = "supabase" | "inbox" | "memory";
 
 const AHPRA = /^[A-Z]{3}[0-9]{10}$/;
 const DOMAIN = /^[a-z0-9.-]+\.[a-z]{2,}$/;
