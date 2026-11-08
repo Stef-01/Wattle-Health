@@ -47,7 +47,7 @@ export function ConnectorCard({ origin }: { origin: string }) {
           </div>
           <p className="text-subhead text-grey">Find a doctor who fits you, from inside your assistant</p>
           <p className="mt-1 flex items-center gap-1.5 text-footnote text-grey">
-            <span className={`inline-block size-2 rounded-full ${status === "online" ? "bg-ink" : status === "offline" ? "bg-[#d70015]" : "bg-[#bdbdbd]"}`} />
+            <span className={`inline-block size-2 rounded-full ${status === "online" ? "bg-ink" : status === "offline" ? "bg-danger" : "bg-grey-4"}`} />
             {status === "online" ? `Online${version ? ` · v${version}` : ""} · read-only · no sign-in` : status === "offline" ? "Unreachable right now" : "Checking…"}
           </p>
         </div>
@@ -78,7 +78,7 @@ export function ConnectorCard({ origin }: { origin: string }) {
         </div>
         <p className="mt-2 text-footnote leading-read text-grey">Opens the app’s connector settings with the URL copied. Choose “Add custom connector” and paste.</p>
         <details className="mt-3">
-          <summary className="cursor-pointer text-footnote text-grey">Using a custom GPT instead?</summary>
+          <summary className="flex min-h-11 cursor-pointer items-center text-footnote text-grey">Using a custom GPT instead?</summary>
           <p className="mt-2 text-footnote text-grey">GPT editor › Actions › Import from URL: <code className="text-ink">{origin}/api/openapi.json</code></p>
         </details>
       </div>

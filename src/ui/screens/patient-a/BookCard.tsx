@@ -42,7 +42,7 @@ export function BookCard({ doctor: d, telehealthOnly, referral }: { doctor: Doct
       {tele ? (
         <div className="chrome mt-5 grid h-9 grid-cols-2 rounded-full bg-surface p-[2px]">
           {(["in-person", "telehealth"] as const).map((m) => (
-            <button key={m} type="button" aria-pressed={mode === m} onClick={() => setMode(m)} className={`rounded-full text-subhead transition-[background-color,box-shadow] duration-200 ${mode === m ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink"}`}>
+            <button key={m} type="button" aria-pressed={mode === m} onClick={() => setMode(m)} className={`hit rounded-full text-subhead transition-[background-color,box-shadow] duration-(--duration-base) ${mode === m ? "bg-white font-semibold text-ink shadow-float" : "text-ink"}`}>
               {m === "in-person" ? "In person" : "Video visit"}
             </button>
           ))}

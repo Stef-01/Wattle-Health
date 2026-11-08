@@ -17,7 +17,7 @@ export function Stars({ value, size = 16 }: { value: number; size?: number }) {
     <span className="inline-flex gap-0.5" aria-label={`${value} out of 5`}>
       {[1, 2, 3, 4, 5].map((i) => (
         <svg key={i} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= Math.round(value) ? "var(--color-ink)" : "#d1d1d6"} />
+          <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= Math.round(value) ? "var(--color-ink)" : "var(--color-grey-4)"} />
         </svg>
       ))}
     </span>
@@ -108,7 +108,7 @@ export function Reviews({ doctorId, name }: { doctorId: string; name: string }) 
             <div className="flex gap-2" role="radiogroup" aria-label="Rating">
               {[1, 2, 3, 4, 5].map((i) => (
                 <button key={i} type="button" role="radio" aria-checked={rating === i} aria-label={`${i} star${i > 1 ? "s" : ""}`} onClick={() => setRating(i)} className="press">
-                  <svg width={36} height={36} viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= rating ? "#1b1b1b" : "#e3e3e3"} /></svg>
+                  <svg width={36} height={36} viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" fill={i <= rating ? "var(--color-ink)" : "var(--color-cell-press)"} /></svg>
                 </button>
               ))}
             </div>

@@ -107,7 +107,7 @@ export function WordsFull({ d, shown = [] }: { d: DoctorRecord; shown?: (string 
           <div className="flex flex-col gap-3">
             {outsideMed ? para(outsideMed) : null}
             {hobbies.length && !hobbiesShown ? (
-              <ul className="flex flex-col gap-1.5">{hobbies.map((h) => <li key={h} className="flex gap-2.5 text-body leading-read text-charcoal"><span aria-hidden="true" className="mt-[11px] size-1.5 shrink-0 rounded-full bg-[#8a6a3b]" />{h}</li>)}</ul>
+              <ul className="flex flex-col gap-1.5">{hobbies.map((h) => <li key={h} className="flex gap-2.5 text-body leading-read text-charcoal"><span aria-hidden="true" className="mt-[11px] size-1.5 shrink-0 rounded-full bg-healthspan" />{h}</li>)}</ul>
             ) : null}
           </div>
         </Labelled>

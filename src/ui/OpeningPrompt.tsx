@@ -81,13 +81,13 @@ export function OpeningPrompt() {
     <div className="pointer-events-none fixed inset-x-0 top-3 z-[60] flex justify-center px-3">
       <div role="dialog" aria-label="Appointment opening" className={`${leaving ? "toast-out" : "rise"} glass pointer-events-auto w-full max-w-[400px] rounded-card p-4`}>
         <div className="flex items-center gap-2 text-footnote text-grey">
-          <span className="inline-flex size-5 items-center justify-center rounded-[8px] bg-surface-soft"><Orb size={14} /></span>
+          <span className="inline-flex size-5 items-center justify-center rounded-icon bg-surface-soft"><Orb size={14} /></span>
           <span><Brand /></span>
           <span className="ml-auto">now</span>
         </div>
         {state === "booked" ? (
           <div className="bounce-in mt-2">
-            <p className="flex items-center gap-2 text-body font-semibold text-ink"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="var(--color-ink)" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Booked with {name}</p>
+            <p className="flex items-center gap-2 text-body font-semibold text-ink"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="var(--color-ink)" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="var(--color-cell)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Booked with {name}</p>
             <p className="mt-0.5 text-subhead leading-read text-grey">{when}{o.mode === "telehealth" ? ", by video" : ""}. It’s in your calendar and in Openings.</p>
             <button type="button" onClick={close} className="press mt-3 h-11 w-full rounded-full bg-surface text-subhead font-semibold text-ink">Done</button>
           </div>

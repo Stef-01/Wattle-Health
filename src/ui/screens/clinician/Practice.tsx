@@ -42,7 +42,7 @@ export function PracticeScreen() {
   }
 
   const pill = (label: string, on: boolean, set: (v: boolean) => void) => (
-    <span className={on ? "drop-shadow-[0_9px_9.5px_rgba(0,0,0,0.15)]" : undefined}>
+    <span className={on ? "drop-shadow-pill" : undefined}>
       <Pill on={on} onClick={() => set(!on)}>{label}</Pill>
     </span>
   );

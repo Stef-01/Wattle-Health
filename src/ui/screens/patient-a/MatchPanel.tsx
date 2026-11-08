@@ -149,7 +149,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
 
       <div role="tablist" aria-label="Doctor details" className="chrome mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
         {tabs.map((t) => (
-          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`hit truncate rounded-full px-1 text-footnote transition-[background-color,box-shadow] duration-200 ${tab === t ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink"}`}>{t}</button>
+          <button key={t} role="tab" type="button" aria-selected={tab === t} onClick={() => setTab(t)} className={`hit flex min-w-0 items-center justify-center rounded-full px-1 text-footnote transition-[background-color,box-shadow] duration-(--duration-base) ${tab === t ? "bg-white font-semibold text-ink shadow-float" : "text-ink"}`}><span className="truncate">{t}</span></button>
         ))}
       </div>
       <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-5">

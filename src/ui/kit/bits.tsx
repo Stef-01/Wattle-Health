@@ -80,7 +80,7 @@ export function Clamp({ text, lines = 3, className, more }: { text: string; line
 
 /** A row that opens its content in place; the chevron turns. With `tint` it sits in a grouped panel.
  *  Apple pass: the four near-identical panel tints are one grouped grey; grouping is by background. */
-export const PANEL_TINTS = { research: "#f2f2f7", practical: "#f2f2f7", why: "#f2f2f7", sources: "#f2f2f7" } as const;
+export const PANEL_TINTS = { research: "var(--color-grouped)", practical: "var(--color-grouped)", why: "var(--color-grouped)", sources: "var(--color-grouped)" } as const;
 
 export function Disclosure({ title, sub, children, defaultOpen = false, tint }: { title: ReactNode; sub?: ReactNode; children: ReactNode; defaultOpen?: boolean; tint?: keyof typeof PANEL_TINTS }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -91,9 +91,9 @@ export function Disclosure({ title, sub, children, defaultOpen = false, tint }: 
           <span className="text-body text-ink">{title}</span>
           {sub ? <span className="text-footnote text-grey">{sub}</span> : null}
         </span>
-        <ChevronRight size={16} strokeWidth={2.25} className={cx("shrink-0 text-grey-3 transition-transform duration-200", open && "rotate-90")} style={{ transitionTimingFunction: "var(--ease-out)" }} />
+        <ChevronRight size={16} strokeWidth={2.25} className={cx("shrink-0 text-grey-3 transition-transform duration-(--duration-base) motion-reduce:transition-none", open && "rotate-90")} style={{ transitionTimingFunction: "var(--ease-out)" }} />
       </button>
-      <div className="grid transition-[grid-template-rows] duration-300" style={{ gridTemplateRows: open ? "1fr" : "0fr", transitionTimingFunction: "var(--ease-out)" }}>
+      <div className="grid transition-[grid-template-rows] duration-(--duration-slow) motion-reduce:transition-none" style={{ gridTemplateRows: open ? "1fr" : "0fr", transitionTimingFunction: "var(--ease-out)" }}>
         <div className="min-h-0 overflow-hidden">{open ? <div className="rise pb-4">{children}</div> : null}</div>
       </div>
     </div>
@@ -130,7 +130,7 @@ export function Face({ url, name = "", size = 36, ring = false, className }: { u
   }
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img ref={img} src={url} alt="" referrerPolicy="no-referrer" onError={() => setFailed(true)} className={cx(box, "object-cover object-top")} style={{ width: size, height: size, background: "#ececee" }} />
+    <img ref={img} src={url} alt="" referrerPolicy="no-referrer" onError={() => setFailed(true)} className={cx(box, "object-cover object-top")} style={{ width: size, height: size, background: "var(--color-shimmer)" }} />
   );
 }
 
@@ -229,9 +229,9 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
     <Portal>
     <div className={cx("frame-fixed inset-y-0 z-50", !open && "sheet-closing pointer-events-none")} role="dialog" aria-modal="true" aria-label={title}>
       <button type="button" aria-label="Close" tabIndex={-1} onClick={onClose} className="sheet-scrim absolute inset-0 bg-black/30" />
-      <div ref={panel} tabIndex={-1} className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto overscroll-contain rounded-t-[32px] bg-white pt-[5px] outline-none" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }}>
+      <div ref={panel} tabIndex={-1} className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto overscroll-contain rounded-t-sheet bg-white pt-[5px] outline-none" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }}>
         <div className="chrome -mx-4 flex touch-none cursor-grab flex-col gap-1 px-4 active:cursor-grabbing" onPointerDown={onDragStart} onPointerMove={onDragMove} onPointerUp={onDragEnd} onPointerCancel={onDragEnd}>
-          <span aria-hidden="true" className="mx-auto h-[5px] w-9 shrink-0 rounded-full bg-[#c7c7cc]" />
+          <span aria-hidden="true" className="mx-auto h-[5px] w-9 shrink-0 rounded-full bg-grabber" />
           <div className="grid grid-cols-[44px_1fr_44px] items-center gap-2">
             <span />
             <h2 className="truncate text-center text-headline text-ink">{title}</h2>

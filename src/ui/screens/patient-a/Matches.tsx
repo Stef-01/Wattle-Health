@@ -129,7 +129,7 @@ export function Matches() {
         <div className="bleed sticky top-0 z-10 -mt-px mb-2 flex h-11 items-center justify-center gap-2" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
           <span aria-hidden="true" className="scroll-edge pointer-events-none absolute inset-x-0 -top-2 h-[64px]" data-on={edge.sticking} data-ready={edge.ready} />
           {cards.map((c, i) => (
-            <span key={c.doctor.id} className="relative size-[7px] rounded-full transition-colors duration-300" style={{ background: i === reading ? "var(--color-ink)" : i < shown ? "#aeaeb2" : "#d1d1d6" }} />
+            <span key={c.doctor.id} className="relative size-[7px] rounded-full transition-colors duration-(--duration-slow)" style={{ background: i === reading ? "var(--color-ink)" : i < shown ? "var(--color-grey-2)" : "var(--color-grey-4)" }} />
           ))}
         </div>
       ) : null}

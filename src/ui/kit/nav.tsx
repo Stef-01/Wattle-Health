@@ -55,7 +55,7 @@ export function NavBar({ back, onBack, title, right, collapse = false }: { back?
               <BackCircle href={back} onClick={onBack} />
             ) : null}
           </span>
-          <span className={cx("truncate text-center text-headline text-ink", collapse && "transition-opacity duration-200", collapse && !sticking && "opacity-0")} aria-hidden={collapse && !sticking ? true : undefined}>{title}</span>
+          <span className={cx("truncate text-center text-headline text-ink", collapse && "transition-opacity duration-(--duration-base)", collapse && !sticking && "opacity-0")} aria-hidden={collapse && !sticking ? true : undefined}>{title}</span>
           <span className="flex justify-end gap-2">{right}</span>
         </div>
       </div>

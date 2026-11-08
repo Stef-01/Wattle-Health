@@ -60,7 +60,7 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
                   </ul>
                   {signal ? (
                     <>
-                      <p className="mt-4 text-footnote text-[#8a6a3b]">From your {dev.label}</p>
+                      <p className="mt-4 text-footnote text-healthspan">From your {dev.label}</p>
                       <p className="mt-1 text-subhead leading-read text-charcoal">{signal}</p>
                     </>
                   ) : null}

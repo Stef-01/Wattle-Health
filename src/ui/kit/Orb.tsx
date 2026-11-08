@@ -30,8 +30,8 @@ function build(pts: readonly (readonly [number, number])[]): string {
 }
 
 const BLOBS = [
-  { radius: 34, duration: 3200, offset: 0, drift: 0.16, fill: "#1b1b1b", opacity: 1 },
-  { radius: 30, duration: 2600, offset: 1.3, drift: 0.2, fill: "#5a5a5a", opacity: 0.55 },
+  { radius: 34, duration: 3200, offset: 0, drift: 0.16, fill: "var(--color-splash)", opacity: 1 },
+  { radius: 30, duration: 2600, offset: 1.3, drift: 0.2, fill: "var(--color-orb-soft)", opacity: 0.55 },
 ] as const;
 
 /** A living ink orb; `size` in CSS px. Decorative (aria-hidden). */

@@ -21,8 +21,8 @@ export function AdminShell({ active, title, sub, children }: { active: (typeof S
       </div>
       <nav aria-label="Admin sections" className="chrome mt-2 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${SECTIONS.length}, minmax(0, 1fr))` }}>
         {SECTIONS.map((s) => (
-          <Link key={s.href} href={s.href} aria-current={s.href === active ? "page" : undefined} className={`hit flex items-center justify-center truncate rounded-full px-1 text-footnote text-ink ${s.href === active ? "bg-white font-semibold shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : ""}`}>
-            {s.label}
+          <Link key={s.href} href={s.href} aria-current={s.href === active ? "page" : undefined} className={`hit flex min-w-0 items-center justify-center rounded-full px-1 text-footnote text-ink ${s.href === active ? "bg-white font-semibold shadow-float" : ""}`}>
+            <span className="truncate">{s.label}</span>
           </Link>
         ))}
       </nav>

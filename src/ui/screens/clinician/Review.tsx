@@ -58,7 +58,7 @@ export function ReviewScreen() {
           </button>
         }
       >
-        <div className="absolute left-5 top-[145px] flex h-[75px] w-[224px] items-center rounded-card bg-caption px-4 py-3 text-white backdrop-blur-[20px] shadow-[0_5px_4.5px_rgba(0,0,0,0.1)]">
+        <div className="absolute left-5 top-[145px] flex h-[75px] w-[224px] items-center rounded-card bg-caption px-4 py-3 text-white backdrop-blur-[20px] shadow-tag">
           <span className="flex min-w-0 flex-col gap-2">
             <span className="truncate text-body">{name}</span>
             <span className="inline-flex items-center gap-1.5 text-subhead text-caption-text">

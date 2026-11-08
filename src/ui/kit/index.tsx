@@ -22,7 +22,7 @@ const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(
  *  `padBottom` leaves room for a fixed CTA and/or the tab bar. Screens start with a 44 px nav row. */
 export function Screen({ children, className, padBottom = "pb-[120px]", tone = "plain" }: { children: ReactNode; className?: string; padBottom?: string; tone?: "plain" | "grouped" }) {
   return (
-    <main className={cx("frame overflow-x-clip", tone === "grouped" ? "bg-grouped" : "bg-white", className)} style={{ "--page-bg": tone === "grouped" ? "#f2f2f7" : "#ffffff" } as CSSProperties}>
+    <main className={cx("frame overflow-x-clip", tone === "grouped" ? "bg-grouped" : "bg-white", className)} style={{ "--page-bg": tone === "grouped" ? "var(--color-grouped)" : "var(--color-cell)" } as CSSProperties}>
       <div className={cx("frame-pad pt-2", padBottom)}>{children}</div>
     </main>
   );
@@ -39,7 +39,7 @@ export function Circle({ children, href, onClick, label, over = false, className
 export function TopBar({ title, back = "/", right, rightHref, onRight }: { title?: string; back?: string; right?: string; rightHref?: string; onRight?: () => void }) {
   const action = right ? (
     rightHref ? (
-      <Link href={rightHref} className="press-dim inline-flex h-11 items-center px-1 text-body text-accent">{right}</Link>
+      <Link href={rightHref} className="press-dim inline-flex h-11 min-w-11 items-center justify-end px-1 text-body text-accent">{right}</Link>
     ) : (
       <button type="button" onClick={onRight} className="press-dim inline-flex h-11 items-center px-1 text-body text-accent">{right}</button>
     )
@@ -141,7 +141,7 @@ export function FieldBox({ children, className }: { children: ReactNode; classNa
 export function Row({ icon, title, sub, meta, href, onClick, chevron = true }: { icon?: ReactNode; title: ReactNode; sub?: ReactNode; meta?: ReactNode; href?: string; onClick?: () => void; chevron?: boolean }) {
   const inner = (
     <>
-      {icon ? <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-[8px] text-ink [&:not(:has(img))]:bg-surface">{icon}</span> : null}
+      {icon ? <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-icon text-ink [&:not(:has(img))]:bg-surface">{icon}</span> : null}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-body text-ink">{title}</span>
         {sub ? <span className="text-subhead text-grey">{sub}</span> : null}
@@ -209,7 +209,7 @@ export function Cell({ icon, bare = false, title, sub, value, href, onClick, acc
   const acc = accessory ?? (href && !external ? "chevron" : "none");
   const inner = (
     <>
-      {icon ? <span className={cx("inline-flex shrink-0 items-center justify-center text-ink", bare ? "min-w-[30px]" : "size-[30px] rounded-[8px] bg-surface")}>{icon}</span> : null}
+      {icon ? <span className={cx("inline-flex shrink-0 items-center justify-center text-ink", bare ? "min-w-[30px]" : "size-[30px] rounded-icon bg-surface")}>{icon}</span> : null}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5 py-[15px]">
         <span className={cx("text-body", tint ? "text-accent" : "text-ink")}>{title}</span>
         {sub ? <span className="text-subhead text-grey">{sub}</span> : null}
@@ -233,8 +233,8 @@ export function Segmented<T extends string>({ items, value, onChange, label }: {
       {items.map((it) => {
         const on = it.value === value;
         return (
-          <button key={it.value} type="button" role="radio" aria-checked={on} onClick={() => onChange(it.value)} className={cx("hit truncate rounded-full px-2 text-subhead transition-[background-color,box-shadow] duration-200", on ? "bg-white font-semibold text-ink shadow-[0_3px_8px_rgba(0,0,0,0.12),0_3px_1px_rgba(0,0,0,0.04)]" : "text-ink")}>
-            {it.label}
+          <button key={it.value} type="button" role="radio" aria-checked={on} onClick={() => onChange(it.value)} className={cx("hit flex min-w-0 items-center justify-center rounded-full px-2 text-subhead transition-[background-color,box-shadow] duration-(--duration-base)", on ? "bg-white font-semibold text-ink shadow-float" : "text-ink")}>
+            <span className="truncate">{it.label}</span>
           </button>
         );
       })}
@@ -282,7 +282,7 @@ export function Button({ children, href, onClick, kind = "filled", size = "large
 export function CheckRow({ title, sub, href, checked = true }: { title: ReactNode; sub?: ReactNode; href?: string; checked?: boolean }) {
   return (
     <div className="flex items-start gap-3 py-3">
-      <span className={cx("mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-[8px]", checked ? "bg-surface text-ink" : "border border-line text-transparent")}>
+      <span className={cx("mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-icon", checked ? "bg-surface text-ink" : "border border-line text-transparent")}>
         <Check size={14} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -302,7 +302,7 @@ export function CheckRow({ title, sub, href, checked = true }: { title: ReactNod
 export function Stat({ icon, children }: { icon: ReactNode; children: ReactNode }) {
   return (
     <span className="inline-flex items-center gap-1.5">
-      <span className="inline-flex size-[30px] items-center justify-center rounded-[8px] bg-surface text-ink">{icon}</span>
+      <span className="inline-flex size-[30px] items-center justify-center rounded-icon bg-surface text-ink">{icon}</span>
       <span className="text-body text-grey">{children}</span>
     </span>
   );
@@ -311,8 +311,8 @@ export function Stat({ icon, children }: { icon: ReactNode; children: ReactNode 
 /** iOS switch: 51 × 31, green when on, a white knob that slides. */
 export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("hit chrome relative inline-flex h-[31px] w-[51px] shrink-0 items-center rounded-full transition-colors duration-200", on ? "bg-switch" : "bg-[rgba(120,120,128,0.16)]")}>
-      <span aria-hidden="true" className="absolute left-[2px] size-[27px] rounded-full bg-white shadow-[0_3px_8px_rgba(0,0,0,0.15),0_3px_1px_rgba(0,0,0,0.06)] transition-transform duration-200" style={{ transform: on ? "translateX(20px)" : "none", transitionTimingFunction: "var(--ease-out)" }} />
+    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("hit chrome relative inline-flex h-[31px] w-[51px] shrink-0 items-center rounded-full transition-colors duration-(--duration-base)", on ? "bg-switch" : "bg-surface-strong")}>
+      <span aria-hidden="true" className="absolute left-[2px] size-[27px] rounded-full bg-white shadow-knob transition-transform duration-(--duration-base) motion-reduce:transition-none" style={{ transform: on ? "translateX(20px)" : "none", transitionTimingFunction: "var(--ease-out)" }} />
     </button>
   );
 }
@@ -341,12 +341,12 @@ export function initialsOf(name: string): string {
 /** Photo card with a dimmed caption. No photo = the doctor's tint with initials. */
 export function PhotoCard({ name, place, fee, photo, height = 460, caption = true, topLeft, topRight, href, children }: { name: string; place?: string; fee?: string; photo?: string | null; height?: number; caption?: boolean; topLeft?: ReactNode; topRight?: ReactNode; href?: string; children?: ReactNode }) {
   const body = (
-    <div className="relative w-full overflow-hidden rounded-card" style={{ height, background: photo ? "#ececee" : tintFor(name)[0] }}>
+    <div className="relative w-full overflow-hidden rounded-card" style={{ height, background: photo ? "var(--color-shimmer)" : tintFor(name)[0] }}>
       {photo ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={photo} alt="" referrerPolicy="no-referrer" className="absolute inset-0 size-full object-cover object-top" />
       ) : (
-        <span className="absolute inset-0 flex items-center justify-center font-display text-[64px]" style={{ color: tintFor(name)[1] }}>{initialsOf(name)}</span>
+        <span className="absolute inset-0 flex items-center justify-center font-display text-monogram-sm" style={{ color: tintFor(name)[1] }}>{initialsOf(name)}</span>
       )}
       {topLeft ? <div className="absolute left-4 top-4">{topLeft}</div> : null}
       {topRight ? <div className="absolute right-4 top-4">{topRight}</div> : null}
@@ -436,7 +436,7 @@ export function FigmaIcon({ name, size, className }: { name: string; size: numbe
 export function SourceRow({ icon, title, sub, href }: { icon: ReactNode; title: ReactNode; sub?: ReactNode; href?: string | null }) {
   return (
     <div className="flex min-h-[52px] w-full items-center gap-3 py-2.5">
-      <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-[8px] bg-surface text-ink">{icon}</span>
+      <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-icon bg-surface text-ink">{icon}</span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-body text-ink">{title}</span>
         {sub ? <span className="text-subhead text-grey">{sub}</span> : null}
@@ -454,7 +454,7 @@ export function SourceRow({ icon, title, sub, href }: { icon: ReactNode; title: 
 export function CheckItem({ children, sub }: { children: ReactNode; sub?: ReactNode }) {
   return (
     <span className="inline-flex items-center gap-2">
-      <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-[8px] bg-surface"><FigmaIcon name="check" size={16} /></span>
+      <span className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-icon bg-surface"><FigmaIcon name="check" size={16} /></span>
       <span className="flex flex-col">
         <span className="text-body text-ink">{children}</span>
         {sub ? <span className="text-footnote text-grey">{sub}</span> : null}

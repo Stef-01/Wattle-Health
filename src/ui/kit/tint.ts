@@ -11,16 +11,11 @@ export function initialsFor(name: string): string {
 
 /** Initials on a soft disc; a 2-letter mark that reads as a person without pretending to be a photo. */
 /** Five muted tints, picked by name, so a list of initials reads as people rather than placeholders. */
-const TINTS = [
-  ["#eef1ea", "#3c4a35"],
-  ["#f3ece4", "#5a4632"],
-  ["#e9eef3", "#34465a"],
-  ["#f2ebee", "#5a3744"],
-  ["#eeeaf3", "#43395a"],
-] as const;
+/** The values live in app/globals.css (@theme --color-tint-N-bg / -fg); these are the references. */
+const TINTS = [1, 2, 3, 4, 5].map((n) => [`var(--color-tint-${n}-bg)`, `var(--color-tint-${n}-fg)`] as const);
 export function tintFor(name: string): readonly [string, string] {
   let h = 0;
   for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) | 0;
-  return TINTS[Math.abs(h) % TINTS.length]!;
+  return TINTS[Math.abs(h) % TINTS.length]! as readonly [string, string];
 }
 
