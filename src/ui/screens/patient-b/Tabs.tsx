@@ -52,8 +52,10 @@ export function Recent() {
         <section key={g.condition}>
           {grouped && groups.length > 1 && !only ? <GroupHeader>{g.condition}</GroupHeader> : <div className="h-4" />}
           <Group sep={58}>
-            {g.rows.map((r) => (
-              <Cell key={r.id} bare={Boolean(r.faces?.length)} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={grouped && groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} accessory="chevron" />
+            {g.rows.map((r, i) => (
+              <div key={r.id} className="rise" style={{ "--i": i } as React.CSSProperties}>
+              <Cell bare={Boolean(r.faces?.length)} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={grouped && groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} accessory="chevron" />
+              </div>
             ))}
           </Group>
         </section>
