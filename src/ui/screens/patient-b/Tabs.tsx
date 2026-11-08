@@ -31,7 +31,10 @@ export function Recent() {
       router.push("/results");
     } else router.push("/");
   };
-  const groups = groupRecent(rows ?? []);
+  const byCondition = groupRecent(rows ?? []);
+  // Headers and filters earn their place once a condition holds more than one search; until then a flat list.
+  const grouped = byCondition.some((g) => g.rows.length > 1);
+  const groups = grouped ? byCondition : rows?.length ? [{ condition: "All", rows: rows }] : [];
   const [only, setOnly] = useState<string | null>(null);
   const shown = only ? groups.filter((g) => g.condition === only) : groups;
   return (
@@ -44,13 +47,13 @@ export function Recent() {
           <Button href="/" size="medium">Start a search</Button>
         </div>
       ) : null}
-      {groups.length > 1 ? <FilterChips label="Filter by condition" items={[null, ...groups.map((g) => g.condition)].map((c) => ({ key: c, label: c ?? "All", n: c === null ? rows?.length ?? 0 : groups.find((g) => g.condition === c)!.rows.length }))} value={only} onChange={setOnly} /> : null}
+      {grouped && groups.length > 1 ? <FilterChips label="Filter by condition" items={[null, ...groups.map((g) => g.condition)].map((c) => ({ key: c, label: c ?? "All", n: c === null ? rows?.length ?? 0 : groups.find((g) => g.condition === c)!.rows.length }))} value={only} onChange={setOnly} /> : null}
       {shown.map((g) => (
         <section key={g.condition}>
-          {groups.length > 1 && !only ? <GroupHeader>{g.condition}</GroupHeader> : <div className="h-4" />}
+          {grouped && groups.length > 1 && !only ? <GroupHeader>{g.condition}</GroupHeader> : <div className="h-4" />}
           <Group sep={58}>
             {g.rows.map((r) => (
-              <Cell key={r.id} bare={Boolean(r.faces?.length)} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} accessory="chevron" />
+              <Cell key={r.id} bare={Boolean(r.faces?.length)} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={grouped && groups.length > 1 && r.label.toLowerCase().startsWith(`${g.condition.toLowerCase()}, `) ? r.label.slice(g.condition.length + 2) : r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}${day(r.at) ? `, ${day(r.at)}` : ""}`} onClick={() => open(r)} accessory="chevron" />
             ))}
           </Group>
         </section>

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#ffffff" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", interactiveWidget: "resizes-content", themeColor: "#ffffff" };
 
 // Every screen is its own 430-wide phone frame (src/ui/kit Screen); the layout adds no chrome.
 export default function RootLayout({ children }: { children: React.ReactNode }) {

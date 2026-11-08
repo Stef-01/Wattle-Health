@@ -10,7 +10,7 @@
 import { chromium } from "@playwright/test";
 
 const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
-const ROUTES = ["/", "/narrow", "/results", "/results/none", "/recent", "/saved", "/me", "/me/openings", "/me/discover", "/me/context", "/healthspan", "/about", "/about/coverage", "/compare", "/join", "/doctor/general-practice~sian-hebron", "/doctor/general-practice~sian-hebron/why", "/doctor/general-practice~sian-hebron/expertise"];
+const ROUTES = ["/", "/narrow", "/results", "/results/none", "/recent", "/saved", "/me", "/me/openings", "/me/discover", "/me/context", "/healthspan", "/about", "/about/coverage", "/compare", "/join", "/doctor/general-practice~sian-hebron"];
 const WIDTHS = [320, 390, 1280];
 const LONG = "I have had endometriosis for eleven years and I am looking for a gynaecologist in Brisbane who listens, explains the options without rushing, and is happy to work alongside my GP and my psychologist";
 

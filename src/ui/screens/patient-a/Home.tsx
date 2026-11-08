@@ -11,6 +11,7 @@ import { OpeningsBanner } from "@/src/ui/OpeningsBanner";
 import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft, setRequest, splashSeen, type RecentSearch } from "@/src/ui/store";
 import { ADHD_EXAMPLES, EXAMPLES } from "./lib";
 import type { AppMode } from "@/src/mode";
+import { useMode } from "@/src/ui/brand";
 
 type Recognition = { lang: string; interimResults: boolean; onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onend: (() => void) | null; start: () => void; stop: () => void };
 type RecognitionCtor = new () => Recognition;
@@ -22,9 +23,12 @@ function speechCtor(): RecognitionCtor | null {
 }
 
 export type Face = { id: string; name: string; url: string };
+export type HomeByMode = Record<AppMode, { faces: Face[]; count: number }>;
 
-export function Home({ faces = [], count = 0, mode = "wattle" }: { faces?: Face[]; count?: number; mode?: AppMode }) {
+export function Home({ byMode }: { byMode: HomeByMode }) {
+  const mode = useMode();
   const adhd = mode === "adhdme";
+  const { faces, count } = byMode[mode];
   const router = useRouter();
   const [name, setNameState] = useState<string | null>(null);
   const [text, setText] = useState("");
@@ -150,7 +154,7 @@ export function Home({ faces = [], count = 0, mode = "wattle" }: { faces?: Face[
           <GroupHeader>Recent</GroupHeader>
           <Group tone="plain" sep={58}>
             {recent.map((r) => (
-              <Cell key={r.id} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}`} href="/results" onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
+              <Cell key={r.id} bare={Boolean(r.faces?.length)} icon={r.faces?.length ? <FaceStack urls={r.faces} size={26} /> : <Clock size={17} />} title={r.label} sub={`${r.matches} ${r.matches === 1 ? "pick" : "picks"}`} href="/results" onClick={() => { const q = getRecentRequest(r.id); if (q) setRequest(q); }} />
             ))}
           </Group>
         </>

@@ -48,7 +48,8 @@ export async function runMatch(input: { sentence: string; suburb?: string; remov
 export function recentLabel(req: Pick<StoredRequest, "sentence" | "suburb" | "response">): string {
   const condition = req.response.chips.find((c) => c.kind === "condition")?.label;
   const head = condition ?? req.sentence.trim().replace(/\s+/g, " ").slice(0, 32);
-  return `${head}, ${req.response.place.suburb?.replace(/ City$/, "") ?? req.suburb}`;
+  const place = req.response.place.suburb?.replace(/ City$/, "") ?? req.suburb;
+  return place ? `${head}, ${place}` : head;
 }
 
 export const requestById = (id: string) => getRequest(id);

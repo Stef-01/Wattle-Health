@@ -138,7 +138,7 @@ export function Face({ url, name = "", size = 36, ring = false, className }: { u
 export function FaceStack({ urls, names = [], size = 30 }: { urls: string[]; names?: string[]; size?: number }) {
   if (urls.length === 0) return null;
   return (
-    <span className="flex shrink-0 -space-x-2">
+    <span className="flex shrink-0 -space-x-2" style={{ minWidth: size + (size - 8) * 2 }}>
       {urls.slice(0, 3).map((u, i) => (
         <Face key={`${u}-${i}`} url={u} name={names[i] ?? ""} size={size} ring />
       ))}

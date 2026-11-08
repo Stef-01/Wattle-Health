@@ -2,7 +2,7 @@
 import { Orb } from "@/src/ui/kit/Orb";
 // The moment between "Find my provider" and the results: the sentence replays word by word, a
 // wattle-green orb breathes, and the status changes as the search runs. Shown for at least
-// 1.4 s so the arrival feels deliberate rather than a flash.
+// 0.9 s so the arrival reads as a step, not a flash (1.4 s read as slow).
 import { useEffect, useState } from "react";
 
 const STEPS = ["Reading what you said", "Finding doctors who fit", "Putting the closest fits first"];
@@ -10,7 +10,7 @@ const STEPS = ["Reading what you said", "Finding doctors who fit", "Putting the 
 export function Searching({ sentence }: { sentence: string }) {
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setStep((s) => Math.min(s + 1, STEPS.length - 1)), 650);
+    const t = setInterval(() => setStep((s) => Math.min(s + 1, STEPS.length - 1)), 450);
     return () => clearInterval(t);
   }, []);
   const words = sentence.trim().split(/\s+/).slice(0, 40);
@@ -29,4 +29,4 @@ export function Searching({ sentence }: { sentence: string }) {
   );
 }
 
-export const MIN_SEARCH_MS = 1400;
+export const MIN_SEARCH_MS = 900;

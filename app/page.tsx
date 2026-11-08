@@ -1,7 +1,7 @@
 import { getDoctors } from "@/src/data/providers";
 import type { DoctorRecord } from "@/src/data/types";
-import { currentMode, scopeRoster } from "@/src/server/mode";
-import { Home, type Face } from "@/src/ui/screens/patient-a/Home";
+import { scopeRoster } from "@/src/server/mode";
+import { Home, type Face, type HomeByMode } from "@/src/ui/screens/patient-a/Home";
 
 export const metadata = { title: "Wattle" };
 
@@ -15,9 +15,16 @@ function faces(all: DoctorRecord[]): Face[] {
     .map((d) => ({ id: d.id, name: d.name.display, url: d.photo!.url }));
 }
 
-// The mode decides the roster (src/mode.ts), so this page is rendered per request.
+// Static: Home is the screen every tab bar hop returns to, so it is built once and served from the
+// edge instead of rendered per request (reading the mode cookie here made it a 0.5 to 1 s function
+// call on every return home). Both modes' faces ship in the page and the client picks by the cookie.
 export default async function HomePage() {
-  const mode = await currentMode();
-  const roster = scopeRoster(await getDoctors(), mode);
-  return <Home mode={mode} faces={faces(roster)} count={roster.filter((d) => d.personal?.status === "published").length} />;
+  const all = await getDoctors();
+  const byMode = Object.fromEntries(
+    (["wattle", "adhdme"] as const).map((mode) => {
+      const roster = scopeRoster(all, mode);
+      return [mode, { faces: faces(roster), count: roster.filter((d) => d.personal?.status === "published").length }];
+    }),
+  ) as HomeByMode;
+  return <Home byMode={byMode} />;
 }
