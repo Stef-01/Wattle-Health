@@ -36,7 +36,7 @@ export function Refine({ open, onClose, initial, onApply, place }: { open: boole
     <Sheet open={open} onClose={onClose} title="Refine">
       <Group tone="soft">
         <Switch on={s.telehealth} onChange={set("telehealth")} label="Telehealth only" sub="See them by video from home" />
-        <Switch on={s.anywhere} onChange={set("anywhere")} label="Anywhere in Australia" sub={`Beyond 20 km of ${place}`} />
+        {place ? <Switch on={s.anywhere} onChange={set("anywhere")} label="Anywhere in Australia" sub={`Beyond 20 km of ${place}`} /> : null}
         <Switch on={s.woman} onChange={set("woman")} label="A woman doctor" sub="Only doctors who are women" />
         <Switch on={s.child} onChange={set("child")} label="Sees children" sub="For a child under 12" />
       </Group>

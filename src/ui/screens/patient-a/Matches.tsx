@@ -22,11 +22,15 @@ const ORDINAL = ["Your top pick", "Your second pick", "Your third pick"];
 const MAX = 3;
 
 /** "Endometriosis, with a doctor who listens. Telehealth, anywhere in Australia." Specialties stay implicit; nothing is said twice. */
-function heardSentence(req: StoredRequest): string {
+export function heardSentence(req: StoredRequest): string {
   const tele = /telehealth only/i.test(req.sentence);
   const chips = req.response.chips.filter((c) => c.kind !== "specialty" && !(tele && /telehealth|video/i.test(c.label)));
   const what = chips.filter((c) => c.kind === "condition").map((c) => c.label);
-  const how = chips.filter((c) => c.kind !== "condition" && c.kind !== "population").map((c) => c.label.toLowerCase());
+  // Two chips for one wish ("longer appointment", "long appointments") read once: a label whose stem is inside
+  // another's is dropped. Before this the line read "a doctor with longer appointment and with long appointments".
+  const stem = (l: string) => l.toLowerCase().replace(/\b(a|an|the|who|with)\b/g, "").replace(/(ments?|s)\b/g, "").replace(/er\b/g, "").replace(/[^a-z]/g, "");
+  const howAll = chips.filter((c) => c.kind !== "condition" && c.kind !== "population").map((c) => c.label.toLowerCase());
+  const how = howAll.filter((l, i) => !howAll.some((o, j) => j !== i && (j < i || stem(o).length > stem(l).length) && stem(o).includes(stem(l)) && stem(o) !== "" ));
   const forWho = chips.filter((c) => c.kind === "population").map((c) => c.label.toLowerCase()).map((l) => `for ${/^[aeiou]/.test(l) ? "an" : "a"} ${l}`);
   // adjective labels read as a clause ("a doctor who looks at the whole picture", never "a doctor with holistic")
   const CLAUSE: Record<string, string> = { holistic: "who looks at the whole picture" };
@@ -69,6 +73,7 @@ export function Matches() {
   const res: SearchResponse | null = req?.response ?? null;
   const cards = (res?.cards ?? []).slice(0, MAX);
   const labels = res?.conditionLabels ?? {};
+  const hasPlace = Boolean(res?.place.suburb || req?.suburb);
   const place = (res?.place.suburb ?? (req?.suburb || "Australia")).replace(/ City$/, "");
 
   // Which match is under the top third of the screen, for the progress dots.
@@ -149,7 +154,7 @@ export function Matches() {
                   { label: "By video", key: "telehealth", on: { telehealth: true } },
                   { label: "A woman", key: "woman", on: { woman: true } },
                   { label: "Anywhere in Australia", key: "anywhere", on: { anywhere: true } },
-                ].filter((f) => { const r = readRefine(req.sentence, req.anywhere === true); return !(r[f.key as keyof RefineState] || (f.key === "anywhere" && r.telehealth)); }).map((f) => (
+                ].filter((f) => { const r = readRefine(req.sentence, req.anywhere === true); return !(r[f.key as keyof RefineState] || (f.key === "anywhere" && (r.telehealth || !hasPlace))); }).map((f) => (
                   <Button key={f.label} kind="gray" size="small" className="bg-white font-normal" onClick={() => void refine({ ...readRefine(req.sentence, req.anywhere === true), ...f.on })}>{f.label}</Button>
                 ))}
               </div>
@@ -163,7 +168,7 @@ export function Matches() {
           ) : null}
         </section>
       ) : null}
-      {req ? <Refine key={`${req.sentence}|${req.anywhere}`} open={refining} onClose={() => setRefining(false)} initial={readRefine(req.sentence, req.anywhere === true)} onApply={(s) => void refine(s)} place={place} /> : null}
+      {req ? <Refine key={`${req.sentence}|${req.anywhere}`} open={refining} onClose={() => setRefining(false)} initial={readRefine(req.sentence, req.anywhere === true)} onApply={(s) => void refine(s)} place={hasPlace ? place : ""} /> : null}
       {res?.emergency ? (
         <>
           <Gap h={16} />
