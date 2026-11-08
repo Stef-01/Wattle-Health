@@ -22,7 +22,7 @@ export default async function CoveragePage() {
     <Screen tone="grouped">
       <NavBar back="/about" title="Every state" collapse />
       <LargeTitle>Every state</LargeTitle>
-      <ByMode wattle={table("wattle")} adhdme={table("adhdme")} />
+      <ByMode block wattle={table("wattle")} adhdme={table("adhdme")} />
       <p className="px-4 pt-3 text-footnote text-grey">Providers who see people in each state, in person or by telehealth. ADHD medication is prescribed state by state.</p>
     </Screen>
   );

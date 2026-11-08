@@ -94,6 +94,8 @@ Spacing was measured against eight reference sites at 390 px (`qa/bench/measure.
 
 What patients weigh (Zocdoc's 2025 booking data, published 2026-06): a personal connection first, twice the weight of location; 21 profiles compared before booking, 84% then stay; 93% in person. Wattle's "in their own words", "listens" highlights and in-person default already sit on that; the comparison habit is why profile hops and Compare had to be fast.
 
+A second pair of eyes (a code-review pass over the day's diff) found that ADHDme readers would see a frame of Wattle content on the static pages before the cookie was read. Now a one-line script in `<head>` stamps `data-mode` on `<html>` before first paint, `ByMode` renders both modes and CSS shows one, and `useMode` reads the cookie synchronously (`useSyncExternalStore`); the same pass had the sliding thumb observe its children and the font load, measure to the fraction, and leave a plain fill on the selected item until it has measured (server HTML, no script). On a laptop a grouped screen (Recent, Saved, Profile, Coverage) now paints the whole page grouped grey, as iPad Settings does, instead of a 560 px grey column on white.
+
 Still open for the founder: production runs the join flow in memory mode. The Supabase project `wattle-health` exists with the tables; Vercel is missing `SUPABASE_SERVICE_ROLE_KEY` (the MCP cannot list or set it), so nothing a doctor enters on /join is kept.
 
 ## The quoted compiled rules the detectors missed

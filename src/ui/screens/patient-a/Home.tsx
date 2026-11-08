@@ -12,6 +12,7 @@ import { getDraft, getName, getRecent, getRequest as getRecentRequest, setDraft,
 import { ADHD_EXAMPLES, EXAMPLES } from "./lib";
 import type { AppMode } from "@/src/mode";
 import { useMode } from "@/src/ui/brand";
+import { ByMode } from "@/src/ui/ByMode";
 
 type Recognition = { lang: string; interimResults: boolean; onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onend: (() => void) | null; start: () => void; stop: () => void };
 type RecognitionCtor = new () => Recognition;
@@ -28,7 +29,7 @@ export type HomeByMode = Record<AppMode, { faces: Face[]; count: number }>;
 export function Home({ byMode }: { byMode: HomeByMode }) {
   const mode = useMode();
   const adhd = mode === "adhdme";
-  const { faces, count } = byMode[mode];
+  const modes = ["wattle", "adhdme"] as const;
   const router = useRouter();
   const [name, setNameState] = useState<string | null>(null);
   const [text, setText] = useState("");
@@ -92,7 +93,7 @@ export function Home({ byMode }: { byMode: HomeByMode }) {
       {/* The avatar slot is always laid out (44 px) so the title sits at the same height with or without a name;
           the words appear once the stored name is read, instead of rendering one title and swapping to another. */}
       <LargeTitle trailing={initials ? <Link href="/me" aria-label="Your profile" className="press mb-1 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</Link> : <span aria-hidden="true" className="mb-1 inline-block size-11 shrink-0" />}>
-        <span className={ready ? "rise" : "invisible"}>{name ? `Hi, ${display}.` : adhd ? "What ADHD support do you need?" : "Who do you need?"}</span>
+        <span className={ready ? "rise" : "invisible"}>{name ? `Hi, ${display}.` : <ByMode wattle="Who do you need?" adhdme="What ADHD support do you need?" />}</span>
       </LargeTitle>
       <Gap h={16} />
       <form
@@ -133,22 +134,32 @@ export function Home({ byMode }: { byMode: HomeByMode }) {
       </form>
       {error ? <p className="pt-2 text-subhead text-grey">{error}</p> : null}
       <OpeningsBanner />
-      {faces.length > 0 ? (
-        <Link href="/results?all=1" className="press-soft mt-6 flex min-h-11 items-center gap-3" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
-          <span className="flex shrink-0 -space-x-2.5">
-            {faces.map((f) => (
-              <Face key={f.id} url={f.url} name={f.name} size={36} ring />
-            ))}
-          </span>
-          <span className="text-pretty text-subhead text-ink">Meet {count} {adhd ? "ADHD providers" : "doctors"} in their own words.</span>
-        </Link>
-      ) : null}
-      <GroupHeader>Or try one of these</GroupHeader>
-      <Group tone="plain">
-        {(adhd ? ADHD_EXAMPLES : EXAMPLES).map((ex) => (
-          <Cell key={ex} title={ex} onClick={() => void submit(ex)} />
-        ))}
-      </Group>
+      <ByMode
+        block
+        {...(Object.fromEntries(
+          modes.map((m) => [
+            m,
+            <>
+              {byMode[m].faces.length > 0 ? (
+                <Link href="/results?all=1" className="press-soft mt-6 flex min-h-11 items-center gap-3" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
+                  <span className="flex shrink-0 -space-x-2.5">
+                    {byMode[m].faces.map((f) => (
+                      <Face key={f.id} url={f.url} name={f.name} size={36} ring />
+                    ))}
+                  </span>
+                  <span className="text-pretty text-subhead text-ink">Meet {byMode[m].count} {m === "adhdme" ? "ADHD providers" : "doctors"} in their own words.</span>
+                </Link>
+              ) : null}
+              <GroupHeader>Or try one of these</GroupHeader>
+              <Group tone="plain">
+                {(m === "adhdme" ? ADHD_EXAMPLES : EXAMPLES).map((ex) => (
+                  <Cell key={ex} title={ex} onClick={() => void submit(ex)} />
+                ))}
+              </Group>
+            </>,
+          ]),
+        ) as { wattle: React.ReactNode; adhdme: React.ReactNode })}
+      />
       {recent.length > 0 ? (
         <>
           <GroupHeader>Recent</GroupHeader>

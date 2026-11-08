@@ -107,7 +107,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
   if (reviews?.highlyRecommended && !reviews.demo) highlights = [{ id: "recommended", kind: "people", label: "Recommended by patients", detail: `${reviews.count} verified Wattle patients, ${reviews.average?.toFixed(1)} of 5 on average`, matched: false }, ...highlights];
   if (outside) highlights = highlights.filter((h) => h.kind !== "personal");
   const tabs = TABS.filter((t) => t !== "Highlights" || highlights.length > 0);
-  const thumb = useThumb<HTMLDivElement>(tab);
+  const thumb = useThumb<HTMLDivElement>(`${tab}|${tabs.length}`);
 
   return (
     <section className="rise" aria-label={variant === "match" ? ORDINAL[index] : d.name.display} data-match={variant === "match" ? index : undefined}>
@@ -149,7 +149,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
         <p className="mt-4 text-body leading-read text-ink"><span className="font-semibold">Outside the clinic </span><span className="text-grey">{outside.charAt(0).toUpperCase() + outside.slice(1)}</span></p>
       ) : null}
 
-      <div ref={thumb.track} role="tablist" aria-label="Doctor details" className="chrome relative mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, auto)` }}>
+      <div ref={thumb.track} role="tablist" aria-label="Doctor details" className="chrome thumb-track relative mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, auto)`, "--thumb": "var(--color-cell)" } as React.CSSProperties}>
         <Thumb box={thumb.box} className="bg-white shadow-float" />
         {tabs.map((t) => (
           <button key={t} role="tab" type="button" aria-selected={tab === t} data-thumb-on={tab === t} onClick={() => setTab(t)} className={`hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-footnote text-ink ${tab === t ? "font-semibold" : ""}`}><span className="truncate">{t}</span></button>

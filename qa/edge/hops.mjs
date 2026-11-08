@@ -11,7 +11,7 @@ const HOPS = [["Recent", "Recent"], ["Saved", "Saved"], ["Profile", "Profile"], 
 for (const [name, h1] of HOPS) {
   const t0 = performance.now();
   await page.getByRole("link", { name }).first().click();
-  await page.waitForFunction((h) => document.querySelector("h1")?.textContent?.trim() === h, h1);
+  await page.waitForFunction((h) => document.querySelector("h1")?.innerText?.trim() === h, h1);
   const painted = Math.round(performance.now() - t0);
   const rsc = await page.evaluate(() => performance.getEntriesByType("resource").filter((e) => /_rsc=|\?_rsc/.test(e.name)).slice(-1).map((e) => Math.round(e.duration))[0]);
   console.log(`${name.padEnd(8)} title on screen ${String(painted).padStart(5)} ms   last RSC fetch ${rsc ?? "-"} ms`);

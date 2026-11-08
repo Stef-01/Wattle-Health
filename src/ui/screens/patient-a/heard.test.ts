@@ -18,3 +18,16 @@ describe("heardSentence", () => {
     expect(heardSentence(req([{ kind: "condition", label: "ADHD" }]))).toBe("ADHD.");
   });
 });
+
+describe("heardSentence keeps wishes that only share letters", () => {
+  const req = (chips: Array<{ kind: string; label: string }>) => ({ id: "r", at: "", sentence: "", suburb: "", v: 1, response: { chips, place: {}, cards: [] } }) as never;
+  it("male and female are not one wish", () => {
+    expect(heardSentence(req([{ kind: "preference", label: "female doctor" }, { kind: "preference", label: "male doctor" }]))).toBe("A doctor with female doctor and with male doctor.");
+  });
+  it("numbers tell wishes apart", () => {
+    expect(heardSentence(req([{ kind: "preference", label: "5 years" }, { kind: "preference", label: "10 years" }]))).toBe("A doctor with 5 years and with 10 years.");
+  });
+  it("a shorter wish inside a longer one reads once", () => {
+    expect(heardSentence(req([{ kind: "personal", label: "listens" }, { kind: "personal", label: "really listens" }]))).toBe("A doctor with really listens.");
+  });
+});

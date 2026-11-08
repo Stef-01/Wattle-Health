@@ -231,7 +231,7 @@ export function Cell({ icon, bare = false, title, sub, value, href, onClick, acc
 export function Segmented<T extends string>({ items, value, onChange, label }: { items: { value: T; label: ReactNode }[]; value: T; onChange: (v: T) => void; label: string }) {
   const { track, box } = useThumb<HTMLDivElement>(value);
   return (
-    <div ref={track} role="radiogroup" aria-label={label} className="chrome relative grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+    <div ref={track} role="radiogroup" aria-label={label} className="chrome thumb-track relative grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`, "--thumb": "var(--color-cell)" } as CSSProperties}>
       <Thumb box={box} className="bg-white shadow-float" />
       {items.map((it) => {
         const on = it.value === value;
@@ -413,7 +413,7 @@ export function TabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
   return (
     <nav aria-label="Primary" className="chrome frame-fixed pointer-events-none bottom-0 z-30 px-[21px]" style={{ paddingBottom: "var(--tab-gap)" }}>
       <div aria-hidden="true" className="scroll-edge-bottom pointer-events-none absolute inset-x-0 bottom-0 h-[calc(100%+28px)]" />
-      <div ref={track} className="glass pointer-events-auto relative grid h-[62px] grid-cols-4 items-stretch rounded-full p-1">
+      <div ref={track} className="glass thumb-track pointer-events-auto relative grid h-[62px] grid-cols-4 items-stretch rounded-full p-1" style={{ "--thumb": "var(--color-surface)" } as CSSProperties}>
         <Thumb box={box} inset={4} className="bg-surface" />
         {TABS.map(({ href, label, Icon }) => {
           const on = active === href;

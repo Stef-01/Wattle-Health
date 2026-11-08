@@ -547,6 +547,18 @@ details > summary::-webkit-details-marker {
   transition: transform var(--duration-slow) var(--ease-out);
 }
 
+/* ---------------------------------------------------------------- mode */
+/* src/ui/ByMode.tsx renders both modes; <html data-mode> (stamped before paint, app/layout.tsx) shows one. */
+html[data-mode="adhdme"] [data-mode="wattle"],
+html:not([data-mode="adhdme"]) [data-mode="adhdme"] {
+  display: none;
+}
+/* A segmented control, tab list or tab bar before its sliding thumb has measured (server HTML, no script):
+   the selected child paints its own fill in the track's --thumb colour. */
+.thumb-track:not(:has([data-thumb])) > [data-thumb-on="true"] {
+  background: var(--thumb);
+}
+
 /* ---------------------------------------------------------------- frames */
 /* Phone: edge to edge with iOS layout margins (16, or 20 on wide phones). Tablet: a 430 px device
    frame on the dark canvas. Laptop (≥1024 px): a 560 px reading column on white. */
@@ -603,6 +615,11 @@ details > summary::-webkit-details-marker {
   html,
   body {
     background: var(--color-cell);
+  }
+  /* A grouped screen (Recent, Saved, Profile, Coverage) paints the whole page systemGroupedBackground, as iPad
+     Settings does, instead of a 560 px grey column with hard edges on white. */
+  body:has(main.bg-grouped) {
+    background: var(--color-grouped);
   }
   .frame,
   .frame-fixed {

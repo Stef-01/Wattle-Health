@@ -58,7 +58,7 @@ await page.screenshot({ path: `${OUT}/05-recent.full.png`, fullPage: true });
 for (const name of ["Saved", "Profile", "Home", "Recent"]) {
   t0 = t();
   await page.getByRole("link", { name }).first().click();
-  await page.waitForFunction((n) => document.querySelector("h1")?.textContent?.trim().length > 0 && location.pathname !== undefined, name);
+  await page.waitForFunction((n) => document.querySelector("h1")?.innerText?.trim().length > 0 && location.pathname !== undefined, name);
   const u = Math.round(t() - t0);
   await page.waitForLoadState("networkidle");
   log(" hop", name, "h1 painted", u, "ms, settled", Math.round(t() - t0), "ms", page.url().replace(BASE, ""));

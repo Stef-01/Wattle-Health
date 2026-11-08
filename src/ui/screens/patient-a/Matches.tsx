@@ -28,9 +28,13 @@ export function heardSentence(req: StoredRequest): string {
   const what = chips.filter((c) => c.kind === "condition").map((c) => c.label);
   // Two chips for one wish ("longer appointment", "long appointments") read once: a label whose stem is inside
   // another's is dropped. Before this the line read "a doctor with longer appointment and with long appointments".
-  const stem = (l: string) => l.toLowerCase().replace(/\b(a|an|the|who|with)\b/g, "").replace(/(ments?|s)\b/g, "").replace(/er\b/g, "").replace(/[^a-z]/g, "");
+  const stems = (l: string) => new Set(l.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w && !/^(a|an|the|who|with|and|of)$/.test(w)).map((w) => w.replace(/(ments?|s)$/, "").replace(/er$/, "")));
+  const subset = (a: Set<string>, b: Set<string>) => a.size > 0 && [...a].every((w) => b.has(w));
   const howAll = chips.filter((c) => c.kind !== "condition" && c.kind !== "population").map((c) => c.label.toLowerCase());
-  const how = howAll.filter((l, i) => !howAll.some((o, j) => j !== i && (j < i || stem(o).length > stem(l).length) && stem(o).includes(stem(l)) && stem(o) !== "" ));
+  const how = howAll.filter((l, i) => {
+    const mine = stems(l);
+    return !howAll.some((o, j) => j !== i && subset(mine, stems(o)) && (stems(o).size > mine.size || j < i));
+  });
   const forWho = chips.filter((c) => c.kind === "population").map((c) => c.label.toLowerCase()).map((l) => `for ${/^[aeiou]/.test(l) ? "an" : "a"} ${l}`);
   // adjective labels read as a clause ("a doctor who looks at the whole picture", never "a doctor with holistic")
   const CLAUSE: Record<string, string> = { holistic: "who looks at the whole picture" };
