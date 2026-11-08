@@ -90,6 +90,17 @@ Measured on production with `qa/edge/hops.mjs` (a tab-bar hop, timed to the mome
 | a navigation | 200 ms fade | 150 ms fade (a 12 px push was tried and reverted: a filled transform on the page makes fixed docks position against the page, and the bottom button sat 27 px below the fold) | `.page-enter` |
 | a selection change | each segment painted its own background | one thumb slides (`src/ui/kit/thumb.tsx`: tab-bar lens, segmented controls, profile tabs; transform only, 200 ms, off under reduced motion) | measured 259 → 89 px over 150 ms |
 
+The numbers (`qa/bench/measure.mjs`, iPhone 13 viewport, the mode of each measure; gaps are between consecutive text blocks, glyph box to glyph box):
+
+| site | text left edge | body size / line | commonest control heights | commonest gaps | radii in use |
+|---|---|---|---|---|---|
+| Wattle /me, profile | 16 (rows 32) | 17 / 22 | 54, 44, 30 | 3, 26, 30, 32 to 37 | pill, 0, 26 |
+| Apple apple.com/au | 16 | 17 / 21 and 19 / 23 | 36, 48 | 23, 21, 12 | 0, pill |
+| HotDoc | 20 | 16 / 20 | 40, 50 | 24, 52 | 0, 4, 28 |
+| HealthEngine | 20, 16 | 14 / 19 and 16 / 24 | 43, 40, 48 | 3, 24, 16, 18 | 0, 8, 4, 24 |
+| Headspace | 20 | 16 / 24 and 12 / 14 | 48, 24, 44 | 11, 62, 82, 38 | 0, 32, 24, 8 |
+| Linear | 24 | 13 / 20 and 12 / 14 | 28, 32 | 14, 28 | 0, pill, 4 |
+
 Spacing was measured against eight reference sites at 390 px (`qa/bench/measure.mjs`: side margins, text sizes, control heights, gaps between text blocks, card padding) and screen by screen with `qa/bench/rhythm.mjs` (every vertical gap with the words on each side). Wattle's margins (16, 20 at 414), body (17/22), rows (52) and group gaps (32) sit where Apple's own pages sit (16, 17/21, 36 to 48 rows); HotDoc and Headspace run 20 px margins and 16 px body, Linear 24 and 13 to 15. Nothing moved on that evidence. What the rhythm pass did fix: Recent grouped single searches under headers that repeated the row (flat list until a condition repeats), a face stack that squeezed into a 30 px icon well on Home so three faces spilled over the title, two- and three-face rows whose titles did not line up (the stack reserves three faces), and a label that ended in a comma when no place was named.
 
 What patients weigh (Zocdoc's 2025 booking data, published 2026-06): a personal connection first, twice the weight of location; 21 profiles compared before booking, 84% then stay; 93% in person. Wattle's "in their own words", "listens" highlights and in-person default already sit on that; the comparison habit is why profile hops and Compare had to be fast.
