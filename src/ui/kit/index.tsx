@@ -8,6 +8,7 @@ import { Children, type CSSProperties, type ReactNode } from "react";
 import { Check, ChevronLeft, ChevronRight, Clock, Heart, Home, User } from "./icons";
 import { tintFor } from "./tint";
 import { Portal } from "./bits";
+import { Thumb, useThumb } from "./thumb";
 
 export * from "./icons";
 export * from "./bits";
@@ -228,12 +229,14 @@ export function Cell({ icon, bare = false, title, sub, value, href, onClick, acc
 
 /** iOS segmented control: a filled track with a raised white thumb on the selected segment. */
 export function Segmented<T extends string>({ items, value, onChange, label }: { items: { value: T; label: ReactNode }[]; value: T; onChange: (v: T) => void; label: string }) {
+  const { track, box } = useThumb<HTMLDivElement>(value);
   return (
-    <div role="radiogroup" aria-label={label} className="chrome grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+    <div ref={track} role="radiogroup" aria-label={label} className="chrome relative grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+      <Thumb box={box} className="bg-white shadow-float" />
       {items.map((it) => {
         const on = it.value === value;
         return (
-          <button key={it.value} type="button" role="radio" aria-checked={on} onClick={() => onChange(it.value)} className={cx("hit flex min-w-0 items-center justify-center rounded-full px-2 text-subhead transition-[background-color,box-shadow] duration-(--duration-base)", on ? "bg-white font-semibold text-ink shadow-float" : "text-ink")}>
+          <button key={it.value} type="button" role="radio" aria-checked={on} data-thumb-on={on} onClick={() => onChange(it.value)} className={cx("hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-subhead text-ink", on && "font-semibold")}>
             <span className="truncate">{it.label}</span>
           </button>
         );
@@ -406,14 +409,16 @@ const TABS = [
 /** iOS 26 tab bar: a floating glass capsule, 62 tall, 21 from the sides and bottom; one-word 11 pt labels;
  *  the selected tab sits on a filled lens; content dissolves under a bottom scroll edge. */
 export function TabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
+  const { track, box } = useThumb<HTMLDivElement>(active);
   return (
     <nav aria-label="Primary" className="chrome frame-fixed pointer-events-none bottom-0 z-30 px-[21px]" style={{ paddingBottom: "var(--tab-gap)" }}>
       <div aria-hidden="true" className="scroll-edge-bottom pointer-events-none absolute inset-x-0 bottom-0 h-[calc(100%+28px)]" />
-      <div className="glass pointer-events-auto relative grid h-[62px] grid-cols-4 items-stretch rounded-full p-1">
+      <div ref={track} className="glass pointer-events-auto relative grid h-[62px] grid-cols-4 items-stretch rounded-full p-1">
+        <Thumb box={box} inset={4} className="bg-surface" />
         {TABS.map(({ href, label, Icon }) => {
           const on = active === href;
           return (
-            <Link key={href} href={href} aria-current={on ? "page" : undefined} className={cx("press flex flex-col items-center justify-center gap-0.5 rounded-full", on ? "bg-surface text-ink" : "text-grey")}>
+            <Link key={href} href={href} aria-current={on ? "page" : undefined} data-thumb-on={on} className={cx("press relative z-10 flex flex-col items-center justify-center gap-0.5 rounded-full transition-colors duration-(--duration-fast)", on ? "text-ink" : "text-grey")}>
               <Icon size={24} strokeWidth={on ? 2.1 : 1.75} fill={on && label !== "Recent" ? "currentColor" : "none"} />
               <span className="text-caption2 font-semibold">{label}</span>
             </Link>

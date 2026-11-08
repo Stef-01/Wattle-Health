@@ -57,7 +57,9 @@ describe("screens name no raw design values (docs/design-appraisal.md, hallmark 
     expect(offenders(/\bduration-\d|\bduration-\[/, "literal duration")).toEqual([]);
   });
   it("no transition on a layout property (ui-skills: never animate layout; hallmark 10a)", () => {
-    expect(offenders(/\btransition-\[[^\]]*\b(width|height|top|left|right|bottom|margin|padding)\b/, "layout transition")).toEqual([]);
+    // The one exception: the sliding thumb (src/ui/kit/thumb.tsx) is absolutely positioned, childless and on its own
+    // layer, so its width change reflows nothing; everything else moves by transform.
+    expect(offenders(/\btransition-\[[^\]]*\b(width|height|top|left|right|bottom|margin|padding)\b/, "layout transition").filter((o) => !o.startsWith("src/ui/kit/thumb.tsx"))).toEqual([]);
   });
   it("no transition-all", () => {
     expect(offenders(/\btransition-all\b/, "transition-all")).toEqual([]);

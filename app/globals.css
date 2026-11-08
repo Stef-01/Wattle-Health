@@ -354,6 +354,20 @@ details > summary::-webkit-details-marker {
 .page-enter {
   animation: fade var(--duration-fast) ease-out both;
 }
+/* A drill-down (a screen with a Back control) arrives from the right, 12 px, the way a pushed view does. */
+@keyframes push {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-enter:has(> main [aria-label="Back"]) {
+  animation: push var(--duration-base) var(--ease-out) both;
+}
 
 /* ---------------------------------------------------------------- sheets */
 /* Bottom sheet: scrim cross-fades, the panel slides on the iOS drawer curve and leaves the way it came. */
