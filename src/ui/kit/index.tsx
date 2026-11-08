@@ -236,7 +236,7 @@ export function Segmented<T extends string>({ items, value, onChange, label }: {
       {items.map((it) => {
         const on = it.value === value;
         return (
-          <button key={it.value} type="button" role="radio" aria-checked={on} data-thumb-on={on} onClick={() => onChange(it.value)} className={cx("hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-subhead text-ink", on && "font-semibold")}>
+          <button key={it.value} type="button" role="radio" aria-checked={on} data-thumb-on={on} onClick={() => onChange(it.value)} className={cx("press-dim hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-subhead text-ink", on && "font-semibold")}>
             <span className="truncate">{it.label}</span>
           </button>
         );

@@ -152,7 +152,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       <div ref={thumb.track} role="tablist" aria-label="Doctor details" className="chrome thumb-track relative mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, auto)`, "--thumb": "var(--color-cell)" } as React.CSSProperties}>
         <Thumb box={thumb.box} className="bg-white shadow-float" />
         {tabs.map((t) => (
-          <button key={t} role="tab" type="button" aria-selected={tab === t} data-thumb-on={tab === t} onClick={() => setTab(t)} className={`hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-footnote text-ink ${tab === t ? "font-semibold" : ""}`}><span className="truncate">{t}</span></button>
+          <button key={t} role="tab" type="button" aria-selected={tab === t} data-thumb-on={tab === t} onClick={() => setTab(t)} className={`press-dim hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-footnote text-ink ${tab === t ? "font-semibold" : ""}`}><span className="truncate">{t}</span></button>
         ))}
       </div>
       <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-5">
