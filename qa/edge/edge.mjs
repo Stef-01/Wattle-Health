@@ -17,7 +17,12 @@ const LONG = "I have had endometriosis for eleven years and I am looking for a g
 /* what is wrong on the screen right now, measured in the page */
 const AUDIT = () => {
   const W = innerWidth;
-  const out = { wide: document.documentElement.scrollWidth > W + 1, small: [], low: [], words: 0 };
+  const out = { wide: document.documentElement.scrollWidth > W + 1, small: [], low: [], words: 0, sunk: [] };
+  // a fixed dock, bar or sheet must end inside the viewport: a transformed ancestor would pin it to the page instead
+  for (const el of document.querySelectorAll(".dock, .frame-fixed, nav[aria-label=Primary]")) {
+    const r = el.getBoundingClientRect();
+    if (r.height > 0 && getComputedStyle(el).position === "fixed" && r.bottom > innerHeight + 1) out.sunk.push(`${el.className.split(" ")[0]} ends ${Math.round(r.bottom - innerHeight)} px below the fold`);
+  }
   const name = (el) => `${el.tagName.toLowerCase()}${el.id ? "#" + el.id : ""} "${(el.getAttribute("aria-label") ?? el.textContent ?? "").trim().slice(0, 28)}"`;
   const shown = (el) => {
     for (let e = el; e && e !== document.documentElement; e = e.parentElement) {
@@ -112,6 +117,7 @@ for (const width of WIDTHS) {
     const a = await page.evaluate(AUDIT);
     report[`${width} ${r}`] = { words: a.words, small: a.small.length, low: a.low.length, wide: a.wide };
     if (a.wide) failures.push(`${width} ${r}: runs off the right edge`);
+    for (const k of a.sunk) failures.push(`${width} ${r}: ${k}`);
     for (const s of a.small) failures.push(`${width} ${r}: small target ${s}`);
     for (const l of a.low) failures.push(`${width} ${r}: low contrast ${l}`);
     // scrolled to the foot: the dock and the tab bar over the last content
