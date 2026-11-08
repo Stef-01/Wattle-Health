@@ -21,7 +21,7 @@ import {
   type PracticeInput,
   type ProfileText,
 } from "./clinician-local";
-import { backend, inboxPost, insert, select, upsert, type Backend } from "./store";
+import { backend, inboxPost, insert, publicRpc, select, upsert, type Backend } from "./store";
 
 export type { ClaimResult, Lookup, PracticeInput, ProfileText };
 
@@ -32,10 +32,19 @@ export async function lookupDoctor(input: { ahpra: string; name: string; doctorI
 
 /** C02 "That's me": a provider_claims row (method ahpra+domain-email, status pending). Only the email domain is stored. */
 export async function createClaim(input: ClaimInput): Promise<ClaimResult> {
-  if (backend() !== "supabase") {
+  if (backend() === "memory") return createClaimLocal(input);
+  if (backend() === "inbox") {
+    const f = claimFields(input);
+    try {
+      const rows = await publicRpc<Array<{ claim_id: string; practitioner_id: string }>>("join_claim", { p_ahpra: f.ahpra, p_display_name: f.name, p_given: f.given, p_family: f.family, p_domain: f.domain, p_source_key: input.doctorId ?? null });
+      const row = rows[0];
+      if (row) return { claimId: row.claim_id, practitionerId: row.practitioner_id, backend: "inbox" };
+    } catch {
+      /* fall through to the inbox */
+    }
     const local = createClaimLocal(input);
-    if (backend() === "inbox") await inboxPost("claim", { ...input, email: undefined, domain: claimFields(input).domain, localClaimId: local.claimId });
-    return { ...local, backend: backend() };
+    await inboxPost("claim", { ...input, email: undefined, domain: f.domain, localClaimId: local.claimId });
+    return { ...local, backend: "inbox" };
   }
   const { ahpra, domain, name, given, family } = claimFields(input);
 
@@ -64,10 +73,18 @@ export async function createClaim(input: ClaimInput): Promise<ClaimResult> {
 
 /** C03 Continue: location + primary practitioner_role, provider_services (declared), fee as observation + field_evidence. */
 export async function savePractice(input: PracticeInput): Promise<{ roleId: string; backend: Backend }> {
-  if (backend() !== "supabase") {
+  if (backend() === "memory") return savePracticeLocal(input);
+  if (backend() === "inbox") {
+    const f = practiceFields(input);
+    try {
+      const roleId = await publicRpc<string>("join_practice", { p_practitioner_id: input.practitionerId, p_practice: f.practice, p_telehealth: input.telehealth, p_bulk_billing: input.bulkBilling, p_referral: input.referral, p_fee_cents: f.fee });
+      if (typeof roleId === "string") return { roleId, backend: "inbox" };
+    } catch {
+      /* fall through to the inbox */
+    }
     const local = savePracticeLocal(input);
-    if (backend() === "inbox") await inboxPost("practice", { ...input, localRoleId: local.roleId });
-    return { ...local, backend: backend() };
+    await inboxPost("practice", { ...input, localRoleId: local.roleId });
+    return { ...local, backend: "inbox" };
   }
   const { practice, now, expires, services, fee } = practiceFields(input);
 
@@ -88,10 +105,17 @@ export async function savePractice(input: PracticeInput): Promise<{ roleId: stri
 
 /** C08 Publish: personal_profiles row, status 'draft', consent_at now. 'doctor-approved' is set by Wattle after the register check. */
 export async function publishProfile(input: { practitionerId: string; profile: ProfileText }): Promise<{ status: "draft"; backend: Backend }> {
-  if (backend() !== "supabase") {
+  if (backend() === "memory") return publishProfileLocal(input);
+  if (backend() === "inbox") {
+    try {
+      await publicRpc<string>("join_profile", { p_practitioner_id: input.practitionerId, p_profile: input.profile });
+      return { status: "draft", backend: "inbox" };
+    } catch {
+      /* fall through to the inbox */
+    }
     const local = publishProfileLocal(input);
-    if (backend() === "inbox") await inboxPost("profile", { ...input });
-    return { ...local, backend: backend() };
+    await inboxPost("profile", { ...input });
+    return { ...local, backend: "inbox" };
   }
   await upsert("personal_profiles", profileRow(input), "practitioner_id");
   return { status: "draft", backend: "supabase" };

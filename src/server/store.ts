@@ -4,10 +4,11 @@
 // No SDK: plain fetch, as src/data/providers.ts does for the published_* views.
 // Imported only from "use server" modules (src/server/clinician.ts); never from client code.
 
-//   - "inbox": no service role key but the publishable key is present (production on 2026-11-08): the
-//     screens run on the in-memory store and every step is also posted to `join_submissions`, a table with
-//     an insert-only policy for the publishable key (supabase/migrations/0007_join_submissions.sql), so a
-//     doctor's sign-up is kept for Wattle to review and promote by hand.
+//   - "inbox": no service role key but the publishable key is present (production since 2026-11-08): each
+//     step calls a security-definer function (`join_claim`, `join_practice`, `join_profile`, migration 0008)
+//     that writes the same tables the service role would, every row unpublished until Wattle checks the
+//     register; if a call fails the step is kept in `join_submissions` (migration 0007, insert-only) and the
+//     screens continue on the in-memory store.
 export type Backend = "supabase" | "inbox" | "memory";
 
 export { memFind, memInsert, memSnapshot, memUpsert } from "./memory";
@@ -18,7 +19,22 @@ export function backend(): Backend {
   return process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "inbox" : "memory";
 }
 
-/** Inbox mode: one insert-only POST per step with the publishable key. Never throws into the screen. */
+/** Inbox mode: call one of the join_* functions with the publishable key; throws on a refusal so the caller can fall back. */
+export async function publicRpc<T>(fn: "join_claim" | "join_practice" | "join_profile", args: Record<string, unknown>): Promise<T> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) throw new Error("no publishable key");
+  const res = await fetch(`${url}/rest/v1/rpc/${fn}`, {
+    method: "POST",
+    headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify(args),
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`${fn}: ${res.status} ${(await res.text()).slice(0, 200)}`);
+  return (await res.json()) as T;
+}
+
+/** Inbox mode fallback: one insert-only POST per step with the publishable key. Never throws into the screen. */
 export async function inboxPost(kind: "claim" | "practice" | "profile", payload: Record<string, unknown>): Promise<boolean> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
