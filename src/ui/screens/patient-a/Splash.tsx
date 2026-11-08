@@ -16,18 +16,13 @@ export function Splash() {
     router.prefetch("/");
   }, [router]);
   return (
-    <main
-      role="button"
-      tabIndex={0}
-      aria-label="Continue"
-      onClick={() => router.push("/")}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") router.push("/");
-      }}
-      className="frame cursor-pointer overflow-clip outline-none"
-      style={{ background: "linear-gradient(180deg, var(--color-splash) 0%, var(--color-splash-deep) 100%)" }}
-    >
-      <div className="settle absolute inset-x-0 top-[390px] flex items-center justify-center gap-[10px]">
+    <main className="frame relative overflow-clip" style={{ background: "linear-gradient(180deg, var(--color-splash) 0%, var(--color-splash-deep) 100%)" }}>
+      {/* The whole screen is one button, laid over the artwork: a real <button>, so assistive tech and
+          Lighthouse read it as one, and <main> stays a landmark (aria-allowed-role). */}
+      <button type="button" aria-label="Continue" onClick={() => router.push("/")} className="absolute inset-0 z-10 cursor-pointer outline-none" />
+      {/* The wordmark is visible from the first paint (an element that starts at opacity 0 is never the
+          largest contentful paint); only the tagline settles in. */}
+      <div className="absolute inset-x-0 top-[390px] flex items-center justify-center gap-[10px]">
         <span className="text-wordmark text-white" style={{ fontFamily: '"Lobster", cursive' }}>
           {brand === "ADHDme" ? "ADHDme" : "wattle"}
         </span>
