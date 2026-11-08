@@ -1,6 +1,7 @@
 import { getDoctors } from "@/src/data/providers";
 import { STATES } from "@/src/data/types";
-import { currentMode, scopeRoster } from "@/src/server/mode";
+import { scopeRoster } from "@/src/server/mode";
+import { ByMode } from "@/src/ui/ByMode";
 import { Disclosure, NavBar, Screen } from "@/src/ui/kit";
 
 export const metadata = { title: "About · Wattle Health" };
@@ -13,15 +14,20 @@ const POINTS = [
   { title: "Nobody pays", body: "No doctor or service pays to be listed, picked or ranked." },
 ];
 
+// Static: the one line that differs by mode is built for both and picked in the browser (ByMode), so the
+// page is served from the edge instead of a per-request function (4 to 5 s cold).
 export default async function AboutPage() {
-  const mode = await currentMode();
-  const roster = scopeRoster(await getDoctors(), mode);
-  const own = roster.filter((d) => d.personal?.status === "published").length;
+  const all = await getDoctors();
+  const line = (mode: "wattle" | "adhdme") => {
+    const roster = scopeRoster(all, mode);
+    const own = roster.filter((d) => d.personal?.status === "published").length;
+    return `${roster.length} ${mode === "adhdme" ? "ADHD providers" : "doctors"} listed across Australia, ${own} in their own words.`;
+  };
   return (
     <Screen>
       <NavBar back="/me" />
       <h1 className="display rise mt-4 text-large-title font-medium text-ink">A doctor who fits you as well as your condition.</h1>
-      <p className="mt-3 text-body text-grey">{roster.length} {mode === "adhdme" ? "ADHD providers" : "doctors"} listed across Australia, {own} in their own words.</p>
+      <p className="mt-3 text-body text-grey"><ByMode wattle={line("wattle")} adhdme={line("adhdme")} /></p>
       <a href="/about/coverage" className="press-soft mt-2 flex min-h-11 items-center text-body text-accent">Who sees people in each of the {STATES.length} states</a>
       <div className="mt-8">
         {POINTS.map((p) => (
