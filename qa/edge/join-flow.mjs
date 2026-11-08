@@ -29,6 +29,8 @@ if (/practice/.test(page.url())) {
 log("after practice:", page.url().replace(BASE, ""));
 const skip = page.getByText(/Skip for now/).first(); if (await skip.count()) { await skip.click(); await page.waitForTimeout(1200); }
 log("after interview:", page.url().replace(BASE, ""));
+if (/share/.test(page.url())) { await page.getByText(/^Continue$/).first().click(); await page.waitForTimeout(1200); }
+log("after share:", page.url().replace(BASE, ""));
 const publish = page.getByRole("button", { name: /Publish/ }).first();
 if (await publish.count()) { await publish.click(); await page.waitForTimeout(2500); }
 log("after publish:", page.url().replace(BASE, ""), "|", (await page.locator("h1").first().innerText().catch(() => "")).trim());
