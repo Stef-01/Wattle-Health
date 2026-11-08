@@ -11,14 +11,21 @@ const page = await (await browser.newContext({ viewport: { width: 390, height: 8
 const log = (...a) => console.log(...a);
 await page.goto(`${BASE}/join/verify`, { waitUntil: "networkidle" });
 log("banner:", (await page.getByText(/Local mode/).count()) ? "local mode shown" : "none");
+await page.waitForTimeout(1500); // hydration on a cold production load; typing before it leaves React unaware of the values
 await page.getByPlaceholder(/MED/i).fill("MED0009990001");
 await page.getByPlaceholder(/Dr Nathan Reilly/i).fill("Dr Test Inbox");
 await page.getByPlaceholder(/yourpractice/i).fill("qa@example-practice.com.au");
-await page.getByRole("button", { name: /Look me up/ }).click();
-await page.waitForTimeout(1500);
+const look = page.getByRole("button", { name: /Look me up/ });
+if (await look.isDisabled()) { await page.getByPlaceholder(/MED/i).fill(""); await page.getByPlaceholder(/MED/i).type("MED0009990001", { delay: 20 }); await page.waitForTimeout(300); }
+log("look me up enabled:", !(await look.isDisabled()));
+await look.click();
+// the lookup loads the roster on a cold function (about 5 s on production); the button then reads "That's me"
+const thatsMe = page.getByRole("button", { name: /That.s me/ });
+await thatsMe.waitFor({ timeout: 30000 });
 await page.screenshot({ path: `${OUT}/join-1-lookup.png` });
-const thatsMe = page.getByRole("button", { name: /That.s me|Continue|Yes/ }).first();
-if (await thatsMe.count()) { await thatsMe.click(); await page.waitForTimeout(1200); }
+await thatsMe.click();
+await page.waitForURL(/practice/, { timeout: 30000 }).catch(() => {});
+await page.waitForTimeout(800);
 log("after verify:", page.url().replace(BASE, ""));
 await page.screenshot({ path: `${OUT}/join-2-after-verify.png` });
 if (/practice/.test(page.url())) {
