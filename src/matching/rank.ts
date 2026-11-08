@@ -496,7 +496,28 @@ export function topTieNote(query: string, roster: readonly Clinician[], lexicon:
  * vocabulary plus the languages the roster itself declares. THIS IS THE ONE ENTRY POINT
  * (O1/F2): the ranking, the quality verdict, the explanation and the console audit all read it.
  */
+/**
+ * One read per (lexicon, roster, query). `matchEvidence` and `missedAsks` ask for the needs once per
+ * clinician, so a 4,870-doctor search read the sentence 9,740 times and walked the roster each time
+ * (2.2 s of a 4.6 s search, profiled 2026-11-08). The roster is keyed by identity; the map per roster
+ * holds the last 64 sentences. Callers only map and filter the result, never mutate it.
+ */
+const NEEDS_CACHE = new WeakMap<Lexicon, WeakMap<readonly Clinician[], Map<string, NeedSignal[]>>>();
+
 export function needsFor(query: string, roster: readonly Clinician[], lexicon: Lexicon = defaultLexicon()): NeedSignal[] {
+  let byRoster = NEEDS_CACHE.get(lexicon);
+  if (!byRoster) NEEDS_CACHE.set(lexicon, (byRoster = new WeakMap()));
+  let byQuery = byRoster.get(roster);
+  if (!byQuery) byRoster.set(roster, (byQuery = new Map()));
+  const hit = byQuery.get(query);
+  if (hit) return hit;
+  const computed = computeNeeds(query, roster, lexicon);
+  if (byQuery.size >= 64) byQuery.delete(byQuery.keys().next().value as string);
+  byQuery.set(query, computed);
+  return computed;
+}
+
+function computeNeeds(query: string, roster: readonly Clinician[], lexicon: Lexicon): NeedSignal[] {
   const spoken = [...new Set([...matchableLanguages(lexicon), ...roster.flatMap((c) => c.languages)])];
   const signals = [...readNeeds(query, lexicon), ...languageNeeds(query, spoken, lexicon)];
   const said = query.toLowerCase();

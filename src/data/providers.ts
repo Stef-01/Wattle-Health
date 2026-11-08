@@ -435,11 +435,24 @@ async function fromSupabase(env: { url: string; key: string }): Promise<DoctorRe
 }
 
 /** Every real doctor with a Queensland room, plus the labelled illustrative examples when enabled. Cached per server process. */
+// The Supabase roster is held in the process for ten minutes: six views (the practitioners view alone
+// is 400 KB) joined and shaped for 4,700 doctors cost 4 to 6 s per request on Vercel (measured
+// 2026-11-08 on POST /api/match), and a warm function answered every search from scratch.
+const SUPABASE_TTL_MS = 10 * 60 * 1000;
+let supabaseCache: { at: number; rows: Promise<DoctorRecord[] | null> } | null = null;
+
 export async function getDoctors(): Promise<DoctorRecord[]> {
   const env = supabaseEnv();
   if (env) {
-    const rows = await fromSupabase(env);
-    if (rows) return withIllustrative(withPublished(rows, mvpDiscipline()));
+    if (!supabaseCache || Date.now() - supabaseCache.at > SUPABASE_TTL_MS) {
+      const rows = fromSupabase(env).then((r) => (r ? withIllustrative(withPublished(r, mvpDiscipline())) : null));
+      supabaseCache = { at: Date.now(), rows };
+      // A failed read (one view down) is remembered for the same ten minutes: the files answer meanwhile,
+      // instead of six fetches failing again on every search.
+      rows.catch(() => { if (supabaseCache?.rows === rows) supabaseCache = null; });
+    }
+    const rows = await supabaseCache.rows;
+    if (rows) return rows;
   }
   if (!cache) cache = buildRoster();
   return cache;
