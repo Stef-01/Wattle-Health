@@ -379,3 +379,7 @@ Every one of the 14 browsing routes now observes at 93–98 performance with acc
 **Seen once, not reproduced:** the production shot of /healthspan at 390 taken while three queued deploys were swapping showed Next's "Application error: a client-side exception" page. Both widths were clean on the next load and on every later check; a chunk from the previous deploy failing to load mid-rollout is the usual cause, and Vercel's skew protection is not on the Hobby plan.
 
 **Two gates the rules said did not exist.** `node qa/iphone/words.mjs` now covers 14 routes and exits 1 when a first screen passes 60 words (today 10 to 60; the three empty states sit under 20 by nature). `src/ui/copy-rules.test.ts` scans every screen's own words in `src/ui` and `app` for superlatives, medicine brand names and "specialist" (282 checks; one placeholder practice name allow-listed with its reason). Both pass on the shipped code.
+
+### Text budget on production (2026-11-09)
+
+`qa/iphone/words.mjs` at iPhone 15 width, first screen, every browsing route: Home 40 (as /narrow), About 36, Join 36, Verify 31, Context 58, Coverage 58, Healthspan 60, Compare empty 10. All within the 20 to 60 budget (Headspace 26 to 60, Finch 19); the gate exits 1 over 60. The "whole page" counts it prints include the hidden ByMode branch and are not budgeted.
