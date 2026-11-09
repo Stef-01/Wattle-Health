@@ -349,7 +349,12 @@ details > summary::-webkit-details-marker {
     opacity: 0;
   }
 }
+/* Only after the first client navigation (html[data-navigated], app/template.tsx): at document load an opacity-0
+   first frame hides the first contentful paint until the next main-thread repaint, the font swap. */
 .page-enter {
+  opacity: 1;
+}
+html[data-navigated] .page-enter {
   animation: fade var(--duration-fast) var(--ease-out) both;
 }
 /* A swap inside a view that is already on screen (a profile tab, the Home title once the name is read): one short fade. */
