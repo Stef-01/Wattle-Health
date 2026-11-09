@@ -1,7 +1,11 @@
-// Visible words per route at iPhone 15 (first screen and whole page).
+// Visible words per route at iPhone 15 (first screen and whole page). Gate: the first screen holds at most
+// MAX words (CLAUDE.md text budget, 20 to 60 at 390 px; Headspace 26 to 60, Finch 19). Exit 1 over it.
+// Empty states sit under 20 by nature and are not failures. BASE for the server, ROUTES=/a,/b to narrow.
 import { chromium, devices } from "@playwright/test";
 const BASE = (process.env.BASE ?? "http://localhost:3300").replace(/\/$/, "");
-const ROUTES = ["/", "/recent", "/saved", "/me", "/me/openings", "/me/discover", "/me/context", "/healthspan", "/narrow", "/about", "/join"];
+const ROUTES = process.env.ROUTES ? process.env.ROUTES.split(",") : ["/", "/recent", "/saved", "/me", "/me/openings", "/me/discover", "/me/context", "/healthspan", "/narrow", "/about", "/about/coverage", "/compare", "/join", "/join/verify"];
+const MAX = Number(process.env.MAX ?? 60);
+const over = [];
 const b = await chromium.launch();
 const page = await (await b.newContext({ ...devices["iPhone 15"] })).newPage();
 await page.goto(`${BASE}/`);
