@@ -63,7 +63,7 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false, captio
         // eslint-disable-next-line @next/next/no-img-element
         <>
           {!loaded ? <span aria-hidden="true" className="shimmer absolute inset-0" /> : null}
-          <img ref={img} src={photo.url} alt={photo.alt && !/^(picture|image|photo|headshot)$/i.test(photo.alt.trim()) ? photo.alt : name} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} decoding="async" referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} onError={() => setFailed(true)} data-loaded={mounted ? String(loaded) : undefined} className="img-fade absolute inset-0 size-full object-cover object-top" />
+          <img ref={img} src={photo.url} alt={photo.alt && !/^(picture|image|photo|headshot)$/i.test(photo.alt.trim()) ? photo.alt : name} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} decoding={eager ? "sync" : "async"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} onError={() => setFailed(true)} data-loaded={mounted ? String(loaded) : undefined} className="img-fade absolute inset-0 size-full object-cover object-top" />
         </>
       ) : (
         <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-display text-monogram" style={{ color: fg }}>
