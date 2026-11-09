@@ -228,3 +228,30 @@ Still needs a phone in the hand (cannot be proven from code or emulation): stick
 | Real Chromium unthrottled, 390 px, production (`qa/bench/lcp.mjs`), warm | 18 ms | **144–160 ms** | The first request after a deploy was 2.7 s TTFB (edge cache miss, once per region per deploy) |
 
 The eager portrait now decodes synchronously (an LCP image should not yield its frame); the measurable change came from the preload. Under the "good" threshold (2.5 s) when observed; the remaining simulated gap is the model, recorded here so nobody chases it again.
+
+## Round 10 — observed Lighthouse on every route, and what it found (2026-11-08 evening)
+
+Simulated Lighthouse (the default) had passed 13 of 14 routes at 90+. The same routes under **observed** throttling (`--throttling-method=devtools`, 4G, 4x CPU, production) told a different story, and that is the mode to trust:
+
+| Route | Observed before | Observed after | What changed |
+| --- | --- | --- | --- |
+| /me | 86 · LCP 3.8 s | 98 · 2.0 s | fonts preloaded from the head (next/font/local), upright faces only |
+| /recent | 91 · 3.2 s | 95 · 2.5 s | same |
+| /about | 86 · 3.4 s | 96 · 2.4 s | same |
+| /about/coverage | 86 · 3.6 s | 97 · 2.2 s | same |
+| /healthspan | 91 · 3.4 s | 95 · 2.5 s | same |
+| /me/openings | 92 · 3.1 s | 95 · 2.4 s | same |
+| /me/discover | 90 · 3.5 s | 96 · 2.4 s | same |
+| /me/context | 92 · 3.1 s | 96 · 2.4 s | same |
+| /join | 87 · FCP 3.1 s | 93 · FCP 1.9 s, LCP 3.0 s | screen prerendered (was a client-only subtree) |
+| /join/verify | 87 · FCP 3.1 s | 95 · FCP 2.1 s, LCP 2.4 s | same |
+| /doctor/[id] | 97 · 1.8 s (portrait only) | 89 · 3.2 s | portrait now shares the 4G link with the two font files; see below |
+| /saved | 91 · 3.2 s | 89 · 3.5 s | client-state page, see below |
+| /results | 87 · 3.6 s | 88 · 3.6 s | client-state page |
+| /compare | 92 · 3.2 s | 90 · 3.4 s | client-state page |
+
+**Fonts were the LCP on every text page.** First paint came at 1.5 s in the fallback face; the Fontsource stylesheet was discovered at 1.3 s, the woff2 files landed at ~3.1 s, and the swap re-rendered each title, which is the paint Lighthouse records as LCP. Moving both families to `next/font/local` (`app/fonts.ts`) puts `<link rel="preload" as="font">` in the head and registers size-adjusted fallback faces (no shift on swap). The first version preloaded four files (422 KB on a 1.6 Mbps link, worse); nothing in the app sets italic, so the upright faces alone are preloaded (149 KB). Note for local builds: Next 15.5's font manifest plugin matches the loader path with a forward slash, so on Windows the manifest is empty and the local HTML shows no font preloads; the Linux build on Vercel emits them. Check production HTML, not `.next`.
+
+**The join pages shipped no `<main>`.** `useSearchParams` inside a fallback-less `Suspense` makes Next bail the subtree out to client rendering during prerender, so the static HTML held only the scripts and the screen appeared after hydration (first paint 3.6 s on 4G). `src/ui/query.ts` reads the parameter after mount instead; both screens only used it inside effects and a link. The claim path (`/claim/[id]` → `/join?doctor=` → verify with the name prefilled) was checked on production and the local build before and after.
+
+**Judged and kept:** `/saved`, `/results` and `/compare` paint their shell at 1.7 s and their content after hydration because the content is the visitor's own localStorage (picks, hearts, the compare pair); rendering a guess on the server would flash the wrong state for anyone who has any. The doctor profile's portrait now competes with the font preloads on a throttled link (load time 2.3 s of its 3.2 s); on an unthrottled real browser the page paints in 150 ms (round 9), and the portrait is the page.
