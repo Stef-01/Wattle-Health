@@ -344,3 +344,16 @@ All 14 browsing routes now sit at 93–98 observed performance with accessibilit
 | Recent rows | 12 px gap |
 
 One real defect came out of it (the Home link), fixed in 791f378. What remains device-only is the chrome around the page, not the page.
+
+## Round 15 — the profile hero through the image optimizer, listed hosts only (2026-11-09, early)
+
+The 89 on the profile was the portrait's bytes on a throttled link. The roster's portraits come from 46 practice hosts (`data/portrait-hosts.json`, written by `scripts/portrait-hosts.mjs`, a test fails on drift); those hosts alone are `images.remotePatterns`, and the one eager hero on `/doctor/[id]` renders through `next/image` with a sized `srcset` and its own preload. Results cards keep the plain `<img>`; an unlisted host keeps the previous preload path. An unlisted URL to the optimizer answers 400, so nobody else can spend the plan's transformations.
+
+| Measure | Before | After |
+| --- | --- | --- |
+| Hero bytes at 390 px | 70 KB JPEG | 27 KB WebP (640 w, q 72) |
+| Observed Lighthouse (4G, 4x CPU), 3 runs | 89 · LCP 3.0–3.2 s | 95, 82, 96 · LCP 2.4 s each (load delay 0.7 s, load 1.7 s, render 9 ms); the 82 is one 380 ms long task on the measuring machine, TBT 630 vs 150–170 ms on the other runs |
+| Real Chromium, unthrottled | 144–160 ms | 200–444 ms (the optimizer's first hit per size is a cold transform; then cached 30 days) |
+| Portrait fade under throttling | never hidden | never hidden (37 frames) |
+
+Every one of the 14 browsing routes now observes at 93–98 performance with accessibility 100, with the profile's one-run dip recorded above. Quota: 207 portraits across 46 hosts, two widths each in practice, inside the Hobby allowance; `minimumCacheTTL` 30 days keeps re-transformations down.
