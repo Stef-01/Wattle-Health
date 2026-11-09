@@ -296,3 +296,17 @@ The five "needs a phone" behaviours cannot be *felt* without hardware, but their
 What a device adds beyond this is confirmation that iOS Safari honours them; the declarations are the ones the skill prescribes.
 
 **Results before hydration.** The page painted its shell at 1.7 s and nothing else until the visitor's search arrived from localStorage at ~3.5 s on a throttled phone. A flat two-block skeleton (the search card, the first pick) now sits in the static HTML and both real states replace it whole; a reload with a stored search goes skeleton → card with no blank frame (sampled every 100 ms), and the empty state still shows "Your picks". LCP does not move (a flat fill is not contentful), the blank frame does.
+
+## Round 13 — the three client-state pages paint their state before hydration (2026-11-08 night)
+
+Saved, Results and Compare depend on the visitor's own stores (localStorage, sessionStorage), so their content waited for hydration: first paint 1.8 s, the empty state or the cards at 3.4–3.7 s on a throttled 4G phone, observed performance 88–89. The mode already solved the same problem for the title: an inline head script reads the store before paint and stamps `<html>`. The same script now stamps `data-saved`, `data-search` and `data-compare` as `none` or `some`; each page ships both its empty state and a flat skeleton under `[data-pre]`, and CSS shows the matching one (`globals.css`). Both real states replace the pre block whole, so nothing flashes. Saved also kept going blank *after* hydration while it fetched the saved doctors from the server; its skeleton now stays until they arrive.
+
+| Route | Observed before | Observed after |
+| --- | --- | --- |
+| /results | 88 · LCP 3.6 s | 95 · 2.5 s |
+| /saved | 88 · LCP 3.7 s | 95 · 2.4 s |
+| /compare | 89 · LCP 3.4 s | 95 · 2.4 s |
+
+`qa/edge/pre-state.mjs` (also run against production): JS off shows no pre block (the old behaviour); empty stores show the empty state at first paint and the hydrated page carries the same words with the pre blocks unmounted; populated stores at 6x CPU throttle sample skeleton → content on every page with no blank frame (`SC`, `SSC`, `SC`).
+
+All 14 browsing routes now sit at 93–98 observed performance with accessibility 100, except the doctor profile at 89 where the portrait shares the throttled link with the fonts.
