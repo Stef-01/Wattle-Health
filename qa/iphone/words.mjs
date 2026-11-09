@@ -19,6 +19,9 @@ for (const r of ROUTES) {
     const words = (a) => a.map((e) => e.textContent.trim()).join(" ").split(/\s+/).filter(Boolean).length;
     return { fold: words(nodes.filter(vis)), all: words(nodes), text: nodes.filter(vis).map((e) => e.textContent.trim()).join(" | ").slice(0, 700) };
   });
-  console.log(`${r}  fold=${t.fold} all=${t.all}\n  ${t.text}\n`);
+  if (t.fold > MAX) over.push(`${r} ${t.fold}`);
+  console.log(`${r}  fold=${t.fold}${t.fold > MAX ? " OVER" : ""} all=${t.all}\n  ${t.text}\n`);
 }
 await b.close();
+if (over.length) { console.log(`words: over ${MAX} on ${over.join(", ")}`); process.exit(1); }
+console.log(`words: every first screen within ${MAX}`);
