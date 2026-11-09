@@ -403,3 +403,46 @@ Asked: review the whole system so it is not laggy on an iPhone as a web app, res
 **What this review could not read:** real-iPhone field data. The app ships Vercel Speed Insights, so INP and LCP by device sit in the Vercel dashboard; the MCP connection here has no read tool for it (only drains). That dashboard is the first place to look if "laggy on iPhone" persists; the second is Safari's Web Inspector timeline over USB.
 
 **Refactor verdict: none warranted.** The research is clear that moving pages to Server Components pays when data fetching moves to the server (Makarevich, Preply); Wattle's pages are already static HTML with client state in the browser's own stores, and route code is 6–19 KB. The remaining cost is the React 19 + App Router baseline (~170 KB compressed per cold visit), which only a framework change (static HTML with islands) would remove, and the interaction trace shows nothing on a 4x-slowed CPU that such a rewrite would fix. The improvements that mattered this week were all measured defects, not architecture: per-request pages → static, fonts discovered late → preloaded, join screens client-only → prerendered, store-dependent pages blank → pre-hydration state, the portrait → optimized, and an O(n²) search → memoised. Keep that method: observed Lighthouse plus the two benches in this round, run on production after each change.
+
+## Round 18 — gestures on every surface a finger touches, and Home's faces through the optimizer (2026-11-09, late)
+
+Emil Kowalski's `gestures` skill (emilkowalski/skills@5206a95, the local copy at `~/.claude/skills/gestures`) applied as a plan over every surface, not only the sheet round 11 covered. The surfaces a finger can drag in Wattle: the Refine, Contact, Review and calendar-permission sheets (`Sheet`), every iOS switch (`Toggle`, six screens), and the opening notification (`OpeningPrompt`). Three others were considered and left alone, below.
+
+| Surface | Rule from the skill | Before | After |
+| --- | --- | --- | --- |
+| Sheet | A drag starts from the content when it is scrolled to the top (Vaul) | the grabber row only | the body too, once it has moved 6 px down with `scrollTop` 0; an upward move or a scrolled body is a scroll; controls never start one |
+| Sheet | Interruptibility: catch it mid-flight | pointer-down mid-entrance jumped the panel to 0; a dismissal called `onClose` at once and could not be caught | pointer-down reads the current transform and continues from it; `onClose` fires when the exit lands |
+| Sheet | The exit carries the release speed | 220 ms fixed | remaining distance over velocity, 120 to 220 ms; a hard fling leaves faster than a slow pull |
+| Sheet | Reduced motion: settle short | same timings | `--duration-fast` snap-back, 150 ms exit |
+| Sheet | `touch-action` on the drag surface | the whole panel scrolled and dragged | an outer panel (`touch-action: none`, the transform) around one inner scroller; the scroll lock's panel touchmove handler now runs on every platform, which is what stops Chrome claiming a pull-down at the top as a scroll (`pointercancel`) |
+| Switch | Direct manipulation | tap only | the knob tracks 1:1 across its 20 px, rubber-bands past either end, settles by position or flick direction; the track colour is derived from the knob's position; a tap still flips exactly once (the click after a drag is swallowed); vertical pans stay with the page (`touch-pan-y`) |
+| Notification | Dismiss along the axis it entered on (Sonner) | buttons only | swipe up: 1:1 upward, rubber-band downward, fades with its travel, goes past a third of its height or on a flick, snaps back otherwise; "not now" while asking, "done" once booked, inert while booking |
+| Notification | Never a keyframe on a gesture surface | `rise` keyframe (fill both: a keyframe's end value beats an inline transform, and a finger cannot catch it) | `toast-in`, a transition from `@starting-style`; reduced motion fades only |
+
+Two defects the gates caught before anything shipped. The notification's two new refs sat below `if (!o) return null`: React error 310 the moment the prompt appeared, the whole page replaced by "Application error". And a second mouse drag over the notification started a native drag of the words the first drag had selected, so Chrome cancelled the pointer: the card is `chrome` (no selection) now, as every cell already was.
+
+Measured by `qa/edge/sheet-gesture.mjs` (13 checks) and `qa/edge/control-gestures.mjs` (14 checks) against the built server at 390 px, both clean: mid-drag translateY 120 for 120 px with scrim 0.69; −20 for a 100 px pull above the top; a 40 px slow drag snaps to 0; a 60 px slow pull ending in a flick dismisses; a pointer-down 120 ms into the entrance holds the panel at 52 of 386 and a release settles it at 0; a drag from a cell's text dismisses, one from a switch does not; the same drags as real touch events (CDP `Input.dispatchTouchEvent`) from the handle and from the content both dismiss. Switch: tap flips once, 24 px drag flips, 6 px drag snaps back, mid-drag knob at 10 px with `color-mix` at 50 %. Notification: 60 px pull down lands at 12, −20 swipe reads −20 at opacity 0.90, a swipe past a third dismisses and records the opening as dismissed. Behaviour, edge, Apple audit and the WebKit gate (its one pre-existing tap-highlight miss aside) unchanged.
+
+Considered and not built, with the reason:
+
+- **Segmented control thumb drag** (iOS lets you drag the selected segment): one use (`/me`, the mode picker) and its change calls `router.refresh()`, so live dragging would refresh the page on every segment crossed.
+- **Swipe between profile tabs**: the tab panels are different heights and the page scroll position is the content's; a horizontal pan on a long reading page fights vertical scrolling more than it helps.
+- **Swipe to remove a saved doctor**: the heart on the card already removes, the card is 400 px tall (a swipe-to-delete row is 44 to 60), and the skill says to reach for a gesture only where it reverses an entrance or manipulates the object directly.
+- **Pull to refresh**: the data is static.
+- **Bounce at the end of a drag**: the skill allows a small one; the design system says no overshoot anywhere, kept.
+- **Vaul**: still not adopted (round 11); the sheet now does what the skill asks of it in 110 lines without a dependency.
+
+Still needs a phone, as round 11 said: the thresholds are Vaul's iOS-derived ones and the touch checks run in Chromium.
+
+**Home's faces.** The sweep of every route on production (observed Lighthouse, mobile, devtools throttling) after the inlined stylesheet: 14 routes between 85 and 98, Home 67 to 69 with LCP 4.1 to 5.6 s. The request log showed why: the five 36 px faces in "Meet 170 doctors in their own words" were the practices' originals, one a 2.2 MB PNG from sironawomenshealth.com.au, a 397 KB nimbo asset, a 104 KB jpeg, all at High priority beside the fonts, and on a 1.6 Mbps link Inter (the LCP) arrived at 4.4 s instead of 2.8 s. `Face` now goes through the image optimizer for the listed hosts at the next default width above twice its size (`/_next/image?…&w=96`): that face is 8.9 KB. The same component draws the face stacks on Recent and Saved. Home re-measured on production after the deploy: see the line below the table once it has run.
+
+| Route | Score | FCP | LCP | TBT |
+| --- | --- | --- | --- | --- |
+| / (first visit, before) | 67 | 1.0 s | 4.1 s | 510 ms |
+| /narrow | 86 | 2.7 s | 2.7 s | 80 ms |
+| /recent, /saved, /me, /me/openings, /me/discover, /me/context, /about, /about/coverage, /compare, /join/verify | 94 to 97 | 0.9 to 1.3 s | 2.6 to 3.0 s | 40 to 170 ms |
+| /healthspan | 93 | 1.5 s | 3.1 s | 50 ms |
+| /join | 92 | 1.9 s | 3.2 s | 40 ms |
+| /doctor/allied-health~alex-lawson | 98 | 1.1 s | 1.9 s | 120 ms |
+
+/narrow's 2.7 s first paint is the next thing to look at: it is the one route whose FCP and LCP coincide late.
