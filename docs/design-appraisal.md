@@ -357,3 +357,25 @@ The 89 on the profile was the portrait's bytes on a throttled link. The roster's
 | Portrait fade under throttling | never hidden | never hidden (37 frames) |
 
 Every one of the 14 browsing routes now observes at 93–98 performance with accessibility 100, with the profile's one-run dip recorded above. Quota: 207 portraits across 46 hosts, two widths each in practice, inside the Hobby allowance; `minimumCacheTTL` 30 days keeps re-transformations down.
+
+## Round 14 — the inlined stylesheet, Newsreader at one optical size, and two scanner false positives (2026-11-08 night)
+
+**Two "overlaps" that were not.** `qa/bench/rhythm.mjs` reported −10/−7 px gaps in the join step list and a −41 px gap on the doctor profile. Both are rows laid side by side: the "2 min" duration sits to the right of a two-line title, and the 5.0 rating sits to the left of the review summary. The script sorted leaves by top and read a right-hand neighbour as a block under the left one. It now merges any leaf whose top falls inside the open line's vertical band; both pages report no negative gap, and nothing in the screens changed.
+
+**The one render-blocking request is gone.** Every static page loaded one 52 KB (11 KB gzipped) stylesheet before it could paint. `experimental.inlineCss` puts it in the HTML. Build, 704 unit tests, the edge suite and a client navigation (Home → Recent keeps every token-driven style) were checked on the local build before the push. Observed Lighthouse 13.6 (`--throttling-method=devtools`, 4G, 4x CPU) on production, one run each:
+
+| Route | Before | Stylesheet inlined | + Newsreader at one optical size |
+| --- | --- | --- | --- |
+| /me | 94 · FCP 1.7 s · LCP 2.5 s | 95 · FCP 0.8 s · LCP 3.0 s | 96 · FCP 0.8 s · LCP 2.7 s |
+| /join | 95 · FCP 2.1 s · LCP 2.4 s | 92–95 · FCP 1.4–1.5 s · LCP 2.9–3.2 s | 95 · FCP 1.4 s · LCP 2.7 s |
+| /doctor/[id] | 98 · FCP 1.7 s · LCP 2.2 s | 100 · FCP 1.0 s · LCP 1.4 s | 93 · FCP 1.8 s · LCP 2.3 s (fonts landed at 3.4 s on that run; the page's edge cache was cold after the deploy) |
+
+**Why LCP moved later when first paint moved earlier.** The LCP element on every text page is a line of Inter (Home: "Times from saved doctors that fit your week"; Join: the H1), and the paint Lighthouse records is the font swap. With the blocking stylesheet gone, the scripts start at 0.65 s instead of after the CSS, so the 73 KB Inter file and the 132 KB Newsreader file shared the 1.6 Mbps link with 198 KB of scripts from the first moment, and Inter landed at 2.9–3.1 s instead of 2.4 s. The network log shows the server does not prioritise: "High" fonts and "Low" scripts finish together.
+
+**Newsreader at one optical size.** The Fontsource latin file carried both axes (opsz 6–72, wght 200–800). Newsreader renders at 20 px (quotes), 22 px (title2), 40 px (the hero) and the monograms, so `scripts/fonts/pin_newsreader.py` instances it at opsz 24 with weight still variable: 132 KB → 58 KB, `app/fonts/newsreader-latin-opsz24-wght.woff2`, committed. Hero and quote photographed at 390 and 1280 before and after: the hero is a few pixels tighter at 40 px, the 20 px quote wraps one word earlier. Inter now lands at ~2.8 s and LCP sits 0.2–0.3 s behind the pre-inline figure with first paint 0.7–0.9 s ahead of it.
+
+**Judged and kept:** `font-display: swap` with size-adjusted fallbacks. `optional` would make LCP the fallback paint at 0.8 s, but a first visit on a slow link would never show the faces the design is built on. The next byte lever is Inter at one optical size (73 → 48 KB, about 0.12 s on this link), which changes every large title's cut; not taken.
+
+**Seen once, not reproduced:** the production shot of /healthspan at 390 taken while three queued deploys were swapping showed Next's "Application error: a client-side exception" page. Both widths were clean on the next load and on every later check; a chunk from the previous deploy failing to load mid-rollout is the usual cause, and Vercel's skew protection is not on the Hobby plan.
+
+**Two gates the rules said did not exist.** `node qa/iphone/words.mjs` now covers 14 routes and exits 1 when a first screen passes 60 words (today 10 to 60; the three empty states sit under 20 by nature). `src/ui/copy-rules.test.ts` scans every screen's own words in `src/ui` and `app` for superlatives, medicine brand names and "specialist" (282 checks; one placeholder practice name allow-listed with its reason). Both pass on the shipped code.
