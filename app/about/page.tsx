@@ -26,7 +26,7 @@ export default async function AboutPage() {
   return (
     <Screen>
       <NavBar back="/me" />
-      <h1 className="display rise mt-4 text-large-title font-medium text-ink">A doctor who fits you as well as your condition.</h1>
+      <h1 className="display mt-4 text-large-title font-medium text-ink">A doctor who fits you as well as your condition.</h1>
       <p className="mt-3 text-body text-grey"><ByMode wattle={line("wattle")} adhdme={line("adhdme")} /></p>
       <a href="/about/coverage" className="press-soft mt-2 flex min-h-11 items-center text-body text-accent">Who sees people in each of the {STATES.length} states</a>
       <div className="mt-8">

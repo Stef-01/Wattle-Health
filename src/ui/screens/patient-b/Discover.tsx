@@ -85,16 +85,16 @@ export function Discover({ offerings }: { offerings: Offering[] }) {
       {cat === null ? <p className="mt-2 text-body text-grey">Newer care you can book directly.</p> : null}
 
       {cat === null ? (
-        <div className="rise mt-4">
+        <div className="mt-4">
           <div className="flex flex-col gap-3">
-            <a href="/healthspan" className="rise press-soft block rounded-card bg-ink px-5 py-5 text-left">
+            <a href="/healthspan" className="press-soft block rounded-card bg-ink px-5 py-5 text-left">
               <span className="block font-display text-title2 text-white">Plan your healthspan</span>
               <span className="mt-1 block text-subhead text-white/85">Prevention, with your wearable and bloodwork.</span>
             </a>
             {CATEGORIES.map((c, i) => {
               const n = offerings.filter((o) => o.category === c.id).length;
               return (
-                <button key={c.id} type="button" onClick={() => { setCat(c.id); setStep(0); setAnswers({}); }} className="rise press-soft rounded-card px-5 py-5 text-left" style={{ background: c.tint, "--i": i } as React.CSSProperties}>
+                <button key={c.id} type="button" onClick={() => { setCat(c.id); setStep(0); setAnswers({}); }} className="press-soft rounded-card px-5 py-5 text-left" style={{ background: c.tint } as React.CSSProperties}>
                   <span className="block font-display text-title2 text-ink">{c.title}</span>
                   <span className="mt-1 block text-subhead leading-read text-charcoal">{c.sub}</span>
                   <span className="mt-3 inline-flex items-center gap-0.5 text-subhead font-semibold text-ink">{n} {n === 1 ? "service" : "services"}<ChevronRight size={15} strokeWidth={2.25} className="text-grey-3" /></span>

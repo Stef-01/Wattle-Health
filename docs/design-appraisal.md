@@ -434,11 +434,12 @@ Considered and not built, with the reason:
 
 Still needs a phone, as round 11 said: the thresholds are Vaul's iOS-derived ones and the touch checks run in Chromium.
 
-**Home's faces.** The sweep of every route on production (observed Lighthouse, mobile, devtools throttling) after the inlined stylesheet: 14 routes between 85 and 98, Home 67 to 69 with LCP 4.1 to 5.6 s. The request log showed why: the five 36 px faces in "Meet 170 doctors in their own words" were the practices' originals, one a 2.2 MB PNG from sironawomenshealth.com.au, a 397 KB nimbo asset, a 104 KB jpeg, all at High priority beside the fonts, and on a 1.6 Mbps link Inter (the LCP) arrived at 4.4 s instead of 2.8 s. `Face` now goes through the image optimizer for the listed hosts at the next default width above twice its size (`/_next/image?…&w=96`): that face is 8.9 KB. The same component draws the face stacks on Recent and Saved. Home re-measured on production after the deploy: see the line below the table once it has run.
+**Home's faces.** The sweep of every route on production (observed Lighthouse, mobile, devtools throttling) after the inlined stylesheet: 14 routes between 85 and 98, Home 67 to 69 with LCP 4.1 to 5.6 s. The request log showed why: the five 36 px faces in "Meet 170 doctors in their own words" were the practices' originals, one a 2.2 MB PNG from sironawomenshealth.com.au, a 397 KB nimbo asset, a 104 KB jpeg, all at High priority beside the fonts, and on a 1.6 Mbps link Inter (the LCP) arrived at 4.4 s instead of 2.8 s. `Face` now goes through the image optimizer for the listed hosts at the next default width above twice its size (`/_next/image?…&w=96`): that face is 8.9 KB. The same component draws the face stacks on Recent and Saved. Home re-measured on production after the deploy: 93, FCP 0.9 s, LCP 2.8 s, TBT 50 ms; the seven faces are 0.9 to 2.5 KB each and arrive by 1.6 s, the fonts by 2.8 s as on every other route.
 
 | Route | Score | FCP | LCP | TBT |
 | --- | --- | --- | --- | --- |
 | / (first visit, before) | 67 | 1.0 s | 4.1 s | 510 ms |
+| / (first visit, after) | 93 | 0.9 s | 2.8 s | 50 ms |
 | /narrow | 86 | 2.7 s | 2.7 s | 80 ms |
 | /recent, /saved, /me, /me/openings, /me/discover, /me/context, /about, /about/coverage, /compare, /join/verify | 94 to 97 | 0.9 to 1.3 s | 2.6 to 3.0 s | 40 to 170 ms |
 | /healthspan | 93 | 1.5 s | 3.1 s | 50 ms |

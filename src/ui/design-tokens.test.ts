@@ -103,6 +103,9 @@ describe("app/globals.css is the one place a value lives", () => {
     // the sheet leaves on --duration-slow, the scrim on --duration-base: both quicker than their entrances
     expect(/\.sheet-closing \.sheet-panel \{[^}]*var\(--duration-slow\)/.test(css)).toBe(true);
     expect(/\.sheet-closing \.sheet-scrim \{[^}]*var\(--duration-base\)/.test(css)).toBe(true);
+    // the notification arrives on --duration-slow and leaves on --duration-base (motion review, 2026-11-08)
+    expect(/\.toast-in \{[^}]*transform var\(--duration-slow\)/.test(css)).toBe(true);
+    expect(/\.toast-out \{[^}]*transform var\(--duration-base\)/.test(css)).toBe(true);
   });
   it("every token a screen names exists", () => {
     const names = new Set([...theme.matchAll(/--([a-z0-9-]+):/g)].map((m) => m[1]));

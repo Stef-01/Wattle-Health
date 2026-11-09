@@ -139,7 +139,7 @@ export function OpeningPrompt() {
           <span className="ml-auto">now</span>
         </div>
         {state === "booked" ? (
-          <div className="bounce-in mt-2">
+          <div className="rise mt-2">
             <p className="flex items-center gap-2 text-body font-semibold text-ink"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" className="tick shrink-0"><circle cx="11" cy="11" r="11" fill="var(--color-ink)" /><path d="M6.5 11.5l3 3 6-6.5" fill="none" stroke="var(--color-cell)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Booked with {name}</p>
             <p className="mt-0.5 text-subhead leading-read text-grey">{when}{o.mode === "telehealth" ? ", by video" : ""}. It’s in your calendar and in Openings.</p>
             <button type="button" onClick={close} className="press mt-3 h-11 w-full rounded-full bg-surface text-subhead font-semibold text-ink">Done</button>

@@ -64,7 +64,7 @@ export function Heard() {
           <Body>&ldquo;{req.sentence}&rdquo;</Body>
           <div style={{ height: 36 }} aria-hidden="true" />
           {pills.map((p) => (
-            <div key={p.id} className="flex items-center justify-between border-b border-divider py-3.5" style={busy === p.id ? { opacity: 0.5 } : undefined}>
+            <div key={p.id} className="flex items-center justify-between border-b border-divider py-3.5" style={{ opacity: busy === p.id ? 0.5 : 1, transition: "opacity var(--duration-fast) ease" }}>
               <span className="text-body text-ink">{p.label}<span className="text-grey">{p.must ? " · must" : ""}</span></span>
               {p.removable ? (
                 <button type="button" onClick={() => void toggle(p.id)} className="press-dim text-subhead text-accent">Remove</button>

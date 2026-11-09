@@ -30,7 +30,7 @@ function Header({ d }: { d: DoctorRecord }) {
       <div className="flex items-center gap-4">
         {d.photo ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={d.photo.url} alt={d.photo.alt ?? name} referrerPolicy="no-referrer" className="settle size-[88px] shrink-0 rounded-full object-cover object-top" style={{ background: "var(--color-surface-soft)" }} />
+          <img src={d.photo.url} alt={d.photo.alt ?? name} referrerPolicy="no-referrer" className="size-[88px] shrink-0 rounded-full object-cover object-top" style={{ background: "var(--color-surface-soft)" }} />
         ) : (
           <Avatar name={name} size={88} />
         )}

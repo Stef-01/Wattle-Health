@@ -45,11 +45,12 @@ const ICONS: Record<Highlight["kind"], string> = {
   personal: "M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z",
   people: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 20a5 5 0 0 1 10 0M11 20a5 5 0 0 1 10 0",
 };
-function HighlightRows({ items }: { items: Highlight[] }) {
+/** `arrive` staggers the rows in once, on the results landing; a tab switch back to Highlights shows them at rest. */
+function HighlightRows({ items, arrive = true }: { items: Highlight[]; arrive?: boolean }) {
   return (
     <ul className="grid grid-cols-1 gap-x-10 gap-y-4 lg:grid-cols-2">
       {items.map((h, i) => (
-        <li key={h.id} className="rise flex items-start gap-3" style={{ "--i": i } as React.CSSProperties}>
+        <li key={h.id} className={`${arrive ? "rise " : ""}flex items-start gap-3`} style={arrive ? ({ "--i": i } as React.CSSProperties) : undefined}>
           <span aria-hidden="true" className="inline-flex size-[30px] shrink-0 items-center justify-center text-grey">
             <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round"><path d={ICONS[h.kind]} /></svg>
           </span>
@@ -82,6 +83,9 @@ function faqs(d: DoctorRecord): { q: string; a: string }[] {
 export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false, telehealthOnly = false, variant = "match", optimizePortrait = false }: { variant?: "match" | "profile"; telehealthOnly?: boolean; optimizePortrait?: boolean; card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
   const d = card.doctor;
   const [tab, setTab] = useState<Tab>("Highlights");
+  // A tab switch is a tens-a-day action: one 150 ms fade, not the 300 ms rise and stagger the landing gets.
+  const [switched, setSwitched] = useState(false);
+  const goTab = (t: Tab) => { setTab(t); setSwitched(true); };
   const reviews = useReviewSummary(d.id);
   const room = primaryRoom(d);
   const line = [providerTitle(d), room?.name ?? null].filter(Boolean).join(" · ");
@@ -131,7 +135,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       </header>
       {ownLine ? <p className="mt-4 font-display text-quote text-ink">“{ownLine.replace(/^[“"]|[”"]$/g, "")}”</p> : <p className="mt-4 text-body leading-read text-grey">{fitSentence(card, labels)}</p>}
       {reviews && reviews.count > 0 ? (
-        <button type="button" onClick={() => setTab("Reviews")} className="cell mt-4 flex w-full items-center gap-4 rounded-card bg-surface-soft p-4 text-left">
+        <button type="button" onClick={() => goTab("Reviews")} className="cell mt-4 flex w-full items-center gap-4 rounded-card bg-surface-soft p-4 text-left">
           <span className="flex shrink-0 flex-col items-center">
             <span className="tnum text-large-title text-ink">{reviews.average?.toFixed(1)}</span>
             <span className="mt-0.5"><Stars value={reviews.average ?? 0} size={12} /></span>
@@ -152,11 +156,11 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       <div ref={thumb.track} role="tablist" aria-label="Doctor details" className="chrome thumb-track relative mt-7 grid h-9 rounded-full bg-surface p-[2px]" style={{ gridTemplateColumns: `repeat(${tabs.length}, auto)`, "--thumb": "var(--color-cell)" } as React.CSSProperties}>
         <Thumb box={thumb.box} className="bg-white shadow-float" />
         {tabs.map((t) => (
-          <button key={t} role="tab" type="button" aria-selected={tab === t} data-thumb-on={tab === t} onClick={() => setTab(t)} className={`press-dim hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-footnote text-ink ${tab === t ? "font-semibold" : ""}`}><span className="truncate">{t}</span></button>
+          <button key={t} role="tab" type="button" aria-selected={tab === t} data-thumb-on={tab === t} onClick={() => goTab(t)} className={`press-dim hit relative z-10 flex min-w-0 items-center justify-center rounded-full px-2 text-footnote text-ink ${tab === t ? "font-semibold" : ""}`}><span className="truncate">{t}</span></button>
         ))}
       </div>
-      <div role="tabpanel" key={tab} className="rise min-h-[220px] pt-5">
-        {tab === "Highlights" ? <HighlightRows items={highlights} /> : null}
+      <div role="tabpanel" key={tab} className={`${switched ? "fade-in" : "rise"} min-h-[220px] pt-5`}>
+        {tab === "Highlights" ? <HighlightRows items={highlights} arrive={!switched} /> : null}
         {tab === "About" ? (
           <div className="flex flex-col gap-7">
             <Facts d={d} />

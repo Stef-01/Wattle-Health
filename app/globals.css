@@ -335,7 +335,6 @@ details > summary::-webkit-details-marker {
   }
 }
 .rise,
-.bounce-in,
 .word-in,
 .settle {
   animation: rise var(--duration-slow) var(--ease-out) both;
@@ -351,7 +350,11 @@ details > summary::-webkit-details-marker {
   }
 }
 .page-enter {
-  animation: fade var(--duration-fast) ease-out both;
+  animation: fade var(--duration-fast) var(--ease-out) both;
+}
+/* A swap inside a view that is already on screen (a profile tab, the Home title once the name is read): one short fade. */
+.fade-in {
+  animation: fade var(--duration-fast) var(--ease-out) both;
 }
 /* No transform on the page: a filled transform animation makes every fixed dock and sheet inside it position
    against the page instead of the viewport (2026-11-08: a 12 px push put the bottom button 27 px below the fold). */
@@ -397,8 +400,8 @@ details > summary::-webkit-details-marker {
   transform: translateY(calc(-100% - 16px));
   opacity: 0;
   transition:
-    transform var(--duration-slow) var(--ease-out),
-    opacity var(--duration-base) ease;
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-fast) ease;
 }
 
 /* ---------------------------------------------------------------- materials */
@@ -560,6 +563,10 @@ details > summary::-webkit-details-marker {
 
 /* ---------------------------------------------------------------- mode */
 /* src/ui/ByMode.tsx renders both modes; <html data-mode> (stamped before paint, app/layout.tsx) shows one. */
+/* The Home title paints at once; only a reader with a stored name waits for it (data-named, stamped before paint). */
+html[data-named="some"] .pre-title {
+  visibility: hidden;
+}
 /* Pre-hydration state blocks (app/layout.tsx stamps data-saved/search/compare on <html> from the stores before
    paint). Each page ships both its empty state and a skeleton; only the matching one shows. Without the
    stamp (no script) nothing shows, which is the previous behaviour. */
@@ -687,23 +694,17 @@ html:not([data-mode="adhdme"]) [data-mode="adhdme"] {
   opacity: 0;
 }
 
-/* The heart answers once when it fills, like an SF Symbol bounce. */
+/* The heart answers once when it fills: a settle from 0.82 to rest, 200 ms, no pass above 1 (no overshoot anywhere). */
 @keyframes symbol-bounce {
-  0% {
-    transform: scale(1);
-  }
-  35% {
+  from {
     transform: scale(0.82);
   }
-  70% {
-    transform: scale(1.12);
-  }
-  100% {
+  to {
     transform: scale(1);
   }
 }
 .pop {
-  animation: symbol-bounce var(--duration-sheet) var(--ease-out);
+  animation: symbol-bounce var(--duration-base) var(--ease-out);
 }
 
 /* Success tick draws itself once (booking, calendar connected). */
@@ -720,7 +721,7 @@ html:not([data-mode="adhdme"]) [data-mode="adhdme"] {
   animation: draw var(--duration-sheet) var(--ease-out) var(--duration-fast) both;
 }
 .tick {
-  animation: fade var(--duration-base) ease-out both;
+  animation: fade var(--duration-base) var(--ease-out) both;
 }
 
 /* Plus turns into minus by rotating its vertical bar away. */
@@ -732,24 +733,32 @@ html:not([data-mode="adhdme"]) [data-mode="adhdme"] {
   transform: rotate(90deg) scaleX(0);
 }
 
-/* Dictation: a soft ring while the mic listens. */
+/* Dictation: a soft ring while the mic listens. The ring is a pseudo-element scaling and fading (compositor only);
+   animating box-shadow repainted the button every frame. */
 @keyframes listen {
   from {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 35%, transparent);
+    transform: scale(1);
+    opacity: 0.35;
   }
   to {
-    box-shadow: 0 0 0 12px color-mix(in srgb, var(--color-accent) 0%, transparent);
+    transform: scale(1.4);
+    opacity: 0;
   }
 }
 button[aria-pressed="true"][aria-label="Stop listening"] {
+  position: relative;
   border-radius: 9999px;
+}
+button[aria-pressed="true"][aria-label="Stop listening"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px var(--color-accent);
   animation: listen 1.2s ease-out infinite;
+  pointer-events: none;
 }
 
-/* The splash wordmark settles once; the leaf holds still. */
-.float {
-  animation: none;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .toast-in {
@@ -759,7 +768,6 @@ button[aria-pressed="true"][aria-label="Stop listening"] {
     }
   }
   .rise,
-  .bounce-in,
   .word-in,
   .settle,
   .pop,

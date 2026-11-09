@@ -225,7 +225,7 @@ export function Narrow() {
       </div>
 
       {index < 0 ? (
-        <div key="entry" className="rise mt-16 flex flex-col items-center text-center">
+        <div key="entry" className="mt-16 flex flex-col items-center text-center">
           <Orb size={72} />
           <h1 className="mt-10 text-title1 text-ink">A few questions to narrow your search</h1>
           <p className="mt-2 text-body text-grey">Your answers shape who we show you.</p>

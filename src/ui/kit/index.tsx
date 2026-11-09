@@ -217,7 +217,7 @@ export function Cell({ icon, bare = false, title, sub, value, href, onClick, acc
       </span>
       {value ? <span className="shrink-0 text-body text-grey">{value}</span> : null}
       {acc === "chevron" ? <ChevronRight size={16} strokeWidth={2.25} className="shrink-0 text-grey-3" /> : null}
-      {acc === "check" ? <Check size={20} strokeWidth={2.25} className={cx("shrink-0 text-accent", !selected && "invisible")} /> : null}
+      {acc === "check" ? <Check size={20} strokeWidth={2.25} className={cx("shrink-0 text-accent transition-[opacity,transform] duration-(--duration-fast) ease-(--ease-out) motion-reduce:transition-none", !selected && "scale-90 opacity-0")} /> : null}
       {acc !== "chevron" && acc !== "check" && acc !== "none" ? acc : null}
     </>
   );
@@ -413,7 +413,7 @@ export function TabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
         {TABS.map(({ href, label, Icon }) => {
           const on = active === href;
           return (
-            <Link key={href} href={href} aria-current={on ? "page" : undefined} data-thumb-on={on} className={cx("press relative z-10 flex flex-col items-center justify-center gap-0.5 rounded-full transition-colors duration-(--duration-fast)", on ? "text-ink" : "text-grey")}>
+            <Link key={href} href={href} aria-current={on ? "page" : undefined} data-thumb-on={on} className={cx("press relative z-10 flex flex-col items-center justify-center gap-0.5 rounded-full", on ? "text-ink" : "text-grey")}>
               <Icon size={24} strokeWidth={on ? 2.1 : 1.75} fill={on && label !== "Recent" ? "currentColor" : "none"} />
               <span className="text-caption2 font-semibold">{label}</span>
             </Link>

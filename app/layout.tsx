@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Whether this visitor has saved doctors, a current search and a compare pair, on <html> before anything
             paints: the static HTML carries each page's empty state and its skeleton, and CSS shows the one that
             applies (globals.css [data-pre]). The screens then hydrate into the real state with no blank frame. */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var d=document.documentElement,L=localStorage,S=sessionStorage,n=function(k){try{return JSON.parse(L.getItem(k)||"[]").length>0}catch(e){return false}};d.dataset.saved=n("wattle.saved.v1")?"some":"none";d.dataset.compare=n("wattle.compare")?"some":"none";d.dataset.search=S.getItem("wattle.req.current")?"some":"none"}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var d=document.documentElement,L=localStorage,S=sessionStorage,n=function(k){try{return JSON.parse(L.getItem(k)||"[]").length>0}catch(e){return false}};d.dataset.saved=n("wattle.saved.v1")?"some":"none";d.dataset.named=L.getItem("wattle.name")?"some":"none";d.dataset.compare=n("wattle.compare")?"some":"none";d.dataset.search=S.getItem("wattle.req.current")?"some":"none"}catch(e){}})()` }} />
       </head>
       <body>
         {children}

@@ -52,7 +52,7 @@ export function HealthspanLanding({ offerings }: { offerings: Offering[] }) {
     <Screen padBottom="pb-[120px]">
       <NavBar back="/me/discover" />
 
-      <header className="rise mt-6">
+      <header className="mt-6">
         <h1 className="display text-hero font-medium text-ink">More years in good health.</h1>
         <p className="mt-3 text-body leading-read text-ink">Most Australians spend their last decade living with illness. Much of it shows early signs you can act on.</p>
         <div className="mt-5">

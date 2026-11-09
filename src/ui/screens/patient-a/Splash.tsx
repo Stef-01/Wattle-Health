@@ -27,7 +27,7 @@ export function Splash() {
           {brand === "ADHDme" ? "ADHDme" : "wattle"}
         </span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset("/figma/leaf.svg")} alt="" width={34} height={34} className="float block size-[34px]" />
+        <img src={asset("/figma/leaf.svg")} alt="" width={34} height={34} className="block size-[34px]" />
       </div>
       <p style={{ animationDelay: "350ms" }} className="settle absolute left-1/2 top-[474px] w-[300px] -translate-x-1/2 text-center text-title3 text-splash-text">Doctors who listen</p>
     </main>

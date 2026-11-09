@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { demoOpenings, type Opening } from "@/src/data/calendar";
 import type { DoctorRecord } from "@/src/data/types";
 import { primaryRoom } from "@/src/ui/screens/patient-b/facts";
-import { ChevronLeft, ChevronRight } from "@/src/ui/kit";
+import { ChevronLeft, ChevronRight, Segmented } from "@/src/ui/kit";
 
 const DAY = 86400000;
 
@@ -40,13 +40,7 @@ export function BookCard({ doctor: d, telehealthOnly, referral }: { doctor: Doct
       <p className="mt-1 text-subhead text-grey">Demo times. Call the practice to book.</p>
 
       {tele ? (
-        <div className="chrome mt-5 grid h-9 grid-cols-2 rounded-full bg-surface p-[2px]">
-          {(["in-person", "telehealth"] as const).map((m) => (
-            <button key={m} type="button" aria-pressed={mode === m} onClick={() => setMode(m)} className={`hit rounded-full text-subhead transition-[background-color,box-shadow] duration-(--duration-base) ${mode === m ? "bg-white font-semibold text-ink shadow-float" : "text-ink"}`}>
-              {m === "in-person" ? "In person" : "Video visit"}
-            </button>
-          ))}
-        </div>
+        <div className="mt-5"><Segmented label="Visit type" value={mode} onChange={setMode} items={[{ value: "in-person", label: "In person" }, { value: "telehealth", label: "Video visit" }]} /></div>
       ) : null}
 
       <div className="mt-7 flex items-center justify-between">

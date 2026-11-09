@@ -138,7 +138,7 @@ export function Matches() {
         <div className="bleed sticky top-0 z-10 -mt-px mb-2 flex h-11 items-center justify-center gap-2" aria-label={`Reading pick ${reading + 1} of ${cards.length}`}>
           <span aria-hidden="true" className="scroll-edge pointer-events-none absolute inset-x-0 -top-2 h-[64px]" data-on={edge.sticking} data-ready={edge.ready} />
           {cards.map((c, i) => (
-            <span key={c.doctor.id} className="relative size-[7px] rounded-full transition-colors duration-(--duration-slow)" style={{ background: i === reading ? "var(--color-ink)" : i < shown ? "var(--color-grey-2)" : "var(--color-grey-4)" }} />
+            <span key={c.doctor.id} className="relative size-[7px] rounded-full transition-colors duration-(--duration-base)" style={{ background: i === reading ? "var(--color-ink)" : i < shown ? "var(--color-grey-2)" : "var(--color-grey-4)" }} />
           ))}
         </div>
       ) : null}
@@ -213,7 +213,7 @@ export function Matches() {
       ) : res && cards.length === 0 ? (
         <Empty res={res} place={place} busy={busy} onWiden={() => void rerun({ anywhere: true })} onTelehealth={() => void rerun({ sentence: `${req!.sentence}, telehealth only` })} onChange={() => router.push("/")} onClosest={() => void rerun({ anywhere: true })} />
       ) : null}
-      <div className="flex flex-col" style={busy ? { opacity: 0.5, transition: "opacity 150ms ease" } : { transition: "opacity 150ms ease" }}>
+      <div className="flex flex-col" style={{ opacity: busy ? 0.5 : 1, transition: "opacity var(--duration-fast) ease" }}>
         {cards.slice(0, shown).map((card, i) => (
           <div key={card.doctor.id}>
             {i > 0 ? <div className="hairline my-10 w-full" aria-hidden="true" /> : null}

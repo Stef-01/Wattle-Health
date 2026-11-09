@@ -90,10 +90,11 @@ export function Home({ byMode }: { byMode: HomeByMode }) {
   return (
     <Screen padBottom="pb-[110px]">
       <NavBar />
-      {/* The avatar slot is always laid out (44 px) so the title sits at the same height with or without a name;
-          the words appear once the stored name is read, instead of rendering one title and swapping to another. */}
+      {/* The avatar slot is always laid out (44 px) so the title sits at the same height with or without a name. The
+          generic title is in the server HTML and paints at once; a reader with a stored name (data-named on <html>,
+          stamped before paint) sees the slot held until the name is read, then one short fade (motion review, 2026-11-08). */}
       <LargeTitle trailing={initials ? <Link href="/me" aria-label="Your profile" className="press mb-1 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink text-subhead font-semibold text-white">{initials}</Link> : <span aria-hidden="true" className="mb-1 inline-block size-11 shrink-0" />}>
-        <span className={ready ? "rise" : "invisible"}>{name ? `Hi, ${display}.` : <ByMode wattle="Who do you need?" adhdme="What ADHD support do you need?" />}</span>
+        <span className={ready ? (name ? "fade-in" : undefined) : "pre-title"}>{name ? `Hi, ${display}.` : <ByMode wattle="Who do you need?" adhdme="What ADHD support do you need?" />}</span>
       </LargeTitle>
       <Gap h={16} />
       <form

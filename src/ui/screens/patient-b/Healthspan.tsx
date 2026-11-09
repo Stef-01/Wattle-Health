@@ -14,7 +14,7 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
 
   if (!areas) {
     return (
-      <div className="rise mt-6">
+      <div className="mt-6">
         <h2 className="text-title1 text-ink">What do you want more good years for?</h2>
         <textarea value={text} onChange={(e) => setText(e.target.value)} rows={3} placeholder="Keep up with my kids, stay sharp, sleep properly…" className="field mt-5 w-full rounded-field bg-surface px-4 py-3 text-body outline-none" />
         <div className="mt-3 flex flex-col gap-1.5">
@@ -35,7 +35,7 @@ export function Healthspan({ offerings }: { offerings: Offering[] }) {
 
   const dev = DEVICES.find((d) => d.id === device)!;
   return (
-    <div className="rise mt-6">
+    <div className="mt-6">
       <p className="text-subhead text-grey">You said “{text.trim()}”</p>
       <h2 className="mt-1 text-title1 text-ink">{areas.length === 1 ? "One area to work on" : `${areas.length} areas to work on`}</h2>
       <div className="mt-5 flex flex-col gap-3">

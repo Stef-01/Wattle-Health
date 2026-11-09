@@ -1,4 +1,5 @@
 "use client";
+import type React from "react";
 // C08 Review and publish (Figma 227:296) and the confirmation state after Publish.
 // Publish writes personal_profiles as 'draft' with consent_at; 'doctor-approved' is set by Wattle after the register check.
 import { useRef, useState, useTransition } from "react";
@@ -94,11 +95,11 @@ function Submitted({ backend }: { backend?: "supabase" | "inbox" | "memory" }) {
       <DevBanner backend={backend} />
       <StepTitle sub="We verify your registration before anything is published.">Submitted.</StepTitle>
       <div className="h-9" />
-      <Row icon={<Asset name="check" size={17} />} title="Claim received" sub="Matched to your practice email domain" />
+      <div className="rise" style={{ "--i": 0 } as React.CSSProperties}><Row icon={<Asset name="check" size={17} />} title="Claim received" sub="Matched to your practice email domain" /></div>
       <Divider />
-      <Row icon={<Asset name="check" size={17} />} title="Profile saved as a draft" sub="Only you and Wattle can see it" />
+      <div className="rise" style={{ "--i": 1 } as React.CSSProperties}><Row icon={<Asset name="check" size={17} />} title="Profile saved as a draft" sub="Only you and Wattle can see it" /></div>
       <Divider />
-      <Row icon={<Asset name="shield" size={17} />} title="Register check next" sub="AHPRA public register" />
+      <div className="rise" style={{ "--i": 2 } as React.CSSProperties}><Row icon={<Asset name="shield" size={17} />} title="Register check next" sub="AHPRA public register" /></div>
       <Divider />
       <Note className="mt-[22px]">You can edit anything until it goes live.</Note>
       <Cta href="/">
