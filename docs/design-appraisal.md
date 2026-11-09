@@ -358,7 +358,7 @@ The 89 on the profile was the portrait's bytes on a throttled link. The roster's
 
 Every one of the 14 browsing routes now observes at 93–98 performance with accessibility 100, with the profile's one-run dip recorded above. Quota: 207 portraits across 46 hosts, two widths each in practice, inside the Hobby allowance; `minimumCacheTTL` 30 days keeps re-transformations down.
 
-## Round 14 — the inlined stylesheet, Newsreader at one optical size, and two scanner false positives (2026-11-08 night)
+## Round 16 — the inlined stylesheet, Newsreader at one optical size, and two scanner false positives (2026-11-08 night)
 
 **Two "overlaps" that were not.** `qa/bench/rhythm.mjs` reported −10/−7 px gaps in the join step list and a −41 px gap on the doctor profile. Both are rows laid side by side: the "2 min" duration sits to the right of a two-line title, and the 5.0 rating sits to the left of the review summary. The script sorted leaves by top and read a right-hand neighbour as a block under the left one. It now merges any leaf whose top falls inside the open line's vertical band; both pages report no negative gap, and nothing in the screens changed.
 
