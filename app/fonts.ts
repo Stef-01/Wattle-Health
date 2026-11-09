@@ -17,7 +17,11 @@ export const inter = localFont({
 });
 
 export const newsreader = localFont({
-  src: "../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2",
+  // Optical size pinned at 24 (scripts/fonts/pin_newsreader.py): the two-axis Fontsource file was 132 KB and
+  // shared the first seconds of a 1.6 Mbps link with Inter, whose arrival is the LCP on every text page.
+  // Newsreader is only set at 20, 22 and 40 px and the monograms, so one size near them covers every use
+  // and the file is 58 KB. Weight stays variable (200..800).
+  src: "./fonts/newsreader-latin-opsz24-wght.woff2",
   style: "normal",
   weight: "200 800",
   display: "swap",
