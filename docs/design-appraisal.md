@@ -310,3 +310,18 @@ Saved, Results and Compare depend on the visitor's own stores (localStorage, ses
 `qa/edge/pre-state.mjs` (also run against production): JS off shows no pre block (the old behaviour); empty stores show the empty state at first paint and the hydrated page carries the same words with the pre blocks unmounted; populated stores at 6x CPU throttle sample skeleton → content on every page with no blank frame (`SC`, `SSC`, `SC`).
 
 All 14 browsing routes now sit at 93–98 observed performance with accessibility 100, except the doctor profile at 89 where the portrait shares the throttled link with the fonts.
+
+### Closing gate run on production (2026-11-08, after round 13)
+
+| Gate | Result |
+| --- | --- |
+| `qa/edge/hops.mjs` | title on screen 41–56 ms per tab hop |
+| `qa/edge/recent-geometry.mjs` | clean: 30 rows, 12 px gap, shared left edge, three widths, both modes |
+| `qa/edge/animations.mjs` | clean: only `rise` 300 ms once and `img-fade` opacity 70/300 ms once across every route and width |
+| `qa/edge/errs.mjs`, `qa/edge/404s.mjs` | no console errors, no failed requests |
+| `qa/edge/pre-state.mjs` | clean on production (round 13) |
+| Lighthouse observed, 14 routes | accessibility 100 everywhere; performance 93–98 on thirteen, profile 89 |
+
+**Profile at 89, and why it stays.** The portrait (70 KB, the practice's own origin) shares the throttled link with the two font files; Newsreader is used on the profile itself (quote, monogram), so the font cannot be dropped from that page. The remaining lever is routing third-party portraits through the Vercel image optimizer (roughly a third of the bytes as WebP), which counts against the Hobby plan's monthly source-image quota across 252 prerendered profiles plus the results portraits. That is a plan-cost decision for the founder, not a defect to fix quietly.
+
+**What no gate here can show.** iOS Safari's handling of the mobile-native declarations (all present in the shipped CSS, round 12) is only confirmable on a phone.
