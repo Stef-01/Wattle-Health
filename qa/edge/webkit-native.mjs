@@ -18,7 +18,8 @@ const env = await p.evaluate(async () => {
   const probe = document.createElement("div"); probe.style.cssText = "position:fixed;padding-bottom:env(safe-area-inset-bottom, 7px);height:100dvh;width:1px;visibility:hidden"; document.body.appendChild(probe);
   // WebKit exposes -webkit-tap-highlight-color neither as a computed value nor through the CSSOM; read the
   // shipped stylesheet text instead.
-  let tap = "not declared"; for (const l of document.querySelectorAll('link[rel="stylesheet"]')) { try { const t = await (await fetch(l.href)).text(); const m = t.match(/html[^{]*\{[^}]*-webkit-tap-highlight-color:\s*([^;}]+)/); if (m) tap = m[1]; } catch {} }
+  // The stylesheet is inlined since 2026-11-08 (experimental.inlineCss): read <style> blocks as well as any <link>.
+  let tap = "not declared"; const sheets = [...document.querySelectorAll("style")].map((el) => el.textContent ?? ""); for (const l of document.querySelectorAll('link[rel="stylesheet"]')) { try { sheets.push(await (await fetch(l.href)).text()); } catch {} } for (const t of sheets) { const m = t.match(/html[^{]*\{[^}]*-webkit-tap-highlight-color:\s*([^;}]+)/); if (m) { tap = m[1]; break; } }
   const cs = getComputedStyle(probe); const out = { tap, hoverMedia: matchMedia("(hover: hover)").matches, pointerFine: matchMedia("(pointer: fine)").matches, minInput: Math.min(...inputs), inputs: inputs.length, touchManip: ta.filter((t) => t === "manipulation").length + "/" + ta.length, userSelectNone: us.filter((t) => t === "none").length + "/" + us.length, dvh: cs.height, innerH: innerHeight, safeArea: cs.paddingBottom, mainH: mh };
   probe.remove(); return out;
 });
