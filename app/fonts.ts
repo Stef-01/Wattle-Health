@@ -6,21 +6,19 @@
 import localFont from "next/font/local";
 
 export const inter = localFont({
-  src: [
-    { path: "../node_modules/@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2", style: "normal" },
-    { path: "../node_modules/@fontsource-variable/inter/files/inter-latin-opsz-italic.woff2", style: "italic" },
-  ],
+  // Upright only: nothing in the app sets italic (checked 2026-11-08), and the italic files were 273 KB
+  // of the 422 KB the head was preloading on a 1.6 Mbps link.
+  src: "../node_modules/@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2",
   weight: "100 900",
+  style: "normal",
   display: "swap",
   variable: "--font-inter-v",
   adjustFontFallback: "Arial",
 });
 
 export const newsreader = localFont({
-  src: [
-    { path: "../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2", style: "normal" },
-    { path: "../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2", style: "italic" },
-  ],
+  src: "../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2",
+  style: "normal",
   weight: "200 800",
   display: "swap",
   variable: "--font-newsreader-v",
