@@ -1,11 +1,11 @@
 "use client";
 // C01 Join as a doctor (Figma 227:9).
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import { Cta, Divider, Row, Screen } from "@/src/ui/kit";
 import { backendMode } from "@/src/server/clinician";
 import { Asset, DevBanner, StepHeader, StepTitle } from "./parts";
 import { useJoin } from "./session";
+import { useQueryParam } from "@/src/ui/query";
 
 const STEPS = [
   { icon: "shield", title: "Verify registration", sub: "AHPRA public register", meta: "2 min" },
@@ -15,8 +15,7 @@ const STEPS = [
 
 export function JoinScreen() {
   const { state, update, ready } = useJoin();
-  const params = useSearchParams();
-  const doctor = params.get("doctor");
+  const doctor = useQueryParam("doctor");
   useEffect(() => {
     if (!ready) return;
     backendMode().then((backend) => update({ backend })).catch(() => undefined);

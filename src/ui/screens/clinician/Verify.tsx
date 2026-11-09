@@ -2,17 +2,17 @@
 // C02 Verify registration (Figma 227:68). Looks the number up in our own data first; the register
 // check itself is a Wattle-side step, so the card says so unless we already hold register-tier data.
 import { useEffect, useState, useTransition } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Cta, Screen } from "@/src/ui/kit";
 import { createClaim, lookupDoctor, type Lookup } from "@/src/server/clinician";
 import { Asset, DevBanner, Field, Label, Note, StepHeader, StepTitle } from "./parts";
 import { useJoin } from "./session";
+import { useQueryParam } from "@/src/ui/query";
 
 export function VerifyScreen() {
   const { state, update, ready } = useJoin();
   const router = useRouter();
-  const params = useSearchParams();
-  const doctorParam = params.get("doctor");
+  const doctorParam = useQueryParam("doctor");
   const [ahpra, setAhpra] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +40,7 @@ export function VerifyScreen() {
         })
         .catch(() => undefined);
     }
-  }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [ready, doctorParam]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function lookUp() {
     setError(null);
