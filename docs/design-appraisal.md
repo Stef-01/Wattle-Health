@@ -325,3 +325,22 @@ All 14 browsing routes now sit at 93–98 observed performance with accessibilit
 **Profile at 89, and why it stays.** The portrait (70 KB, the practice's own origin) shares the throttled link with the two font files; Newsreader is used on the profile itself (quote, monogram), so the font cannot be dropped from that page. The remaining lever is routing third-party portraits through the Vercel image optimizer (roughly a third of the bytes as WebP), which counts against the Hobby plan's monthly source-image quota across 252 prerendered profiles plus the results portraits. That is a plan-cost decision for the founder, not a defect to fix quietly.
 
 **What no gate here can show.** iOS Safari's handling of the mobile-native declarations (all present in the shipped CSS, round 12) is only confirmable on a phone.
+
+## Round 14 — the mobile-native rules in the Safari engine (2026-11-08 night)
+
+`qa/edge/webkit-native.mjs` runs Playwright's WebKit (the Safari engine, iPhone 14 descriptor) against production. It is not an iPhone: it cannot show the URL bar collapsing, the software keyboard or a notch. It does show what the engine does with the declarations:
+
+| Check | WebKit result |
+| --- | --- |
+| `-webkit-tap-highlight-color: transparent` on the control rule | present in the shipped stylesheet (WebKit exposes it neither as a computed value nor through the CSSOM, so the test reads the CSS text) |
+| touch device: `(hover: hover)` false, `(pointer: fine)` false | yes, so every gated hover rule is off |
+| inputs at 16 px or more | 17 px (no zoom on focus) |
+| `touch-action: manipulation` on controls | 15 of 15 |
+| `user-select: none` on controls | 15 of 15 after this round: the "Meet N doctors" link on Home lacked `.chrome` and would have selected on long-press |
+| `100dvh` resolves to the viewport | 664 px = innerHeight |
+| `env(safe-area-inset-bottom)` | parses (0 px off-device) |
+| no sticky hover after a tap on a tab | all four tabs at rest |
+| Refine sheet by touch | tracks 1:1 (translateY 120 for 120 px, scrim 0.69), dismisses on a long drag |
+| Recent rows | 12 px gap |
+
+One real defect came out of it (the Home link), fixed in 791f378. What remains device-only is the chrome around the page, not the page.

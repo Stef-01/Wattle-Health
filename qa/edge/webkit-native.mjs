@@ -9,19 +9,20 @@ const c = await b.newContext({ ...devices["iPhone 14"] });
 const p = await c.newPage(); await p.addInitScript(() => localStorage.setItem("wattle.splash.seen", "true"));
 const fails = []; const note = (k, ok, v) => { console.log(`${ok ? "ok  " : "FAIL"} ${k}: ${v}`); if (!ok) fails.push(k); };
 await p.goto(`${BASE}/`, { waitUntil: "networkidle" }); await p.waitForTimeout(600);
-const env = await p.evaluate(() => {
+const env = await p.evaluate(async () => {
   const html = getComputedStyle(document.documentElement);
   const inputs = [...document.querySelectorAll("input, textarea, select")].map((e) => parseFloat(getComputedStyle(e).fontSize));
   const ctrls = [...document.querySelectorAll("button, a, [role=button]")];
   const ta = ctrls.map((e) => getComputedStyle(e).touchAction); const us = ctrls.map((e) => getComputedStyle(e).webkitUserSelect || getComputedStyle(e).userSelect);
   const main = document.querySelector("main"); const mh = main ? getComputedStyle(main).minHeight + "/" + getComputedStyle(main).height : "none";
   const probe = document.createElement("div"); probe.style.cssText = "position:fixed;padding-bottom:env(safe-area-inset-bottom, 7px);height:100dvh;width:1px;visibility:hidden"; document.body.appendChild(probe);
-  // WebKit does not expose -webkit-tap-highlight-color as a computed value; read the html rule from the CSSOM.
-  let tap = "not declared"; for (const sh of document.styleSheets) { try { for (const r of sh.cssRules) if (r.selectorText && /^html/.test(r.selectorText) && r.style.getPropertyValue("-webkit-tap-highlight-color")) tap = r.style.getPropertyValue("-webkit-tap-highlight-color"); } catch {} }
+  // WebKit exposes -webkit-tap-highlight-color neither as a computed value nor through the CSSOM; read the
+  // shipped stylesheet text instead.
+  let tap = "not declared"; for (const l of document.querySelectorAll('link[rel="stylesheet"]')) { try { const t = await (await fetch(l.href)).text(); const m = t.match(/html[^{]*\{[^}]*-webkit-tap-highlight-color:\s*([^;}]+)/); if (m) tap = m[1]; } catch {} }
   const cs = getComputedStyle(probe); const out = { tap, hoverMedia: matchMedia("(hover: hover)").matches, pointerFine: matchMedia("(pointer: fine)").matches, minInput: Math.min(...inputs), inputs: inputs.length, touchManip: ta.filter((t) => t === "manipulation").length + "/" + ta.length, userSelectNone: us.filter((t) => t === "none").length + "/" + us.length, dvh: cs.height, innerH: innerHeight, safeArea: cs.paddingBottom, mainH: mh };
   probe.remove(); return out;
 });
-note("tap highlight transparent (html rule in the CSSOM)", /transparent|rgba\(0, ?0, ?0, ?0\)/.test(env.tap), env.tap);
+note("tap highlight transparent (html rule in the shipped stylesheet)", /transparent|rgba\(0, ?0, ?0, ?0\)/.test(env.tap), env.tap);
 note("touch device reports no hover / coarse pointer", !env.hoverMedia && !env.pointerFine, `hover:${env.hoverMedia} fine:${env.pointerFine}`);
 note("inputs at 16 px or more", env.minInput >= 16, `${env.minInput}px across ${env.inputs}`);
 note("touch-action manipulation on controls", env.touchManip.split("/")[0] === env.touchManip.split("/")[1], env.touchManip);
