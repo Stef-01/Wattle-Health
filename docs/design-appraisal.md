@@ -154,3 +154,37 @@ body,html{background:var(--color-cell);overflow-x:clip}
 :focus-visible{outline:2px solid var(--color-accent-focus);outline-offset:2px;border-radius:6px}
 .hit:after{content:"";z-index:1;min-width:44px;height:max(100%,44px);position:absolute;top:50%;left:0;right:0;transform:translateY(-50%)}
 ```
+
+## Round 8 — production scorecard, Recent across every entry path, public-sector spacing scales (2026-11-08)
+
+**Lighthouse 12, mobile emulation, production, every browsing route** (a11y 100 and best-practices 96 on all 14):
+
+| Route | Perf | LCP | CLS | TBT |
+| --- | --- | --- | --- | --- |
+| /me | 95 | 2.6 s | 0.023 | 60 ms |
+| /recent | 98 | 2.1 s | 0 | 90 ms |
+| /saved | 98 | 2.3 s | 0 | 80 ms |
+| /about | 94 | 2.7 s | 0 | 70 ms |
+| /about/coverage | 99 | 2.0 s | 0 | 30 ms |
+| /healthspan | 94 | 2.8 s | 0 | 70 ms |
+| /me/openings | 99 | 2.1 s | 0 | 60 ms |
+| /me/discover | 90 | 3.0 s | 0 | 190 ms |
+| /me/context | 97 | 2.2 s | 0 | 110 ms |
+| /compare | 99 | 2.0 s | 0 | 70 ms |
+| /join | 98 | 2.3 s | 0 | 60 ms |
+| /join/verify | 98 | 2.1 s | 0 | 80 ms |
+| /doctor/[id] | 84 | 3.8 s | 0.014 | 140 ms |
+| /results | 98 | 2.1 s | 0 | 80 ms |
+
+The profile page is the one below 90: its LCP is the portrait on a throttled 4G mobile profile (already `fetchPriority=high`, static page). Judged and kept: the portrait is the content of that page; shrinking it further trades the thing the page is for. CLS of 0.023 on Home is the `ready` title gate (invisible until mounted) and is under the 0.1 "good" threshold.
+
+**Recent geometry across every way a search starts** (`qa/edge/recent-geometry.mjs`, production): example row, typed sentence, and a re-opened recent, in both modes, at 320/390/1280. 30 row measurements, every face stack ends 12 px before its title, titles and subtitles share one left edge, no sideways scroll. Exit code gate, runs with `BASE=` against production.
+
+**Two more spacing scales for the census** (public sector, so independent of the consumer apps already in the table):
+
+| Source | Scale | Note |
+| --- | --- | --- |
+| NHS digital service manual (May 2025) | 4, 8, 8, 16, 24, 32, 40, 48, 56 (small screens) / 4, 8, 16, 24, 32, 40, 48, 56, 64 (≥768 px) | Responsive scale drops one step on phones; Wattle's phone gutters (16) and group gaps (24/32) sit on the same steps |
+| Australia's National Digital Health Strategy (ADHA) | no spacing scale; "easy to use and able to be understood by individuals" is the stated success factor | Confirms there is no AU public token scale to match; the NHS scale is the nearest public-sector reference |
+
+The NHS scale is the only one in the census that shrinks on phones; Wattle does the same thing by hand (24 → 16 section gaps at 390 vs 1280), which the spacing table in round 5 already recorded.
