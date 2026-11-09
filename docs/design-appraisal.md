@@ -188,3 +188,5 @@ The profile page is the one below 90: its LCP is the portrait on a throttled 4G 
 | Australia's National Digital Health Strategy (ADHA) | no spacing scale; "easy to use and able to be understood by individuals" is the stated success factor | Confirms there is no AU public token scale to match; the NHS scale is the nearest public-sector reference |
 
 The NHS scale is the only one in the census that shrinks on phones; Wattle does the same thing by hand (24 → 16 section gaps at 390 vs 1280), which the spacing table in round 5 already recorded.
+
+**Closing check in the user's own Chrome (production, 2026-11-08 17:40):** a fresh profile, splash → Endometriosis example → skip → picks, then /recent. Three rows, each face stack ends 12 px before its title, no overlap (screenshot kept in the session). Tab swaps timed from click to the new H1 in that same browser: Saved 9 ms, Home 12 ms, Recent 7 ms, Profile 6 ms.
