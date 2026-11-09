@@ -388,7 +388,7 @@ Every one of the 14 browsing routes now observes at 93–98 performance with acc
 
 `qa/edge/copy.mjs` reads the rendered text of every browsing route and eight profiles in both modes and fails on a superlative, "specialist" outside an Ahpra specialty, or a medicine brand name. Clean on production. The patterns were checked against seeded strings before trusting the pass ("best ADHD clinic", "award-winning", "cures anxiety", "menopause specialist" and "Vyvanse" are caught; "specialist psychiatrist" and "Picked for how they work" are not).
 
-## Round 16 — whole-system performance review for iPhone as a web app: is a refactor needed? (2026-11-09)
+## Round 17 — whole-system performance review for iPhone as a web app: is a refactor needed? (2026-11-09)
 
 Asked: review the whole system so it is not laggy on an iPhone as a web app, research thoroughly, say whether refactors are needed. Method: measure script, bytes, rendering and engine behaviour separately, on production, then read the current guidance (Preply's INP work on Next.js, Nadia Makarevich's RSC measurements, the Next.js 16 INP playbook, Apple's Safari page, WebKit backdrop-filter threads, iOS 26 viewport changes) against what the numbers say.
 
