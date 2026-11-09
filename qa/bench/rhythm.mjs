@@ -22,9 +22,11 @@ for (const r of process.argv.slice(2)) {
       leaves.push({ top: Math.round(b.top + scrollY), bottom: Math.round(b.bottom + scrollY), left: Math.round(b.left), text: (el.alt || el.textContent || el.tagName).trim().replace(/\s+/g, " ").slice(0, 28), fs: getComputedStyle(el).fontSize });
     }
     leaves.sort((a, b) => a.top - b.top || a.left - b.left);
-    // merge leaves on the same line
+    // merge leaves on the same line, and leaves that sit beside an open line (a right-aligned meta, a
+    // rating left of its summary): anything whose top is inside the line's vertical band is the same row,
+    // not a block under it. Before this, a 15 px "2 min" centred beside a two-line title read as a -10 gap.
     const lines = [];
-    for (const l of leaves) { const p = lines[lines.length - 1]; if (p && Math.abs(p.top - l.top) < 6) { p.bottom = Math.max(p.bottom, l.bottom); p.text += " | " + l.text; } else lines.push({ ...l }); }
+    for (const l of leaves) { const p = lines[lines.length - 1]; if (p && (Math.abs(p.top - l.top) < 6 || l.top < p.bottom)) { p.bottom = Math.max(p.bottom, l.bottom); p.text += " | " + l.text; } else lines.push({ ...l }); }
     const out = [];
     for (let i = 1; i < lines.length; i++) { const g = lines[i].top - lines[i - 1].bottom; out.push({ gap: g, from: lines[i - 1].text, to: lines[i].text, fs: lines[i].fs }); }
     return out;
