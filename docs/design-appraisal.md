@@ -383,3 +383,7 @@ Every one of the 14 browsing routes now observes at 93–98 performance with acc
 ### Text budget on production (2026-11-09)
 
 `qa/iphone/words.mjs` at iPhone 15 width, first screen, every browsing route: Home 40 (as /narrow), About 36, Join 36, Verify 31, Context 58, Coverage 58, Healthspan 60, Compare empty 10. All within the 20 to 60 budget (Headspace 26 to 60, Finch 19); the gate exits 1 over 60. The "whole page" counts it prints include the hidden ByMode branch and are not budgeted.
+
+### Copy rule as a gate (2026-11-09)
+
+`qa/edge/copy.mjs` reads the rendered text of every browsing route and eight profiles in both modes and fails on a superlative, "specialist" outside an Ahpra specialty, or a medicine brand name. Clean on production. The patterns were checked against seeded strings before trusting the pass ("best ADHD clinic", "award-winning", "cures anxiety", "menopause specialist" and "Vyvanse" are caught; "specialist psychiatrist" and "Picked for how they work" are not).
