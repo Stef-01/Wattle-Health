@@ -1,6 +1,7 @@
 // P06 Profile / P11 Partial profile (Figma 226:58 / 226:366). One route; the screen branches on
 // whether the doctor has a doctor-approved or illustrative personal profile.
 import { notFound } from "next/navigation";
+import { preconnect, preload } from "react-dom";
 import { doctorIdFromParam } from "@/src/data/doctor-slug";
 import { getDoctor, mvpDiscipline } from "@/src/data/providers";
 import { highlightsFor } from "@/src/data/highlights";
@@ -37,6 +38,13 @@ export default async function DoctorPage({ params }: { params: Promise<{ id: str
   const { id } = await params;
   const d = await getDoctor(doctorIdFromParam(id));
   if (!d) notFound();
+  // The portrait is the page's largest paint and lives on the practice's own origin. Without a hint the
+  // browser only finds it after hydration (Lighthouse 2026-11-08: 2.6 s load delay on a 70 KB image that
+  // transfers in 88 ms); preloading it from the static HTML starts the fetch with the document.
+  if (d.photo?.url) {
+    preconnect(new URL(d.photo.url).origin);
+    preload(d.photo.url, { as: "image", fetchPriority: "high" });
+  }
   const labels = conditionLabelMap();
   const card: Card = { doctor: d, headline: "", score: 0, clinicalFit: { band: "listed", reasons: [] }, humanFit: { score: 0, reasons: [], basis: "none" }, evidence: [], missed: [], highlights: highlightsFor(d, undefined, labels) };
   return <DoctorPageView card={card} labels={labels} />;
