@@ -484,7 +484,7 @@ The 150 ms page fade on the template wrapper (round 3) starts at opacity 0. Chro
 | /join | 100 | 1.1 s | 1.1 s | 30 ms |
 | /healthspan | 100 | 1.0 s | 1.0 s | 50 ms |
 
-Round 16's LCP of 2.6 to 3.2 s on every text page, and the font work it drove (Newsreader at one optical size, the judged Inter pin), were measurements of this frame. The font work stands on its own bytes; the LCP it was chasing is gone. The full fifteen-route sweep is in the line below once it has run.
+Round 16's LCP of 2.6 to 3.2 s on every text page, and the font work it drove (Newsreader at one optical size, the judged Inter pin), were measurements of this frame. The font work stands on its own bytes; the LCP it was chasing is gone. The full fifteen-route sweep after the deploy: fourteen routes at 95 to 100 with LCP equal to FCP, 0.8 to 1.4 s (/ 97 at 0.8, /recent, /saved, /me/openings, /me/discover, /healthspan, /about, /about/coverage, /compare, /join, /join/verify 100, /me 100 at 1.4, /me/context 97 with 210 ms of blocking time, /narrow 95 at 1.2); the profile 99 with its hero image as the LCP at 2.0 s. Round 16's table had the same routes at 92 to 98 with LCP 2.6 to 3.2 s.
 
 The lesson generalises the splash note from round 3 ("an element that starts at opacity 0 is never the largest contentful paint") to the first paint and to wrappers, and is in CLAUDE.md: nothing prerendered starts at opacity 0 at document load.
 
