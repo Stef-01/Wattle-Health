@@ -1,6 +1,5 @@
 @import "tailwindcss";
-@import "@fontsource-variable/newsreader/opsz.css";
-@import "@fontsource-variable/inter/opsz.css";
+/* Fonts come from next/font/local (src/ui/fonts.ts): preloaded from the head, fallback faces size-adjusted. */
 
 /* Apple pass (2026-10-23, docs/apple/PLAN.md). One token layer replaces the four stacked layers
    (Figma "Wattle" system, Apple refinement, Emil Kowalski motion, playful pass). Sources:
@@ -62,9 +61,9 @@
   --color-switch: #34c759; /* systemGreen: switch track when on */
 
   /* Faces. */
-  --font-display: "Newsreader Variable", "New York", ui-serif, Georgia, serif;
-  --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
-  --font-inter: "Inter Variable", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-newsreader-v), "New York", ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter-v), system-ui, -apple-system, sans-serif;
+  --font-inter: var(--font-inter-v), system-ui, -apple-system, sans-serif;
 
   /* Type: the iOS text styles at the default (Large) size, with Inter's dynamic-metrics tracking
      (rsms.me/inter/dynmetrics: -0.0223 + 0.185·e^(-0.1745·px) em), halved from 28 px where the opsz
