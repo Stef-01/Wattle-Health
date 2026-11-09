@@ -255,3 +255,22 @@ Simulated Lighthouse (the default) had passed 13 of 14 routes at 90+. The same r
 **The join pages shipped no `<main>`.** `useSearchParams` inside a fallback-less `Suspense` makes Next bail the subtree out to client rendering during prerender, so the static HTML held only the scripts and the screen appeared after hydration (first paint 3.6 s on 4G). `src/ui/query.ts` reads the parameter after mount instead; both screens only used it inside effects and a link. The claim path (`/claim/[id]` → `/join?doctor=` → verify with the name prefilled) was checked on production and the local build before and after.
 
 **Judged and kept:** `/saved`, `/results` and `/compare` paint their shell at 1.7 s and their content after hydration because the content is the visitor's own localStorage (picks, hearts, the compare pair); rendering a guess on the server would flash the wrong state for anyone who has any. The doctor profile's portrait now competes with the font preloads on a throttled link (load time 2.3 s of its 3.2 s); on an unthrottled real browser the page paints in 150 ms (round 9), and the portrait is the page.
+
+## Round 11 — the gestures skill (emilkowalski/skills, added 2026-11-08) applied to the one gesture surface (2026-11-08 night)
+
+Installed `~/.claude/skills/gestures` from emilkowalski/skills@5206a95 and audited `Sheet` (`src/ui/kit/bits.tsx`), the only thing a finger drags in Wattle (Refine on Results).
+
+| Rule | Before | After |
+| --- | --- | --- |
+| Track 1:1, no state per move | direct `transform` writes, transition off during the drag | unchanged (already right) |
+| Rubber-band at the edge | `Math.max(0, dy)`: dragging up stopped dead | upward travel at a fifth of the distance |
+| Release velocity, not average | `dy / total gesture time`: a slow pull that ends in a flick read as slow | EMA of the last samples; a finger that stopped for 80 ms before lifting counts as zero |
+| Linked values | scrim stayed at full opacity during the drag | scrim opacity = 1 − dy / panel height, from the same drag value |
+| Dismiss on distance or velocity | 25 % of height or 0.4 px/ms | unchanged |
+| No keyframes on a gesture surface | CSS transitions + `@starting-style` | unchanged |
+| `touch-action`, no-drag on buttons, 44 px targets | `touch-none` on the handle, buttons excluded, close button 44 px | unchanged |
+| Spatial consistency | enters from the bottom, leaves downward | unchanged |
+
+Measured by `qa/edge/sheet-gesture.mjs` against the built server at 390 px (touch context): mid-drag translateY 120 for a 120 px drag with scrim 0.69; −20 for a 100 px pull above the top; a 40 px slow drag snaps to 0; a 60 px slow pull ending in a flick dismisses; a drag past 40 % of the height dismisses. Still needs a phone: the skill's own checklist says trackpad simulation lies about touch; the thresholds are Vaul's iOS-derived ones.
+
+Not adopted: Vaul itself (the skill's default for sheets). The existing sheet already has focus trapping, Escape, back-button close and scroll lock from the Apple pass, and adding a dependency to replace a working 90-line component is not a surgical change; recorded as a judged call, revisit if a second sheet appears.

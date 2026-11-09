@@ -195,26 +195,41 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
     };
   }, [open, shown]);
   // Drag the grabber or title row down to dismiss (Vaul's iOS-derived thresholds: past 25% of the panel's
-  // height, or faster than 0.4 px/ms); otherwise it springs back on the iOS drawer curve.
-  const drag = useRef<{ y: number; t: number } | null>(null);
+  // height, or a release faster than 0.4 px/ms); otherwise it springs back on the iOS drawer curve.
+  // Gestures skill (2026-11-08): the panel tracks the finger 1:1 with direct transform writes and no state per
+  // move; the scrim's opacity is derived from the same drag distance so the two never drift; dragging up past
+  // the top rubber-bands at a fifth of the distance instead of stopping dead; velocity is the release velocity
+  // (the last ~80 ms), not the average over the whole gesture, so a slow pull that ends in a flick dismisses.
+  const drag = useRef<{ y: number; t: number; lastY: number; lastT: number; v: number } | null>(null);
+  const scrim = useRef<HTMLButtonElement>(null);
   const onDragStart = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0 || (e.target as Element).closest("button")) return;
-    drag.current = { y: e.clientY, t: performance.now() };
+    const t = performance.now();
+    drag.current = { y: e.clientY, t, lastY: e.clientY, lastT: t, v: 0 };
     e.currentTarget.setPointerCapture(e.pointerId);
     if (panel.current) panel.current.style.transition = "none";
+    if (scrim.current) scrim.current.style.transition = "none";
   };
   const onDragMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!drag.current || !panel.current) return;
-    const dy = Math.max(0, e.clientY - drag.current.y);
+    const d = drag.current;
+    if (!d || !panel.current) return;
+    const raw = e.clientY - d.y;
+    const dy = raw >= 0 ? raw : raw * 0.2;
+    const t = performance.now();
+    if (t - d.lastT > 0) d.v = 0.6 * d.v + 0.4 * ((e.clientY - d.lastY) / (t - d.lastT));
+    d.lastY = e.clientY; d.lastT = t;
     panel.current.style.transform = `translateY(${dy}px)`;
+    if (scrim.current) scrim.current.style.opacity = String(Math.max(0, 1 - Math.max(0, dy) / panel.current.offsetHeight));
   };
   const onDragEnd = (e: React.PointerEvent<HTMLDivElement>) => {
-    const start = drag.current;
+    const d = drag.current;
     const el = panel.current;
     drag.current = null;
-    if (!start || !el) return;
-    const dy = Math.max(0, e.clientY - start.y);
-    const v = dy / Math.max(1, performance.now() - start.t);
+    if (!d || !el) return;
+    const dy = Math.max(0, e.clientY - d.y);
+    const stale = performance.now() - d.lastT > 80; // the finger stopped before lifting: no fling
+    const v = stale ? 0 : d.v;
+    if (scrim.current) { scrim.current.style.transition = ""; scrim.current.style.opacity = ""; }
     if (dy > el.offsetHeight * 0.25 || (dy > 10 && v > 0.4)) {
       el.style.transition = "transform 220ms var(--ease-out)";
       el.style.transform = "translateY(100%)";
@@ -228,7 +243,7 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
   return (
     <Portal>
     <div className={cx("frame-fixed inset-y-0 z-50", !open && "sheet-closing pointer-events-none")} role="dialog" aria-modal="true" aria-label={title}>
-      <button type="button" aria-label="Close" tabIndex={-1} onClick={onClose} className="sheet-scrim absolute inset-0 bg-black/30" />
+      <button ref={scrim} type="button" aria-label="Close" tabIndex={-1} onClick={onClose} className="sheet-scrim absolute inset-0 bg-black/30" />
       <div ref={panel} tabIndex={-1} className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto overscroll-contain rounded-t-sheet bg-white pt-[5px] outline-none" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }}>
         <div className="chrome -mx-4 flex touch-none cursor-grab flex-col gap-1 px-4 active:cursor-grabbing" onPointerDown={onDragStart} onPointerMove={onDragMove} onPointerUp={onDragEnd} onPointerCancel={onDragEnd}>
           <span aria-hidden="true" className="mx-auto h-[5px] w-9 shrink-0 rounded-full bg-grabber" />
