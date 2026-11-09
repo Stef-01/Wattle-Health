@@ -97,13 +97,18 @@ export function groupRecent(rows: RecentSearch[]): { condition: string; rows: Re
 export function Saved() {
   const [ids, setIds] = useState<string[] | null>(null);
   const [doctors, setDoctors] = useState<DoctorRecord[]>([]);
+  // The saved doctors come back from the server after mount; the skeleton stays up until they do (the page
+  // went blank between hydration and the lookup, 2026-11-08).
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const saved = getSavedIds();
     setIds(saved);
     if (saved.length === 0) return;
+    setLoading(true);
     lookup(saved)
       .then(setDoctors)
-      .catch(() => setDoctors([]));
+      .catch(() => setDoctors([]))
+      .finally(() => setLoading(false));
   }, []);
   const remove = (id: string) => {
     const next = toggleSavedId(id);
@@ -127,6 +132,15 @@ export function Saved() {
       <NavBar onBack={only ? () => setOnly(null) : undefined} title={only ?? "Saved"} collapse />
       <LargeTitle>{only ?? "Saved"}</LargeTitle>
       {ids && ids.length === 0 ? <Body className="mt-2">Nothing saved yet. Tap the heart on a pick to keep them here and watch for openings.</Body> : null}
+      {ids === null ? (
+        <>
+          <div data-pre="saved-none"><Body className="mt-2">Nothing saved yet. Tap the heart on a pick to keep them here and watch for openings.</Body></div>
+          <div data-pre="saved-some" aria-hidden="true" className="mt-4 flex flex-col gap-4"><div className="shimmer h-[132px] rounded-card" /><div className="shimmer h-[132px] rounded-card" /></div>
+        </>
+      ) : null}
+      {loading && doctors.length === 0 ? (
+        <div aria-hidden="true" className="mt-4 flex flex-col gap-4"><div className="shimmer h-[132px] rounded-card" /><div className="shimmer h-[132px] rounded-card" /></div>
+      ) : null}
       {groups.length > 1 ? <FilterChips label="Filter saved doctors" items={[null, ...groups.map((g) => g.category)].map((c) => ({ key: c, label: c ?? "All", n: c === null ? doctors.length : groups.find((g) => g.category === c)!.doctors.length }))} value={only} onChange={setOnly} /> : null}
       {only ? (
         <div className="mt-4 flex flex-col gap-8">

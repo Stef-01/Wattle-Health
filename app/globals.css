@@ -548,6 +548,20 @@ details > summary::-webkit-details-marker {
 
 /* ---------------------------------------------------------------- mode */
 /* src/ui/ByMode.tsx renders both modes; <html data-mode> (stamped before paint, app/layout.tsx) shows one. */
+/* Pre-hydration state blocks (app/layout.tsx stamps data-saved/search/compare on <html> from the stores before
+   paint). Each page ships both its empty state and a skeleton; only the matching one shows. Without the
+   stamp (no script) nothing shows, which is the previous behaviour. */
+[data-pre] {
+  display: none;
+}
+html[data-saved="none"] [data-pre="saved-none"],
+html[data-saved="some"] [data-pre="saved-some"],
+html[data-search="none"] [data-pre="search-none"],
+html[data-search="some"] [data-pre="search-some"],
+html[data-compare="none"] [data-pre="compare-none"],
+html[data-compare="some"] [data-pre="compare-some"] {
+  display: block;
+}
 html[data-mode="adhdme"] [data-mode="wattle"],
 html:not([data-mode="adhdme"]) [data-mode="adhdme"] {
   display: none;

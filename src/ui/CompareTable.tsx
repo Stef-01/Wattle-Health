@@ -27,7 +27,18 @@ function rows(d: DoctorRecord): Array<[string, Cell]> {
 export function CompareTable() {
   const [pair, setPair] = useState<DoctorRecord[] | null>(null);
   useEffect(() => setPair(getCompare()), []);
-  if (pair === null) return null;
+  if (pair === null) {
+    return (
+      <>
+        <div data-pre="compare-none">
+          <p className="pt-6 text-body text-grey">
+            Nothing to compare yet. <Link href="/results" className="text-foliage underline underline-offset-4">Pick two from your results.</Link>
+          </p>
+        </div>
+        <div data-pre="compare-some" aria-hidden="true" className="shimmer mt-6 h-[320px] rounded-card" />
+      </>
+    );
+  }
   if (pair.length === 0) {
     return (
       <p className="pt-6 text-body text-grey">
