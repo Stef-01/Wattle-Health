@@ -380,7 +380,19 @@ details > summary::-webkit-details-marker {
   transform: translateY(100%);
   transition: transform var(--duration-slow) var(--ease-out);
 }
-/* A notification leaves upward, the edge it came from. */
+/* A notification arrives from the top edge on a transition, not a keyframe, so a finger can catch it mid-arrival
+   (gestures skill: never a keyframe on anything a gesture can touch) and it leaves upward, the edge it came from. */
+.toast-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    transform var(--duration-slow) var(--ease-out),
+    opacity var(--duration-base) ease;
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
 .toast-out {
   transform: translateY(calc(-100% - 16px));
   opacity: 0;
@@ -740,6 +752,12 @@ button[aria-pressed="true"][aria-label="Stop listening"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .toast-in {
+    transition: opacity var(--duration-base) ease;
+    @starting-style {
+      transform: none;
+    }
+  }
   .rise,
   .bounce-in,
   .word-in,

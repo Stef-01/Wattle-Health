@@ -9,6 +9,7 @@ import { createPortal } from "react-dom";
 import { ChevronRight } from "./icons";
 import { lockScroll, unlockScroll } from "./scroll-lock";
 import { initialsFor, tintFor } from "./tint";
+import { optimizablePortrait } from "@/src/ui/portrait-hosts";
 export { initialsFor, tintFor } from "./tint";
 
 const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(Boolean).join(" ");
@@ -109,6 +110,12 @@ export function TogglePill({ on, onChange, children }: { on: boolean; onChange: 
   );
 }
 
+/** A small face goes through the image optimizer when its host is listed (data/portrait-hosts.json): Home's five
+ *  36 px faces were pulling the practices' originals, one of them 2.2 MB, and on a 1.6 Mbps link the fonts (the
+ *  LCP on every text page) queued behind them until 4 s (observed Lighthouse, 2026-11-08). Widths are from
+ *  Next's default imageSizes; the rest keep the plain URL. */
+const faceSrc = (url: string, size: number) => (optimizablePortrait(url) ? `/_next/image?url=${encodeURIComponent(url)}&w=${[64, 96, 128, 256].find((w) => w >= size * 2) ?? 384}&q=70` : url);
+
 /** A round portrait that falls back to the person's initials on their tint when the photo is missing
  *  or fails to load (Apple never shows a broken-image glyph). `ring` separates overlapping faces. */
 export function Face({ url, name = "", size = 36, ring = false, className }: { url?: string | null; name?: string; size?: number; ring?: boolean; className?: string }) {
@@ -130,7 +137,7 @@ export function Face({ url, name = "", size = 36, ring = false, className }: { u
   }
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img ref={img} src={url} alt="" referrerPolicy="no-referrer" onError={() => setFailed(true)} className={cx(box, "object-cover object-top")} style={{ width: size, height: size, background: "var(--color-shimmer)" }} />
+    <img ref={img} src={faceSrc(url, size)} alt="" referrerPolicy="no-referrer" onError={() => setFailed(true)} className={cx(box, "object-cover object-top")} style={{ width: size, height: size, background: "var(--color-shimmer)" }} />
   );
 }
 
@@ -146,6 +153,62 @@ export function FaceStack({ urls, names = [], size = 30 }: { urls: string[]; nam
   );
 }
 
+/** iOS switch. A tap flips it; the knob also drags (gestures skill, 2026-11-08): it tracks the finger 1:1 across
+ *  its 20 px of travel, rubber-bands past either end, and settles by position (past the middle) or by the direction
+ *  of a quick flick. Keyboard (Space, Enter) goes through the click. The track colour is derived from the knob's
+ *  position during the drag so the two never drift. Vertical pans stay with the page (`touch-pan-y`). */
+export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
+  const TRAVEL = 20;
+  const knob = useRef<HTMLSpanElement>(null);
+  const track = useRef<HTMLButtonElement>(null);
+  const drag = useRef<{ id: number; x0: number; moved: boolean; lastX: number; lastT: number; v: number } | null>(null);
+  const skipClick = useRef(false);
+  const settle = (next: boolean) => {
+    const k = knob.current, t = track.current;
+    if (k) { k.style.transition = ""; k.style.transform = next ? `translateX(${TRAVEL}px)` : "none"; }
+    if (t) { t.style.transition = ""; t.style.backgroundColor = ""; }
+  };
+  const down = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (e.button !== 0) return;
+    skipClick.current = false;
+    drag.current = { id: e.pointerId, x0: e.clientX, moved: false, lastX: e.clientX, lastT: performance.now(), v: 0 };
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch { /* a synthetic event (QA) has no active pointer */ }
+  };
+  const move = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const d = drag.current, k = knob.current, t = track.current;
+    if (!d || e.pointerId !== d.id || !k || !t) return;
+    const dx = e.clientX - d.x0;
+    if (!d.moved) { if (Math.abs(dx) < 3) return; d.moved = true; k.style.transition = "none"; t.style.transition = "none"; }
+    const now = performance.now();
+    if (now - d.lastT > 0) d.v = 0.6 * d.v + 0.4 * ((e.clientX - d.lastX) / (now - d.lastT));
+    d.lastX = e.clientX; d.lastT = now;
+    const raw = (on ? TRAVEL : 0) + dx;
+    const x = raw < 0 ? raw * 0.2 : raw > TRAVEL ? TRAVEL + (raw - TRAVEL) * 0.2 : raw;
+    k.style.transform = `translateX(${x}px)`;
+    t.style.backgroundColor = `color-mix(in srgb, var(--color-switch) ${Math.round(Math.min(1, Math.max(0, x / TRAVEL)) * 100)}%, var(--color-surface-strong))`;
+  };
+  const up = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const d = drag.current;
+    if (!d || e.pointerId !== d.id) return;
+    drag.current = null;
+    if (!d.moved) return; // a tap: the click that follows flips it
+    skipClick.current = e.type === "pointerup"; // a cancelled pointer (the page scrolled) fires no click
+    const v = performance.now() - d.lastT > 80 ? 0 : d.v;
+    const next = Math.abs(v) > 0.3 ? v > 0 : (on ? TRAVEL : 0) + e.clientX - d.x0 > TRAVEL / 2;
+    settle(next);
+    if (next !== on) onChange(next);
+  };
+  const click = () => {
+    if (skipClick.current) { skipClick.current = false; return; }
+    onChange(!on);
+  };
+  return (
+    <button ref={track} type="button" role="switch" aria-checked={on} aria-label={label} onClick={click} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} className={cx("hit chrome relative inline-flex h-[31px] w-[51px] shrink-0 touch-pan-y items-center rounded-full transition-colors duration-(--duration-base)", on ? "bg-switch" : "bg-surface-strong")}>
+      <span ref={knob} aria-hidden="true" className="absolute left-[2px] size-[27px] rounded-full bg-white shadow-knob transition-transform duration-(--duration-base) motion-reduce:transition-none" style={{ transform: on ? `translateX(${TRAVEL}px)` : "none", transitionTimingFunction: "var(--ease-out)" }} />
+    </button>
+  );
+}
+
 /** Renders children at the end of <body>, so fixed overlays escape transformed (animated) ancestors. */
 export function Portal({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
@@ -158,12 +221,14 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
   // Stay mounted for the exit so the sheet leaves the way it came (down), instead of vanishing.
   const [shown, setShown] = useState(open);
   const [last, setLast] = useState<ReactNode>(children);
-  const panel = useRef<HTMLDivElement>(null);
+  const panel = useRef<HTMLDivElement>(null); // moves: the transform lives here and nowhere else
+  const body = useRef<HTMLDivElement>(null); // scrolls: the one scroll container inside the panel
+  const scrim = useRef<HTMLButtonElement>(null);
   const close = useRef(onClose);
   close.current = onClose;
   useEffect(() => {
     if (open) { setShown(true); return; }
-    const t = window.setTimeout(() => setShown(false), 240);
+    const t = window.setTimeout(() => setShown(false), 320);
     return () => window.clearTimeout(t);
   }, [open]);
   useEffect(() => { if (open) setLast(children); }, [open, children]);
@@ -172,8 +237,9 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
   useEffect(() => {
     if (!open || !shown) return;
     const el = panel.current;
+    const scroller = body.current;
     const opener = document.activeElement as HTMLElement | null;
-    lockScroll(el);
+    lockScroll(scroller);
     el?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") { e.preventDefault(); close.current(); return; }
@@ -190,53 +256,86 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
     return () => {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("popstate", onPop);
-      unlockScroll(el);
+      unlockScroll(scroller);
       opener?.focus?.({ preventScroll: true });
     };
   }, [open, shown]);
-  // Drag the grabber or title row down to dismiss (Vaul's iOS-derived thresholds: past 25% of the panel's
-  // height, or a release faster than 0.4 px/ms); otherwise it springs back on the iOS drawer curve.
-  // Gestures skill (2026-11-08): the panel tracks the finger 1:1 with direct transform writes and no state per
-  // move; the scrim's opacity is derived from the same drag distance so the two never drift; dragging up past
-  // the top rubber-bands at a fifth of the distance instead of stopping dead; velocity is the release velocity
-  // (the last ~80 ms), not the average over the whole gesture, so a slow pull that ends in a flick dismisses.
-  const drag = useRef<{ y: number; t: number; lastY: number; lastT: number; v: number } | null>(null);
-  const scrim = useRef<HTMLButtonElement>(null);
-  const onDragStart = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.button !== 0 || (e.target as Element).closest("button")) return;
-    const t = performance.now();
-    drag.current = { y: e.clientY, t, lastY: e.clientY, lastT: t, v: 0 };
-    e.currentTarget.setPointerCapture(e.pointerId);
-    if (panel.current) panel.current.style.transition = "none";
-    if (scrim.current) scrim.current.style.transition = "none";
+  // The gesture (gestures skill, emilkowalski/skills, 2026-11-08). Two phases: while the finger is down the panel
+  // IS the finger (direct transform writes, no state per move, transition off); on release physics finishes it.
+  //  - Starts from the grabber row at once, or from the content once it has moved 6 px down with the body scrolled
+  //    to the top (Vaul's rule); a move up or a scrolled body is a scroll, not a drag. Controls never start one.
+  //  - Catches the panel mid-flight: pointer-down during the entrance or a dismissal reads the current transform
+  //    and continues from there, so the user can grab a closing sheet and pull it back (interruptibility).
+  //  - Above the top it rubber-bands at a fifth of the distance; the scrim's opacity is derived from the same
+  //    drag distance so the two never drift.
+  //  - Dismisses past 25 % of the height or on a release faster than 0.4 px/ms (the last ~80 ms, not the average
+  //    over the gesture); the exit carries that speed, a hard fling leaves faster than a slow pull. Otherwise it
+  //    snaps back quickly on the iOS drawer curve; no overshoot anywhere (the design system's motion rule).
+  //  - onClose fires when the exit finishes, not when the finger lifts, which is what makes the catch possible.
+  type Drag = { id: number; y0: number; base: number; lastY: number; lastT: number; v: number; armed: boolean };
+  const drag = useRef<Drag | null>(null);
+  const leaving = useRef<number | null>(null);
+  const reduce = () => typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const currentY = (el: HTMLElement) => new DOMMatrixReadOnly(getComputedStyle(el).transform).m42;
+  const arm = (d: Drag, target: HTMLElement, pointerId: number) => {
+    const el = panel.current;
+    if (!el) return;
+    if (leaving.current !== null) { window.clearTimeout(leaving.current); leaving.current = null; }
+    d.base = Math.max(0, currentY(el));
+    d.armed = true;
+    try { target.setPointerCapture(pointerId); } catch { /* a synthetic event (QA) has no active pointer */ }
+    el.style.transition = "none";
+    el.style.transform = `translateY(${d.base}px)`;
+    if (scrim.current) { scrim.current.style.transition = "none"; scrim.current.style.opacity = String(Math.max(0, 1 - d.base / el.offsetHeight)); }
   };
-  const onDragMove = (e: React.PointerEvent<HTMLDivElement>) => {
+  const onDown = (e: React.PointerEvent<HTMLDivElement>, handle: boolean) => {
+    if (e.button !== 0 || drag.current) return;
+    if ((e.target as Element).closest("button, a, input, textarea, select, [role=switch], [data-no-drag]")) return;
+    const t = performance.now();
+    const d: Drag = { id: e.pointerId, y0: e.clientY, base: 0, lastY: e.clientY, lastT: t, v: 0, armed: false };
+    drag.current = d;
+    if (handle) arm(d, e.currentTarget, e.pointerId);
+  };
+  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const d = drag.current;
-    if (!d || !panel.current) return;
-    const raw = e.clientY - d.y;
-    const dy = raw >= 0 ? raw : raw * 0.2;
+    const el = panel.current;
+    if (!d || !el || e.pointerId !== d.id) return;
+    const raw = e.clientY - d.y0;
+    if (!d.armed) {
+      if ((body.current?.scrollTop ?? 0) > 0 || raw < -4) { drag.current = null; return; }
+      if (raw < 6) return;
+      arm(d, e.currentTarget, e.pointerId);
+    }
     const t = performance.now();
     if (t - d.lastT > 0) d.v = 0.6 * d.v + 0.4 * ((e.clientY - d.lastY) / (t - d.lastT));
     d.lastY = e.clientY; d.lastT = t;
-    panel.current.style.transform = `translateY(${dy}px)`;
-    if (scrim.current) scrim.current.style.opacity = String(Math.max(0, 1 - Math.max(0, dy) / panel.current.offsetHeight));
+    const y = d.base + raw;
+    const dy = y >= 0 ? y : y * 0.2;
+    el.style.transform = `translateY(${dy}px)`;
+    if (scrim.current) scrim.current.style.opacity = String(Math.max(0, 1 - Math.max(0, dy) / el.offsetHeight));
   };
-  const onDragEnd = (e: React.PointerEvent<HTMLDivElement>) => {
+  const onUp = (e: React.PointerEvent<HTMLDivElement>) => {
     const d = drag.current;
     const el = panel.current;
+    if (!d || e.pointerId !== d.id) return;
     drag.current = null;
-    if (!d || !el) return;
-    const dy = Math.max(0, e.clientY - d.y);
+    if (!d.armed || !el) return;
+    const h = el.offsetHeight;
+    const dy = Math.max(0, d.base + e.clientY - d.y0);
     const stale = performance.now() - d.lastT > 80; // the finger stopped before lifting: no fling
     const v = stale ? 0 : d.v;
-    if (scrim.current) { scrim.current.style.transition = ""; scrim.current.style.opacity = ""; }
-    if (dy > el.offsetHeight * 0.25 || (dy > 10 && v > 0.4)) {
-      el.style.transition = "transform 220ms var(--ease-out)";
+    const quick = reduce();
+    if (dy > h * 0.25 || (dy > 10 && v > 0.4)) {
+      // Leave at the speed of the release: the remaining distance over the velocity, within 120 to 220 ms.
+      const ms = quick ? 150 : Math.round(Math.min(220, Math.max(120, (h - dy) / Math.max(v, 2.5))));
+      el.style.transition = `transform ${ms}ms var(--ease-out)`;
       el.style.transform = "translateY(100%)";
-      onClose();
+      if (scrim.current) { scrim.current.style.transition = `opacity ${ms}ms ease`; scrim.current.style.opacity = "0"; }
+      leaving.current = window.setTimeout(() => { leaving.current = null; close.current(); }, ms);
     } else {
-      el.style.transition = "transform 320ms var(--ease-drawer)";
+      el.style.transition = `transform var(${quick ? "--duration-fast" : "--duration-slow"}) var(--ease-drawer)`;
       el.style.transform = "translateY(0)";
+      if (scrim.current) { scrim.current.style.transition = ""; scrim.current.style.opacity = ""; }
     }
   };
   if (!open && !shown) return null;
@@ -244,8 +343,8 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
     <Portal>
     <div className={cx("frame-fixed inset-y-0 z-50", !open && "sheet-closing pointer-events-none")} role="dialog" aria-modal="true" aria-label={title}>
       <button ref={scrim} type="button" aria-label="Close" tabIndex={-1} onClick={onClose} className="sheet-scrim absolute inset-0 bg-black/30" />
-      <div ref={panel} tabIndex={-1} className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col gap-4 overflow-y-auto overscroll-contain rounded-t-sheet bg-white pt-[5px] outline-none" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }}>
-        <div className="chrome -mx-4 flex touch-none cursor-grab flex-col gap-1 px-4 active:cursor-grabbing" onPointerDown={onDragStart} onPointerMove={onDragMove} onPointerUp={onDragEnd} onPointerCancel={onDragEnd}>
+      <div ref={panel} tabIndex={-1} className="sheet-panel frame-pad absolute inset-x-0 bottom-0 flex max-h-[92dvh] touch-none flex-col rounded-t-sheet bg-white pt-[5px] outline-none">
+        <div className="chrome -mx-4 flex touch-none cursor-grab flex-col gap-1 px-4 pb-4 active:cursor-grabbing" onPointerDown={(e) => onDown(e, true)} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}>
           <span aria-hidden="true" className="mx-auto h-[5px] w-9 shrink-0 rounded-full bg-grabber" />
           <div className="grid grid-cols-[44px_1fr_44px] items-center gap-2">
             <span />
@@ -255,7 +354,9 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
             </button>
           </div>
         </div>
-        {open ? children : last}
+        <div ref={body} className="sheet-body -mx-4 flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-4" style={{ paddingBottom: "max(24px, env(safe-area-inset-bottom))" }} onPointerDown={(e) => onDown(e, false)} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}>
+          {open ? children : last}
+        </div>
       </div>
     </div>
     </Portal>

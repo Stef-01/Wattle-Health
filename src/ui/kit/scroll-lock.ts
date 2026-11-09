@@ -2,6 +2,9 @@
 // docs/apple/REA.md). On iPhone and iPad a non-passive touchmove keeps the page still while the panel
 // scrolls, and stops the panel's rubber-band at either end from dragging the page; a pinch still works.
 // Elsewhere the body is pinned at its scroll offset and put back exactly on unlock.
+// The panel's own touchmove handler runs on every platform (2026-11-08): at the top of the panel a pull down is
+// the sheet's dismiss gesture, and preventing that first touchmove is what keeps Chrome from claiming the touch
+// as a scroll (and firing pointercancel) before the pointer events reach the sheet.
 
 const DISABLE_ATTR = "data-scroll-lock-disable";
 let locked = false;
@@ -23,23 +26,23 @@ const atBottom = (el: HTMLElement) => el.scrollHeight - el.scrollTop <= el.clien
 
 export function lockScroll(panel: HTMLElement | null): void {
   if (locked) return;
+  if (panel) {
+    const start = (e: TouchEvent) => {
+      if (e.targetTouches.length === 1) startY = e.targetTouches[0]!.clientY;
+    };
+    const move = (e: TouchEvent) => {
+      if (e.targetTouches.length !== 1) return;
+      const dy = e.targetTouches[0]!.clientY - startY;
+      const scroller = (e.target as Element | null)?.closest<HTMLElement>(`[${DISABLE_ATTR}]`) ?? panel;
+      if ((scroller.scrollTop === 0 && dy > 0) || (atBottom(scroller) && dy < 0)) preventPage(e);
+      else e.stopPropagation();
+    };
+    panel.addEventListener("touchstart", start, { passive: true });
+    panel.addEventListener("touchmove", move, { passive: false });
+    panelHandlers.set(panel, { start, move });
+  }
   if (isIOS()) {
     document.addEventListener("touchmove", preventPage, { passive: false });
-    if (panel) {
-      const start = (e: TouchEvent) => {
-        if (e.targetTouches.length === 1) startY = e.targetTouches[0]!.clientY;
-      };
-      const move = (e: TouchEvent) => {
-        if (e.targetTouches.length !== 1) return;
-        const dy = e.targetTouches[0]!.clientY - startY;
-        const scroller = (e.target as Element | null)?.closest<HTMLElement>(`[${DISABLE_ATTR}]`) ?? panel;
-        if ((scroller.scrollTop === 0 && dy > 0) || (atBottom(scroller) && dy < 0)) preventPage(e);
-        else e.stopPropagation();
-      };
-      panel.addEventListener("touchstart", start, { passive: true });
-      panel.addEventListener("touchmove", move, { passive: false });
-      panelHandlers.set(panel, { start, move });
-    }
   } else {
     savedTop = document.body.getBoundingClientRect().top;
     const s = document.body.style;
@@ -53,13 +56,13 @@ export function lockScroll(panel: HTMLElement | null): void {
 
 export function unlockScroll(panel: HTMLElement | null): void {
   if (!locked) return;
+  const h = panel ? panelHandlers.get(panel) : undefined;
+  if (panel && h) {
+    panel.removeEventListener("touchstart", h.start);
+    panel.removeEventListener("touchmove", h.move);
+    panelHandlers.delete(panel);
+  }
   if (isIOS()) {
-    const h = panel ? panelHandlers.get(panel) : undefined;
-    if (panel && h) {
-      panel.removeEventListener("touchstart", h.start);
-      panel.removeEventListener("touchmove", h.move);
-      panelHandlers.delete(panel);
-    }
     document.removeEventListener("touchmove", preventPage);
   } else {
     const s = document.body.style;

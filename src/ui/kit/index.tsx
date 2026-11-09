@@ -312,13 +312,8 @@ export function Stat({ icon, children }: { icon: ReactNode; children: ReactNode 
 }
 
 /** iOS switch: 51 × 31, green when on, a white knob that slides. */
-export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
-  return (
-    <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={() => onChange(!on)} className={cx("hit chrome relative inline-flex h-[31px] w-[51px] shrink-0 items-center rounded-full transition-colors duration-(--duration-base)", on ? "bg-switch" : "bg-surface-strong")}>
-      <span aria-hidden="true" className="absolute left-[2px] size-[27px] rounded-full bg-white shadow-knob transition-transform duration-(--duration-base) motion-reduce:transition-none" style={{ transform: on ? "translateX(20px)" : "none", transitionTimingFunction: "var(--ease-out)" }} />
-    </button>
-  );
-}
+// Toggle lives in bits.tsx (a client file: its knob drags).
+export { Toggle } from "./bits";
 
 /** Progress: a 4 px capsule, ink fill over the tertiary fill. */
 export function Progress({ step, of }: { step: number; of: number }) {
