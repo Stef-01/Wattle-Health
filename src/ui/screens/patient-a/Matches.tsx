@@ -180,6 +180,15 @@ export function Matches() {
         </>
       ) : null}
       <Gap h={24} />
+      {!req && !missing ? (
+        // Before hydration the server knows nothing about this visitor's search; a flat skeleton of the search
+        // card and the first pick holds the shape (first paint 1.7 s, content at 3.5 s on a throttled 4G phone,
+        // 2026-11-08) instead of a blank frame. Both real states replace it whole.
+        <div aria-hidden="true" className="-mt-6 flex flex-col gap-4 lg:max-w-[calc(100%-564px)]">
+          <div className="shimmer h-[104px] rounded-card" />
+          <div className="shimmer h-[405px] rounded-card" />
+        </div>
+      ) : null}
       {missing ? (
         <div className="flex flex-col items-start gap-4">
           <LargeTitle>Your picks</LargeTitle>

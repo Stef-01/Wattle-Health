@@ -274,3 +274,25 @@ Installed `~/.claude/skills/gestures` from emilkowalski/skills@5206a95 and audit
 Measured by `qa/edge/sheet-gesture.mjs` against the built server at 390 px (touch context): mid-drag translateY 120 for a 120 px drag with scrim 0.69; −20 for a 100 px pull above the top; a 40 px slow drag snaps to 0; a 60 px slow pull ending in a flick dismisses; a drag past 40 % of the height dismisses. Still needs a phone: the skill's own checklist says trackpad simulation lies about touch; the thresholds are Vaul's iOS-derived ones.
 
 Not adopted: Vaul itself (the skill's default for sheets). The existing sheet already has focus trapping, Escape, back-button close and scroll lock from the Apple pass, and adding a dependency to replace a working 90-line component is not a surgical change; recorded as a judged call, revisit if a second sheet appears.
+
+## Round 12 — the mobile-native list checked in the shipped CSS; Results holds its shape before hydration (2026-11-08 night)
+
+The five "needs a phone" behaviours cannot be *felt* without hardware, but their declarations can be read out of the production stylesheet (`/_next/static/css/*.css` fetched from wattlehealth.vercel.app) and head:
+
+| Rule | In production |
+| --- | --- |
+| `-webkit-tap-highlight-color: transparent` on `html` | yes |
+| every `:hover` rule inside `@media (hover: hover)` | yes: 4 of 4 (Tailwind v4 gates `hover:` itself; `.press-dim:hover` also requires `pointer: fine`) |
+| no bare `100vh` on any element | yes: the only `100vh` is Tailwind's `.h-screen` utility, emitted because the token test names it; no element uses it |
+| `100dvh` for app frames | yes (2 rules) |
+| inputs at 16 px or more | yes (1 rule) |
+| `env(safe-area-inset-*)` on docks and sheets, `viewport-fit=cover` | yes (2 rules; viewport meta carries `viewport-fit=cover, interactive-widget=resizes-content`) |
+| `overscroll-behavior` | yes (root none, sheet contain) |
+| `touch-action: manipulation` on controls | yes |
+| `user-select: none` on controls only | yes (2 rules, controls) |
+| `text-size-adjust: 100%` | yes |
+| one `theme-color` per colour scheme | one value; the app has no dark scheme (no `prefers-color-scheme` rule anywhere), so one is correct |
+
+What a device adds beyond this is confirmation that iOS Safari honours them; the declarations are the ones the skill prescribes.
+
+**Results before hydration.** The page painted its shell at 1.7 s and nothing else until the visitor's search arrived from localStorage at ~3.5 s on a throttled phone. A flat two-block skeleton (the search card, the first pick) now sits in the static HTML and both real states replace it whole; a reload with a stored search goes skeleton → card with no blank frame (sampled every 100 ms), and the empty state still shows "Your picks". LCP does not move (a flat fill is not contentful), the blank frame does.
