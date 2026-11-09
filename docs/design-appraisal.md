@@ -218,3 +218,13 @@ Lighthouse's LCP breakdown for the profile page: TTFB 615 ms, **load delay 2567 
 Rules checked and already satisfied before the round (kept as is): no `scale(0)` entrances, `overscroll-behavior: contain` on sheets, `touch-action: manipulation` on controls, no keyboard-initiated animation, popovers not used, no `transition: all`.
 
 Still needs a phone in the hand (cannot be proven from code or emulation): sticky hover, the tap highlight, `dvh` behaviour as the URL bar collapses, input zoom, safe-area padding on a device with a home indicator. Everything else above is measured.
+
+### Profile LCP, measured three ways after the preload (commits f397d24, 54b7c2c)
+
+| Method | TTFB | LCP | Note |
+| --- | --- | --- | --- |
+| Lighthouse 12 simulated (default Lantern), 3 runs | 0.6–1.1 s | 3.3–3.8 s | Model estimate: load delay fell from 2.6 s to 0–0.2 s, but Lantern then assigns 2.4–2.7 s of "render delay" from the JS graph; perf 87–89 |
+| Lighthouse 12 observed (`--throttling-method=devtools`, 4G + 4x CPU), 2 runs | 19–26 ms | **1.8 s** | Render delay 90–103 ms; perf 93 and 97; the paint a throttled phone actually shows |
+| Real Chromium unthrottled, 390 px, production (`qa/bench/lcp.mjs`), warm | 18 ms | **144–160 ms** | The first request after a deploy was 2.7 s TTFB (edge cache miss, once per region per deploy) |
+
+The eager portrait now decodes synchronously (an LCP image should not yield its frame); the measurable change came from the preload. Under the "good" threshold (2.5 s) when observed; the remaining simulated gap is the model, recorded here so nobody chases it again.
