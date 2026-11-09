@@ -79,7 +79,7 @@ function faqs(d: DoctorRecord): { q: string; a: string }[] {
   ];
 }
 
-export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false, telehealthOnly = false, variant = "match" }: { variant?: "match" | "profile"; telehealthOnly?: boolean; card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
+export function MatchPanel({ card, index, total, labels, saved, onSave, newPatientMatters = false, telehealthOnly = false, variant = "match", optimizePortrait = false }: { variant?: "match" | "profile"; telehealthOnly?: boolean; optimizePortrait?: boolean; card: Card; index: number; total: number; labels: Record<string, string>; saved: boolean; onSave: () => void; newPatientMatters?: boolean }) {
   const d = card.doctor;
   const [tab, setTab] = useState<Tab>("Highlights");
   const reviews = useReviewSummary(d.id);
@@ -120,7 +120,7 @@ export function MatchPanel({ card, index, total, labels, saved, onSave, newPatie
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_500px] lg:items-start lg:gap-16">
       <div className="min-w-0">
       <Link href={doctorHref(d.id)} className="press-soft block">
-        <Portrait d={d} height={440} saved={saved} onSave={onSave} eager={index === 0} caption={false} />
+        <Portrait d={d} height={440} saved={saved} onSave={onSave} eager={index === 0} caption={false} optimize={optimizePortrait} />
       </Link>
       <header className="mt-4">
         <Link href={doctorHref(d.id)} className="press-dim hit block">

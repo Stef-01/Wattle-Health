@@ -7,6 +7,7 @@ import type { Card } from "@/src/data/search-types";
 import { NavBar, Screen } from "@/src/ui/kit";
 import { getSavedIds, toggleSavedId } from "@/src/ui/store";
 import { MatchPanel } from "../patient-a/MatchPanel";
+import { optimizablePortrait } from "@/src/ui/portrait-hosts";
 
 export function DoctorPage({ card, labels }: { card: Card; labels: Record<string, string> }) {
   const router = useRouter();
@@ -16,7 +17,7 @@ export function DoctorPage({ card, labels }: { card: Card; labels: Record<string
     <Screen padBottom="pb-[120px]" className="frame-wide">
       <NavBar onBack={() => (window.history.length > 1 ? router.back() : router.push("/"))} />
       <div className="h-3" aria-hidden="true" />
-      <MatchPanel variant="profile" card={card} index={0} total={1} labels={labels} saved={saved} onSave={() => setSaved(toggleSavedId(card.doctor.id).includes(card.doctor.id))} />
+      <MatchPanel variant="profile" card={card} index={0} total={1} labels={labels} saved={saved} optimizePortrait={optimizablePortrait(card.doctor.photo?.url)} onSave={() => setSaved(toggleSavedId(card.doctor.id).includes(card.doctor.id))} />
     </Screen>
   );
 }

@@ -5,6 +5,7 @@
 // doctor fits, in closed vocabulary, and the practical line. The portrait is the one the
 // practice publishes on the page we cite; without one the card carries the doctor's initials
 // on their tint. The whole card opens the profile.
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Card } from "@/src/data/search-types";
@@ -37,7 +38,7 @@ export function fitSentence(card: Card, labels: Record<string, string>): string 
 }
 
 /** The P05 photo block on its own, reused by Saved. */
-export function Portrait({ d, height = 405, saved, onSave, eager = false, caption = true }: { d: DoctorRecord; height?: number; saved?: boolean; onSave?: () => void; eager?: boolean; caption?: boolean }) {
+export function Portrait({ d, height = 405, saved, onSave, eager = false, caption = true, optimize = false }: { d: DoctorRecord; height?: number; saved?: boolean; onSave?: () => void; eager?: boolean; caption?: boolean; optimize?: boolean }) {
   const name = drName(d);
   const [bg, fg] = tintFor(name);
   const [loaded, setLoaded] = useState(false);
@@ -63,7 +64,13 @@ export function Portrait({ d, height = 405, saved, onSave, eager = false, captio
         // eslint-disable-next-line @next/next/no-img-element
         <>
           {!loaded ? <span aria-hidden="true" className="shimmer absolute inset-0" /> : null}
-          <img ref={img} src={photo.url} alt={photo.alt && !/^(picture|image|photo|headshot)$/i.test(photo.alt.trim()) ? photo.alt : name} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} decoding={eager ? "sync" : "async"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} onError={() => setFailed(true)} data-loaded={mounted ? String(loaded) : undefined} className="img-fade absolute inset-0 size-full object-cover object-top" />
+          {optimize ? (
+            // The profile hero through the image optimizer (next.config.mjs remotePatterns, listed hosts only): the
+            // 70 KB practice JPEG becomes a sized WebP, which is what the portrait's share of a 4G link was buying.
+            <Image ref={img} src={photo.url} alt={photo.alt && !/^(picture|image|photo|headshot)$/i.test(photo.alt.trim()) ? photo.alt : name} fill sizes="(min-width: 1024px) 430px, 100vw" quality={72} priority referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} onError={() => setFailed(true)} data-loaded={mounted ? String(loaded) : undefined} className="img-fade object-cover object-top" />
+          ) : (
+            <img ref={img} src={photo.url} alt={photo.alt && !/^(picture|image|photo|headshot)$/i.test(photo.alt.trim()) ? photo.alt : name} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} decoding={eager ? "sync" : "async"} referrerPolicy="no-referrer" onLoad={() => setLoaded(true)} onError={() => setFailed(true)} data-loaded={mounted ? String(loaded) : undefined} className="img-fade absolute inset-0 size-full object-cover object-top" />
+          )}
         </>
       ) : (
         <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-display text-monogram" style={{ color: fg }}>
