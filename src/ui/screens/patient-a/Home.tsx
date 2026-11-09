@@ -141,7 +141,7 @@ export function Home({ byMode }: { byMode: HomeByMode }) {
             m,
             <>
               {byMode[m].faces.length > 0 ? (
-                <Link href="/results?all=1" className="press-soft mt-6 flex min-h-11 items-center gap-3" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
+                <Link href="/results?all=1" className="chrome press-soft mt-6 flex min-h-11 items-center gap-3" onClick={(e) => { e.preventDefault(); void submit("Someone who listens"); }}>
                   <span className="flex shrink-0 -space-x-2.5">
                     {byMode[m].faces.map((f) => (
                       <Face key={f.id} url={f.url} name={f.name} size={36} ring />
