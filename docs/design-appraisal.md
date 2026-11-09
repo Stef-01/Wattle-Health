@@ -447,3 +447,45 @@ Still needs a phone, as round 11 said: the thresholds are Vaul's iOS-derived one
 | /doctor/allied-health~alex-lawson | 98 | 1.1 s | 1.9 s | 120 ms |
 
 /narrow's 2.7 s first paint is the next thing to look at: it is the one route whose FCP and LCP coincide late.
+
+## Round 19 — the motion review applied, and the page fade that was hiding the first paint (2026-11-09, late)
+
+A second agent ran Emil Kowalski's `improve-animations` audit and `find-animation-opportunities` over every screen while round 18 was built, read-only, into `docs/motion-review-2026-11-08.md` (commit 89de982): thirteen findings, three opportunities, a reviewed-and-kept list and a do-not-animate list, each with production evidence. All thirteen and two of the three opportunities are applied (commit cd0f68c):
+
+| # | Change |
+| --- | --- |
+| 1 | The heart's save bounce no longer passes 1: 0.82 to rest in 200 ms. It was the one overshoot in a system whose rule is no overshoot anywhere. |
+| 2 | `rise` and `settle` are off prerendered content: About's title, the profile portrait, Healthspan's headers, Discover's category cards, Narrow's entry block. The globals comment always scoped `rise` to "content that arrives after a fetch". |
+| 3 | The Home title is in the server HTML and paints at once. A reader with a stored name (`data-named`, stamped before paint beside `data-mode`) sees the slot held, then one 150 ms fade of "Hi, name." Everyone else no longer waits 200 ms for a title that was already decided. |
+| 4 | Profile tab switches fade in 150 ms (`fade-in`); the 300 ms rise with the eight-row stagger is kept for the landing only. |
+| 5 | The notification leaves faster than it arrives: 200 ms transform, 150 ms opacity, against a 300 ms entrance; the pair is gated in `design-tokens.test.ts` beside the sheet's. |
+| 6 | BookCard's visit control is the kit's `Segmented` (one thumb on transform) instead of per-segment background and box-shadow on an ease-in-out. |
+| 7 to 12 | The nav title fades on `--ease-out`; Matches and Heard dim on `--duration-fast` (one was a literal 150 ms the token test cannot see, the other had no transition); pager dots recolour on base; the dictation ring scales and fades a pseudo-element instead of animating box-shadow; `page-enter` and `tick` use `var(--ease-out)`; the TabBar link's dead transition utilities are gone. |
+| 13 | `bounce-in` and `float` retired. |
+| Opp. 1, 2 | The join "Submitted" rows arrive with the stagger; a chosen radio's check appears over 150 ms (opacity and scale) inside Narrow's 220 ms hold. Opportunity 3 (`rise` on the results Empty state) not taken: the wrapper carries a busy opacity that a filled keyframe would override. |
+
+**The page fade.** Round 18's sweep left /narrow as the one route whose first paint was late: FCP 2.7 s, equal to its LCP, against 0.9 to 1.3 s elsewhere. Removing the entry block's `rise` (finding 2) did not move it. A CDP-throttled probe on production (4x CPU, 1.6 Mbps) with one rule injected told the story:
+
+| /narrow | first paint | first contentful paint | fonts arrive |
+| --- | --- | --- | --- |
+| as shipped | 440 ms | 1684 ms | 1673, 1769 ms |
+| `.page-enter { animation: none }` | 432 ms | 432 ms | 1745, 1761 ms |
+| every animation and transition off | 432 ms | 432 ms | 1673, 1751 ms |
+
+The 150 ms page fade on the template wrapper (round 3) starts at opacity 0. Chrome records no contentful paint for a frame at opacity 0, and the fade runs on the compositor without another main-thread paint, so the first contentful paint was recorded at the next real repaint: the web-font swap, twelve milliseconds after Newsreader arrived. /about and /me measured fine only because something else repainted them a frame later. The fade now runs on client navigations only: `app/template.tsx` stamps `data-navigated` on `<html>` as the first screen leaves, and the CSS applies the fade under it (commit 0d8f15f). Verified on the built server: no animation on the wrapper at document load, one 150 ms fade after a tab hop; the animations gate counted 178 page fades across its 46 arrivals instead of 4191. Production after the deploy, observed Lighthouse (mobile, devtools throttling), the largest contentful paint now lands with the first paint on every route measured, because the LCP had been held by the same opacity-0 frame (round 16 read it as the font swap; the swap was only the first repaint Chrome counted):
+
+| Route | Score | FCP | LCP | TBT |
+| --- | --- | --- | --- | --- |
+| /narrow (before) | 85 to 88 | 2.7 s | 2.7 s | 50 to 140 ms |
+| /narrow | 95 | 1.2 s | 1.2 s | 40 ms |
+| / (first visit) | 97 | 0.9 s | 0.9 s | 40 ms |
+| /me | 100 | 0.9 s | 0.9 s | 60 ms |
+| /about | 100 | 1.1 s | 1.1 s | 50 ms |
+| /join | 100 | 1.1 s | 1.1 s | 30 ms |
+| /healthspan | 100 | 1.0 s | 1.0 s | 50 ms |
+
+Round 16's LCP of 2.6 to 3.2 s on every text page, and the font work it drove (Newsreader at one optical size, the judged Inter pin), were measurements of this frame. The font work stands on its own bytes; the LCP it was chasing is gone. The full fifteen-route sweep is in the line below once it has run.
+
+The lesson generalises the splash note from round 3 ("an element that starts at opacity 0 is never the largest contentful paint") to the first paint and to wrappers, and is in CLAUDE.md: nothing prerendered starts at opacity 0 at document load.
+
+Gates on the built server after both commits: animations, edge, behaviour, Apple audit, sheet gesture, control gestures clean; 987 vitest.
