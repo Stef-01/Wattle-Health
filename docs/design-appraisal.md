@@ -190,3 +190,31 @@ The profile page is the one below 90: its LCP is the portrait on a throttled 4G 
 The NHS scale is the only one in the census that shrinks on phones; Wattle does the same thing by hand (24 → 16 section gaps at 390 vs 1280), which the spacing table in round 5 already recorded.
 
 **Closing check in the user's own Chrome (production, 2026-11-08 17:40):** a fresh profile, splash → Endometriosis example → skip → picks, then /recent. Three rows, each face stack ends 12 px before its title, no overlap (screenshot kept in the session). Tab swaps timed from click to the new H1 in that same browser: Saved 9 ms, Home 12 ms, Recent 7 ms, Profile 6 ms.
+
+## Round 9 — the profile LCP fixed, and the Emil / mobile-native review in its own form (2026-11-08)
+
+Lighthouse's LCP breakdown for the profile page: TTFB 615 ms, **load delay 2567 ms**, load time 88 ms, render delay 493 ms. The 70 KB portrait was never the weight problem; the browser only discovered it after hydration because it sits on the practice's own origin. `app/doctor/[id]/page.tsx` now calls React's `preconnect` and `preload` (as image, high priority) from the server component, which lands a `<link rel="preload">` in the static HTML, so the fetch starts with the document. Measured below once deployed.
+
+### Emil Kowalski / mobile-native review, every rule checked against the shipped CSS and components
+
+| Before (what the audit found on 2026-11-08 morning) | After (shipped) | Why |
+| --- | --- | --- |
+| Pages were per-request functions; tab hops 0.5–1 s, cold 4–5 s | Every browsing page static, both modes rendered and picked in the browser; hops 6–22 ms | "Slow" was the network, not the motion; no animation fixes a 1 s hop |
+| `translateX(12px)` push on the page wrapper | Opacity-only `.page-enter` 150 ms | A filled transform on the wrapper pinned fixed docks 27 px below the fold; page wrappers never animate transform |
+| Tab switch swapped colour with no motion | Sliding thumb (measured with getBoundingClientRect, transform only, 200 ms `--ease-out`) | Spatial continuity between tabs; transform and opacity only |
+| Segments and tabs had no press state | `press-dim` + `scale(0.97)` on `:active`, 100–160 ms | Feedback on pointer-down, not on release |
+| Search returned in 0–50 ms and read as a flash | 900 ms floor with step copy | A result that arrives before the eye settles reads as nothing happened |
+| Recent rows laid faces and text in one flow; stack width unset | `FaceStack` reserves `size + (size-8)*2` width; rows `rise` with `--i` stagger (300 ms) | The overlap was geometry (unreserved width), not z-order; staggered entrance under 300 ms |
+| Hover styles ungated | `@media (hover: hover) and (pointer: fine)` via Tailwind v4 `hover:` | No sticky hover after a tap |
+| `-webkit-tap-highlight-color` default | transparent on `html` | No grey flash over the designed press state |
+| `100vh` frames | `100dvh` app frame, `100svh` splash | URL bar collapse no longer hides the bottom button |
+| Inputs at 15 px | 16 px minimum on inputs | iOS no longer zooms into the search field |
+| viewport without `viewport-fit=cover` | `viewport-fit=cover` + `env(safe-area-inset-bottom)` on docks and sheets; `interactive-widget=resizes-content` | Edge to edge, controls padded off the home indicator, keyboard shrinks the layout on Android |
+| Control text selectable | `user-select: none` on buttons, tabs, chips only | No long-press selection on controls; body text still copies |
+| One `theme-color` | one per `prefers-color-scheme` | Status bar matches the header in both schemes |
+| Durations as literals in screens | tokens `--duration-press|fast|base|slow|sheet`; test fails on a literal | One scale; nothing above 300 ms outside sheets |
+| `ease-in` on two sheets | `--ease-out` cubic-bezier(0.23, 1, 0.32, 1) for entrances, `--ease-drawer` for sheets | ease-in delays the first frame the user is watching |
+
+Rules checked and already satisfied before the round (kept as is): no `scale(0)` entrances, `overscroll-behavior: contain` on sheets, `touch-action: manipulation` on controls, no keyboard-initiated animation, popovers not used, no `transition: all`.
+
+Still needs a phone in the hand (cannot be proven from code or emulation): sticky hover, the tap highlight, `dvh` behaviour as the URL bar collapses, input zoom, safe-area padding on a device with a home indicator. Everything else above is measured.
